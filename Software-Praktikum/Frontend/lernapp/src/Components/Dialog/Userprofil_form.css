@@ -1,0 +1,121 @@
+.PersProfil {
+  border-radius: 25px;
+  border: 2px solid black;
+  width: 45%;
+  margin: auto;
+}
+.PersProfil {
+  display: grid;
+  grid-auto-columns: auto;
+  grid-auto-rows: 65px;
+  gap: 1em;
+  padding: 1em;
+}
+.Name {
+  grid-column: 1;
+  grid-row: 2;
+}
+.Vorname {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.Alter {
+  grid-column: 3;
+  grid-row: 2;
+}
+.Semester {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.Studiengang {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.Hobbies {
+  grid-column: 1;
+  grid-row: 5;
+}
+.Interessen {
+  grid-column: 2;
+  grid-row: 5;
+}
+.Vorlieben {
+  grid-column: 3;
+  grid-row: 5;
+}
+
+.Überschrift {
+  text-align: center;
+}
+
+.Lernprofil {
+  border-radius: 25px;
+  border: 2px solid black;
+  width: 45%;
+  margin: auto;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+h2 {
+  text-align: left;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.Lernprofil {
+  display: grid;
+  grid-auto-columns: auto;
+  grid-auto-rows: 65px;
+  gap: 1em;
+  padding: 1em;
+}
+
+.Lerntyp {
+  grid-column: 1;
+  grid-row: 2;
+}
+.Lernzeitraum {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.Lernort {
+  grid-column: 3;
+  grid-row: 3;
+}
+.Lernfrequenz {
+  grid-column: 1;
+  grid-row: 3;
+}
+.Vorkenntnisse {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.Berufserfahrung {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.Anmelden {
+  margin-left: 420px;
+  margin-bottom: 3em;
+}
+
+.extro {
+  grid-column: 1 / span 2;
+  grid-row: 4;
+}
+
+.select {
+  width: 100px;
+  margin-left: 500px;
+}
+
+.probe {
+  width: 220px;
+}
