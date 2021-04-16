@@ -104,6 +104,7 @@ function App(){
   return (
     <div className={classes.container}>
       <Navigation/>
+      <Matchmaker/>
       <Router>
       <Switch>
         <Route exact from="/" render={props => <Matchmaker{...props}/>}/>

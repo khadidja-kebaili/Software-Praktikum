@@ -43,7 +43,7 @@ const Navigation = props => {
         <Toolbar>
          
           <Typography variant="h6" className={classes.title}>
-            Photos
+            LernApp
           </Typography>
          
             <div>
