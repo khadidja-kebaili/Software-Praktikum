@@ -1,4 +1,4 @@
-[{"type": "gefragter", "details": {"learnfreq_ids": [2], "learntype_ids": [2], "learnplace_id": [4],"semester_id" : [1],"fakultaet" : [1]}, "id": "1"},
+[{"type": "gefragter", "details": {"learnfreq_ids": [1], "learntype_ids": [2], "learnplace_id": [4],"semester_id" : [1],"fakultaet" : [1]}, "id": "1"},
   {"type": "gefragter", "details": {"learnfreq_ids": [4], "learntype_ids": [3], "learnplace_id": [4],"semester_id" : [1],"fakultaet" : [1]}, "id": "2"},
   {"type": "gefragter", "details": {"learnfreq_ids": [2], "learntype_ids": [4], "learnplace_id" : [3],"semester_id" : [1],"fakultaet" : [1]}, "id": "3"},
   {"type": "gefragter", "details": {"learnfreq_ids": [1], "learntype_ids": [1],"learnplace_id" : [3],"semester_id" : [1],"fakultaet" : [1]}, "id": "4"},

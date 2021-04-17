@@ -86,3 +86,5 @@ class Participant(object):
                    * self.learnplace_weight * self.learntype_weight
         else:
             return 0
+
+#HalloHallo
