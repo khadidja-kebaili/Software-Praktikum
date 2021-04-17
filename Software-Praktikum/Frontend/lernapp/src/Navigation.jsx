@@ -8,6 +8,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import {withRouter} from "react-router-dom";
+import {BrowserRouter as Router,
+  Switch, Route, Link } from "react-router-dom";
+import Matchmaker from "./Matchmaker";
+import Profil from "./Profil";
+import Chats from "./Chats";
+import { List } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +38,7 @@ const Navigation = props => {
   };
 
   const handleMenuClick = (newPage) => {
-    history.pushState(newPage);
+    history.push(newPage);
     setAnchorEl(null);
   };
 
@@ -72,9 +78,35 @@ const Navigation = props => {
                 open={open}
                 onClose={() => setAnchorEl(null)}
               >
-                <MenuItem onClick={() => handleMenuClick('./Matchmaker')}>Matchmaker</MenuItem>
+                {/* <MenuItem onClick={() => handleMenuClick('./Matchmaker')}>Matchmaker</MenuItem>
                 <MenuItem onClick={() => handleMenuClick('./Profil')}>Profil</MenuItem>
-                <MenuItem onClick={() => handleMenuClick('./Chats')}>Chats</MenuItem>
+                <MenuItem onClick={() => handleMenuClick('./Chats')}>Chats</MenuItem> */}
+                {/* <MenuItem>
+                  <Router>
+                    <Switch>
+                      <Route path="/" onClick={() => handleMenuClick('./Matchmaker')} exact component ={Matchmaker}>Matchmaker</Route>
+                      <Route path="/" onClick={() => handleMenuClick('./Profil')} exact component ={Profil}>Profil</Route>
+                      <Route path="/" onClick={() => handleMenuClick('./Chats')} exact component ={Chats}>Chats</Route>
+                    </Switch>               
+                   <List> 
+                    <Link to="/matchmaker" className="link"> Matchmaker </Link> <br/>
+                    <Link to = "/chat" className="link"> Chat </Link> <br/>
+                    <Link to = "/profil" className="link"> Profil </Link> <br/>
+                   </List>             
+                  </Router>
+                </MenuItem> */}
+                <Router>
+                  <Switch>
+                    <Route path="/Matchmaker" component={Matchmaker}/>
+                    <Route path="/Profil" component={Profil}/>
+                    <Route path="/Chats" component={Chats}/>
+                  </Switch>
+                  
+                  <MenuItem><Link to="/Matchmaker">Matchmaker</Link></MenuItem>
+                  <MenuItem><Link to="/Profil">Profil</Link></MenuItem>
+                
+                </Router>
+                
               </Menu>
             </div>
        
@@ -84,3 +116,5 @@ const Navigation = props => {
   );
 }
 export default Navigation;
+
+

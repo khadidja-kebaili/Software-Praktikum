@@ -2,10 +2,6 @@
 // import {Link, Switch, Route} from "react-router-dom";
 // import "./App.css"
 
-
-
-
-
 // const Matchmaking = () => <div>Du bist auf Matchmaking!</div> 
 // const Chat = () => <div>Du bist auf Chat!</div>
 // const Profil = () => <div>Du bist auf Profil!</div>
@@ -46,24 +42,23 @@
 
 // export default Matchmaker;
 
-
 import React from 'react';
 import './Matchmaker.css';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { List } from '@material-ui/core';
 
-
-
-
-const Matchmaker = props => {
-    const listMatches = props;
-    const showNextMatch = (newMatch) => {
-       listMatches.pushState(newMatch)
+// const Matchmaker = props => {
+//     const listMatches = props;
+//     const showNextMatch = (newMatch) => {
+//        listMatches.pushState(newMatch)
     
-    };
+    // };
+
+function Matchmaker(){
     return (
         <div className="Matches">
-            <FavoriteIcon onClick={() => showNextMatch()}/>
+            {/* <FavoriteIcon onClick={() => showNextMatch()}/> */}
+            <FavoriteIcon/>
         </div>
     )
 };
