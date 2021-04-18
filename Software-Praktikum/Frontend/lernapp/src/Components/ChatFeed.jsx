@@ -49,7 +49,7 @@ const ChatFeed = () => {
             {renderMessages()}
             <div style={{height: '100px'}}/>
             <div className = "message-form-container">
-
+                <MessageForm {...props} chatID={activeChat}/>
             </div>
         </div>
     )
