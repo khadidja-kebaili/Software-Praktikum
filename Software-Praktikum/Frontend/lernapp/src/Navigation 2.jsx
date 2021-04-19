@@ -36,7 +36,9 @@ const Navigation = props => {
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
+
   };
+
 //TabIndex wird jetzt 'empty state' zeigen
   this.state = {
       tabindex: 0
