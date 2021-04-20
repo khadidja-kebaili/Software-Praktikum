@@ -4,7 +4,6 @@ from .Businessobject import BusinessObject
 class Studentprofil (BusinessObject):
     def __init__(self):
         super().__init__()
-        self.id = ""
         self.name = "",
         self.vorname = "",
         self.alter = "",
@@ -20,12 +19,6 @@ class Studentprofil (BusinessObject):
         self.lernfrequenz = "",
         self.vorkenntnisse = "",
         self.berufserfahrung = ""
-
-    def set_id(self, value):
-        self.id = value
-
-    def get_id(self):
-        return self.id
 
     def set_name(self, value):
         self.name = value
@@ -123,7 +116,7 @@ class Studentprofil (BusinessObject):
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_id(), self.get_name(), self.get_vorname(), self.get_alter(), self.get_semester(), self.get_studiengang(), self.get_hobbies(), self.get_interessen(), self.get_vorlieben(), self.get_persönlichkeit(), self.get_lernort(), self.get_lernzeitraum(), self.get_lernfrequenz(), self.get_lerntyp(), self.get_vorkenntnisse(), self.get_berufserfahrung())
+        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_name(), self.get_vorname(), self.get_alter(), self.get_semester(), self.get_studiengang(), self.get_hobbies(), self.get_interessen(), self.get_vorlieben(), self.get_persönlichkeit(), self.get_lernort(), self.get_lernzeitraum(), self.get_lernfrequenz(), self.get_lerntyp(), self.get_vorkenntnisse(), self.get_berufserfahrung())
 
     @staticmethod
     def from_dict(dictionary=dict()):

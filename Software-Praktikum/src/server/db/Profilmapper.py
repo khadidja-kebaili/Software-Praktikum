@@ -11,6 +11,16 @@ class StudentprofilMapper (Mapper):
     def insert(self, studentprofil):
 
         cursor = self._cnx.cursor()
+        cursor.execute("SELECT MAX(id) AS maxid FROM profil ")
+        tuples = cursor.fetchall()
+
+        for (maxid) in tuples:
+            if maxid[0] is not None:
+                studentprofil.set_id(maxid[0] + 1)
+            else:
+                """Wenn wir KEINE maximale ID feststellen konnten, dann gehen wir
+                davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
+                studentprofil.set_id(1)
 
         command = "INSERT INTO profil (id, name, vorname, age, semester, studiengang, hobbies, interessen, vorlieben, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, vorkenntnisse, berufserfahrung) VALUES (%s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
         data = (

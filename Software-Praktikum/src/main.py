@@ -7,7 +7,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-CORS(app, support_credentials=True, resources={r'/hello/*': {"origins": "*"}})
+CORS(app, resources=r'/*')
 
 api = Api(app)
 
@@ -15,8 +15,7 @@ bo = api.model('BusinessObject', {
     'id': fields.Integer(attribute='id', description='Der Unique Identifier eines Business Object'),
 })
 
-profil = api.model('Resource', {
-    'id': fields.Integer(attribute='id', description='id'),
+profil = api.inherit('Profil', bo, {
     'name': fields.String(attribute='name', description='name'),
     'vorname': fields.String(attribute='vorname', description='vorname'),
     'alter': fields.Integer(attribute='alter', description='alter'),
@@ -27,7 +26,7 @@ profil = api.model('Resource', {
     'vorlieben': fields.String(attribute='vorlieben', description='vorlieben'),
     'persönlichkeit': fields.Integer(attribute='persönlichkeit', description='persönlichkeit'),
     'lerntyp': fields.String(attribute='lerntyp', description='lerntyp'),
-    'lernzeitraum': fields.Integer(attribute='lernzeitraum', description='lernzeitraum'),
+    'lernzeitraum': fields.String(attribute='lernzeitraum', description='lernzeitraum'),
     'lernort': fields.String(attribute='lernort', description='lernort'),
     'lernfrequenz': fields.Integer(attribute='lernfrequenz', description='lernfrequenz'),
     'vorkenntnisse': fields.String(attribute='vorkenntnisse', description='vorkenntnisse'),
@@ -46,7 +45,7 @@ class Profilerstellen(Resource):
         if proposal is not None:
 
             c = adm.create_studentprofil(
-                proposal.get_id(), proposal.get_name(),
+                proposal.get_name(),
                 proposal.get_vorname(), proposal.get_alter(),
                 proposal.get_semester(), proposal.get_studiengang(),
                 proposal.get_hobbies(), proposal.get_vorlieben(),
@@ -55,6 +54,7 @@ class Profilerstellen(Resource):
                 proposal.get_lernort(), proposal.get_lernfrequenz(),
                 proposal.get_vorkenntnisse(), proposal.get_berufserfahrung()
             )
+            return c
 
 
 if __name__ == '__main__':
