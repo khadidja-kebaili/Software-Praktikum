@@ -92,6 +92,7 @@ import "./App.css";
 import Matchmaker from "./Matchmaker";
 import Profil from "./Profil";
 import Chats from "./Chats";
+import Gruppen from "./Gruppen";
 import Navigation from './Navigation';
 import {BrowserRouter as Router,
     Switch, Route, Link } from "react-router-dom";
@@ -109,6 +110,7 @@ function App(){
         <Route exact from="/matchmaker" render={props => <Matchmaker{...props}/>}/>
         <Route exact path="/profil" render={props => <Profil{...props}/>}/>
         <Route exact path="/chats" render={props => <Chats{...props}/>}/>
+        <Route exact path="/gruppen" render={props => <Gruppen{...props}/>}/>
       </Switch>
       </Router>
     </div>

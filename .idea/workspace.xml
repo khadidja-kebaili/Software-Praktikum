@@ -35,7 +35,12 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -53,6 +58,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618420503629</updated>
       <workItem from="1618420504785" duration="1229000" />
+      <workItem from="1618933857813" duration="12000" />
     </task>
     <task id="LOCAL-00001" summary="npm create-creact app lernapp">
       <created>1618421028412</created>
@@ -77,6 +83,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="npm create-creact app lernapp" />
