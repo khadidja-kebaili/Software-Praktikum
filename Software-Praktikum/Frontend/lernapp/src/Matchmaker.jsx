@@ -42,30 +42,74 @@
 
 // export default Matchmaker;
 
-import React from 'react';
-import './Matchmaker.css';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import { List } from '@material-ui/core';
+// import React from 'react';
+// import './Matchmaker.css';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+// import { List } from '@material-ui/core';
 
-// const Matchmaker = props => {
-//     const listMatches = props;
-//     const showNextMatch = (newMatch) => {
-//        listMatches.pushState(newMatch)
+// // const Matchmaker = props => {
+// //     const listMatches = props;
+// //     const showNextMatch = (newMatch) => {
+// //        listMatches.pushState(newMatch)
     
-    // };
+//     // };
 
-function Matchmaker(){
-    return (
-        <div className="Matches">
-            {/* <FavoriteIcon onClick={() => showNextMatch()}/> */}
-            <FavoriteIcon/>
-        </div>
+// function Matchmaker(){
+//     return (
+//         <div className="Matches">
+//             {/* <FavoriteIcon onClick={() => showNextMatch()}/> */}
+//             <FavoriteIcon/>
+//         </div>
+//     )
+// };
+
+// export default Matchmaker; 
+
+import { StylesContext } from '@material-ui/styles';
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
+import Swiper from 'react-native-deck-swiper';
+
+const Picture = ({picture}) => (
+    <View style={style.card}>
+        <Image source={{uri:picture.image}} style={styles.pictureProfil}/>
+    </View>
+)
+
+
+export default function Matchmaker(){
+    return(
+        <View style={styles.container}>
+            <Swiper
+                cards={}
+                cardIndex={}
+                renderCard={(picture) => <Picture picture={picture}/>}
+            />
+        </View>
     )
-};
+}
 
-export default Matchmaker; 
-
-
-
-
+const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        backgroundColor:'#fff',
+        alignItems:'center',
+        justifyContent:'center'   
+    },
+    picture:{
+        flex: 0.45,
+        borderRadius: 8,
+        shadowRadius: 25,
+        shadowColor: '#000',
+        shadowOffset: {width:0, height:0},
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#fff'
+    },
+    pictureProfil:{
+        width: 100,
+        flex: 1,
+        resizeMode: 'contain'
+    }
+});
     
