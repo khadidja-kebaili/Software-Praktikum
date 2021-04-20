@@ -11,7 +11,7 @@ import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import List from '@material-ui/core/List';
 
-//Der Admin muss der einzige mit berechtigung sein 
+//Der Admin ist der einzige mit berechtigung-- zum löschen und hinzufügen 
 //import Gruppeneintrag from './GruppenListeEintrag';
 //import GruppenForm from './/GruppenForm';
 
