@@ -10,46 +10,58 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { FormControl } from '@material-ui/core';
+import ProfilBO from "../../API/ProfilBO";
+import LernappAPI from "../../API/LernappAPI"
 
 class UserProfil extends Component {
   constructor(props){
   super(props);
+  let vn = '', nn = '', alt='', sem='', stud='', hob='', int = '', vor = '', 
+      pers='', lernt='', lernz='', lerno='', lernf = '', vork = '', beruf='';
+
   this.state = { 
-    name: "",
-    vorname:"",
-    alter: "",
-    semester:"",
-    studiengang:"",
-    hobbies:"",
-    interessen:"",
-    vorlieben:"",
-    persönlichkeit:"",
-    lerntyp:"",
-    lernzeitraum:"",
-    lernort:"",
-    lernfrequenz:"",
-    vorkentnisse:"",
-    berufserfahrung:""
+    name: nn,
+    vorname: vn,
+    alter: alt,
+    semester: sem,
+    studiengang: stud,
+    hobbies: hob,
+    interessen: int,
+    vorlieben: vor,
+    persönlichkeit: pers,
+    lerntyp: lernt,
+    lernzeitraum: lernz,
+    lernort: lerno,
+    lernfrequenz: lernf,
+    vorkentnisse: vork,
+    berufserfahrung: beruf
    };
    this.handleChange = this.handleChange.bind(this);
   }
   handleChange = (e) =>{
     this.setState({ [e.target.name] : e.target.value });}
 
- submitHandler= (e) =>{
-   e.preventDefault()
-   console.log(this.state)
-  //  fetch("http://127.0.0.1:5000/hello", {
-  //   method: 'POST',
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     "name": this.state.name
-  //   })
-  // })
- }
+
+ addProfil = () => {
+  let newProfil = new ProfilBO(
+    this.state.name, 
+    this.state.vorname, 
+    this.state.alter,
+    this.state.semester,
+    this.state.studiengang,
+    this.state.hobbies,
+    this.state.interessen,
+    this.state.vorlieben,
+    this.state.persönlichkeit,
+    this.state.lerntyp,
+    this.state.lernzeitraum,
+    this.state.lernort,
+    this.state.lernfrequenz,
+    this.state.vorkentnisse,
+    this.state.berufserfahrung);
+   
+    LernappAPI.getAPI().addProfil(newProfil).then(console.log(newProfil))
+}
 
   render() { 
     return ( 
@@ -57,7 +69,7 @@ class UserProfil extends Component {
       <div className="Überschrift">
         <h1>Erstelle dein Profil und finde deine Lerngruppe!</h1>
       </div>
-          <form onSubmit={this.submitHandler}>
+          <form onSubmit={this.addProfil}>
           <div className="PersProfil"> 
               <div className="Name"><TextField name="name" label="Name" variant="outlined" value ={this.state.name} onChange={this.handleChange}/></div>
               <div className="Vorname"><TextField name="vorname" label="Vorname" variant="outlined" value ={this.state.vorname} onChange={this.handleChange}/> </div>
@@ -154,4 +166,3 @@ class UserProfil extends Component {
 }
 
 export default UserProfil;
-
