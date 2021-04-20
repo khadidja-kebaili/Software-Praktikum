@@ -11,11 +11,12 @@ import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import List from '@material-ui/core/List';
 
+import GruppenEintrag from "./Components/GruppeEintrag.js";
+import GruppenForm from "./Pages/GruppeForm.js"; 
+
 //Der Admin ist der einzige mit berechtigung-- zum löschen und hinzufügen 
 //import Gruppeneintrag from './GruppenListeEintrag';
 //import GruppenForm from './/GruppenForm';
-
-
 
 
 class GruppenListe extends Component {
@@ -39,7 +40,7 @@ class GruppenListe extends Component {
   addButtonClicked = event => {
     event.stopPropagation();
     this.setState({
-      showGruppeForm: true
+      showGruppenForm: true
     });
   }
 
@@ -61,4 +62,71 @@ clearFilterFieldButtonClicked = () => {
         filteredGruppe: [...this.state.Gruppe],
         GruppeFilter: ''
     });
+
 }}
+//wird aufgerufen, wenn das Dialog Fenster geschloßen wird
+
+GruppenFormClosed = Gruppe => {
+  if (Gruppe) {
+    const newGruppenrList = [...this.state.Gruppe, Gruppe];
+    this.setState({
+      Gruppe: newGruppenList,
+      filteredGruppe: [...newGruppenList],
+      showGruppenForm: false
+    });
+  } else {
+    this.setState({
+      showGruppenForm: false
+    });
+  }
+}
+
+//Componente wird gerendert
+
+render() 
+  const { classes } = this.props;
+  const {  loadingInProgress, error, GruppeFilter, filteredGruppe, showGruppenForm} = this.state;
+
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={2} alignItems="center">
+          <Grid item >
+          <TextField
+              className={classes.filter}
+              type='text'
+              label='Gruppe suchen'
+              value={GruppeFilter}
+              onChange={this.filterFieldValueChange}
+              InputProps={{
+                  endAdornment: <InputAdornment position='end'>
+                  <IconButton onClick={this.clearFilterFieldButtonClicked}>
+                      <ClearIcon fontSize="small"/>
+                  </IconButton>
+                  </InputAdornment>,
+              }}
+          />
+          </Grid>
+          <Grid item xs/>
+          <Grid item>
+              <Tooltip title='eine Gruppe erstellen' placement="left">
+                  <Fab size="medium"  className={classes.addButton} color="primary" aria-label="add" onClick={this.addButtonClicked}>
+                      <AddIcon />
+                  </Fab>
+              </Tooltip>
+          </Grid>
+      </Grid>
+      <Paper>
+          <List className={classes.root} dense>
+              {
+              filteredGruppe.map(Gruppe => 
+                  <GruppenEintrag key={Gruppe.getID()} Gruppe = {Gruppe} show={this.props.show} getGruppe={this.getGruppe}/>)
+              }
+          </List>
+        <LoadingProgress show={loadingInProgress} />
+        <ContextErrorMessage error={error} contextErrorMsg={`Es konnte keine Gruppe geladen werden.`} onReload={this.getGruppe} />
+      </Paper>
+      <GruppenForm show={showGruppenForm} onClose={this.GrupenFormClosed} getGruppe= {this.getGruppe}/>
+    </div>
+  );
+
+
