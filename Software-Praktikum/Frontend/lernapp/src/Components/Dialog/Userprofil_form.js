@@ -85,7 +85,43 @@ class UserProfil extends Component {
                     <MenuItem value={7}>7.</MenuItem>
               </Select>
               </FormControl>
-              <div className="Studiengang"><TextField fullwidth="true" name="studiengang" label="Studiengang" variant="outlined" value ={this.state.studiengang} onChange={this.handleChange} /></div>
+              <FormControl className="Studiengang">
+              <InputLabel id="label"> &nbsp; Studiengang</InputLabel>
+              <Select
+                    labelId="label" id="select"
+                    name="studiengang" variant="outlined" value={this.state.studiengang} 
+                    onChange={this.handleChange}>
+                    <MenuItem value={"AM3"}>AM3</MenuItem> 
+                    <MenuItem value={"AM7"}>AM7</MenuItem>
+                    <MenuItem value={"BI5"}>BI5</MenuItem>
+                    <MenuItem value={"BI7"}>BI7</MenuItem>
+                    <MenuItem value={"BM5"}>BM5</MenuItem>
+                    <MenuItem value={"CP3"}>CP3</MenuItem>
+                    <MenuItem value={"CR7"}>CR7</MenuItem>
+                    <MenuItem value={"CS3"}>CS3</MenuItem>
+                    <MenuItem value={"ID7"}>ID7</MenuItem>
+                    <MenuItem value={"IP7"}>IP7</MenuItem>
+                    <MenuItem value={"ME7"}>ME7</MenuItem>
+                    <MenuItem value={"MI7"}>MI7</MenuItem>
+                    <MenuItem value={"MM3"}>MM3</MenuItem>
+                    <MenuItem value={"MM7"}>MM7</MenuItem>
+                    <MenuItem value={"MP7"}>MP7</MenuItem>
+                    <MenuItem value={"MR3"}>MR3</MenuItem>
+                    <MenuItem value={"MW7"}>MW7</MenuItem>
+                    <MenuItem value={"OM7"}>OM7</MenuItem>
+                    <MenuItem value={"PD3"}>PD3</MenuItem>
+                    <MenuItem value={"CR7"}>CR7</MenuItem>
+                    <MenuItem value={"PM7"}>PM7</MenuItem>
+                    <MenuItem value={"PT7"}>PT7</MenuItem>
+                    <MenuItem value={"UK3"}>UK3</MenuItem>
+                    <MenuItem value={"CR7"}>CR7</MenuItem>
+                    <MenuItem value={"VT7"}>VT7</MenuItem>
+                    <MenuItem value={"CR7"}>CR7</MenuItem>
+                    <MenuItem value={"WI3"}>WI3</MenuItem>
+                    <MenuItem value={"WI7"}>WI7</MenuItem>
+                    <MenuItem value={"WM7"}>WM7</MenuItem>
+              </Select>
+              </FormControl>
               <div className="Hobbies"><TextField name="hobbies" label="Hobbies" variant="outlined"value ={this.state.hobbies} onChange={this.handleChange}/></div>
               <div className="Interessen"><TextField name="interessen" label="Interessen" variant="outlined" value ={this.state.interessen} onChange={this.handleChange}/></div>
               <div className="radio">
