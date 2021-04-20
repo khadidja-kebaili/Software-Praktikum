@@ -3,7 +3,7 @@ from flask_restx import Resource, Api, fields
 from server.Businesslogik import Businesslogik
 from server.bo.ProfilBO import Studentprofil
 from flask_cors import CORS
-import json
+
 
 app = Flask(__name__)
 
@@ -16,22 +16,22 @@ bo = api.model('BusinessObject', {
 })
 
 profil = api.model('Resource', {
-    'id': fields.String(attribute='id', description='id'),
-    'name': fields.String(attribute='name', description='id'),
-    'vorname': fields.String(attribute='vorname', description='Semester'),
-    'alter': fields.String(attribute='alter', description='sttudiengang'),
-    'semester': fields.String(attribute='semester', description='Semester'),
-    'studiengang': fields.String(attribute='studiengang', description='sttudiengang'),
-    'hobbies': fields.String(attribute='id', description='id'),
-    'interessen': fields.String(attribute='semester', description='Semester'),
-    'vorlieben': fields.String(attribute='studiengang', description='sttudiengang'),
-    'persönlichkeit': fields.String(attribute='id', description='id'),
-    'lerntyp': fields.String(attribute='semester', description='Semester'),
-    'lernzeitraum': fields.String(attribute='studiengang', description='sttudiengang'),
-    'lernort': fields.String(attribute='id', description='id'),
-    'lernfrequenz': fields.String(attribute='semester', description='Semester'),
-    'vorkenntnisse': fields.String(attribute='studiengang', description='sttudiengang'),
-    'berufserfahrung': fields.String(attribute='id', description='id'),
+    'id': fields.Integer(attribute='id', description='id'),
+    'name': fields.String(attribute='name', description='name'),
+    'vorname': fields.String(attribute='vorname', description='vorname'),
+    'alter': fields.Integer(attribute='alter', description='alter'),
+    'semester': fields.Integer(attribute='semester', description='semester'),
+    'studiengang': fields.String(attribute='studiengang', description='studiengang'),
+    'hobbies': fields.String(attribute='hobbies', description='hobbies'),
+    'interessen': fields.String(attribute='interessen', description='interessen'),
+    'vorlieben': fields.String(attribute='vorlieben', description='vorlieben'),
+    'persönlichkeit': fields.Integer(attribute='persönlichkeit', description='persönlichkeit'),
+    'lerntyp': fields.String(attribute='lerntyp', description='lerntyp'),
+    'lernzeitraum': fields.Integer(attribute='lernzeitraum', description='lernzeitraum'),
+    'lernort': fields.String(attribute='lernort', description='lernort'),
+    'lernfrequenz': fields.Integer(attribute='lernfrequenz', description='lernfrequenz'),
+    'vorkenntnisse': fields.String(attribute='vorkenntnisse', description='vorkenntnisse'),
+    'berufserfahrung': fields.String(attribute='berufserfahrung', description='berufserfahrung'),
 })
 
 
@@ -55,9 +55,6 @@ class Profilerstellen(Resource):
                 proposal.get_lernort(), proposal.get_lernfrequenz(),
                 proposal.get_vorkenntnisse(), proposal.get_berufserfahrung()
             )
-            return c, 200
-        else:
-            return '', 500
 
 
 if __name__ == '__main__':

@@ -12,7 +12,7 @@ class StudentprofilMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "INSERT INTO profil (id, name, vorname, alter, semester, studiengang, hobbies, interessen, vorlieben, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, vorkenntnisse, berufserfahrung) VALUES (%s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
+        command = "INSERT INTO profil (id, name, vorname, age, semester, studiengang, hobbies, interessen, vorlieben, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, vorkenntnisse, berufserfahrung) VALUES (%s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
         data = (
             studentprofil.get_id(), studentprofil.get_name(),
             studentprofil.get_vorname(), studentprofil.get_alter(),
