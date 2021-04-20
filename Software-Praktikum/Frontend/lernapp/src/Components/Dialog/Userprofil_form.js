@@ -16,8 +16,8 @@ import LernappAPI from "../../API/LernappAPI"
 class UserProfil extends Component {
   constructor(props){
   super(props);
-  let vn = '', nn = '', alt='', sem='', stud='', hob='', int = '', vor = '', 
-      pers='', lernt='', lernz='', lerno='', lernf = '', vork = '', beruf='';
+  let vn = '', nn = '', alt='', sem='', stud='', hob='', int = '',
+      pers='', lernt='', lernz='', lerno='', lernf = '', beruf='';
 
   this.state = { 
     name: nn,
@@ -27,13 +27,11 @@ class UserProfil extends Component {
     studiengang: stud,
     hobbies: hob,
     interessen: int,
-    vorlieben: vor,
     persönlichkeit: pers,
     lerntyp: lernt,
     lernzeitraum: lernz,
     lernort: lerno,
     lernfrequenz: lernf,
-    vorkentnisse: vork,
     berufserfahrung: beruf
    };
    this.handleChange = this.handleChange.bind(this);
@@ -51,13 +49,11 @@ class UserProfil extends Component {
     this.state.studiengang,
     this.state.hobbies,
     this.state.interessen,
-    this.state.vorlieben,
     this.state.persönlichkeit,
     this.state.lerntyp,
     this.state.lernzeitraum,
     this.state.lernort,
     this.state.lernfrequenz,
-    this.state.vorkentnisse,
     this.state.berufserfahrung);
    
     LernappAPI.getAPI().addProfil(newProfil).then(console.log(newProfil))
@@ -92,7 +88,6 @@ class UserProfil extends Component {
               <div className="Studiengang"><TextField fullwidth="true" name="studiengang" label="Studiengang" variant="outlined" value ={this.state.studiengang} onChange={this.handleChange} /></div>
               <div className="Hobbies"><TextField name="hobbies" label="Hobbies" variant="outlined"value ={this.state.hobbies} onChange={this.handleChange}/></div>
               <div className="Interessen"><TextField name="interessen" label="Interessen" variant="outlined" value ={this.state.interessen} onChange={this.handleChange}/></div>
-              <div className="Vorlieben"><TextField name="vorlieben" label="Vorlieben" variant="outlined" value ={this.state.vorlieben} onChange={this.handleChange}/></div>
               <div className="radio">
               <FormLabel component="legend">Persönlichkeit (introvertiert 1 - extrovertiert 5)</FormLabel>
                     <RadioGroup aria-label="persönlichkeit" name="persönlichkeit"  row value={this.state.persönlichkeit} onChange={this.handleChange} >
@@ -154,7 +149,6 @@ class UserProfil extends Component {
                     <MenuItem value={7}>7x pro Woche</MenuItem>
                 </Select>
                 </FormControl>
-                <div className="Vorkenntnisse"><TextField name="vorkenntnisse" label="Vorkenntnisse" variant="outlined" value ={this.state.vorkenntnisse} onChange={this.handleChange}/></div>
                 <div className="Berufserfahrung"><TextField name="berufserfahrung" label="Berufserfahrung" variant="outlined"value ={this.state.berufserfahrung} onChange={this.handleChange} /></div>
                </div>
             <div className="Anmelden"><Button type="submit" variant="contained" color="primary" size="large"> Anmelden</Button></div>

@@ -42,10 +42,6 @@
   grid-column: 2;
   grid-row: 5;
 }
-.Vorlieben {
-  grid-column: 3;
-  grid-row: 5;
-}
 
 .Überschrift {
   text-align: center;
@@ -77,29 +73,29 @@ h2 {
 .Lerntyp {
   grid-column: 1;
   grid-row: 2;
-  width: 220px;
+  width: 200px;
 }
 .Lernzeitraum {
   grid-column: 2;
   grid-row: 3;
+  width: 200px;
 }
 
 .Lernort {
   grid-column: 3;
   grid-row: 3;
+  width: 200px;
 }
 .Lernfrequenz {
   grid-column: 1;
   grid-row: 3;
-}
-.Vorkenntnisse {
-  grid-column: 2;
-  grid-row: 2;
+  width: 200px;
 }
 
 .Berufserfahrung {
-  grid-column: 3;
+  grid-column: 2;
   grid-row: 2;
+  width: 200px;
 }
 
 .Anmelden {

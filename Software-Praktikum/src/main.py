@@ -23,13 +23,11 @@ profil = api.inherit('Profil', bo, {
     'studiengang': fields.String(attribute='studiengang', description='studiengang'),
     'hobbies': fields.String(attribute='hobbies', description='hobbies'),
     'interessen': fields.String(attribute='interessen', description='interessen'),
-    'vorlieben': fields.String(attribute='vorlieben', description='vorlieben'),
     'persönlichkeit': fields.Integer(attribute='persönlichkeit', description='persönlichkeit'),
     'lerntyp': fields.String(attribute='lerntyp', description='lerntyp'),
     'lernzeitraum': fields.String(attribute='lernzeitraum', description='lernzeitraum'),
     'lernort': fields.String(attribute='lernort', description='lernort'),
     'lernfrequenz': fields.Integer(attribute='lernfrequenz', description='lernfrequenz'),
-    'vorkenntnisse': fields.String(attribute='vorkenntnisse', description='vorkenntnisse'),
     'berufserfahrung': fields.String(attribute='berufserfahrung', description='berufserfahrung'),
 })
 
@@ -48,11 +46,11 @@ class Profilerstellen(Resource):
                 proposal.get_name(),
                 proposal.get_vorname(), proposal.get_alter(),
                 proposal.get_semester(), proposal.get_studiengang(),
-                proposal.get_hobbies(), proposal.get_vorlieben(),
-                proposal.get_interessen(), proposal.get_persönlichkeit(),
-                proposal.get_lerntyp(), proposal.get_lernzeitraum(),
-                proposal.get_lernort(), proposal.get_lernfrequenz(),
-                proposal.get_vorkenntnisse(), proposal.get_berufserfahrung()
+                proposal.get_hobbies(), proposal.get_interessen(),
+                proposal.get_persönlichkeit(), proposal.get_lerntyp(),
+                proposal.get_lernzeitraum(), proposal.get_lernort(),
+                proposal.get_lernfrequenz(),
+                proposal.get_berufserfahrung()
             )
             return c
 

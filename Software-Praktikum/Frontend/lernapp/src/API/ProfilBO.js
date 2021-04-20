@@ -3,7 +3,7 @@ import BusinessObject from "./Businessobject.js";
 
 export default class ProfilBO extends BusinessObject {
 
-  constructor(avorname, aname, aalter, asemester, astudiengang, ahobbies, ainteressen, avorlieben, apersönlichkeit, alerntyp, alernzeitraum, alernort, alernfrequenz, avorkenntnisse, aberufserfahrung ) {
+  constructor(avorname, aname, aalter, asemester, astudiengang, ahobbies, ainteressen, apersönlichkeit, alerntyp, alernzeitraum, alernort, alernfrequenz, aberufserfahrung ) {
     super();
     this.name = aname;
     this.vorname = avorname;
@@ -12,13 +12,11 @@ export default class ProfilBO extends BusinessObject {
     this.studiengang = astudiengang;
     this.hobbies = ahobbies;
     this.interessen = ainteressen;
-    this.vorlieben = avorlieben;
     this.persönlichkeit = apersönlichkeit;
     this.lerntyp = alerntyp;
     this.lernzeitraum = alernzeitraum;
     this.lernort = alernort;
     this.lernfrequenz = alernfrequenz;
-    this.vorkenntnisse = avorkenntnisse;
     this.berufserfahrung = aberufserfahrung
   }
 
@@ -85,15 +83,6 @@ export default class ProfilBO extends BusinessObject {
     return this.interessen;
   }
 
-  setVorlieben(avorlieben) {
-    this.vorlieben = avorlieben;
-  }
-
- 
-  getVorlieben() {
-    return this.vorlieben;
-  }
-
   setPersönlichkeit(apersönlichkeit) {
     this.persönlichkeit = apersönlichkeit;
   }
@@ -137,15 +126,6 @@ export default class ProfilBO extends BusinessObject {
  
   getLernort() {
     return this.lernort;
-  }
-
-  setVorkenntnisse(avorkenntnisse) {
-    this.vorkenntisse = avorkenntnisse;
-  }
-
- 
-  getVorkenntnisse() {
-    return this.vorkenntisse;
   }
 
   setBerufserfahrung(aberufserfahrung) {

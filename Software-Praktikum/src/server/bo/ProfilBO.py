@@ -11,13 +11,11 @@ class Studentprofil (BusinessObject):
         self.studiengang = "",
         self.hobbies = "",
         self.interessen = "",
-        self.vorlieben = "",
         self.persönlichkeit = "",
         self.lerntyp = "",
         self.lernzeitraum = "",
         self.lernort = "",
         self.lernfrequenz = "",
-        self.vorkenntnisse = "",
         self.berufserfahrung = ""
 
     def set_name(self, value):
@@ -66,12 +64,6 @@ class Studentprofil (BusinessObject):
     def get_interessen(self):
         return self.interessen
 
-    def set_vorlieben(self, value):
-        self.vorlieben = value
-
-    def get_vorlieben(self):
-        return self.vorlieben
-
     def set_persönlichkeit(self, value):
         self.persönlichkeit = value
 
@@ -102,12 +94,6 @@ class Studentprofil (BusinessObject):
     def get_lernfrequenz(self):
         return self.lernfrequenz
 
-    def set_vorkenntnisse(self, value):
-        self.vorkenntnisse = value
-
-    def get_vorkenntnisse(self):
-        return self.vorkenntnisse
-
     def set_berufserfahrung(self, value):
         self.berufserfahrung = value
 
@@ -116,7 +102,7 @@ class Studentprofil (BusinessObject):
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_name(), self.get_vorname(), self.get_alter(), self.get_semester(), self.get_studiengang(), self.get_hobbies(), self.get_interessen(), self.get_vorlieben(), self.get_persönlichkeit(), self.get_lernort(), self.get_lernzeitraum(), self.get_lernfrequenz(), self.get_lerntyp(), self.get_vorkenntnisse(), self.get_berufserfahrung())
+        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_name(), self.get_vorname(), self.get_alter(), self.get_semester(), self.get_studiengang(), self.get_hobbies(), self.get_interessen(), self.get_persönlichkeit(), self.get_lernort(), self.get_lernzeitraum(), self.get_lernfrequenz(), self.get_lerntyp(), self.get_berufserfahrung())
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -130,12 +116,10 @@ class Studentprofil (BusinessObject):
         obj.set_studiengang(dictionary["studiengang"])
         obj.set_hobbies(dictionary["hobbies"])
         obj.set_interessen(dictionary["interessen"])
-        obj.set_vorlieben(dictionary["vorlieben"])
         obj.set_persönlichkeit(dictionary["persönlichkeit"])
         obj.set_lerntyp(dictionary["lerntyp"])
         obj.set_lernzeitraum(dictionary["lernzeitraum"])
         obj.set_lernort(dictionary["lernort"])
         obj.set_lernfrequenz(dictionary["lernfrequenz"])
-        obj.set_vorkenntnisse(dictionary["vorkenntnisse"])
         obj.set_berufserfahrung(dictionary["berufserfahrung"])
         return obj
