@@ -11,6 +11,7 @@ import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import List from '@material-ui/core/List';
 
+//Der Admin muss der einzige mit berechtigung sein 
 //import Gruppeneintrag from './GruppenListeEintrag';
 //import GruppenForm from './/GruppenForm';
 
@@ -54,7 +55,7 @@ class GruppenListe extends Component {
     });
 }
 
-//Suche leeren
+// Die Suche leeren
 clearFilterFieldButtonClicked = () => {
     this.setState({
         filteredGruppe: [...this.state.Gruppe],
