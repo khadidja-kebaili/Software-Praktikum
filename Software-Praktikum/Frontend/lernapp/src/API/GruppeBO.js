@@ -1,4 +1,4 @@
-//import BusinessObject from "./src/BusinessObject
+import BusinessObject from "./src/BusinessObject"
 
 export default class GruppeBO extends BusinessObject{
 
