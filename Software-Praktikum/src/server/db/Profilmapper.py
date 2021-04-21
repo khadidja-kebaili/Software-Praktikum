@@ -39,13 +39,6 @@ class StudentprofilMapper (Mapper):
         return studentprofil
 
     def find_by_key(self, key):
-        """Suchen eines Kunden mit vorgegebener Kundennummer. Da diese eindeutig ist,
-        wird genau ein Objekt zurückgegeben.
-
-        :param key Primärschlüsselattribut (->DB)
-        :return Customer-Objekt, das dem übergebenen Schlüssel entspricht, None bei
-            nicht vorhandenem DB-Tupel.
-        """
         result = None
 
         cursor = self._cnx.cursor()
@@ -58,6 +51,7 @@ class StudentprofilMapper (Mapper):
             (id, name, vorname, alter, semester, studiengang, hobbies, interessen, persönlichkeit,
              lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung) = tuples[0]
             profil = Studentprofil()
+            profil.set_id(id)
             profil.set_name(name)
             profil.set_vorname(vorname)
             profil.set_alter(alter)
@@ -79,3 +73,5 @@ class StudentprofilMapper (Mapper):
 
         self._cnx.commit()
         cursor.close()
+
+        return result

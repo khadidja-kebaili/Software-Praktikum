@@ -57,7 +57,7 @@ class Profilerstellen(Resource):
 
 
 @api.route('/profil/<int:id>')
-@api.param('id', 'Die ID des Customer-Objekts')
+@api.param('id', 'Die ID des Profil-Objekts')
 class Profilanzeigen (Resource):
     @api.marshal_with(profil)
     def get(self, id):
