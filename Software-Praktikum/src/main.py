@@ -56,7 +56,7 @@ class Profilerstellen(Resource):
             return c
 
 
-@api.route('/customers/<int:id>')
+@api.route('/profil/<int:id>')
 @api.param('id', 'Die ID des Customer-Objekts')
 class Profilanzeigen (Resource):
     @api.marshal_with(profil)
