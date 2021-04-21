@@ -39,6 +39,7 @@ class Profilerstellen(Resource):
     def post(self):
         adm = Businesslogik()
         proposal = Studentprofil.from_dict(api.payload)
+        # //Notiz Daten von Frontend werden in proposal gespeichert
 
         if proposal is not None:
 
@@ -53,6 +54,16 @@ class Profilerstellen(Resource):
                 proposal.get_berufserfahrung()
             )
             return c
+
+
+@api.route('/customers/<int:id>')
+@api.param('id', 'Die ID des Customer-Objekts')
+class Profilanzeigen (Resource):
+    @api.marshal_with(profil)
+    def get(self, id):
+        adm = Businesslogik()
+        userprofil = adm.get_profil_by_id(id)
+        return userprofil
 
 
 if __name__ == '__main__':

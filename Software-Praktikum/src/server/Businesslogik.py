@@ -26,3 +26,8 @@ class Businesslogik (object):
 
         with StudentprofilMapper() as mapper:
             return mapper.insert(studentprofil)
+
+    def get_profil_by_id(self, number):
+
+        with StudentprofilMapper() as mapper:
+            return mapper.find_by_key(number)

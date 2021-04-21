@@ -37,3 +37,45 @@ class StudentprofilMapper (Mapper):
         cursor.close()
 
         return studentprofil
+
+    def find_by_key(self, key):
+        """Suchen eines Kunden mit vorgegebener Kundennummer. Da diese eindeutig ist,
+        wird genau ein Objekt zurückgegeben.
+
+        :param key Primärschlüsselattribut (->DB)
+        :return Customer-Objekt, das dem übergebenen Schlüssel entspricht, None bei
+            nicht vorhandenem DB-Tupel.
+        """
+        result = None
+
+        cursor = self._cnx.cursor()
+        command = "SELECT id, name, vorname, age, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung FROM profil WHERE id={}".format(
+            key)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        try:
+            (id, name, vorname, alter, semester, studiengang, hobbies, interessen, persönlichkeit,
+             lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung) = tuples[0]
+            profil = Studentprofil()
+            profil.set_name(name)
+            profil.set_vorname(vorname)
+            profil.set_alter(alter)
+            profil.set_semester(semester)
+            profil.set_studiengang(studiengang)
+            profil.set_hobbies(hobbies)
+            profil.set_interessen(interessen)
+            profil.set_persönlichkeit(persönlichkeit)
+            profil.set_lerntyp(lerntyp)
+            profil.set_lernzeitraum(lernzeitraum)
+            profil.set_lernort(lernort),
+            profil.set_lernfrequenz(lernfrequenz)
+            profil.set_berufserfahrung(berufserfahrung)
+            result = profil
+        except IndexError:
+            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
+            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
