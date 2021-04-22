@@ -11,8 +11,10 @@ export default class LernappAPI {
     return this.#api;
   }
   #lernappServerBaseURL = 'http://127.0.0.1:5000/';
+  
 
   #addProfilURL = () => `${this.#lernappServerBaseURL}/profil`;
+  #getProfilURL = (id) => `${this.#lernappServerBaseURL}/profil/${id}`;
 
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
@@ -42,7 +44,15 @@ export default class LernappAPI {
   }
 
 
-
+  getProfil(profilID) {
+    return this.#fetchAdvanced(this.#getProfilURL(profilID)).then((responseJSON) => {
+      let responseProfilBO = ProfilBO.fromJSON(responseJSON)[0];
+      // console.info(responseProfilBO);
+      return new Promise(function (resolve) {
+        resolve(responseProfilBO);
+      })
+    })
+  }
 
 
   // addProfil(profilBO) {
