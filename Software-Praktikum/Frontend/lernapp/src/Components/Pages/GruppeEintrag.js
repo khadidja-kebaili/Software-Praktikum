@@ -22,8 +22,46 @@ class GruppeEintrag extends Component {
         //leerer Status
         
         this.state = {
-            showSemesterForm: false,
-            showSemesterDelete: false,
+            showGruppenForm: false,
+            showGruppeDelete: false,
             error: null,
             loadingInProgress: false,
         }
+          // Die komponente wird gerendert 
+    render()
+        const {classes, Gruppe} = this.props;
+        const { showGruppenForm, showGruppeDelete,  error, loadingInProgress } = this.state;
+
+        return(
+          <div>
+            <ListItem className={classes.root}>
+                  <Grid container  alignItems="center" spacing={2}>
+                    <Grid item>
+                        <Typography >{Gruppen.name}</Typography>
+                    </Grid>
+                    <Grid item xs/>
+                    <Grid item>
+                    <Tooltip title='Bearbeiten' placement="bottom">
+                      <IconButton  className={classes.bearbeitenButton} variant='contained' onClick={this.bearbeitenButtonClicked}>
+                          <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    </Grid>
+                    <Grid item>
+                      <Tooltip title='Löschen' placement="bottom">
+                          <IconButton variant="contained"  onClick={this.GruppeDeleteButtonClicked}><DeleteIcon /></IconButton>
+                      </Tooltip>
+                    </Grid>
+                  </Grid>
+            </ListItem>
+            <ListItem>
+              <LoadingProgress show={loadingInProgress}/>
+              <ContextErrorMessage error={error} contextErrorMsg = {'Diese Gruppe konnte nicht geladen werden'} onReload={this.getGruppe} />
+            </ListItem>
+            <Divider/>
+            <GruppenForm show={showGruppenForm} Gruppe={Gruppe} onClose={this.GruppenFormClosed} getGruppe= {this.getGruppe}/>
+            <GruppeDelete show={showGruppeDelete} Gruppe={Gruppe} onClose={this.GruppeDeleteClosed} getGruppe= {this.getGruppe}/>       
+          </div>                        
+        );
+    }
+}
