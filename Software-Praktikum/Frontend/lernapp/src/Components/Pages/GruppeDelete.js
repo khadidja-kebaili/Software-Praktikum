@@ -18,7 +18,18 @@ class GruppeDelete extends Component {
     this.props.onClose(null);
   }
 
-
+// API Anbindung um die Gruppe über das Backend aus der Datenbank zu löschen
+deleteGruppe = () => {
+    ElectivAPI.getAPI().deleteGruppe(this.state.Gruppe.id)
+      .then(() => {
+        this.props.getGruppe();
+        this.props.onClose(null);
+      }).catch(e => {
+        this.setState({
+          showSnackbar: true
+        })
+      })
+  }
   // Die Komponente wird gerendert 
   render() 
     const { show } = this.props;
@@ -63,3 +74,4 @@ GruppeDelete.propTypes = {
   onClose: PropTypes.func.isRequired,
 }
 
+export default withStyles(styles)(GruppeDelete);
