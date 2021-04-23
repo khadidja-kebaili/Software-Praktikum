@@ -81,6 +81,34 @@ GruppenFormClosed = Gruppe => {
   }
 }
 
+ // API Anbindung um alle User vom Backend zu bekommen 
+ getGruppe = () => {
+  ElectivAPI.getAPI().getGruppe()
+  .then(GruppeBOs =>
+      this.setState({
+          Gruppe: GruppeBOs,
+          filteredGruppe: [...GruppeBOs],
+          error: null,
+          loadingInProgress: false,
+      })).catch(e =>
+          this.setState({
+              Gruppe: [],
+              filteredGruppe: [],
+              error: e,
+              loadingInProgress: false,
+          }));
+  this.setState({
+      error: null,
+      loadingInProgress: true,
+  });
+}
+
+
+// Die Lifecycle methode, wird erst aufgerufen, wenn eine Komponente in den DOM eingesetzt wird
+componentDidMount() 
+    this.getGruppe();
+
+
 //Componente wird gerendert
 
 render() 
