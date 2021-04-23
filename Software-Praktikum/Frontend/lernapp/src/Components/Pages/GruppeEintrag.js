@@ -66,9 +66,12 @@ class GruppeEintrag extends Component {
         });
       }
     }
+}
 
-    
-    }
+  // API Anbindung um Die Gruppe vom Backend zu bekommen 
+  getGruppe = () => {
+    this.props.getGruppe();
+  }
           // Die komponente wird gerendert 
     render()
         const {classes, Gruppe} = this.props;
