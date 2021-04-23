@@ -52,7 +52,7 @@ class GruppeEintrag extends Component {
         });
         this.getGruppe();
 
-        
+
    // wird aufgerufen, wenn Dialog Fenster geschloßen werden soll
     GruppenFormClosed = (Gruppe) => {
       if (Gruppe){
@@ -107,7 +107,7 @@ class GruppeEintrag extends Component {
         );
     }
 }
-/** PropTypes */
+// Proptypes 
 GruupeEintrag.propTypes = {
 
   classes: PropTypes.object.isRequired,
