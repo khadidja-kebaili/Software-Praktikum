@@ -27,6 +27,48 @@ class GruppeEintrag extends Component {
             error: null,
             loadingInProgress: false,
         }
+
+     
+    // Gruppe bearbeiten
+    bearbeitenButtonClicked = event => {
+      event.stopPropagation();
+      this.setState({
+        showGruppenForm: true
+      });
+    }
+    
+    // wird aufgerufen, wenn Gruppe gelöscht werden soll
+    GruppeDeleteButtonClicked =  event => {
+      event.stopPropagation();
+      this.setState({
+        showGruppeDelete: true
+      });
+    }
+    
+    // wird aufgerufen, wenn DELETE Dialog Fenster geschloßen werden soll
+    GruppeDeleteClosed = () => {
+        this.setState({
+          showGruppeDelete: false
+        });
+        this.getGruppe();
+
+        
+   // wird aufgerufen, wenn Dialog Fenster geschloßen werden soll
+    GruppenFormClosed = (Gruppe) => {
+      if (Gruppe){
+        this.setState({
+          Gruppe: Gruppe,
+          showGruppenForm: false
+        });
+      }else {
+        this.setState({
+          showGruppenForm: false
+        });
+      }
+    }
+
+    
+    }
           // Die komponente wird gerendert 
     render()
         const {classes, Gruppe} = this.props;
@@ -65,3 +107,12 @@ class GruppeEintrag extends Component {
         );
     }
 }
+/** PropTypes */
+GruupeEintrag.propTypes = {
+
+  classes: PropTypes.object.isRequired,
+  show: PropTypes.bool.isRequired
+}
+
+
+export default withStyles(styles)(GruppeEintrag);
