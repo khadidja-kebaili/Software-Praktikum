@@ -11,8 +11,9 @@ import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import List from '@material-ui/core/List';
 
-import GruppenEintrag from "./Components/GruppeEintrag.js";
-import GruppenForm from "./Pages/GruppeForm.js"; 
+import GruppenForm from './Components/GruppenForm';
+import GruppeEintrag from './Components/GruppeEintrag';
+
 
 //Der Admin ist der einzige mit berechtigung-- zum löschen und hinzufügen 
 //import Gruppeneintrag from './GruppenListeEintrag';
@@ -147,14 +148,23 @@ render()
           <List className={classes.root} dense>
               {
               filteredGruppe.map(Gruppe => 
-                  <GruppenEintrag key={Gruppe.getID()} Gruppe = {Gruppe} show={this.props.show} getGruppe={this.getGruppe}/>)
+                  <GruppeEintrag key={Gruppe.getID()} Gruppe = {Gruppe} show={this.props.show} getGruppe={this.getGruppe}/>)
               }
           </List>
         <LoadingProgress show={loadingInProgress} />
         <ContextErrorMessage error={error} contextErrorMsg={`Es konnte keine Gruppe geladen werden.`} onReload={this.getGruppe} />
       </Paper>
-      <GruppenForm show={showGruppenForm} onClose={this.GrupenFormClosed} getGruppe= {this.getGruppe}/>
+      <GruppenForm show={showGruppenForm} onClose={this.GruppenFormClosed} getGruppe= {this.getGruppe}/>
     </div>
-  );
+  )
+
+  /** PropTypes */
+GruppenListe.propTypes = {
+  /** @ignore */
+  classes: PropTypes.object.isRequired,
+  /** @ignore */
+  location: PropTypes.object.isRequired,
+}
+  export default withRouter(withStyles(styles)(GruppenListe));
 
 
