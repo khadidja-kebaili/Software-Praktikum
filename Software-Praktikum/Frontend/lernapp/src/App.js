@@ -104,7 +104,10 @@ function App(){
   const classes = useStyle();
   return (
     <div className={classes.container}>
+      
       <Navigation/>
+      
+      {/* Dadurch werden in den neuen Tabs die Inhalte angezeigt */}
       <Router>
       <Switch>
         <Route exact from="/matchmaker" render={props => <Matchmaker{...props}/>}/>

@@ -26,9 +26,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuListComposition() {
+// Durch diese Funktion wird die Navigation angezeigt
+export default function ShowNavigation() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  // UseRef gibt ein veränderbares ref-Objekt zurück, dessen current-Eigenschaften mit dem intialisiert wird
+  // zurückgebenes Objekt bleibt für das gesamte Lifetime bestehen.
   const anchorRef = React.useRef(null);
 
   const handleToggle = () => {
@@ -118,14 +121,14 @@ export default function MenuListComposition() {
                 <Tab label='Chats' component={Link} to={`/chats`} />
                 </Router> */}
              {/* </Tabs> */}
-             <Router>
+             {/* <Router>
                 <Switch>
                   <Route exact from="/matchmaker" render={props => <Matchmaker{...props}/>}/>
                   <Route exact path="/profil" render={props => <Profil{...props}/>}/>
                   <Route exact path="/chats" render={props => <Chats{...props}/>}/>
                   <Route exact path="/gruppen" render={props => <Gruppen{...props}/>}/>
                 </Switch>
-            </Router>
+            </Router> */}
               </Paper>
             </Grow>
           )}

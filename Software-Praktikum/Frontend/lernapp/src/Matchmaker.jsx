@@ -106,10 +106,11 @@ export default function InteractiveList() {
   const [secondary, setSecondary] = React.useState(false);
 
   return (
+    
     <div className={classes.root}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={10} md={6}>
           <Typography variant="h6" className={classes.title}>
-            Avatar with text and icon
+            Matches:
           </Typography>
           <div className={classes.demo}>
             <List dense={dense}>
@@ -121,8 +122,8 @@ export default function InteractiveList() {
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
+                    primary="Person-Name"
+                    secondary={secondary ? 'Informationen' : null}
                   />
                   <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="delete">
@@ -136,5 +137,6 @@ export default function InteractiveList() {
         </Grid>
     
     </div>
+    
   );
 }
