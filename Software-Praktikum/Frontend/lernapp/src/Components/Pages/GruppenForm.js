@@ -113,5 +113,13 @@ class GruppenForm extends Component {
                 </Dialog>
                 : null
         );
-    
+    // PropTypes 
+GruppenForm.propTypes = {
+  
+    classes: PropTypes.object.isRequired,
+    show: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+}
+
+export default withStyles(styles)(GruppenForm);
 
