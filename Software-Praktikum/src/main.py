@@ -43,7 +43,7 @@ class Profilerstellen(Resource):
 
         if proposal is not None:
 
-            p = adm.create_studentprofil(
+            p = adm.create_profil(
                 proposal.get_name(),
                 proposal.get_vorname(), proposal.get_alter(),
                 proposal.get_semester(), proposal.get_studiengang(),

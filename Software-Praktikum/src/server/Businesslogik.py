@@ -7,8 +7,8 @@ class Businesslogik (object):
     def __init__(self):
         pass
 
-    def create_studentprofil(self, name, vorname, alter, semester, studiengang, hobbies, interessen,
-                             persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung):
+    def create_profil(self, name, vorname, alter, semester, studiengang, hobbies, interessen,
+                      persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung):
         studentprofil = Studentprofil()
         studentprofil.set_name(name)
         studentprofil.set_vorname(vorname)
