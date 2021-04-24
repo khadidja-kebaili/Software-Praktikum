@@ -31,3 +31,11 @@ class Businesslogik (object):
 
         with StudentprofilMapper() as mapper:
             return mapper.find_by_key(number)
+
+    def save_profil(self, studentprofil):
+        with StudentprofilMapper() as mapper:
+            mapper.update(studentprofil)
+
+    def delete_profil(self, studentprofil):
+        with StudentprofilMapper() as mapper:
+            mapper.delete(studentprofil)

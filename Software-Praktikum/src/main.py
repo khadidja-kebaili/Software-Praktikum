@@ -43,7 +43,7 @@ class Profilerstellen(Resource):
 
         if proposal is not None:
 
-            c = adm.create_studentprofil(
+            p = adm.create_studentprofil(
                 proposal.get_name(),
                 proposal.get_vorname(), proposal.get_alter(),
                 proposal.get_semester(), proposal.get_studiengang(),
@@ -53,7 +53,7 @@ class Profilerstellen(Resource):
                 proposal.get_lernfrequenz(),
                 proposal.get_berufserfahrung()
             )
-            return c
+            return p
 
 
 @api.route('/profil/<int:id>')
@@ -64,6 +64,26 @@ class Profilanzeigen (Resource):
         adm = Businesslogik()
         userprofil = adm.get_profil_by_id(id)
         return userprofil
+
+    def delete(self, id):
+
+        adm = Businesslogik()
+        userprofil = adm.get_profil_by_id(id)
+        adm.delete_profil(userprofil)
+        return ''
+
+    @api.marshal_with(profil)
+    @api.expect(profil, validate=True)
+    def put(self, id):
+        adm = Businesslogik()
+        p = Studentprofil.from_dict(api.payload)
+
+        if p is not None:
+            p.set_id(id)
+            adm.save_profil(p)
+            return p, 200
+        else:
+            return '', 500
 
 
 if __name__ == '__main__':

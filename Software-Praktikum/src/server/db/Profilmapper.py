@@ -75,3 +75,32 @@ class StudentprofilMapper (Mapper):
         cursor.close()
 
         return result
+
+    def update(self, studentprofil):
+
+        cursor = self._cnx.cursor()
+
+        command = "UPDATE profil " + "SET name=%s, vorname=%s, age=%s, semester=%s, studiengang=%s, hobbies=%s, interessen=%s, persönlichkeit=%s, lerntyp=%s, lernzeitraum=%s, lernort=%s, lernfrequenz=%s, berufserfahrung=%s  WHERE id=%s"
+        data = (studentprofil.get_name(),
+                studentprofil.get_vorname(), studentprofil.get_alter(),
+                studentprofil.get_semester(), studentprofil.get_studiengang(),
+                studentprofil.get_hobbies(), studentprofil.get_interessen(),
+                studentprofil.get_persönlichkeit(), studentprofil.get_lerntyp(),
+                studentprofil.get_lernzeitraum(), studentprofil.get_lernort(),
+                studentprofil.get_lernfrequenz(), studentprofil.get_berufserfahrung(), studentprofil.get_id())
+        cursor.execute(command, data)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return studentprofil
+
+    def delete(self, studentprofil):
+        cursor = self._cnx.cursor()
+
+        command = "DELETE FROM profil WHERE id={}".format(
+            studentprofil.get_id())
+        cursor.execute(command)
+
+        self._cnx.commit()
+        cursor.close()
