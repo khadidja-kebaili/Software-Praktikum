@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import LernappAPI from "../../API/LernappAPI";
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
 import "./Profil_anzeigen.css"
+import ProfilLöschen from '../Dialog/Profil_löschen';
 
 class Profilanzeigen extends Component {
   constructor(props){
@@ -11,6 +11,7 @@ class Profilanzeigen extends Component {
   
   this.state = { 
     profil: null,
+    showProfilLöschen: false,
    };
   }
   componentDidMount() {
@@ -18,11 +19,24 @@ class Profilanzeigen extends Component {
   }
 
   getProfil = () => {
-    let data = 2;
+    let data = 1;
     LernappAPI.getAPI().getProfil(data).then(profil =>
       this.setState({
         profil: profil,
       }))
+  }
+
+  deleteButtonClicked = (event) => {
+    event.stopPropagation();
+    this.setState({
+      showProfilLöschen: true
+    });
+  }
+
+  closeDeleteDialog = () => {
+      this.setState({
+      showProfilLöschen: false
+    });
   }
 
 
@@ -53,7 +67,7 @@ class Profilanzeigen extends Component {
               <div className="Lernprofil">
                 <h2>Lernprofil</h2> 
                 <h3>Lerntyp: {profil.getLerntyp()}</h3> 
-                <h3>Lernfrequenz: {profil.getLernfrequenz()}</h3>
+                <h3>Lernfrequenz: {profil.getLernfrequenz()} x in der Woche</h3>
                 <h3>Lernzeitraum: {profil.getLernzeitraum()}</h3>
                 <h3>Lernort:  {profil.getLernort()}</h3>
                 <h3>Berufserfahrung: {profil.getBerufserfahrung()}</h3>
@@ -63,9 +77,10 @@ class Profilanzeigen extends Component {
         }
        </div>
        <div className="Buttons">
-       <div className="Bearbeiten"><Button variant="contained" color="primary" size="large"> Bearbeiten</Button></div>
-       <div className="KontoLöschen"><Button variant="contained" color="primary" size="large"> Profil Löschen</Button></div>
-      </div> 
+            <div className="Bearbeiten"><Button variant="contained" color="primary" size="large"> Bearbeiten</Button></div>
+            <div className="KontoLöschen"><Button variant="contained" color="primary" size="large" onClick={this.deleteButtonClicked}> Profil Löschen</Button></div>
+      </div>
+      <ProfilLöschen show={this.state.showProfilLöschen} profil={profil} onClose={this.closeDeleteDialog}/>
       </div>
    
       );

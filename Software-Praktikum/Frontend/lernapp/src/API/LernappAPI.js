@@ -15,6 +15,7 @@ export default class LernappAPI {
 
   #addProfilURL = () => `${this.#lernappServerBaseURL}/profil`;
   #getProfilURL = (id) => `${this.#lernappServerBaseURL}/profil/${id}`;
+  #deleteProfilURL = (id) =>`${this.#lernappServerBaseURL}/profil/${id}`;
 
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
@@ -48,6 +49,18 @@ export default class LernappAPI {
     return this.#fetchAdvanced(this.#getProfilURL(profilID)).then((responseJSON) => {
       let responseProfilBO = ProfilBO.fromJSON(responseJSON)[0];
       // console.info(responseProfilBO);
+      return new Promise(function (resolve) {
+        resolve(responseProfilBO);
+      })
+    })
+  }
+
+  deleteProfil(profilID) {
+    return this.#fetchAdvanced(this.#deleteProfilURL(profilID), {
+      method: 'DELETE'
+    }).then((responseJSON) => {
+      let responseProfilBO = ProfilBO.fromJSON(responseJSON)[0];
+      // console.info(accountBOs);
       return new Promise(function (resolve) {
         resolve(responseProfilBO);
       })
