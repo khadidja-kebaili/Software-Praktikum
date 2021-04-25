@@ -39,7 +39,6 @@ class User (Bo):
         """Umwandeln eines Python dict() in einen User()."""
         obj = User()
         obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
-        obj.set_name(dictionary["name"])
         obj.set_email(dictionary["email"])
-        obj.set_user_id(dictionary["user_id"])
+        obj.set_user_id(dictionary["password"])
         return obj
