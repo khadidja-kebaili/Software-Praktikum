@@ -1,4 +1,4 @@
-from matchmaking_II.Participant import Participant
+from matchmaking_II.Komponenten.Participant import Participant
 
 class Matcher(object):
 
@@ -21,8 +21,3 @@ class Matcher(object):
         for element in self.fragende:
             element.match(self.gefragte)
         return self.fragende
-
-    def __delattr__(self, item):
-        self.fragende.__delattr__(item)
-
-#HalliHallo

@@ -1,5 +1,5 @@
 from matchmaking_II.loader import load_file
-from matchmaking_II.Matchmaker import Matcher
+from matchmaking_II.Komponenten.Matchmaker import Matcher
 
 
 def main():
@@ -12,13 +12,13 @@ def main():
     matcher = Matcher(data)
 
 
-    for fragender in matcher.get_matches():
-        fragender.print_matches()
+    for fragender in matcher.get_matches:
+            fragender.print_matches()
 
 
 
 if __name__ == "__main__":
-    main()
+        main()
 
-#HalliHallo
+
 

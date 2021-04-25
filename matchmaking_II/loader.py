@@ -39,5 +39,3 @@ def _load_python_literal(file_path):
         data = ast.literal_eval(file_data.read())
 
     return data
-
-#HalliHallo
