@@ -1,4 +1,12 @@
 import './App.css';
 import React from 'react';
 
-export default App;
+
+
+export default function App(){
+    return(
+        <div>
+            hELLO wORLD
+        </div>
+    )
+}
