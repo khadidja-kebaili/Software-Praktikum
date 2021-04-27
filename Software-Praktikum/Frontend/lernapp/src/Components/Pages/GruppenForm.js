@@ -65,6 +65,29 @@ class GruppenForm extends Component {
         
         }
 
+
+
+         // API Anbindung um die Gruppe über das Backend in die Datenbank einzufügen
+    addGruppe = () => {
+        let newGruppe = new GruppeBO()
+        newGruppe.setID(0)
+        newGruppe.setname(this.state.name)
+        ElectivAPI.getAPI().addGruppe(newGruppe).then(Gruppe => {
+            this.props.getGruppe()
+            this.setState(this.baseState);
+            this.props.onClose(Gruppe); 
+        }).catch(e =>
+            this.setState({
+                addingInProgress: false,
+                addingError: e
+            })
+        );
+        // Hier wird eine Ladeanimation eingeblendet
+        this.setState({
+            addingProgress: true,
+            addingError: null
+        });
+    }
         return (
             show ?
                 <Dialog open={show} onEnter={this.getInfos} onClose={this.handleClose} maxWidth='xs' fullWidth>
