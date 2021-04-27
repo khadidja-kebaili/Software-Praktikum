@@ -82,6 +82,7 @@ class GruppenForm extends Component {
                 addingError: e
             })
         );
+        
         // Hier wird eine Ladeanimation eingeblendet
         this.setState({
             addingProgress: true,
