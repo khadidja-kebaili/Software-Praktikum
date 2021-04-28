@@ -2,15 +2,70 @@ import BusinessObject from "./src/BusinessObject"
 
 export default class GruppeBO extends BusinessObject{
 
-	/*
-	constructor(){
-        super();
-    }
-    */
+	constructor(gname, id, Mitglieder,Admin, Beschreibung, img) {
+		super();
+		this.Gruppename = gname;
+		this.GruppenID = id;
+		this.Mitglieder = Mitglieder;
+		this.Admin = Admin;
+		this.Beschreibung = Beschreibung;
+		this.Image = img;
+		
+	  }
+ 
+	  setGruppename(gname) {
+		this.Gruppename = gname;
+	  }
 	
-	/** 
-   * Returns an Array of SemesterBOs from a given JSON structure
-   */
+	
+	  getGruppename() {
+		return this.Gruppename;
+	  }
+
+
+	  setGruppename(id) {
+		this.GruppenID = id;
+	  }
+
+	  getGruppenID() {
+		return this.GruppenID;
+	  }
+
+	  setMitglieder (Mitglieder) {
+		this.Mitglieder = Mitglieder;
+	  }
+	
+	
+	  getMitglieder() {
+		return this.Mitglieder;
+	  }
+
+	  setAdmin (Admin) {
+		this.Admin = Admin;
+	  }
+	
+	
+	  getAdmin() {
+		return this.Admin;
+	  }
+
+	  setBeschreibung (Beschreibung) {
+		this.Beschreibung = Beschreibung;
+	  }
+	
+	
+	  getBeschreibung() {
+		return this.Beschreibung;
+	  }
+
+	  setImage (img) {
+		this.Image = img;
+	  }
+	
+	  getImage() {
+		return this.Image;
+	  }
+
     static fromJSON(Gruppe) {
 		let results = null;
 		if (Array.isArray(Gruppe)) {
@@ -20,7 +75,7 @@ export default class GruppeBO extends BusinessObject{
 				results.push(c);
 			})
 		} else {
-			// Es gibt nur ein Objekt
+			
 			let c = Gruppe;
 			Object.setPrototypeOf(c, Gruppe.prototype);
 			results = c;
