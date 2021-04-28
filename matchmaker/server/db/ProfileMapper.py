@@ -20,7 +20,7 @@ class StudentprofilMapper (Mapper):
                 davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
                 studentprofil.set_id(1)
 
-        command = "INSERT INTO profil (id, name, vorname, age, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung, email) VALUES (%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
+        command = "INSERT INTO profil (id, name, vorname, age, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung, email, password) VALUES (%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s, %s)"
         data = (
             studentprofil.get_id(), studentprofil.get_name(),
             studentprofil.get_vorname(), studentprofil.get_alter(),
@@ -29,7 +29,7 @@ class StudentprofilMapper (Mapper):
             studentprofil.get_persönlichkeit(), studentprofil.get_lerntyp(),
             studentprofil.get_lernzeitraum(), studentprofil.get_lernort(),
             studentprofil.get_lernfrequenz(), studentprofil.get_berufserfahrung(),
-            studentprofil.get_name(), studentprofil.get_email())
+            studentprofil.get_password(), studentprofil.get_email())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -41,14 +41,14 @@ class StudentprofilMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, vorname, age, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung FROM profil WHERE id={}".format(
+        command = "SELECT id, name, vorname, age, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung, email, password FROM profil WHERE id={}".format(
             key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
             (id, name, vorname, alter, semester, studiengang, hobbies, interessen, persönlichkeit,
-             lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung) = tuples[0]
+             lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung, email, password) = tuples[0]
             profil = Studentprofil()
             profil.set_id(id)
             profil.set_name(name)
@@ -61,9 +61,11 @@ class StudentprofilMapper (Mapper):
             profil.set_persönlichkeit(persönlichkeit)
             profil.set_lerntyp(lerntyp)
             profil.set_lernzeitraum(lernzeitraum)
-            profil.set_lernort(lernort),
+            profil.set_lernort(lernort)
             profil.set_lernfrequenz(lernfrequenz)
             profil.set_berufserfahrung(berufserfahrung)
+            profil.set_email(email)
+            profil.set_password(password)
             result = profil
         except IndexError:
             """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
@@ -87,7 +89,7 @@ class StudentprofilMapper (Mapper):
                 studentprofil.get_persönlichkeit(), studentprofil.get_lerntyp(),
                 studentprofil.get_lernzeitraum(), studentprofil.get_lernort(),
                 studentprofil.get_lernfrequenz(), studentprofil.get_berufserfahrung(),
-                studentprofil.get_email(), studentprofil.get_id())
+                studentprofil.get_email(), studentprofil.get_id(), studentprofil.get_password())
         cursor.execute(command, data)
 
         self._cnx.commit()

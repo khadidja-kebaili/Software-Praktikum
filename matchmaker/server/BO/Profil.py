@@ -16,9 +16,8 @@ class Studentprofil (BusinessObject):
         self.lernort = "",
         self.lernfrequenz = "",
         self.berufserfahrung = "",
-        self.__name = ""  # Der Name des Benutzers.
-        self.__email = ""  # Die E-Mail-Adresse des Benutzers.
-        self.__user_id = ""  # Die extern verwaltete User ID.
+        self.email = "",
+        self.password = ""
 
     def set_name(self, value):
         self.name = value
@@ -102,33 +101,25 @@ class Studentprofil (BusinessObject):
     def get_berufserfahrung(self):
         return self.berufserfahrung
 
-    def get_name(self):
-        """Auslesen des Benutzernamens."""
-        return self.__name
-
-    def set_name(self, value):
-        """Setzen des Benutzernamens."""
-        self.__name = value
-
     def get_email(self):
         """Auslesen der E-Mail-Adresse."""
-        return self.__email
+        return self.email
 
     def set_email(self, value):
         """Setzen der E-Mail-Adresse."""
-        self.__email = value
+        self.email = value
 
-    def get_user_id(self):
-        """Auslesen der externen User ID (z.B. Google ID)."""
-        return self.__user_id
+    def set_password(self,value):
+        self.password = value
 
-    def set_user_id(self, value):
-        """Setzen der externen User ID (z.B. Google ID)."""
-        self.__user_id = value
+    def get_password(self):
+        return self.password
+
+
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_id(), self.__name, self.__email, self.__user_id, self.get_name(), self.get_vorname(), self.get_alter(), self.get_semester(), self.get_studiengang(), self.get_hobbies(), self.get_interessen(), self.get_persönlichkeit(), self.get_lernort(), self.get_lernzeitraum(), self.get_lernfrequenz(), self.get_lerntyp(), self.get_berufserfahrung())
+        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_id(), self.email, self.password, self.get_name(), self.get_vorname(), self.get_alter(), self.get_semester(), self.get_studiengang(), self.get_hobbies(), self.get_interessen(), self.get_persönlichkeit(), self.get_lernort(), self.get_lernzeitraum(), self.get_lernfrequenz(), self.get_lerntyp(), self.get_berufserfahrung())
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -148,7 +139,6 @@ class Studentprofil (BusinessObject):
         obj.set_lernort(dictionary["lernort"])
         obj.set_lernfrequenz(dictionary["lernfrequenz"])
         obj.set_berufserfahrung(dictionary["berufserfahrung"])
-        obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
-        obj.set_name(dictionary["name"])
+        obj.set_password(dictionary["password"])
         obj.set_email(dictionary["email"])
         return obj
