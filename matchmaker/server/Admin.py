@@ -1,68 +1,42 @@
 from matchmaking_V.server.BO.Profil import Studentprofil
-from matchmaking_V.server.BO.User import User
 
-from matchmaking_V.server.db.UserMapper import UserMapper
 from matchmaking_V.server.db.ProfileMapper import StudentprofilMapper
 
 
-class BankAdministration (object):
+class Businesslogik (object):
 
     def __init__(self):
         pass
 
-    """
-    User-spezifische Methoden
-    """
-    def create_user(self, id, password, email):
-        """Einen Benutzer anlegen"""
-        user = User()
-        user.set_password(password)
-        user.set_email(email)
-        user.set_id(id)
-
-        with UserMapper() as mapper:
-            return mapper.insert(user)
-
-    def get_user_by_name(self, name):
-        """Alle Benutzer mit Namen name auslesen."""
-        with UserMapper() as mapper:
-            return mapper.find_by_name(name)
-
-    def get_user_by_id(self, number):
-        """Den Benutzer mit der gegebenen ID auslesen."""
-        with UserMapper() as mapper:
-            return mapper.find_by_key(number)
-
-
-    def get_all_users(self):
-        """Alle Benutzer auslesen."""
-        with UserMapper() as mapper:
-            return mapper.find_all()
-
-    def save_user(self, user):
-        """Den gegebenen Benutzer speichern."""
-        with UserMapper() as mapper:
-            mapper.update(user)
-
-    def delete_user(self, user):
-        """Den gegebenen Benutzer aus unserem System löschen."""
-        with UserMapper() as mapper:
-            mapper.delete(user)
-
-
-    """
-    Customer-spezifische Methoden
-    """
-    def create_profile(self, id, lernfrequenz, fakultaet, lernort, lerntyp, semester):
-        """Einen Kunden anlegen."""
-        customer = Studentprofil()
-        customer.set_id(id)
-        customer.set_lernfrequenz(lernfrequenz)
-        customer.set_fakultaet(fakultaet)
-        customer.set_lernort(lernort)
-        customer.set_lerntyp(lerntyp)
-        customer.set_semester(semester)
+    def create_profil(self, name, vorname, alter, semester, studiengang, hobbies, interessen,
+                      persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung):
+        studentprofil = Studentprofil()
+        studentprofil.set_name(name)
+        studentprofil.set_vorname(vorname)
+        studentprofil.set_alter(alter)
+        studentprofil.set_semester(semester)
+        studentprofil.set_studiengang(studiengang)
+        studentprofil.set_hobbies(hobbies)
+        studentprofil.set_interessen(interessen)
+        studentprofil.set_persönlichkeit(persönlichkeit)
+        studentprofil.set_lerntyp(lerntyp)
+        studentprofil.set_lernzeitraum(lernzeitraum)
+        studentprofil.set_lernort(lernort),
+        studentprofil.set_lernfrequenz(lernfrequenz)
+        studentprofil.set_berufserfahrung(berufserfahrung)
 
         with StudentprofilMapper() as mapper:
-            return mapper.insert(customer)
+            return mapper.insert(studentprofil)
 
+    def get_profil_by_id(self, number):
+
+        with StudentprofilMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    def save_profil(self, studentprofil):
+        with StudentprofilMapper() as mapper:
+            mapper.update(studentprofil)
+
+    def delete_profil(self, studentprofil):
+        with StudentprofilMapper() as mapper:
+            mapper.delete(studentprofil)

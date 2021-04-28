@@ -1,28 +1,42 @@
 from matchmaking_V.server.BO.Businessobjects import BusinessObject
 
-
-class Studentprofil(BusinessObject):
+class Studentprofil (BusinessObject):
     def __init__(self):
         super().__init__()
         self.name = "",
+        self.vorname = "",
+        self.alter = "",
         self.semester = "",
-        self.fakultaet = "",
+        self.studiengang = "",
+        self.hobbies = "",
+        self.interessen = "",
+        self.persönlichkeit = "",
         self.lerntyp = "",
+        self.lernzeitraum = "",
         self.lernort = "",
         self.lernfrequenz = "",
-        self.id = ""
+        self.berufserfahrung = "",
+        self.__name = ""  # Der Name des Benutzers.
+        self.__email = ""  # Die E-Mail-Adresse des Benutzers.
+        self.__user_id = ""  # Die extern verwaltete User ID.
 
-    def set_id(self, value):
-        self.id = value
-
-    def get_id(self):
-        return self.id
-
-    def set_name(self):
-        return self.name
+    def set_name(self, value):
+        self.name = value
 
     def get_name(self):
         return self.name
+
+    def set_vorname(self, value):
+        self.vorname = value
+
+    def get_vorname(self):
+        return self.vorname
+
+    def set_alter(self, value):
+        self.alter = value
+
+    def get_alter(self):
+        return self.alter
 
     def get_semester(self):
         """Auslesen des Benutzernamens."""
@@ -32,19 +46,43 @@ class Studentprofil(BusinessObject):
         """Setzen des Benutzernamens."""
         self.semester = value
 
-    def get_fakultaet(self):
+    def get_studiengang(self):
         """Auslesen des Benutzernamens."""
         return self.studiengang
 
-    def set_fakultaet(self, value):
+    def set_studiengang(self, value):
         """Setzen des Benutzernamens."""
         self.studiengang = value
+
+    def set_hobbies(self, value):
+        self.hobbies = value
+
+    def get_hobbies(self):
+        return self.hobbies
+
+    def set_interessen(self, value):
+        self.interessen = value
+
+    def get_interessen(self):
+        return self.interessen
+
+    def set_persönlichkeit(self, value):
+        self.persönlichkeit = value
+
+    def get_persönlichkeit(self):
+        return self.persönlichkeit
 
     def set_lerntyp(self, value):
         self.lerntyp = value
 
     def get_lerntyp(self):
         return self.lerntyp
+
+    def set_lernzeitraum(self, value):
+        self.lernzeitraum = value
+
+    def get_lernzeitraum(self):
+        return self.lernzeitraum
 
     def set_lernort(self, value):
         self.lernort = value
@@ -58,27 +96,59 @@ class Studentprofil(BusinessObject):
     def get_lernfrequenz(self):
         return self.lernfrequenz
 
+    def set_berufserfahrung(self, value):
+        self.berufserfahrung = value
+
+    def get_berufserfahrung(self):
+        return self.berufserfahrung
+
+    def get_name(self):
+        """Auslesen des Benutzernamens."""
+        return self.__name
+
+    def set_name(self, value):
+        """Setzen des Benutzernamens."""
+        self.__name = value
+
+    def get_email(self):
+        """Auslesen der E-Mail-Adresse."""
+        return self.__email
+
+    def set_email(self, value):
+        """Setzen der E-Mail-Adresse."""
+        self.__email = value
+
+    def get_user_id(self):
+        """Auslesen der externen User ID (z.B. Google ID)."""
+        return self.__user_id
+
+    def set_user_id(self, value):
+        """Setzen der externen User ID (z.B. Google ID)."""
+        self.__user_id = value
+
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "User: {}, {}, {}, {}, {}, {}, {}".format(
-                                                                                     self.get_semester(),
-                                                                                     self.get_fakultaet(),
-                                                                                     self.get_lernort(),
-                                                                                     self.get_lernfrequenz(),
-                                                                                     self.get_lerntyp(),
-                                                                                     self.get_id(),
-                                                                                     self.get_name())
+        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_id(), self.__name, self.__email, self.__user_id, self.get_name(), self.get_vorname(), self.get_alter(), self.get_semester(), self.get_studiengang(), self.get_hobbies(), self.get_interessen(), self.get_persönlichkeit(), self.get_lernort(), self.get_lernzeitraum(), self.get_lernfrequenz(), self.get_lerntyp(), self.get_berufserfahrung())
 
     @staticmethod
     def from_dict(dictionary=dict()):
         """Umwandeln eines Python dict() in einen User()."""
         obj = Studentprofil()
         obj.set_id(dictionary["id"])
-        obj.set_semester(dictionary["semester_id"])
-        obj.set_fakultaet(dictionary["fakultaet"])
-        obj.set_lerntyp(dictionary["learntype_ids"])
-        obj.set_lernort(dictionary["learnplace_id"])
-        obj.set_lernfrequenz(dictionary["lernfrequenz"])
         obj.set_name(dictionary["name"])
+        obj.set_vorname(dictionary["vorname"])
+        obj.set_alter(dictionary["alter"])
+        obj.set_semester(dictionary["semester"])
+        obj.set_studiengang(dictionary["studiengang"])
+        obj.set_hobbies(dictionary["hobbies"])
+        obj.set_interessen(dictionary["interessen"])
+        obj.set_persönlichkeit(dictionary["persönlichkeit"])
+        obj.set_lerntyp(dictionary["lerntyp"])
+        obj.set_lernzeitraum(dictionary["lernzeitraum"])
+        obj.set_lernort(dictionary["lernort"])
+        obj.set_lernfrequenz(dictionary["lernfrequenz"])
+        obj.set_berufserfahrung(dictionary["berufserfahrung"])
+        obj.set_id(dictionary["id"])  # eigentlich Teil von BusinessObject !
+        obj.set_name(dictionary["name"])
+        obj.set_email(dictionary["email"])
         return obj
-
