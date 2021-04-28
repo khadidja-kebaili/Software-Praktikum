@@ -29,6 +29,5 @@ def index():
 @api.param('id','ID des Chatraums')
     return 'Chatraum'
 
-
 if __name__ == '__main__':
     app.run(debug = True)
