@@ -111,7 +111,7 @@ class GruppeEintrag extends Component {
     }
 }
 // Proptypes 
-GruupeEintrag.propTypes = {
+GruppeEintrag.propTypes = {
 
   classes: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired
