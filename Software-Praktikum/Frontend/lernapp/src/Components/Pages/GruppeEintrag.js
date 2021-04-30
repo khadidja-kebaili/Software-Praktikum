@@ -24,6 +24,8 @@ class GruppeEintrag extends Component {
         this.state = {
             showGruppenForm: false,
             showGruppeDelete: false,
+            filteredGruppe: [],
+            GruppeFilter: '',
             error: null,
             loadingInProgress: false,
         }
@@ -68,6 +70,27 @@ class GruppeEintrag extends Component {
     }
 }
 
+ //Suche-Funktion zum Suchen von Gruppen
+ filterFieldValueChange= event => {
+  const value = event.target.value.toLowerCase();
+  this.setState({
+      filteredGruppe: this.state.Gruppe.filter(Gruppe => {
+          let nameContainsValue = semester.getname().toLowerCase().includes(value);
+          return nameContainsValue;
+      }),
+      GruppeFilter: value
+  });
+}
+
+// Die Suche leeren
+clearFilterFieldButtonClicked = () => {
+  this.setState({
+      filteredGruppe: [...this.state.Gruppe],
+      GruppeFilter: ''
+  });
+
+}
+
   // API Anbindung um Die Gruppe vom Backend zu bekommen 
   getGruppe = () => {
     this.props.getGruppe();
@@ -75,10 +98,24 @@ class GruppeEintrag extends Component {
           // Die komponente wird gerendert 
     render()
         const {classes, Gruppe} = this.props;
-        const { showGruppenForm, showGruppeDelete,  error, loadingInProgress } = this.state;
+        const { showGruppenForm, showGruppeDelete,  error, loadingInProgress, GruppeFilter, filteredGruppe} = this.state;
 
         return(
           <div>
+            <TextField
+              className={classes.filter}
+              type='text'
+              label='Gruppe suchen'
+              value={GruppeFilter}
+              onChange={this.filterFieldValueChange}
+              InputProps={{
+                  endAdornment: <InputAdornment position='end'>
+                  <IconButton onClick={this.clearFilterFieldButtonClicked}>
+                      <ClearIcon fontSize="small"/>
+                  </IconButton>
+                  </InputAdornment>,
+              }}
+               />
             <ListItem className={classes.root}>
                   <Grid container  alignItems="center" spacing={2}>
                     <Grid item>
