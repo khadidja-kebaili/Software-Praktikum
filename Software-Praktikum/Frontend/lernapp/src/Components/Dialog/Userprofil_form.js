@@ -32,9 +32,10 @@ class UserProfil extends Component {
     lernzeitraum: lernz,
     lernort: lerno,
     lernfrequenz: lernf,
-    berufserfahrung: beruf
+    berufserfahrung: beruf,
    };
    this.handleChange = this.handleChange.bind(this);
+   this.baseState = this.state;
   }
   handleChange = (e) =>{
     this.setState({ [e.target.name] : e.target.value });}
@@ -57,13 +58,61 @@ class UserProfil extends Component {
     this.state.berufserfahrung);
    
     LernappAPI.getAPI().addProfil(newProfil).then(console.log(newProfil))
+   
+}
+updateProfil = () => {
+  // clone the original cutomer, in case the backend call fails
+  let updatedProfil = Object.assign(new ProfilBO(), this.props.profil);
+  // set the new attributes from our dialog
+  updatedProfil.setNachname(this.state.name);
+  updatedProfil.setVorname(this.state.vorname);
+  updatedProfil.setAlter(this.state.alter);
+  updatedProfil.setSemester(this.state.semester);
+  updatedProfil.setStudiengang(this.state.studiengang);
+  updatedProfil.setHobbies(this.state.hobbies);
+  updatedProfil.setInteressen(this.state.interessen);
+  updatedProfil.setPersönlichkeit(this.state.persönlichkeit);
+  updatedProfil.setLerntyp(this.state.lerntyp);
+  updatedProfil.setLernzeitraum(this.state.lernzeitraum); 
+  updatedProfil.setLernort(this.state.lernort);
+  updatedProfil.setLernfrequenz(this.state.lernfrequenz);
+ 
+  updatedProfil.setBerufserfahrung(this.state.berufserfahrung);
+  
+  LernappAPI.getAPI().updateProfil(updatedProfil)
+  // .then(profil => {
+  //   // keep the new state as base state
+  //   this.baseState.firstName = this.state.firstName;
+  //   this.baseState.lastName = this.state.lastName;
+  //   this.baseState.name = this.state.name;
+  //   this.baseState.vorname =  this.state.vorname;
+  //   this.baseState.alter =  this.state.alter;
+  //   this.baseState.semester =  this.state.semester ;
+  //   this.baseState.studiengang = this.state.studiengang;
+  //   this.baseState.hobbies = this.state.hobbies;
+  //   this.baseState.interessen =  this.state.interessen;
+  //   this.baseState.persönlichkeit = this.state.persönlichkeit ;
+  //   this.baseState.lerntyp =  this.state.lerntyp;
+  //   this.baseState.lernzeitraum = this.state.lernzeitraum;
+  //   this.baseState.lernort = this.state.lernort;
+  //   this.baseState.lernfrequenz =  this.state.lernfrequenz;
+  //   this.baseState.berufserfahrung = this.state.berufserfahrung;
+  //   this.props.onClose(updatedProfil);      // call the parent with the new customer
+  // });
 }
 
+
   render() { 
+    let header = "";
+    if (this.props.profil){
+      header = "Überarbeite dein Profil!"
+    } else{
+      header = "Erstelle dein Profil und finde deine Lerngruppe!"
+    }
     return ( 
       <div>
       <div className="Überschrift">
-        <h1>Erstelle dein Profil und finde deine Lerngruppe!</h1>
+        <h1>{header}</h1>
       </div>
           <form onSubmit={this.addProfil}>
           <div className="PersProfil"> 
@@ -187,12 +236,25 @@ class UserProfil extends Component {
                 </FormControl>
                 <div className="Berufserfahrung"><TextField name="berufserfahrung" label="Berufserfahrung" variant="outlined"value ={this.state.berufserfahrung} onChange={this.handleChange} /></div>
                </div>
-            <div className="Anmelden"><Button type="submit" variant="contained" color="primary" size="large"> Anmelden</Button></div>
-           </form>
-       </div>
+              </form>
+              <div className="Buttons">
+              {
+              // If a customer is given, show an update button, else an add button
+              this.props.profil ?
+                <Button type="submit" variant="contained" color="primary" size="large" onClick={this.updateProfil} color='primary'>
+                  Update
+              </Button>
+                : <Button type="submit" variant="contained" color="primary" size="large" onClick={this.addProfil} color='primary'>
+                  Add
+             </Button>
+            }  
+            </div> 
+            </div> 
    
       );
   }
 }
 
 export default UserProfil;
+
+
