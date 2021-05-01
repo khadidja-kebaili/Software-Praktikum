@@ -4,6 +4,14 @@ import LernappAPI from "../../API/LernappAPI";
 import Typography from '@material-ui/core/Typography';
 import "./Profil_anzeigen.css"
 import ProfilLöschen from '../Dialog/Profil_löschen';
+import UserProfil from '../Dialog/Userprofil_form';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  Switch
+} from "react-router-dom";
 
 class Profilanzeigen extends Component {
   constructor(props){
@@ -39,6 +47,7 @@ class Profilanzeigen extends Component {
     });
   }
 
+ 
 
 
   render() { 
@@ -54,8 +63,8 @@ class Profilanzeigen extends Component {
          profil ?
             <div>
               <div className="PersProfil">
-                <h2>Persönliches Profil</h2>
-                <h3 className="header">Name: {profil.getNachname()}</h3> 
+                <h2 className="header">Persönliches Profil</h2>
+                <h3 >Name: {profil.getNachname()}</h3> 
                 <h3>Vorname: {profil.getVorname()}</h3>
                 <h3>Alter: {profil.getAlter()}</h3>
                 <h3>Semester: {profil.getSemester()}</h3>
@@ -77,7 +86,16 @@ class Profilanzeigen extends Component {
         }
        </div>
        <div className="Buttons">
-            <div className="Bearbeiten"><Button variant="contained" color="primary" size="large"> Bearbeiten</Button></div>
+       <Router>
+         <Link to="/updateprofil">
+       <div className="Bearbeiten"><Button variant="contained" color="primary" size="large"> Bearbeiten</Button></div>
+        </Link>
+        <Switch>
+        <Route path='/updateprofil'>
+					<UserProfil profil={profil}/>
+			  </Route>
+        </Switch>
+        </Router>
             <div className="KontoLöschen"><Button variant="contained" color="primary" size="large" onClick={this.deleteButtonClicked}> Profil Löschen</Button></div>
       </div>
       <ProfilLöschen show={this.state.showProfilLöschen} profil={profil} onClose={this.closeDeleteDialog}/>
