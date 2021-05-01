@@ -101,8 +101,8 @@ export default class ProfilBO extends BusinessObject {
     return this.lerntyp;
   }
 
-  setLernzeitraum(anachname) {
-    this.nachname = anachname;
+  setLernzeitraum(alernzeitraum) {
+    this.lernzeitraum = alernzeitraum;
   }
 
  
