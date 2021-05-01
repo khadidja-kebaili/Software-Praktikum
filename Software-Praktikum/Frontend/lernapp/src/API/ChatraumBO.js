@@ -7,11 +7,13 @@ export default class ChatraumBO extends BusinessObject {
         Members = [];
     }
 
+    //fügt die Nachrichts in den Verlauf des Raumes hinzu, damit sie später aus der Datenbank chronologisch geholt werden kann
     addMessage(message){
         this.ChatHistory.push(message);
         message.setChatcounter(this.ChatHistory.indexOf(message));
     }
 
+    //Mitglied in den Chat hinzufügen
     addMember(member){
         this.Members.push(member);
     }
