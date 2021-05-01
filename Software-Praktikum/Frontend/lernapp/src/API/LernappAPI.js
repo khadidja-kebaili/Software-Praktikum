@@ -16,6 +16,7 @@ export default class LernappAPI {
   #addProfilURL = () => `${this.#lernappServerBaseURL}/profil`;
   #getProfilURL = (id) => `${this.#lernappServerBaseURL}/profil/${id}`;
   #deleteProfilURL = (id) =>`${this.#lernappServerBaseURL}/profil/${id}`;
+  #updateProfilURL = (id) => `${this.#lernappServerBaseURL}profil/${id}`;
 
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
@@ -44,6 +45,24 @@ export default class LernappAPI {
     })
   }
 
+  updateProfil(profilBO) {
+    return this.#fetchAdvanced(this.#updateProfilURL(profilBO.getID()), {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(profilBO)
+     
+    }).then((responseJSON) => { 
+      // We always get an array of CustomerBOs.fromJSON
+      let responseProfilBO = ProfilBO.fromJSON(responseJSON)[0];
+      // console.info(accountBOs);
+      return new Promise(function (resolve) {
+        resolve(responseProfilBO);
+      })
+    })
+  }
 
   getProfil(profilID) {
     return this.#fetchAdvanced(this.#getProfilURL(profilID)).then((responseJSON) => {
