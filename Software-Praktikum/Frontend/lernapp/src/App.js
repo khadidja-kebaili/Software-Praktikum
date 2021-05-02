@@ -97,6 +97,8 @@ import Navigation from './Navigation';
 import {BrowserRouter as Router,
     Switch, Route, Link } from "react-router-dom";
 import {makeStyles} from "@material-ui/styles";
+import MatchForm from "./Components/Dialog/MatchForm"
+
 
 const useStyle = makeStyles ({});
 
@@ -116,6 +118,7 @@ function App(){
         <Route exact path="/gruppen" render={props => <Gruppen{...props}/>}/>
       </Switch>
       </Router>
+      
     </div>
   );
 }
