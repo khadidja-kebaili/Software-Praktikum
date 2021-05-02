@@ -1,12 +1,12 @@
 import './App.css';
 import React from 'react';
-import './Components/Pages/Chatraum.js'
+import Chatroom from './Components/Pages/Chatroom.js'
 
 
 export default function App(){
     return(
         <div>
-            <Chatraum/>
+            <Chatroom/>
         </div>
     )
 }
