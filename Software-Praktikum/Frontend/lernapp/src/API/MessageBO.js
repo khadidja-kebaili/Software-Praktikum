@@ -1,5 +1,13 @@
 import BusinessObject from './Businessobject';
 
+/**
+ * Die einzelnen Nachrichten als BO
+ * Die gegebenen Variablen
+ *  senderID - entspricht der ProfilID des Nachrichtensenders, wird später genutzt um die Nachrichten entsprechend des Nutzers
+ *             zu rendern (eigene Nachricht: rechtbündig, andere Nachricht: linksbündig)
+ *  raum - entspricht der RaumID des ChatraumBO
+ *  text - enthält die Nachricht des MessageBO, entnommen aus der Textfeldeingabe im Chatfenster
+ */
 export default class MessageBO extends BusinessObject {
     constructor(senderID, raum, text){
         this.senderID = senderID;
