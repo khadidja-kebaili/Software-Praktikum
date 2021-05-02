@@ -17,7 +17,7 @@ class Studentprofil (BusinessObject):
         self.lernfrequenz = "",
         self.berufserfahrung = "",
         self.email = "",
-        self.password = ""
+        self.passwort = ""
 
     def set_name(self, value):
         self.name = value
@@ -109,17 +109,17 @@ class Studentprofil (BusinessObject):
         """Setzen der E-Mail-Adresse."""
         self.email = value
 
-    def set_password(self,value):
-        self.password = value
+    def set_passwort(self,value):
+        self.passwort = value
 
-    def get_password(self):
-        return self.password
+    def get_passwort(self):
+        return self.passwort
 
 
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_id(), self.email, self.password, self.get_name(), self.get_vorname(), self.get_alter(), self.get_semester(), self.get_studiengang(), self.get_hobbies(), self.get_interessen(), self.get_persönlichkeit(), self.get_lernort(), self.get_lernzeitraum(), self.get_lernfrequenz(), self.get_lerntyp(), self.get_berufserfahrung())
+        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_id(), self.email, self.passwort, self.get_name(), self.get_vorname(), self.get_alter(), self.get_semester(), self.get_studiengang(), self.get_hobbies(), self.get_interessen(), self.get_persönlichkeit(), self.get_lernort(), self.get_lernzeitraum(), self.get_lernfrequenz(), self.get_lerntyp(), self.get_berufserfahrung())
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -139,6 +139,6 @@ class Studentprofil (BusinessObject):
         obj.set_lernort(dictionary["lernort"])
         obj.set_lernfrequenz(dictionary["lernfrequenz"])
         obj.set_berufserfahrung(dictionary["berufserfahrung"])
-        obj.set_password(dictionary["password"])
+        obj.set_passwort(dictionary["passwort"])
         obj.set_email(dictionary["email"])
         return obj
