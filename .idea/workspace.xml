@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp" />
+    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp">
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Dialog/MatchesForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Dialog/MatchesForm.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,6 +61,7 @@
       <updated>1618420503629</updated>
       <workItem from="1618420504785" duration="1229000" />
       <workItem from="1618933857813" duration="12000" />
+      <workItem from="1619949083464" duration="43000" />
     </task>
     <task id="LOCAL-00001" summary="npm create-creact app lernapp">
       <created>1618421028412</created>

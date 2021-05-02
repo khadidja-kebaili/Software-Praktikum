@@ -10,7 +10,8 @@ export default class LernappAPI {
     }
     return this.#api;
   }
-  #lernappServerBaseURL = 'http://127.0.0.1:5000/';
+  // #lernappServerBaseURL = 'http://127.0.0.1:5000/';
+  #lernappServerBaseURL = './Frontend/http-fake-backend-master/response-file/matches/matches.json'
   
 
   #addProfilURL = () => `${this.#lernappServerBaseURL}/profil`;
@@ -32,6 +33,7 @@ export default class LernappAPI {
       headers: {
         'Accept': 'application/json, text/plain',
         'Content-type': 'application/json',
+
       },
       body: JSON.stringify(profilBO)
     }).then((responseJSON) => {
