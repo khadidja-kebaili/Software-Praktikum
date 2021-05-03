@@ -6,7 +6,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
 
-class GruppeDelete extends Component {
+class GroupDelete extends Component {
 
   constructor(props) {
     super(props);
@@ -19,10 +19,10 @@ class GruppeDelete extends Component {
   }
 
 // API Anbindung um die Gruppe über das Backend aus der Datenbank zu löschen
-deleteGruppe = () => {
-    ElectivAPI.getAPI().deleteGruppe(this.state.Gruppe.id)
+deleteGroup = () => {
+    ElectivAPI.getAPI().deleteGroup(this.state.Group.id)
       .then(() => {
-        this.props.getGruppe();
+        this.props.getGroup();
         this.props.onClose(null);
       }).catch(e => {
         this.setState({
@@ -33,7 +33,7 @@ deleteGruppe = () => {
   // Die Komponente wird gerendert 
   render() 
     const { show } = this.props;
-    const { Gruppe } = this.state;
+    const { Group } = this.state;
     return (
       <div>
         <Dialog
@@ -44,14 +44,14 @@ deleteGruppe = () => {
           <DialogTitle>{"Sind Sie sich sicher?"}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Wenn Sie diese Gruppe <b>"{Gruppe.name}"</b> löschen möchten, klicken Sie auf "JA".
+              Wenn Sie diese Gruppe <b>"{Group.name}"</b> löschen möchten, klicken Sie auf "JA".
                   </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Abbrechen
                   </Button>
-            <Button onClick={this.deleteGruppe} color="primary" autoFocus>
+            <Button onClick={this.deleteGroup} color="primary" autoFocus>
               Ja
                   </Button>
           </DialogActions>
@@ -67,11 +67,11 @@ deleteGruppe = () => {
 
 }
 // PropTypes 
-GruppeDelete.propTypes = {
+GroupDelete.propTypes = {
   
   classes: PropTypes.object.isRequired,
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 }
 
-export default withStyles(styles)(GruppeDelete);
+export default withStyles(styles)(GroupDelete);
