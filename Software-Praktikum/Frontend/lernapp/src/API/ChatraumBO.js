@@ -10,17 +10,29 @@ import BusinessObject from './Businessobject';
  *  members - User welche Zugriff haben auf dieses ChatroomBO
  */
 export default class ChatraumBO extends BusinessObject {
-    constructor(){
-        roomID;
-        chatHistory = [];
-        members = [];
+    
+    ChatroomBO(){
+        this.roomID = set_roomID();
+        this.chatHistory = [];
+
+        if(get_gruppenmitglieder != NONE){
+            this.members = get_gruppenmitglieder;
+        }
+        else{
+            //ProfilID von dem aktuellen User und dem Match werden gespeichert
+            this.members = [get_profilID, get_MatchID];
+        }
+    }
+
+    set_roomID(){
+        //Größte RaumID wird gesucht und die nächstgrößte wird gewählt
     }
 
     //fügt die Nachrichts in den Verlauf des Raumes hinzu, damit sie später aus der Datenbank chronologisch geholt werden kann
     //vielleicht ist die Speicherung in einer JSON besser?
     addMessage(message){
         this.ChatHistory.push(message);
-        message.setChatcounter(this.ChatHistory.indexOf(message));
+        message.set_chatroomCounter(this.ChatHistory.indexOf(message));
     }
 
     //Mitglied in den Chat hinzufügen

@@ -5,14 +5,19 @@ import BusinessObject from './Businessobject';
  * Die gegebenen Variablen
  *  senderID - entspricht der ProfilID des Nachrichtensenders, wird später genutzt um die Nachrichten entsprechend des Nutzers
  *             zu rendern (eigene Nachricht: rechtbündig, andere Nachricht: linksbündig)
- *  raum - entspricht der RaumID des ChatraumBO
+ *  room - entspricht der RaumID des ChatraumBO
  *  text - enthält die Nachricht des MessageBO, entnommen aus der Textfeldeingabe im Chatfenster
  */
 export default class MessageBO extends BusinessObject {
-    constructor(senderID, raum, text){
+    constructor(senderID, room, text){
         this.senderID = senderID;
-        this.raum = raum;
+        this.room = room;
         this.text = text;
+        this.chatroomCounter = 0;
+    }
+
+    set_chatroomCounter(counter){
+        this.chatroomCounter = counter;
     }
 
     getSenderID(){
@@ -20,7 +25,7 @@ export default class MessageBO extends BusinessObject {
     }
 
     getRaum(){
-        return this.raum;
+        return this.room;
     }
 
     getText(){

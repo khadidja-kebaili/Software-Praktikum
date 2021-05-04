@@ -7,10 +7,10 @@ class Chatroom extends Component{
     render(){
         return(
             <div>
-                <div className="texteingabe">
+                <div className="input">
                     <TextField/>
                 </div>
-                <div className="senden">
+                <div className="send">
                     <Button onClick={this.sendMessage}>Senden</Button>
                 </div>
             </div>
