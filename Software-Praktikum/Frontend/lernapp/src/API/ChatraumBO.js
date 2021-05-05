@@ -24,6 +24,14 @@ export default class ChatraumBO extends BusinessObject {
         }
     }
 
+    get_roomID(){
+        return this.roomID;
+    }
+
+    set_chatHistory(array){
+        this.chatHistory = array;
+    }
+
     set_roomID(){
         //Größte RaumID wird gesucht und die nächstgrößte wird gewählt
     }
@@ -40,6 +48,25 @@ export default class ChatraumBO extends BusinessObject {
         this.Members.push(member);
     }
 
+    /**
+     * Pseudocode
+     * alle Nachrichten mit der gleichen ChatroomID werden in ein Array gestellt -> sortieren nach ChatroomCounter
+     */
+    sort_Messages(){
+        erg = [];
+        ret = []
+        for (i; i<= maxChatroomID; i++){
+            if(i == get_roomID){
+                erg.push (elem);
+            }
+            elem.sort();
+            a = ChatroomBO();
+            a.ChatHistory = erg;
+            a.maxChatroomID = i;
+            ret.push(a);
+        }
+        return ret;
+    }
 
     static fromJSON(message){
     }
