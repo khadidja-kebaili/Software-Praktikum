@@ -1,5 +1,5 @@
-from matchmaker.server.db.Mapper import Mapper
-from matchmaker.server.BO.Profil import Studentprofil
+from matchmaker_Prototype.server.db.Mapper import Mapper
+from matchmaker_Prototype.server.BO.Profil import Studentprofil
 
 
 class StudentprofilMapper (Mapper):

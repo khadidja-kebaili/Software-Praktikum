@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restx import Resource, Api, fields
-from matchmaker.server.Test_Admin import Businesslogik
-from matchmaker.server.BO.Profil import Studentprofil
+from matchmaker_Prototype.server.Test_Admin import Businesslogik
+from matchmaker_Prototype.server.BO.Profil import Studentprofil
 from flask_cors import CORS
 
 app = Flask(__name__)

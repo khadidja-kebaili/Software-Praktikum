@@ -1,6 +1,6 @@
-from matchmaker.server.BO.Profil import Studentprofil
+from matchmaker_Prototype.server.BO.Profil import Studentprofil
 
-from matchmaker.server.db.ProfileMapper import StudentprofilMapper
+from matchmaker_Prototype.server.db.ProfileMapper import StudentprofilMapper
 
 
 class Businesslogik (object):
@@ -42,3 +42,21 @@ class Businesslogik (object):
     def delete_profil(self, studentprofil):
         with StudentprofilMapper() as mapper:
             mapper.delete(studentprofil)
+
+    fragende = []
+    gefragte = []
+
+    def get_matches(self):
+        for element in self.fragende:
+            element.match(self.gefragte)
+        return self.fragende
+
+    def get_matches_of_id(self, id):
+        for element in self.fragende:
+            if int(element.id[0]) == id:
+                element.match(self.gefragte)
+        return self.fragende
+
+    def return_self_fragende(self):
+        for match in self.fragende:
+            print(match)
