@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import ClearIcon from '@material-ui/icons/Clear'
+import ClearIcon from '@material-ui/icons/Clear';
 import { withRouter } from 'react-router-dom';
-import {LernappAPI} from '../API/LernappAPI';
-import Error_Message from './Dialog/Error_Message';
-import Ladevorgang from './Dialog/Ladevorgang';
-import MatchForm from './Dialog/MatchForm';
+import {LernappAPI} from '../../API/LernappAPI';
+import Error_Message from '../Dialog/Error_Message';
+import Ladevorgang from '../Dialog/Ladevorgang';
+import MatchForm from '../Dialog/MatchForm';
 import MatchListEntry from './MatchListEntry';
 
 class MatchList extends Component {
