@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import LernappAPI from "../../API/LernappAPI";
 import Typography from '@material-ui/core/Typography';
-import "./Profil_anzeigen.css"
-import ProfilLöschen from '../Dialog/Profil_löschen';
-import UserProfil from '../Dialog/Userprofil_form';
+import "./ProfileOperations.css"
+import DeleteProfile from '../Dialog/DeleteProfile';
+import UserProfile from '../Dialog/UserprofileForm';
 import {
   BrowserRouter as Router,
   Route,
@@ -13,13 +13,13 @@ import {
   Switch
 } from "react-router-dom";
 
-class Profilanzeigen extends Component {
+class ProfileOperations extends Component {
   constructor(props){
   super(props);
   
   this.state = { 
     profil: null,
-    showProfilLöschen: false,
+    showDeleteProfile: false,
    };
   }
   componentDidMount() {
@@ -37,13 +37,13 @@ class Profilanzeigen extends Component {
   deleteButtonClicked = (event) => {
     event.stopPropagation();
     this.setState({
-      showProfilLöschen: true
+      showDeleteProfile: true
     });
   }
 
   closeDeleteDialog = () => {
       this.setState({
-      showProfilLöschen: false
+      showDeleteProfile: false
     });
   }
 
@@ -92,17 +92,17 @@ class Profilanzeigen extends Component {
         </Link>
         <Switch>
         <Route path='/updateprofil'>
-					<UserProfil profil={profil}/>
+					<UserProfile profil={profil}/>
 			  </Route>
         </Switch>
         </Router>
             <div className="KontoLöschen"><Button variant="contained" color="primary" size="large" onClick={this.deleteButtonClicked}> Profil Löschen</Button></div>
       </div>
-      <ProfilLöschen show={this.state.showProfilLöschen} profil={profil} onClose={this.closeDeleteDialog}/>
+      <DeleteProfile show={this.state.showDeleteProfile} profil={profil} onClose={this.closeDeleteDialog}/>
       </div>
    
       );
   }
 }
 
-export default Profilanzeigen;
+export default ProfileOperations;

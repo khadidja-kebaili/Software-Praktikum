@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 
-class ProfilLöschen extends Component {
+class DeleteProfile extends Component {
 
   constructor(props) {
     super(props);
@@ -54,4 +54,4 @@ class ProfilLöschen extends Component {
 }
 
 
-export default ProfilLöschen;
+export default DeleteProfile;

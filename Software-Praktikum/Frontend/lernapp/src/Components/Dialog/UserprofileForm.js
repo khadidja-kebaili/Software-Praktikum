@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import "./Userprofil_form.css"
+import "./UserprofileForm.css"
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -13,7 +13,7 @@ import { FormControl } from '@material-ui/core';
 import ProfilBO from "../../API/ProfilBO";
 import LernappAPI from "../../API/LernappAPI"
 
-class UserProfil extends Component {
+class UserProfile extends Component {
   constructor(props){
   super(props);
   let vn = '', nn = '', alt='', sem='', stud='', hob='', int = '',
@@ -239,7 +239,6 @@ updateProfil = () => {
               </form>
               <div className="Buttons">
               {
-              // If a customer is given, show an update button, else an add button
               this.props.profil ?
                 <Button type="submit" variant="contained" color="primary" size="large" onClick={this.updateProfil} color='primary'>
                   Update
@@ -255,6 +254,6 @@ updateProfil = () => {
   }
 }
 
-export default UserProfil;
+export default UserProfile;
 
 
