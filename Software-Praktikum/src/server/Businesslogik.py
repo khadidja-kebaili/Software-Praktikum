@@ -1,11 +1,25 @@
 from .bo.ProfilBO import Studentprofil
+from .bo.UserBO import User
 from .db.Profilmapper import StudentprofilMapper
+from .db.UserMapper import UserMapper
 
 
 class Businesslogik (object):
 
     def __init__(self):
         pass
+
+    def create_user(self, name, user_id, email):
+        user = User()
+        user.set_name(name)
+        user.set_user_id(user_id)
+        user.set_email(email)
+        with UserMapper() as mapper:
+            return mapper.insert(user)
+
+    def get_user_by_google_user_id(self, id):
+        with UserMapper() as mapper:
+            return mapper.find_by_google_user_id(id)
 
     def create_profil(self, name, vorname, alter, semester, studiengang, hobbies, interessen,
                       persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung):
@@ -31,6 +45,10 @@ class Businesslogik (object):
 
         with StudentprofilMapper() as mapper:
             return mapper.find_by_key(number)
+
+    def get_all_profile(self):
+        with StudentprofilMapper() as mapper:
+            return mapper.find_all()
 
     def save_profil(self, studentprofil):
         with StudentprofilMapper() as mapper:
