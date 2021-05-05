@@ -3,6 +3,7 @@ from flask_restx import Resource, Api, fields
 from server.Businesslogik import Businesslogik
 from server.bo.ProfilBO import Studentprofil
 from flask_cors import CORS
+from SecurityDecorator import secured
 
 
 app = Flask(__name__)
@@ -15,6 +16,11 @@ bo = api.model('BusinessObject', {
     'id': fields.Integer(attribute='id', description='Der Unique Identifier eines Business Object'),
 })
 
+user = api.inherit('User', bo, {
+    'name': fields.String(attribute='_name', description='Name eines Benutzers'),
+    'email': fields.String(attribute='_email', description='E-Mail-Adresse eines Benutzers'),
+    'user_id': fields.String(attribute='_user_id', description='Google User ID eines Benutzers')
+})
 profil = api.inherit('Profil', bo, {
     'name': fields.String(attribute='name', description='name'),
     'vorname': fields.String(attribute='vorname', description='vorname'),
@@ -40,7 +46,6 @@ class Profilerstellen(Resource):
         adm = Businesslogik()
         proposal = Studentprofil.from_dict(api.payload)
         # //Notiz Daten von Frontend werden in proposal gespeichert
-
         if proposal is not None:
 
             p = adm.create_profil(
@@ -55,6 +60,12 @@ class Profilerstellen(Resource):
             )
             return p
 
+    @api.marshal_list_with(profil)
+    def get(self):
+        adm = Businesslogik()
+        profil = adm.get_all_profile()
+        return profil
+
 
 @api.route('/profil/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
@@ -65,6 +76,7 @@ class Profilanzeigen (Resource):
         userprofil = adm.get_profil_by_id(id)
         return userprofil
 
+    @api.marshal_with(profil)
     def delete(self, id):
 
         adm = Businesslogik()
