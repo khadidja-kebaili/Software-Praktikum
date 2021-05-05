@@ -38,6 +38,37 @@ class StudentprofilMapper (Mapper):
 
         return studentprofil
 
+    def find_all(self):
+
+        result = []
+        cursor = self._cnx.cursor()
+        cursor.execute(
+            "SELECT id, name, vorname, age, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung from profil")
+        tuples = cursor.fetchall()
+
+        for (id, name, vorname, alter, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung) in tuples:
+            profil = Studentprofil()
+            profil.set_id(id)
+            profil.set_name(name)
+            profil.set_vorname(vorname)
+            profil.set_alter(alter)
+            profil.set_semester(semester)
+            profil.set_studiengang(studiengang)
+            profil.set_hobbies(hobbies)
+            profil.set_interessen(interessen)
+            profil.set_persönlichkeit(persönlichkeit)
+            profil.set_lerntyp(lerntyp)
+            profil.set_lernzeitraum(lernzeitraum)
+            profil.set_lernort(lernort),
+            profil.set_lernfrequenz(lernfrequenz)
+            profil.set_berufserfahrung(berufserfahrung)
+            result.append(profil)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
     def find_by_key(self, key):
         result = None
 
