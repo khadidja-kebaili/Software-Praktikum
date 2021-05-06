@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import LernappAPI from "../../API/LernappAPI";
-import Typography from '@material-ui/core/Typography';
 import "./ProfileOperations.css"
 import DeleteProfile from '../Dialog/DeleteProfile';
 import UserProfile from '../Dialog/UserprofileForm';
@@ -27,7 +26,7 @@ class ProfileOperations extends Component {
   }
 
   getProfil = () => {
-    let data = 1;
+    let data = 7;
     LernappAPI.getAPI().getProfil(data).then(profil =>
       this.setState({
         profil: profil,
@@ -57,7 +56,6 @@ class ProfileOperations extends Component {
       <div className="Profil">
       <div className="Überschrift">
         <h1>Profil</h1>
-       
       </div> 
       {
          profil ?
@@ -84,6 +82,10 @@ class ProfileOperations extends Component {
             </div>
             : null
         }
+        <div className="DeleteButton">
+          <div className="KontoLöschen"><Button variant="contained" color="primary" size="large" onClick={this.deleteButtonClicked}> Profil Löschen</Button></div>
+        <DeleteProfile show={this.state.showDeleteProfile} profil={profil} onClose={this.closeDeleteDialog}/>
+        </div>
        </div>
        <div className="Buttons">
        <Router>
@@ -96,9 +98,9 @@ class ProfileOperations extends Component {
 			  </Route>
         </Switch>
         </Router>
-            <div className="KontoLöschen"><Button variant="contained" color="primary" size="large" onClick={this.deleteButtonClicked}> Profil Löschen</Button></div>
+            
       </div>
-      <DeleteProfile show={this.state.showDeleteProfile} profil={profil} onClose={this.closeDeleteDialog}/>
+      
       </div>
    
       );
