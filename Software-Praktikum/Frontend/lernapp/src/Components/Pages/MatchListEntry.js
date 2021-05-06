@@ -4,8 +4,8 @@ import { withStyles, Typography, Accordion, AccordionSummary, AccordionDetails, 
 import { Button, ButtonGroup } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MatchForm from '../Dialog/MatchForm';
-import Ladevorgang from '../Dialog/Ladevorgang';
-import MatchesDeleteDialog from '../Dialog/MatchesDeleteDialog';
+
+// import MatchesDeleteDialog from '../Dialog/MatchesDeleteDialog';
 // AccountList wird hier verlangt, aber noch nicht verstanden wieso?
 
 //Rendert ein CustomerBO-Objekt in einem erweiterbaren / 
@@ -50,18 +50,18 @@ class MatchListEntry extends Component{
             });
         }
     }
-    //Behandelt den onClose-Event für MatchesDeleteDialog
-    deleteMatchesDialogClosed = (matches) => {
-        //Wenn Matches is not null, dann wird es gelöscht
-        if (matches){
-            this.props.onMatchesDeleted(matches);
-        };
+    // //Behandelt den onClose-Event für MatchesDeleteDialog
+    // deleteMatchesDialogClosed = (matches) => {
+    //     //Wenn Matches is not null, dann wird es gelöscht
+    //     if (matches){
+    //         this.props.onMatchesDeleted(matches);
+    //     };
 
-        //Zeigt nicht den Dialog
-        this.setState({
-            showMatchesDeleteDialog: false
-        });
-    }
+    //     //Zeigt nicht den Dialog
+    //     this.setState({
+    //         showMatchesDeleteDialog: false
+    //     });
+    // }
     //Rendert die Komponente
     render() {
         const { classes, expandedState } = this.props;
@@ -90,7 +90,7 @@ class MatchListEntry extends Component{
                             <Grid item xs/>
                      </AccordionSummary>
                     <MatchForm show={showMatchesForm} matches={matches} onClose={this.matchesFormClosed}/>
-                    <MatchesDeleteDialog show={showMatchesDeleteDialog} matches={matches} onClose={this.deleteMatchesDialogClosed}/>
+                    {/* <MatchesDeleteDialog show={showMatchesDeleteDialog} matches={matches} onClose={this.deleteMatchesDialogClosed}/> */}
                 </Accordion>
             </div>
         );

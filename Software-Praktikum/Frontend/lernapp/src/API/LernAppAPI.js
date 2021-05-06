@@ -11,7 +11,7 @@ export default class LernappAPI {
     return this.#api;
   }
   // #lernappServerBaseURL = 'http://127.0.0.1:5000/';
-  #lernappServerBaseURL = './Frontend/http-fake-backend-master/response-file/matches/matches.json'
+  #lernappServerBaseURL = './Frontend/http-fake-backend/response-file/matches/matches.json'
   
 
   #addProfilURL = () => `${this.#lernappServerBaseURL}/profil`;
