@@ -18,6 +18,22 @@ class UserProfile extends Component {
   super(props);
   let vn = '', nn = '', alt='', sem='', stud='', hob='', int = '',
       pers='', lernt='', lernz='', lerno='', lernf = '', beruf='';
+    
+  if (props.profil){
+    nn = props.profil.getNachname();
+    vn = props.profil.getVorname();
+    alt = props.profil.getAlter();
+    sem = props.profil.getSemester();
+    stud = props.profil.getStudiengang();
+    hob = props.profil.getHobbies();
+    int = props.profil.getInteressen();
+    pers = props.profil.getPersönlichkeit();
+    lernt = props.profil.getLerntyp();
+    lernz = props.profil.getLernzeitraum();
+    lerno = props.profil.getLernort();
+    lernf = props.profil.getLernfrequenz();
+    beruf = props.profil.getBerufserfahrung();
+  }
 
   this.state = { 
     name: nn,
