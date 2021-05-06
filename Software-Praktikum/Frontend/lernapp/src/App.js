@@ -1,126 +1,66 @@
-// import React from 'react';
-// import './App.css';
-// import { makeStyles}  from "@material-ui/core/styles";
+// import React from "react";
+// import "./App.css";
+// import Matchmaker from "./Matchmaker";
+// import Profil from "./Profil";
+// import Chats from "./Chats";
+// import Gruppen from "./Gruppen";
+// import Navigation from './Navigation';
 // import {BrowserRouter as Router,
-//   Switch, Route, Link } from "react-router-dom";
-// import 
-// {Drawer, List, ListItem, 
-//   ListItemIcon, ListItemText,
-//   Container, Typography} 
-//   from '@material-ui/core';
-// import PersonIcon from '@material-ui/icons/Person';
-// import ChatIcon from '@material-ui/icons/Chat';
-// import GroupWorkIcon from '@material-ui/icons/GroupWork';
+//     Switch, Route, Link } from "react-router-dom";
+// import {makeStyles} from "@material-ui/styles";
+// import MatchForm from "./Components/Dialog/MatchForm"
 
 
-// const matchmakerStyle = makeStyles ((theme) => ({
-//   drawerPaper:{width:'inherit'},
-//   link: {textDecoration: 'none', 
-//   // Durch theme.palette.text.primary konnte der Link wieder ohne Unterstrich->blau angezeigt werden
-//   color: theme.palette.text.primary }
-// }))
+// const useStyle = makeStyles ({});
 
 // function App(){
-//   const classes = matchmakerStyle();
+//   const classes = useStyle();
 //   return (
-//     <div>
-//       <h1>
-//         Hello
-//       </h1> 
+//     <div className={classes.container}>
+      
+//       <Navigation/>
+      
+//       {/* Dadurch werden in den neuen Tabs die Inhalte angezeigt */}
 //       <Router>
-//       <div style={{display: 'flex'}}>
-//         <Drawer
-//         style={{width:'240px'}}
-//         varian="persistent"
-//         anchor="left"
-//         open={true}
-//         classes={{paper: classes.drawerPaper}}
-//         >
-//         {/* Hier wird jetzt ein Link erstellt, damit auf dem Router der Pfad steht */}
-//           <List>
-//           <Link to="/profil" className={classes.link} >
-//             <ListItem button>
-//               <ListItemIcon>
-//                 <PersonIcon/>
-//               </ListItemIcon>
-//               <ListItemText primary={"Profil"}/>
-//             </ListItem>       
-//           </Link>
-//           <Link to="/chats" className={classes.link} >
-//             <ListItem button>
-//               <ListItemIcon>
-//                 <ChatIcon/>
-//               </ListItemIcon>
-//               <ListItemText primary={"Chats"}/>
-//             </ListItem>       
-//           </Link>
-//           <Link to="/matchmaker" className={classes.link} >
-//             <ListItem button>
-//               <ListItemIcon>
-//                 <GroupWorkIcon/>
-//               </ListItemIcon>
-//               <ListItemText primary={"Matchmaker"}/>
-//             </ListItem>       
-//           </Link>
-//           </List>
-//           </Drawer>
-//           <Switch>
-//             <Route exact path="/profil">
-//             <Container>
-//               <Typography variant="h3" gutterBottum>
-//                 Profil
-//               </Typography>
-//             </Container>
-//             </Route>
-//             <Route exact path="/chats">
-//               Chats
-//             </Route>
-//             <Route exact path="/matchmaker">
-//               Matchmaker
-//             </Route>
-//           </Switch>
-//       </div>
+//       <Switch>
+//         <Route exact from="/matchmaker" render={props => <Matchmaker{...props}/>}/>
+//         <Route exact path="/profil" render={props => <Profil{...props}/>}/>
+//         <Route exact path="/chats" render={props => <Chats{...props}/>}/>
+//         <Route exact path="/gruppen" render={props => <Gruppen{...props}/>}/>
+//       </Switch>
 //       </Router>
+      
 //     </div>
 //   );
 // }
 
 // export default App;
 
-import React from "react";
-import "./App.css";
-import Matchmaker from "./Matchmaker";
-import Profil from "./Profil";
-import Chats from "./Chats";
-import Gruppen from "./Gruppen";
-import Navigation from './Navigation';
-import {BrowserRouter as Router,
-    Switch, Route, Link } from "react-router-dom";
-import {makeStyles} from "@material-ui/styles";
-import MatchForm from "./Components/Dialog/MatchForm"
+import React from 'react';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import Navigation from '../src/Navigation';
+import MatchList from '../src/Components/Pages/MatchList';
+import Theme from './Components/Layout/Theme';
+import Ladevorgang from './Components/Dialog/Ladevorgang';
+import Error_Message from './Components/Dialog/Error_Message';
+import PythonLernappBeispielConfig from '../../http-fake-backend/server/api/PythonLernappBeispiel-config';
 
+class App extends React.Component {
+  
+  constructor(props){
+    super(props);
 
-const useStyle = makeStyles ({});
-
-function App(){
-  const classes = useStyle();
-  return (
-    <div className={classes.container}>
-      
-      <Navigation/>
-      
-      {/* Dadurch werden in den neuen Tabs die Inhalte angezeigt */}
-      <Router>
-      <Switch>
-        <Route exact from="/matchmaker" render={props => <Matchmaker{...props}/>}/>
-        <Route exact path="/profil" render={props => <Profil{...props}/>}/>
-        <Route exact path="/chats" render={props => <Chats{...props}/>}/>
-        <Route exact path="/gruppen" render={props => <Gruppen{...props}/>}/>
-      </Switch>
-      </Router>
-      
-    </div>
-  );
+    //INIT leer
+    this.state ={
+      currrentUser:null,
+      appError: null,
+      authError: null,
+      authLoading: false
+    };
+  }
+  
 }
 
-export default App;
