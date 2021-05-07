@@ -3,52 +3,52 @@ import BusinessObject from "./Businessobject.js";
 
 export default class ProfilBO extends BusinessObject {
 
-  constructor(avorname, aname, aalter, asemester, astudiengang, ahobbies, ainteressen, apersönlichkeit, alerntyp, alernzeitraum, alernort, alernfrequenz, aberufserfahrung ) {
+  constructor(aFirstname, aLastname, aAge, aSemester, aMajor, aHobbys, aInterests, aPersonality, aLearnstyle, aStudytime, aStudyplace, aStudyfrequence, aWorkexperience ) {
     super();
-    this.name = aname;
-    this.vorname = avorname;
-    this.alter =  aalter;
-    this.semester = asemester;
-    this.studiengang = astudiengang;
-    this.hobbies = ahobbies;
-    this.interessen = ainteressen;
-    this.persönlichkeit = apersönlichkeit;
-    this.lerntyp = alerntyp;
-    this.lernzeitraum = alernzeitraum;
-    this.lernort = alernort;
-    this.lernfrequenz = alernfrequenz;
-    this.berufserfahrung = aberufserfahrung
+    this.last_name = aLastname;
+    this.first_name = aFirstname;
+    this.age =  aAge;
+    this.semester = aSemester;
+    this.major = aMajor;
+    this.hobbys = aHobbys;
+    this.interests = aInterests;
+    this.personality = aPersonality;
+    this.learnstyle = aLearnstyle;
+    this.studytime = aStudytime;
+    this.studyplace = aStudyplace;
+    this.studyfrequence = aStudyfrequence;
+    this.workexperience = aWorkexperience
   }
 
  
-  setVorname(avorname) {
-    this.vorname = avorname;
+  setFirstname(aFirstname) {
+    this.first_name = aFirstname;
   }
 
 
-  getVorname() {
-    return this.vorname;
+  getFirstname() {
+    return this.first_name;
   }
 
-  setNachname(aname) {
-    this.name = aname;
+  setLastname(aLastname) {
+    this.last_name = aLastname;
   }
 
  
-  getNachname() {
-    return this.name;
+  getLastname() {
+    return this.last_name;
   }
 
-  setAlter(aalter) {
-    this.alter = aalter;
+  setAge(aAge) {
+    this.age = aAge;
   }
 
-  getAlter() {
-    return this.alter;
+  getAge() {
+    return this.age;
   }
 
-  setSemester(asemester) {
-    this.semester = asemester;
+  setSemester(aSemester) {
+    this.semester = aSemester;
   }
 
  
@@ -56,101 +56,101 @@ export default class ProfilBO extends BusinessObject {
     return this.semester;
   }
 
-  setStudiengang(astudiengang) {
-    this.studiengang = astudiengang;
+  setMajor(aMajor) {
+    this.major = aMajor;
   }
 
  
-  getStudiengang() {
-    return this.studiengang;
+  getMajor() {
+    return this.major;
   }
 
-  setHobbies(ahobbies) {
-    this.hobbies = ahobbies;
-  }
-
- 
-  getHobbies() {
-    return this.hobbies;
-  }
-
-  setInteressen(ainteressen) {
-    this.interessen = ainteressen;
+  setHobbys(aHobbys) {
+    this.hobbys = aHobbys;
   }
 
  
-  getInteressen() {
-    return this.interessen;
+  getHobbys() {
+    return this.hobbys;
   }
 
-  setPersönlichkeit(apersönlichkeit) {
-    this.persönlichkeit = apersönlichkeit;
-  }
-
- 
-  getPersönlichkeit() {
-    return this.persönlichkeit;
-  }
-
-  setLerntyp(alerntyp) {
-    this.lerntyp = alerntyp;
+  setInterests(aInterests) {
+    this.interests = aInterests;
   }
 
  
-  getLerntyp() {
-    return this.lerntyp;
+  getInterests() {
+    return this.interests;
   }
 
-  setLernzeitraum(alernzeitraum) {
-    this.lernzeitraum = alernzeitraum;
-  }
-
- 
-  getLernzeitraum() {
-    return this.lernzeitraum;
-  }
-
-  setLernfrequenz (alernfrequenz) {
-    this.lernfrequenz = alernfrequenz;
+  setPersonality(aPersonality) {
+    this.personality = aPersonality;
   }
 
  
-  getLernfrequenz() {
-    return this.lernfrequenz;
+  getPersonality() {
+    return this.personality;
   }
 
-  setLernort(alernort) {
-    this.lernort = alernort;
-  }
-
- 
-  getLernort() {
-    return this.lernort;
-  }
-
-  setBerufserfahrung(aberufserfahrung) {
-    this.berufserfahrung = aberufserfahrung;
+  setLearnstyle(aLearnstyle) {
+    this.learnstyle = aLearnstyle;
   }
 
  
-  getBerufserfahrung() {
-    return this.berufserfahrung;
+  getLearnstyle() {
+    return this.learnstyle;
+  }
+
+  setStudytime(aStudytime) {
+    this.studytime = aStudytime;
+  }
+
+ 
+  getStudytime() {
+    return this.studytime;
+  }
+
+  setStudyfrequence (aStudyfrequence) {
+    this.studyfrequence = aStudyfrequence;
+  }
+
+ 
+  getStudyfrequence() {
+    return this.studyfrequence;
+  }
+
+  setStudyplace(aStudyplace) {
+    this.studyplace = aStudyplace;
+  }
+
+ 
+  getStudyplace() {
+    return this.studyplace;
+  }
+
+  setWorkexperience(aWorkexperience) {
+    this.workexperience = aWorkexperience;
+  }
+
+ 
+  getWorkexperience() {
+    return this.workexperience;
   }
 
 
 
 
-  static fromJSON(profil) {
+  static fromJSON(profile) {
     let result = [];
 
-    if (Array.isArray(profil)) {
-      profil.forEach((c) => {
+    if (Array.isArray(profile)) {
+      profile.forEach((c) => {
         Object.setPrototypeOf(c, ProfilBO.prototype);
         result.push(c);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
-      let c = profil;
+      let c = profile;
       Object.setPrototypeOf(c, ProfilBO.prototype);
       result.push(c);
     }
