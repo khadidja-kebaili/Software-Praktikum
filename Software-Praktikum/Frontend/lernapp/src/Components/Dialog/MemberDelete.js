@@ -17,6 +17,19 @@ class MemberDelete extends Component {
   handleClose = () => {
     this.props.onClose(null);
   }
+
+  // API Anbindung um die Gruppe über das Backend aus der Datenbank zu löschen
+deleteMember = () => {
+  ElectivAPI.getAPI().deleteMember(this.state.M.id)
+    .then(() => {
+      this.props.getMember();
+      this.props.onClose(null);
+    }).catch(e => {
+      this.setState({
+        showSnackbar: true
+      })
+    })
+}
   // Die Komponente wird gerendert 
   render() 
     const { show } = this.props;
@@ -53,3 +66,12 @@ class MemberDelete extends Component {
   }
 
 }
+// PropTypes 
+MemberDelete.propTypes = {
+  
+  classes: PropTypes.object.isRequired,
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default withStyles(styles)(MemberDelete);
