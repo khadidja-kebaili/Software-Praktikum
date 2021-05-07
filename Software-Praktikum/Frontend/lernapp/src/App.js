@@ -49,64 +49,65 @@ import Ladevorgang from './Components/Dialog/Ladevorgang';
 import Error_Message from './Components/Dialog/Error_Message';
 import PythonLernappBeispielConfig from '../src/http-fake-backend/server/api/PythonLernappBeispiel-config';
 
+
 class App extends React.Component {
   
-  constructor(props){
-    super(props);
+  // constructor(props){
+  //   super(props);
 
-    //INIT leer
-    this.state ={
-      currrentUser:null,
-      appError: null,
-      authError: null,
-      authLoading: false
-    };
-  }
-  static getDerivedStateFromError(error){
-    return {appError: error};
-  }
+  //   //INIT leer
+  //   this.state ={
+  //     currrentUser:null,
+  //     appError: null,
+  //     authError: null,
+  //     authLoading: false
+  //   };
+  // }
+  // static getDerivedStateFromError(error){
+  //   return {appError: error};
+  // }
 
-  handleAuthStateChange = user => {
-    if(user){
-      this.setState({
-        authLoading: true
-      });
-      user.getIdToken().then(token => {
-        document.cookie = `token=${token};path=/`;
+  // handleAuthStateChange = user => {
+  //   if(user){
+  //     this.setState({
+  //       authLoading: true
+  //     });
+  //     user.getIdToken().then(token => {
+  //       document.cookie = `token=${token};path=/`;
 
-        this.setState({
-          currrentUser: user,
-          authError: null,
-          authLoading: false
-        });
-      }).catch(e => {
-        this.setState({
-          authError: e,
-          authLoading: false
-        });
-      });
-      }else {
-        document.cookie = 'token=;path=/';
+  //       this.setState({
+  //         currrentUser: user,
+  //         authError: null,
+  //         authLoading: false
+  //       });
+  //     }).catch(e => {
+  //       this.setState({
+  //         // authError: e,
+  //         authLoading: false
+  //       });
+  //     });
+  //     }else {
+  //       document.cookie = 'token=;path=/';
 
-        this.setState({
-          authError: e,
-          authLoading: false
-        });
-    }
-  }
-  handleSignIn = () => {
-    this.setState({
-      authLoading: true
-    });
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
-  }
+  //       this.setState({
+  //         // authError: e,
+  //         authLoading: false
+  //       });
+  //   }
+  // }
+  // handleSignIn = () => {
+  //   this.setState({
+  //     authLoading: true
+  //   });
+  //   const provider = new firebase.auth.GoogleAuthProvider();
+  //   firebase.auth().signInWithRedirect(provider);
+  // }
 
-  componentDidMount() {
-    firebase.initializeApp(PythonLernappBeispielConfig);
-    firebase.auth().languageCode = 'en';
-    firebase.auth().onAuthStateChanged(this.handleAuthStateChange);
-  }
+  // componentDidMount() {
+  //   firebase.initializeApp(PythonLernappBeispielConfig);
+  //   firebase.auth().languageCode = 'en';
+  //   firebase.auth().onAuthStateChanged(this.handleAuthStateChange);
+  // }
 
   //Hier fehlen noch Funktionen
   render(){
@@ -114,7 +115,7 @@ class App extends React.Component {
       <ThemeProvider theme={Theme}>
         <CssBaseline/>
         <Container maxWidth='md'>
-          <Navigation user={currrentUser}/>
+          <Navigation/>
           
         </Container>
       </ThemeProvider>

@@ -11,7 +11,7 @@ export default class LernappAPI {
     return this.#api;
   }
   // #lernappServerBaseURL = 'http://127.0.0.1:5000/';
-  #lernappServerBaseURL = './Frontend/http-fake-backend/response-file/matches/matches.json'
+  #lernappServerBaseURL = './Frontend/lernapp/src/http-fake-backend/server/api/PythonLernappBeispiel-config'
   
 
   #addProfilURL = () => `${this.#lernappServerBaseURL}/profil`;
@@ -67,6 +67,10 @@ export default class LernappAPI {
         resolve(responseProfilBO);
       })
     })
+  }
+
+  getMatches(profilID) {
+    
   }
 
 

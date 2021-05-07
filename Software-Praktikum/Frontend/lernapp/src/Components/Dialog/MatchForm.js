@@ -13,38 +13,35 @@ class MatchForm extends Component {
 
         let fn='', ln='', id='';
         if(props.match){
-            fn=props.match.getFirstName();
-            ln=props.match.getLastName();
+            fn=props.match.getfirst_name();
+            ln=props.match.getlast_name();
             id=props.match.getID();
         }
         this.state={
-            firstName: fn,
-            firstNameValidationFailed: false,
-            firstNameEdited: false,
-            lastName: ln,
-            lastNameValidationFailed: false,
-            lastNameEdited: false,
+            first_name: fn,
+            first_nameValidationFailed: false,
+            first_nameEdited: false,
+            last_name: ln,
+            last_nameValidationFailed: false,
+            last_nameEdited: false,
             id: id,
             idValidationFailed: false,
-            addingInProgress: false,
-            updatingInProgress: false,
-            addingError: null,
-            updatingError: null
+            
             
         };}
         //* Update the matches*/
         updateMatches = () => {
-            let updateMatches = Object.assign(new ProfilBO(), this.props.customer);
-            updateMatches.setFirstName(this.state.firstName);
-            updateMatches.setLastName(this.state.lastName);
+            let updateMatches = Object.assign(new ProfilBO(), this.props.matches);
+            updateMatches.setfirst_name(this.state.first_name);
+            updateMatches.setlast_name(this.state.last_name);
             upsateMatches.setID(this.state.id);
             LernappAPI.getAPI().updateMatches(updateMatches).then(matches => {
                 this.setState({
                     updatingInProgress: false,
                     updatingError: null
                 });
-                this.baseState.firstName = this.state.firstName;
-                this.baseState.lastName = this.state.lastName;
+                this.baseState.first_name = this.state.first_name;
+                this.baseState.last_name = this.state.last_name;
                 this.baseState.id = this.state.id;
                 this.props.onClose(updatedMatches);
                 
@@ -85,7 +82,7 @@ class MatchForm extends Component {
     // Render the component 
     render(){
         const {classes, match, show}=this.props;
-        const{firstName, firstNameValidationFailed, firstNameEdited, lastName, lastNameValidationFailed, lastNameEdited, id, idValidationFailed, updatingInProgress, updatingError} = this.state;
+        const{first_name, first_nameValidationFailed, first_nameEdited, last_name, last_nameValidationFailed, last_nameEdited, id, idValidationFailed, updatingInProgress, updatingError} = this.state;
     
         let title = '';
         let header='';
@@ -108,12 +105,12 @@ class MatchForm extends Component {
                    {header}
                </DialogContentText>
                <form className={classes.root} noValidate autoComplete='off'>
-                   <TextField autoFocus type='text'required fullWidth margin='normal' id='firstName' label='First name:' value={firstName} 
-                    onChange={this.textFieldValueChange} error={firstNameValidationFailed} 
-                    helperText={firstNameValidationFailed ? 'The first name must contain at least one character' : ' '}/>
-                    <TextField type='text' required fullWidth margin='normal' id='lastName' label='Last name:' value={lastName}
-                    onChange={this.textFieldValueChange} error={lastNameValidationFailed}
-                    helperText={lastNameValidationFailed ? 'The last name must contain at least one character' : ' '} />
+                   <TextField autoFocus type='text'required fullWidth margin='normal' id='first_name' label='First name:' value={first_name} 
+                    onChange={this.textFieldValueChange} error={first_nameValidationFailed} 
+                    helperText={first_nameValidationFailed ? 'The first name must contain at least one character' : ' '}/>
+                    <TextField type='text' required fullWidth margin='normal' id='last_name' label='Last name:' value={last_name}
+                    onChange={this.textFieldValueChange} error={last_nameValidationFailed}
+                    helperText={last_nameValidationFailed ? 'The last name must contain at least one character' : ' '} />
                     <TextField type='int' required fullWidth margin='normal' id='id' label='ID:' value={id}
                     onChange={this.textFieldValueChange} error={idValidationFailed}
                     helperText={idValidationFailed ? 'The ID must contain at least one character' : ' '} />  
@@ -134,10 +131,10 @@ class MatchForm extends Component {
             {
             // If a customer is given, show an update button, else an add button
               match ?
-              <Button disabled={firstNameValidationFailed || lastNameValidationFailed} variant='contained' onClick={this.updateCustomer} color='primary'>
+              <Button disabled={first_nameValidationFailed || last_nameValidationFailed} variant='contained' onClick={this.updateCustomer} color='primary'>
                 Update
             </Button>
-              : <Button disabled={firstNameValidationFailed || !firstNameEdited || lastNameValidationFailed || !lastNameEdited} variant='contained' onClick={this.addCustomer} color='primary'>
+              : <Button disabled={first_nameValidationFailed || !first_nameEdited || last_nameValidationFailed || !last_nameEdited} variant='contained' onClick={this.addCustomer} color='primary'>
                 Add
             </Button>
             }
