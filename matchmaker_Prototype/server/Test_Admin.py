@@ -6,16 +6,6 @@ class Businesslogik (object):
     def __init__(self):
         pass
 
-    learntype_weight = 0
-    learnfreq_weight = 0
-    learnplace_weight = 0
-    fakultaet_weight = 0
-    semester_weight = 0
-
-    fragende = []
-    gefragte = []
-    matches = []
-
     def create_profil(self, name, vorname, alter, semester, studiengang, hobbies, interessen,
                       persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung, email, passwort):
         studentprofil = Studentprofil()
@@ -58,41 +48,41 @@ class Businesslogik (object):
 
 #####################################################################
 
+    def matchmaking_for_two(self, profile1, profile2):
+        newList = []
+        no_match = []
+        score = 0
+        list1 = self.get_learning_habbits(profile2)
+        list2 = self.get_learning_habbits(profile1)
+        for element in list1:
+                if element in list2:
+                    items = [element]
+                    newList.append(items)
+                elif element not in list2:
+                    elements = [element]
+                    no_match.append(elements)
+        # print (no_match)
+        # print(newList)
+        score += len(newList) - len(no_match)
+        # if score >= 1:
+        #     return score
+        # else:
+        #     return 0
+        return score
 
-def matchmaking_for_two(self, profile1, profile2):
-    newList = []
-    no_match = []
-    score = 0
-    list1 = self.get_learning_habbits(profile2)
-    list2 = self.get_learning_habbits(profile1)
-    for element in list1:
-        if element in list2:
-            items = [element]
-            newList.append(items)
-        elif element not in list2:
-            elements = [element]
-            no_match.append(elements)
-    # print (no_match)
-    # print(newList)
-    score += len(newList) - len(no_match)
-    # if score >= 1:
-    #     return score
-    # else:
-    #     return 0
-    return score
+    def get_learning_habbits(self, id):
+        profile = self.get_profil_by_id(id)
+        learning_habbits = [profile.get_lernzeitraum(), profile.get_semester(), profile.get_lernort(), profile.get_lerntyp(),
+                profile.get_hobbies(), profile.get_studiengang(), profile.get_lernfrequenz()]
+        return learning_habbits
 
+    def print_matches_for_id(self, student1, student2):
+        print("")
+        print("Hier sind die Matches für den Studenten mit der ID: ", int(student1))
+        # print(self)
+        print("\t%s: %s" % (self.matchmaking_for_two(student1, student2), self.get_profil_by_id(student2)))
 
-def get_learning_habbits(self, id):
-    profile = self.get_profil_by_id(id)
-    learning_habbits = [profile.get_lernzeitraum(), profile.get_semester(), profile.get_lernort(),
-                        profile.get_lerntyp(),
-                        profile.get_hobbies(), profile.get_studiengang(), profile.get_lernfrequenz()]
-    return learning_habbits
-
-
-def print_matches(self, student1, student2):
-    print("")
-    print("Hier sind die Matches für den Studenten mit der ID: ", int(student2))
-    # print(self)
-    print("\t%s: %s" % (self.matchmaking_for_two(student1, student2), self.get_profil_by_id(student1)))
-
+    def print_all_matches(self, profile1):
+        result = len(self.get_all_profiles())
+        for element in range(1, result + 1):
+            self.print_matches_for_id(profile1, element)
