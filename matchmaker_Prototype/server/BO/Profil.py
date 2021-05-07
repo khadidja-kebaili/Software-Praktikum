@@ -1,6 +1,8 @@
-from matchmaking_V.server.BO.Businessobjects import BusinessObject
+from matchmaker_Prototype.server.BO.Businessobjects import BusinessObject
+
 
 class Studentprofil (BusinessObject):
+
     def __init__(self):
         super().__init__()
         self.name = "",
@@ -115,11 +117,23 @@ class Studentprofil (BusinessObject):
     def get_passwort(self):
         return self.passwort
 
-
-
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_id(), self.email, self.passwort, self.get_name(), self.get_vorname(), self.get_alter(), self.get_semester(), self.get_studiengang(), self.get_hobbies(), self.get_interessen(), self.get_persönlichkeit(), self.get_lernort(), self.get_lernzeitraum(), self.get_lernfrequenz(), self.get_lerntyp(), self.get_berufserfahrung())
+        return "User: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(self.get_id(),
+                                                                                             self.email, self.passwort,
+                                                                                             self.get_name(),
+                                                                                             self.get_vorname(),
+                                                                                             self.get_alter(),
+                                                                                             self.get_semester(),
+                                                                                             self.get_studiengang(),
+                                                                                             self.get_hobbies(),
+                                                                                             self.get_interessen(),
+                                                                                             self.get_persönlichkeit(),
+                                                                                             self.get_lernort(),
+                                                                                             self.get_lernzeitraum(),
+                                                                                             self.get_lernfrequenz(),
+                                                                                             self.get_lerntyp(),
+                                                                                             self.get_berufserfahrung())
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -142,3 +156,4 @@ class Studentprofil (BusinessObject):
         obj.set_passwort(dictionary["passwort"])
         obj.set_email(dictionary["email"])
         return obj
+

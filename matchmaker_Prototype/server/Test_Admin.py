@@ -1,7 +1,5 @@
 from matchmaker_Prototype.server.BO.Profil import Studentprofil
-
 from matchmaker_Prototype.server.db.ProfileMapper import StudentprofilMapper
-
 
 class Businesslogik (object):
 
@@ -16,7 +14,7 @@ class Businesslogik (object):
 
     fragende = []
     gefragte = []
-    matches = {}
+    matches = []
 
     def create_profil(self, name, vorname, alter, semester, studiengang, hobbies, interessen,
                       persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung, email, passwort):
@@ -42,7 +40,6 @@ class Businesslogik (object):
             return mapper.insert(studentprofil)
 
     def get_profil_by_id(self, number):
-
         with StudentprofilMapper() as mapper:
             return mapper.find_by_key(number)
 
@@ -62,94 +59,40 @@ class Businesslogik (object):
 #####################################################################
 
 
-    def set_types(self):
-        for element in self.get_all_profiles():
-            self.fragende.append(element)
-        for element in self.get_all_profiles():
-            self.gefragte.append(element)
+def matchmaking_for_two(self, profile1, profile2):
+    newList = []
+    no_match = []
+    score = 0
+    list1 = self.get_learning_habbits(profile2)
+    list2 = self.get_learning_habbits(profile1)
+    for element in list1:
+        if element in list2:
+            items = [element]
+            newList.append(items)
+        elif element not in list2:
+            elements = [element]
+            no_match.append(elements)
+    # print (no_match)
+    # print(newList)
+    score += len(newList) - len(no_match)
+    # if score >= 1:
+    #     return score
+    # else:
+    #     return 0
+    return score
 
 
-    def get_matches(self):
-        for element in self.fragende:
-            element.match(self.gefragte)
-        return self.fragende
+def get_learning_habbits(self, id):
+    profile = self.get_profil_by_id(id)
+    learning_habbits = [profile.get_lernzeitraum(), profile.get_semester(), profile.get_lernort(),
+                        profile.get_lerntyp(),
+                        profile.get_hobbies(), profile.get_studiengang(), profile.get_lernfrequenz()]
+    return learning_habbits
 
-    # def get_matches_of_id(self, id):
-    #     for element in self.fragende:
-    #         if int(element.id[0]) == id:
-    #             element.match(self.gefragte)
-    #     return self.fragende
 
-    # def return_self_fragende(self):
-    #     for match in self.fragende:
-    #         print(match)
-
-    def match(self, possible_matches):
-        match_list = []
-        for element in possible_matches:
-            self.matches[element] = self.get_score(element)
-            match_list.append(element)
-        return match_list
-
-    def sort_matches(self):
-        return sorted(self.matches, key=self.matches.get, reverse=True)
-
-    def print_matches(self):
-
-        print("")
-        for student in self.get_all_profiles():
-            # print("Hier sind die Matches für den Studenten mit der ID: " + self.get_profil_by_id(student))
-            print(student)
-        for match in self.sort_matches():
-                print("\t%s: %s" % (self.get_score(match), match))
-
-    # def print_match(self, id):
-    #
-    #     print("")
-    #     print("Hier sind die Matches für den Studenten mit der ID: " + self.get_profil_by_id(int(id)))
-    #     # print(self.id)
-    #     for match in self.sort_matches():
-    #         print("\t%s: %s" % (self.get_score(match), match))
-
-    def get_score(self, match):
-        return self.set_score(match)
-
-    def set_score(self):
-
-        matches = []
-        misses = []
-        get_all = self.get_all_profiles()
-        match = Studentprofil()
-
-        for element in get_all:
-            if element.get_lernzeitraum() == match.get_lernzeitraum():
-                self.learnfreq_weight += 1
-
-            if element.get_studiengang() == match.get_studiengang():
-                self.semester_weight += 1
-
-            if  element.get_lernort == match.get_lernort():
-                self.learnplace_weight += 1
-
-            if element.get_lerntyp() == match.get_lerntyp():
-                self.learntype_weight += 1
-
-            if element.get_semester() == match.get_semester():
-                self.semester_weight += 1
-
-            score = self.learntype_weight + self.learnfreq_weight + self.learnplace_weight + self.semester_weight
-
-            if score != 0 and element.get_id[0] != match.get_id:
-                matches.append(element)
-
-            elif element.get_id() == match.get_id:
-                continue
-            else:
-                misses.append(element)
-        if len(matches) > len(misses):
-            match_score = len(matches) - len(misses)
-            return match_score + self.semester_weight + self.fakultaet_weight + self.learnfreq_weight \
-                   + self.learnplace_weight + self.learntype_weight
-        else:
-            return 0
+def print_matches(self, student1, student2):
+    print("")
+    print("Hier sind die Matches für den Studenten mit der ID: ", int(student2))
+    # print(self)
+    print("\t%s: %s" % (self.matchmaking_for_two(student1, student2), self.get_profil_by_id(student1)))
 
