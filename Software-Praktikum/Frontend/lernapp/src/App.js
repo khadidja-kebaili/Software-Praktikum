@@ -44,9 +44,10 @@ import 'firebase/auth';
 import Navigation from '../src/Navigation';
 import MatchList from '../src/Components/Pages/MatchList';
 import Theme from './Components/Layout/Theme';
+import SignIn from './Components/Pages/SignIn';
 import Ladevorgang from './Components/Dialog/Ladevorgang';
 import Error_Message from './Components/Dialog/Error_Message';
-import PythonLernappBeispielConfig from '../../http-fake-backend/server/api/PythonLernappBeispiel-config';
+import PythonLernappBeispielConfig from '../src/http-fake-backend/server/api/PythonLernappBeispiel-config';
 
 class App extends React.Component {
   
@@ -61,6 +62,64 @@ class App extends React.Component {
       authLoading: false
     };
   }
-  
+  static getDerivedStateFromError(error){
+    return {appError: error};
+  }
+
+  handleAuthStateChange = user => {
+    if(user){
+      this.setState({
+        authLoading: true
+      });
+      user.getIdToken().then(token => {
+        document.cookie = `token=${token};path=/`;
+
+        this.setState({
+          currrentUser: user,
+          authError: null,
+          authLoading: false
+        });
+      }).catch(e => {
+        this.setState({
+          authError: e,
+          authLoading: false
+        });
+      });
+      }else {
+        document.cookie = 'token=;path=/';
+
+        this.setState({
+          authError: e,
+          authLoading: false
+        });
+    }
+  }
+  handleSignIn = () => {
+    this.setState({
+      authLoading: true
+    });
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithRedirect(provider);
+  }
+
+  componentDidMount() {
+    firebase.initializeApp(PythonLernappBeispielConfig);
+    firebase.auth().languageCode = 'en';
+    firebase.auth().onAuthStateChanged(this.handleAuthStateChange);
+  }
+
+  //Hier fehlen noch Funktionen
+  render(){
+    return(
+      <ThemeProvider theme={Theme}>
+        <CssBaseline/>
+        <Container maxWidth='md'>
+          <Navigation user={currrentUser}/>
+          
+        </Container>
+      </ThemeProvider>
+    )
+  }
 }
 
+export default App; 

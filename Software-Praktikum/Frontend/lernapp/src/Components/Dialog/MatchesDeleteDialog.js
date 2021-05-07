@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 //Hier kommt API
-import {LernappAPI} from '../../../../lernapp/src/API/LernappAPI';
+import {LernappAPI} from '../../API/LernappAPI';
 import Error_Message from '../Dialog/Error_Message';
 import Ladevorgang from '../Dialog/Ladevorgang';
 

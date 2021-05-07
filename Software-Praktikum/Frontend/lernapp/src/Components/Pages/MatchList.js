@@ -4,7 +4,7 @@ import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typogr
 import AddIcon from '@material-ui/icons/Add';
 import ClearIcon from '@material-ui/icons/Clear';
 import { withRouter } from 'react-router-dom';
-import {LernappAPI} from '../../API/LernappAPI';
+import LernappAPI from '../../API/LernappAPI';
 import Error_Message from '../Dialog/Error_Message';
 import Ladevorgang from '../Dialog/Ladevorgang';
 import MatchForm from '../Dialog/MatchForm';
