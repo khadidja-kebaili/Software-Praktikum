@@ -29,7 +29,7 @@ profile = api.inherit('Profil', bo, {
     'major': fields.String(attribute='major', description='major'),
     'hobbys': fields.String(attribute='hobbys', description='hobbys'),
     'interests': fields.String(attribute='interests', description='interests'),
-    'personality': fields.Integer(attribute='personality', description='personality'),
+    'personality': fields.String(attribute='personality', description='personality'),
     'learnstyle': fields.String(attribute='learnstyle', description='learnstyle'),
     'studytime': fields.String(attribute='studytime', description='studytime'),
     'studyplace': fields.String(attribute='studyplace', description='studyplace'),
