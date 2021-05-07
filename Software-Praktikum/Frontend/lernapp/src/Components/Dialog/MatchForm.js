@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, IconButton, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, TextField, Icon } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import { LernappAPI, ProfilBO } from '../../API';
+import LernappAPI from '../../API/LernappAPI';
+import ProfilBO from '../../API/ProfilBO';
 import ContextErrorMessage from './Error_Message';
 import Ladevorgang from './Ladevorgang';
 
@@ -90,7 +91,7 @@ class MatchForm extends Component {
         let header='';
 
         if(match){
-        // customer defindet, so ist an edit dialog
+        // customer definiert, so ist an edit dialog
         title = 'Update a match';
         header = `Profil ID: ${match.getID()}`;
         }
