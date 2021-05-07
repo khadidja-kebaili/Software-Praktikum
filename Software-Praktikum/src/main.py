@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_restx import Resource, Api, fields
-from server.Businesslogik import Businesslogik
-from server.bo.ProfilBO import Studentprofil
+from server.Businesslogic import Businesslogic
+from server.bo.ProfileBO import Studentprofile
 from flask_cors import CORS
-from SecurityDecorator import secured
+# from SecurityDecorator import secured
 
 
 app = Flask(__name__)
@@ -21,78 +21,78 @@ user = api.inherit('User', bo, {
     'email': fields.String(attribute='_email', description='E-Mail-Adresse eines Benutzers'),
     'user_id': fields.String(attribute='_user_id', description='Google User ID eines Benutzers')
 })
-profil = api.inherit('Profil', bo, {
-    'name': fields.String(attribute='name', description='name'),
-    'vorname': fields.String(attribute='vorname', description='vorname'),
-    'alter': fields.Integer(attribute='alter', description='alter'),
+profile = api.inherit('Profil', bo, {
+    'first_name': fields.String(attribute='first_name', description='first_name'),
+    'last_name': fields.String(attribute='last_name', description='last_name'),
+    'age': fields.Integer(attribute='age', description='age'),
     'semester': fields.Integer(attribute='semester', description='semester'),
-    'studiengang': fields.String(attribute='studiengang', description='studiengang'),
-    'hobbies': fields.String(attribute='hobbies', description='hobbies'),
-    'interessen': fields.String(attribute='interessen', description='interessen'),
-    'persönlichkeit': fields.Integer(attribute='persönlichkeit', description='persönlichkeit'),
-    'lerntyp': fields.String(attribute='lerntyp', description='lerntyp'),
-    'lernzeitraum': fields.String(attribute='lernzeitraum', description='lernzeitraum'),
-    'lernort': fields.String(attribute='lernort', description='lernort'),
-    'lernfrequenz': fields.Integer(attribute='lernfrequenz', description='lernfrequenz'),
-    'berufserfahrung': fields.String(attribute='berufserfahrung', description='berufserfahrung'),
+    'major': fields.String(attribute='major', description='major'),
+    'hobbys': fields.String(attribute='hobbys', description='hobbys'),
+    'interests': fields.String(attribute='interests', description='interests'),
+    'personality': fields.Integer(attribute='personality', description='personality'),
+    'learnstyle': fields.String(attribute='learnstyle', description='learnstyle'),
+    'studytime': fields.String(attribute='studytime', description='studytime'),
+    'studyplace': fields.String(attribute='studyplace', description='studyplace'),
+    'studyfrequence': fields.Integer(attribute='studyfrequence', description='studyfrequence'),
+    'workexperience': fields.String(attribute='workexperience', description='workexperience'),
 })
 
 
-@api.route('/profil')
-class Profilerstellen(Resource):
-    @api.marshal_with(profil)
-    @api.expect(profil)
+@api.route('/profile')
+class ProfilOperations(Resource):
+    @api.marshal_with(profile)
+    @api.expect(profile)
     def post(self):
-        adm = Businesslogik()
-        proposal = Studentprofil.from_dict(api.payload)
+        adm = Businesslogic()
+        proposal = Studentprofile.from_dict(api.payload)
         # //Notiz Daten von Frontend werden in proposal gespeichert
         if proposal is not None:
 
-            p = adm.create_profil(
-                proposal.get_name(),
-                proposal.get_vorname(), proposal.get_alter(),
-                proposal.get_semester(), proposal.get_studiengang(),
-                proposal.get_hobbies(), proposal.get_interessen(),
-                proposal.get_persönlichkeit(), proposal.get_lerntyp(),
-                proposal.get_lernzeitraum(), proposal.get_lernort(),
-                proposal.get_lernfrequenz(),
-                proposal.get_berufserfahrung()
+            p = adm.create_profile(
+                proposal.get_first_name(),
+                proposal.get_last_name(), proposal.get_age(),
+                proposal.get_semester(), proposal.get_major(),
+                proposal.get_hobbys(), proposal.get_interests(),
+                proposal.get_personality(), proposal.get_learnstyle(),
+                proposal.get_studytime(), proposal.get_studyplace(),
+                proposal.get_studyfrequence(),
+                proposal.get_workexperience()
             )
             return p
 
-    @api.marshal_list_with(profil)
+    @api.marshal_list_with(profile)
     def get(self):
-        adm = Businesslogik()
-        profil = adm.get_all_profile()
-        return profil
+        adm = Businesslogic()
+        profile = adm.get_all_profiles()
+        return profile
 
 
-@api.route('/profil/<int:id>')
+@api.route('/profile/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
 class Profilanzeigen (Resource):
-    @api.marshal_with(profil)
+    @api.marshal_with(profile)
     def get(self, id):
-        adm = Businesslogik()
-        userprofil = adm.get_profil_by_id(id)
-        return userprofil
+        adm = Businesslogic()
+        userprofile = adm.get_profile_by_id(id)
+        return userprofile
 
-    @api.marshal_with(profil)
+    @api.marshal_with(profile)
     def delete(self, id):
 
-        adm = Businesslogik()
-        userprofil = adm.get_profil_by_id(id)
-        adm.delete_profil(userprofil)
+        adm = Businesslogic()
+        userprofile = adm.get_profile_by_id(id)
+        adm.delete_profile(userprofile)
         return ''
 
-    @api.marshal_with(profil)
-    @api.expect(profil, validate=True)
+    @api.marshal_with(profile)
+    @api.expect(profile, validate=True)
     def put(self, id):
-        adm = Businesslogik()
-        p = Studentprofil.from_dict(api.payload)
+        adm = Businesslogic()
+        p = Studentprofile.from_dict(api.payload)
 
         if p is not None:
             p.set_id(id)
-            adm.save_profil(p)
+            adm.save_profile(p)
             return p, 200
         else:
             return '', 500
