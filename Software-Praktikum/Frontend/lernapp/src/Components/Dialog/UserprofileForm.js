@@ -10,45 +10,45 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { FormControl } from '@material-ui/core';
-import ProfilBO from "../../API/ProfilBO";
+import ProfileBO from "../../API/ProfileBO";
 import LernappAPI from "../../API/LernappAPI"
 
 class UserProfile extends Component {
   constructor(props){
   super(props);
-  let vn = '', nn = '', alt='', sem='', stud='', hob='', int = '',
-      pers='', lernt='', lernz='', lerno='', lernf = '', beruf='';
+  let fn = '', ln = '', age='', sem='', maj='', hob='', int = '',
+      pers='', lerns='', studyt='', studyp='', studyf = '', work='';
     
-  if (props.profil){
-    nn = props.profil.getNachname();
-    vn = props.profil.getVorname();
-    alt = props.profil.getAlter();
-    sem = props.profil.getSemester();
-    stud = props.profil.getStudiengang();
-    hob = props.profil.getHobbies();
-    int = props.profil.getInteressen();
-    pers = props.profil.getPersönlichkeit();
-    lernt = props.profil.getLerntyp();
-    lernz = props.profil.getLernzeitraum();
-    lerno = props.profil.getLernort();
-    lernf = props.profil.getLernfrequenz();
-    beruf = props.profil.getBerufserfahrung();
+  if (props.profile){
+    ln = props.profile.getLastname();
+    fn = props.profile.getFirstname();
+    age = props.profile.getAge();
+    sem = props.profile.getSemester();
+    maj = props.profile.getMajor();
+    hob = props.profile.getHobbys();
+    int = props.profile.getInterests();
+    pers = props.profile.getPersonality();
+    lerns = props.profile.getLearnstyle();
+    studyt = props.profile.getStudytime();
+    studyp = props.profile.getStudyplace();
+    studyf = props.profile.getStudyfrequence();
+    work = props.profile.getWorkexperience();
   }
 
   this.state = { 
-    name: nn,
-    vorname: vn,
-    alter: alt,
+    last_name: ln,
+    first_name: fn,
+    age: age,
     semester: sem,
-    studiengang: stud,
-    hobbies: hob,
-    interessen: int,
-    persönlichkeit: pers,
-    lerntyp: lernt,
-    lernzeitraum: lernz,
-    lernort: lerno,
-    lernfrequenz: lernf,
-    berufserfahrung: beruf,
+    major: maj,
+    hobbys: hob,
+    interests: int,
+    personality: pers,
+    learnstyle: lerns,
+    studytime: studyt,
+    studyplace: studyp,
+    studyfrequence: studyf,
+    workexperience: work,
    };
    this.handleChange = this.handleChange.bind(this);
    this.baseState = this.state;
@@ -57,62 +57,61 @@ class UserProfile extends Component {
     this.setState({ [e.target.name] : e.target.value });}
 
 
- addProfil = () => {
-  let newProfil = new ProfilBO(
-    this.state.name, 
-    this.state.vorname, 
-    this.state.alter,
+ addProfile = () => {
+  let newProfile = new ProfileBO(
+    this.state.first_name, 
+    this.state.last_name, 
+    this.state.age,
     this.state.semester,
-    this.state.studiengang,
-    this.state.hobbies,
-    this.state.interessen,
-    this.state.persönlichkeit,
-    this.state.lerntyp,
-    this.state.lernzeitraum,
-    this.state.lernort,
-    this.state.lernfrequenz,
-    this.state.berufserfahrung);
+    this.state.major,
+    this.state.hobbys,
+    this.state.interests,
+    this.state.personality,
+    this.state.learnstyle,
+    this.state.studytime,
+    this.state.studyplace,
+    this.state.studyfrequence,
+    this.state.workexperience);
    
-    LernappAPI.getAPI().addProfil(newProfil).then(console.log(newProfil))
+    LernappAPI.getAPI().addProfile(newProfile).then(console.log(newProfile))
    
 }
-updateProfil = () => {
+updateProfile = () => {
   // clone the original cutomer, in case the backend call fails
-  let updatedProfil = Object.assign(new ProfilBO(), this.props.profil);
+  let updatedProfile = Object.assign(new ProfileBO(), this.props.profile);
   // set the new attributes from our dialog
-  updatedProfil.setNachname(this.state.name);
-  updatedProfil.setVorname(this.state.vorname);
-  updatedProfil.setAlter(this.state.alter);
-  updatedProfil.setSemester(this.state.semester);
-  updatedProfil.setStudiengang(this.state.studiengang);
-  updatedProfil.setHobbies(this.state.hobbies);
-  updatedProfil.setInteressen(this.state.interessen);
-  updatedProfil.setPersönlichkeit(this.state.persönlichkeit);
-  updatedProfil.setLerntyp(this.state.lerntyp);
-  updatedProfil.setLernzeitraum(this.state.lernzeitraum); 
-  updatedProfil.setLernort(this.state.lernort);
-  updatedProfil.setLernfrequenz(this.state.lernfrequenz);
- 
-  updatedProfil.setBerufserfahrung(this.state.berufserfahrung);
+  updatedProfile.setLastname(this.state.last_name);
+  updatedProfile.setFirstname(this.state.first_name);
+  updatedProfile.setAge(this.state.age);
+  updatedProfile.setSemester(this.state.semester);
+  updatedProfile.setMajor(this.state.major);
+  updatedProfile.setHobbys(this.state.hobbys);
+  updatedProfile.setInterests(this.state.interests);
+  updatedProfile.setPersonality(this.state.personality);
+  updatedProfile.setLearnstyle(this.state.learnstyle);
+  updatedProfile.setStudytime(this.state.studytime); 
+  updatedProfile.setStudyplace(this.state.studyplace);
+  updatedProfile.setStudyfrequence(this.state.studyfrequence);
+  updatedProfile.setWorkexperience(this.state.workexperience);
   
-  LernappAPI.getAPI().updateProfil(updatedProfil)
+  LernappAPI.getAPI().updateProfile(updatedProfile)
   // .then(profil => {
   //   // keep the new state as base state
   //   this.baseState.firstName = this.state.firstName;
-  //   this.baseState.lastName = this.state.lastName;
+  //   this.baseState.Lastnam = this.state.Lastnam;
   //   this.baseState.name = this.state.name;
-  //   this.baseState.vorname =  this.state.vorname;
-  //   this.baseState.alter =  this.state.alter;
+  //   this.baseState.Firstname =  this.state.Firstname;
+  //   this.baseState.Age =  this.state.Age;
   //   this.baseState.semester =  this.state.semester ;
-  //   this.baseState.studiengang = this.state.studiengang;
-  //   this.baseState.hobbies = this.state.hobbies;
-  //   this.baseState.interessen =  this.state.interessen;
-  //   this.baseState.persönlichkeit = this.state.persönlichkeit ;
-  //   this.baseState.lerntyp =  this.state.lerntyp;
-  //   this.baseState.lernzeitraum = this.state.lernzeitraum;
-  //   this.baseState.lernort = this.state.lernort;
-  //   this.baseState.lernfrequenz =  this.state.lernfrequenz;
-  //   this.baseState.berufserfahrung = this.state.berufserfahrung;
+  //   this.baseState.Major = this.state.Major;
+  //   this.baseState.Hobbys = this.state.Hobbys;
+  //   this.baseState.Interests =  this.state.Interests;
+  //   this.baseState.Personality = this.state.Personality ;
+  //   this.baseState.Learnstyle =  this.state.Learnstyle;
+  //   this.baseState.Studytime = this.state.Studytime;
+  //   this.baseState.Studyplace = this.state.Studyplace;
+  //   this.baseState.Studyfrequence =  this.state.Studyfrequence;
+  //   this.baseState.Workexperience = this.state.Workexperience;
   //   this.props.onClose(updatedProfil);      // call the parent with the new customer
   // });
 }
@@ -120,7 +119,7 @@ updateProfil = () => {
 
   render() { 
     let header = "";
-    if (this.props.profil){
+    if (this.props.profile){
       header = "Überarbeite dein Profil!"
     } else{
       header = "Erstelle dein Profil und finde deine Lerngruppe!"
@@ -130,11 +129,11 @@ updateProfil = () => {
       <div className="Überschrift">
         <h1>{header}</h1>
       </div>
-          <form onSubmit={this.addProfil}>
+          <form onSubmit={this.addProfile}>
           <div className="PersProfil"> 
-              <div className="Name"><TextField name="name" label="Name" variant="outlined" value ={this.state.name} onChange={this.handleChange}/></div>
-              <div className="Vorname"><TextField name="vorname" label="Vorname" variant="outlined" value ={this.state.vorname} onChange={this.handleChange}/> </div>
-              <div className="Alter"> <TextField name="alter" label="Alter" variant="outlined" value ={this.state.alter} onChange={this.handleChange}/> </div>
+              <div className="Name"><TextField name="last_name" label="Name" variant="outlined" value ={this.state.last_name} onChange={this.handleChange}/></div>
+              <div className="Firstname"><TextField name="first_name" label="Vorname" variant="outlined" value ={this.state.first_name} onChange={this.handleChange}/> </div>
+              <div className="Age"> <TextField name="age" label="Alter" variant="outlined" value ={this.state.age} onChange={this.handleChange}/> </div>
               <FormControl className="Semester">
               <InputLabel id="label"> &nbsp; Semester</InputLabel>
               <Select
@@ -150,11 +149,11 @@ updateProfil = () => {
                     <MenuItem value={7}>7.</MenuItem>
               </Select>
               </FormControl>
-              <FormControl className="Studiengang">
+              <FormControl className="Major">
               <InputLabel id="label"> &nbsp; Studiengang</InputLabel>
               <Select
                     labelId="label" id="select"
-                    name="studiengang" variant="outlined" value={this.state.studiengang} 
+                    name="major" variant="outlined" value={this.state.major} 
                     onChange={this.handleChange}>
                     <MenuItem value={"AM3"}>AM3</MenuItem> 
                     <MenuItem value={"AM7"}>AM7</MenuItem>
@@ -187,11 +186,11 @@ updateProfil = () => {
                     <MenuItem value={"WM7"}>WM7</MenuItem>
               </Select>
               </FormControl>
-              <div className="Hobbies"><TextField name="hobbies" label="Hobbies" variant="outlined"value ={this.state.hobbies} onChange={this.handleChange}/></div>
-              <div className="Interessen"><TextField name="interessen" label="Interessen" variant="outlined" value ={this.state.interessen} onChange={this.handleChange}/></div>
+              <div className="Hobbys"><TextField name="hobbys" label="Hobbies" variant="outlined"value ={this.state.hobbys} onChange={this.handleChange}/></div>
+              <div className="Interests"><TextField name="interests" label="Interessen" variant="outlined" value ={this.state.interests} onChange={this.handleChange}/></div>
               <div className="radio">
-              <FormLabel component="legend">Persönlichkeit (introvertiert 1 - extrovertiert 5)</FormLabel>
-                    <RadioGroup aria-label="persönlichkeit" name="persönlichkeit"  row value={this.state.persönlichkeit} onChange={this.handleChange} >
+              <FormLabel component="legend">Personality (introvertiert 1 - extrovertiert 5)</FormLabel>
+                    <RadioGroup aria-label="Persönlichkeit" name="personality"  row  value={this.state.personality} onChange={this.handleChange} >
                     <FormControlLabel value="1" control={<Radio />} label="1" />
                     <FormControlLabel value="2" control={<Radio />} label="2" />
                     <FormControlLabel value="3" control={<Radio />} label="3" />
@@ -202,10 +201,10 @@ updateProfil = () => {
               </div>
               <div className="Lernprofil">
               <h2>Lernprofil</h2>
-              <FormControl className="Lerntyp">
+              <FormControl className="Learnstyle">
               <InputLabel> &nbsp; Lerntyp</InputLabel>
               <Select
-                    name="lerntyp" variant="outlined" value={this.state.lerntyp} 
+                    name="learnstyle" variant="outlined" value={this.state.learnstyle} 
                     onChange={this.handleChange}>
                     <MenuItem value={"auditiv"}>auditiv</MenuItem> 
                     <MenuItem value={"kommunikativ"}>kommunikativ</MenuItem>
@@ -213,11 +212,11 @@ updateProfil = () => {
                     <MenuItem value={"visuell"}>visuell</MenuItem>
               </Select>
               </FormControl>
-              <FormControl className="Lernzeitraum">
+              <FormControl className="Studytime">
               <InputLabel> &nbsp; Bevorzugter Lernzeitraum</InputLabel>
               <Select
-                    name="lernzeitraum" variant="outlined"
-                    value={this.state.lernzeitraum} 
+                    name="studytime" variant="outlined"
+                    value={this.state.studytime} 
                     onChange={this.handleChange}>
                     <MenuItem value={"Morgens"}>Morgens</MenuItem> 
                     <MenuItem value={"Mittags"}>Mittags</MenuItem>
@@ -225,21 +224,21 @@ updateProfil = () => {
                     <MenuItem value={"Flexibel"}>Flexibel</MenuItem>
               </Select>
               </FormControl>
-              <FormControl className="Lernort">
+              <FormControl className="Studyplace">
               <InputLabel> &nbsp; Bevorzugter Lernort</InputLabel>
                 <Select
-                    name="lernort" variant="outlined"
-                    value={this.state.lernort} 
+                    name="studyplace" variant="outlined"
+                    value={this.state.studyplace} 
                     onChange={this.handleChange}>
                     <MenuItem value={"Universität"}>Universität</MenuItem> 
                     <MenuItem value={"Online Meetings"}>Online Meetings</MenuItem>
                 </Select>
                 </FormControl>
-                <FormControl className="Lernfrequenz">
+                <FormControl className="Studyfrequence">
                 <InputLabel> &nbsp; Bevorzugte Lernfrequenz</InputLabel>
                 <Select
-                    name="lernfrequenz" variant="outlined"
-                    value={this.state.lernfrequenz} 
+                    name="studyfrequence" variant="outlined"
+                    value={this.state.studyfrequence} 
                     onChange={this.handleChange}>
                     <MenuItem value={1}>1x pro Woche</MenuItem> 
                     <MenuItem value={2}>2x pro Woche</MenuItem>
@@ -250,17 +249,17 @@ updateProfil = () => {
                     <MenuItem value={7}>7x pro Woche</MenuItem>
                 </Select>
                 </FormControl>
-                <div className="Berufserfahrung"><TextField name="berufserfahrung" label="Berufserfahrung" variant="outlined"value ={this.state.berufserfahrung} onChange={this.handleChange} /></div>
+                <div className="Workexperience"><TextField name="workexperience" label="Berufserfahrung" variant="outlined" value ={this.state.workexperience} onChange={this.handleChange} /></div>
                </div>
               </form>
               <div className="Buttons">
               {
-              this.props.profil ?
-                <Button type="submit" variant="contained" color="primary" size="large" onClick={this.updateProfil} color='primary'>
-                  Update
+              this.props.profile ?
+                <Button type="submit" variant="contained" color="primary" size="large" onClick={this.updateProfile} color='primary'>
+                  Bearbeiten
               </Button>
-                : <Button type="submit" variant="contained" color="primary" size="large" onClick={this.addProfil} color='primary'>
-                  Add
+                : <Button type="submit" variant="contained" color="primary" size="large" onClick={this.addProfile} color='primary'>
+                  Hinzufügen
              </Button>
             }  
             </div> 

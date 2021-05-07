@@ -1,4 +1,4 @@
-import ProfilBO from "./ProfilBO";
+import ProfileBO from "./ProfileBO";
 
 export default class LernappAPI {
 
@@ -10,13 +10,14 @@ export default class LernappAPI {
     }
     return this.#api;
   }
-  #lernappServerBaseURL = 'http://127.0.0.1:5000/';
+
+  #lernappServerBaseURL = 'http://127.0.0.1:5000';
   
 
-  #addProfilURL = () => `${this.#lernappServerBaseURL}/profil`;
-  #getProfilURL = (id) => `${this.#lernappServerBaseURL}/profil/${id}`;
-  #deleteProfilURL = (id) =>`${this.#lernappServerBaseURL}/profil/${id}`;
-  #updateProfilURL = (id) => `${this.#lernappServerBaseURL}profil/${id}`;
+  #addProfileURL = () => `${this.#lernappServerBaseURL}/profile`;
+  #getProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
+  #deleteProfileURL = (id) =>`${this.#lernappServerBaseURL}/profile/${id}`;
+  #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
 
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
@@ -27,74 +28,74 @@ export default class LernappAPI {
   }
   )
 
-  addProfil(profilBO) {
-    return this.#fetchAdvanced(this.#addProfilURL(), {
+  addProfile(profileBO) {
+    return this.#fetchAdvanced(this.#addProfileURL(), {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain',
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(profilBO)
+      body: JSON.stringify(profileBO)
     }).then((responseJSON) => {
       // We always get an array of CustomerBOs.fromJSON, but only need one object
-      let responseProfilBO = ProfilBO.fromJSON(responseJSON)[0];
+      let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
       // console.info(accountBOs);
       return new Promise(function (resolve) {
-        resolve(responseProfilBO);
+        resolve(responseProfileBO);
       })
     })
   }
 
-  updateProfil(profilBO) {
-    return this.#fetchAdvanced(this.#updateProfilURL(profilBO.getID()), {
+  updateProfile(profileBO) {
+    return this.#fetchAdvanced(this.#updateProfileURL(profileBO.getID()), {
       method: 'PUT',
       headers: {
         'Accept': 'application/json, text/plain',
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(profilBO)
+      body: JSON.stringify(profileBO)
      
     }).then((responseJSON) => { 
       // We always get an array of CustomerBOs.fromJSON
-      let responseProfilBO = ProfilBO.fromJSON(responseJSON)[0];
+      let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
       // console.info(accountBOs);
       return new Promise(function (resolve) {
-        resolve(responseProfilBO);
+        resolve(responseProfileBO);
       })
     })
   }
 
-  getProfil(profilID) {
-    return this.#fetchAdvanced(this.#getProfilURL(profilID)).then((responseJSON) => {
-      let responseProfilBO = ProfilBO.fromJSON(responseJSON)[0];
-      // console.info(responseProfilBO);
+  getProfile(profileID) {
+    return this.#fetchAdvanced(this.#getProfileURL(profileID)).then((responseJSON) => {
+      let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
+      // console.info(responseProfileBO);
       return new Promise(function (resolve) {
-        resolve(responseProfilBO);
+        resolve(responseProfileBO);
       })
     })
   }
 
-  deleteProfil(profilID) {
-    return this.#fetchAdvanced(this.#deleteProfilURL(profilID), {
+  deleteProfile(profileID) {
+    return this.#fetchAdvanced(this.#deleteProfileURL(profileID), {
       method: 'DELETE'
     }).then((responseJSON) => {
-      let responseProfilBO = ProfilBO.fromJSON(responseJSON)[0];
+      let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
       // console.info(accountBOs);
       return new Promise(function (resolve) {
-        resolve(responseProfilBO);
+        resolve(responseProfileBO);
       })
     })
   }
 
 
-  // addProfil(profilBO) {
-  //     fetch('http://127.0.0.1:5000/hello/profil',{
+  // addProfile(profileBO) {
+  //     fetch('http://127.0.0.1:5000/hello/profile',{
   //       method: 'POST',
   //       headers: {
   //         'Accept': 'application/json, text/plain',
   //         'Content-type': 'application/json',
   //       },
-  //       body: JSON.stringify(profilBO)
+  //       body: JSON.stringify(profileBO)
   //     }).then((responseJSON) => responseJSON.text())
   //     .then(result => console.log(result))
   //     .catch(error => console.log("error", error));

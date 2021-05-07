@@ -16,12 +16,12 @@
   grid-column: 1;
   grid-row: 2;
 }
-.Vorname {
+.Firstname {
   grid-column: 2;
   grid-row: 2;
 }
 
-.Alter {
+.Age {
   grid-column: 3;
   grid-row: 2;
 }
@@ -30,16 +30,16 @@
   grid-row: 3;
 }
 
-.Studiengang {
+.Major {
   grid-column: 2;
   grid-row: 3;
 }
 
-.Hobbies {
+.Hobbys {
   grid-column: 1;
   grid-row: 5;
 }
-.Interessen {
+.Interests {
   grid-column: 2;
   grid-row: 5;
 }
@@ -72,29 +72,29 @@ h2 {
   padding: 1em;
 }
 
-.Lerntyp {
+.Learnstyle {
   grid-column: 1;
   grid-row: 2;
   width: 200px;
 }
-.Lernzeitraum {
+.Studytime {
   grid-column: 2;
   grid-row: 3;
   width: 200px;
 }
 
-.Lernort {
+.Studyplace {
   grid-column: 3;
   grid-row: 3;
   width: 200px;
 }
-.Lernfrequenz {
+.Studyfrequence {
   grid-column: 1;
   grid-row: 3;
   width: 200px;
 }
 
-.Berufserfahrung {
+.Workexperience {
   grid-column: 2;
   grid-row: 2;
   width: 200px;

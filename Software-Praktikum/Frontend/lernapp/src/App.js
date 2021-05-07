@@ -1,11 +1,11 @@
 
-import './App.css';
-import UserProfil from './Components/Dialog/Userprofil_form.js';
+import UserProfil from './Components/Dialog/UserprofileForm.js';
+import ProfileOperations from './Components/Pages/ProfileOperations.js';
 
 
 function App() {
   return (
-    <UserProfil></UserProfil>
+    <ProfileOperations></ProfileOperations>
   );
 }
 

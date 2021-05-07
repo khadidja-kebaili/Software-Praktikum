@@ -17,9 +17,9 @@ class DeleteProfile extends Component {
     };
   }
 
-  deleteProfil = () => {
-    let data = 3;
-    LernappAPI.getAPI().deleteProfil(data).then(this.props.onClose(null))
+  deleteProfile = () => {
+    let data = 6;
+    LernappAPI.getAPI().deleteProfile(data).then(this.props.onClose(null))
     };
 
   handleClose = () => {
@@ -43,7 +43,7 @@ class DeleteProfile extends Component {
                 <Button color="primary" onClick={this.props.onClose} >
                  Abbrechen
                 </Button>
-                <Button color="primary" onClick={this.deleteProfil} autoFocus>
+                <Button color="primary" onClick={this.deleteProfile} autoFocus>
                   Löschen
                 </Button>
               </DialogActions>

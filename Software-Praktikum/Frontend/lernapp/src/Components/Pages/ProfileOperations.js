@@ -17,19 +17,19 @@ class ProfileOperations extends Component {
   super(props);
   
   this.state = { 
-    profil: null,
+    profile: null,
     showDeleteProfile: false,
    };
   }
   componentDidMount() {
-    this.getProfil();
+    this.getProfile();
   }
 
-  getProfil = () => {
-    let data = 7;
-    LernappAPI.getAPI().getProfil(data).then(profil =>
+  getProfile = () => {
+    let data = 8;
+    LernappAPI.getAPI().getProfile(data).then(profile =>
       this.setState({
-        profil: profil,
+        profile: profile,
       }))
   }
 
@@ -50,7 +50,7 @@ class ProfileOperations extends Component {
 
 
   render() { 
-    const { profil } = this.state;
+    const { profile } = this.state;
     return ( 
       <div>
       <div className="Profil">
@@ -58,43 +58,43 @@ class ProfileOperations extends Component {
         <h1>Profil</h1>
       </div> 
       {
-         profil ?
+         profile ?
             <div>
               <div className="PersProfil">
                 <h2 className="header">Persönliches Profil</h2>
-                <h3 >Name: {profil.getNachname()}</h3> 
-                <h3>Vorname: {profil.getVorname()}</h3>
-                <h3>Alter: {profil.getAlter()}</h3>
-                <h3>Semester: {profil.getSemester()}</h3>
-                <h3>Studiengang: {profil.getStudiengang()}</h3>
-                <h3>Hobbies: {profil.getHobbies()}</h3>
-                <h3>Interessen: {profil.getInteressen()}</h3>
-                <h3>Persönlichkeit: {profil.getPersönlichkeit()} </h3>
+                <h3 >Name: {profile.getLastname()}</h3> 
+                <h3>Vorname: {profile.getFirstname()}</h3>
+                <h3>Alter: {profile.getAge()}</h3>
+                <h3>Semester: {profile.getSemester()}</h3>
+                <h3>Studiengang: {profile.getMajor()}</h3>
+                <h3>Hobbies: {profile.getHobbys()}</h3>
+                <h3>Interessen: {profile.getInterests()}</h3>
+                <h3>Persönlichkeit: {profile.getPersonality()} </h3>
                </div>
               <div className="Lernprofil">
                 <h2>Lernprofil</h2> 
-                <h3>Lerntyp: {profil.getLerntyp()}</h3> 
-                <h3>Lernfrequenz: {profil.getLernfrequenz()} x in der Woche</h3>
-                <h3>Lernzeitraum: {profil.getLernzeitraum()}</h3>
-                <h3>Lernort:  {profil.getLernort()}</h3>
-                <h3>Berufserfahrung: {profil.getBerufserfahrung()}</h3>
+                <h3>Lerntyp: {profile.getLearnstyle()}</h3> 
+                <h3>Lernfrequenz: {profile.getStudyfrequence()} x in der Woche</h3>
+                <h3>Lernzeitraum: {profile.getStudytime()}</h3>
+                <h3>Lernort:  {profile.getStudyplace()}</h3>
+                <h3>Berufserfahrung: {profile.getWorkexperience()}</h3>
                </div>
             </div>
             : null
         }
         <div className="DeleteButton">
           <div className="KontoLöschen"><Button variant="contained" color="primary" size="large" onClick={this.deleteButtonClicked}> Profil Löschen</Button></div>
-        <DeleteProfile show={this.state.showDeleteProfile} profil={profil} onClose={this.closeDeleteDialog}/>
+        <DeleteProfile show={this.state.showDeleteProfile} profile={profile} onClose={this.closeDeleteDialog}/>
         </div>
        </div>
        <div className="Buttons">
        <Router>
-         <Link to="/updateprofil">
+         <Link to="/updateprofile">
        <div className="Bearbeiten"><Button variant="contained" color="primary" size="large"> Bearbeiten</Button></div>
         </Link>
         <Switch>
-        <Route path='/updateprofil'>
-					<UserProfile profil={profil}/>
+        <Route path='/updateprofile'>
+					<UserProfile profile={profile}/>
 			  </Route>
         </Switch>
         </Router>
