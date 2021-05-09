@@ -16,7 +16,8 @@ class MessageMapper(Mapper):
             else:
                 chatraum.set_id(1);
 
-        command = "INSERT INTO Messages (id, senderID, room, text, roomCounter) VALUES (%s, %s, %s, %s)"
+        #alte Version
+        command = "INSERT INTO messages (id, senderID, room, text, roomCounter) VALUES (%s, %s, %s, %s)"
         data = (
             message.get_id(),
             message.get_senderID(),
@@ -24,6 +25,7 @@ class MessageMapper(Mapper):
             message.get_text(),
             message.get_roomCounter(),
         )
+
         cursor.execute(command, data);
         cursor.close();
         return message;

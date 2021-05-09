@@ -20,10 +20,12 @@ class Message (Businessobject):
     
     def get_roomCounter(self):
         return this.roomCounter;
-        
+     
 #Umwandlung eines Dictonary Eintrags in ein Message Objekt
 @staticmethod
 def from_dict(dictionary=dict()):
+
+ alte Version
     obj = Message(
         dictionary["id"],
         dictionary["senderID"],
