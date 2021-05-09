@@ -1,10 +1,11 @@
-import BusinessObject from "./Businessobject.js";
+import BusinessObject from "./BusinessObject.js";
 
 
 export default class ProfilBO extends BusinessObject {
 
   constructor(aFirstname, aLastname, aAge, aSemester, aMajor, aHobbys, aInterests, aPersonality, aLearnstyle, aStudytime, aStudyplace, aStudyfrequence, aWorkexperience ) {
     super();
+    
     this.last_name = aLastname;
     this.first_name = aFirstname;
     this.age =  aAge;
@@ -136,6 +137,8 @@ export default class ProfilBO extends BusinessObject {
   getWorkexperience() {
     return this.workexperience;
   }
+
+  
 
 
 

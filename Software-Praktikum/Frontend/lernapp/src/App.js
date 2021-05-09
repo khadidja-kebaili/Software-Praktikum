@@ -37,17 +37,19 @@
 // export default App;
 
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import Navigation from '../src/Navigation';
-import MatchList from '../src/Components/Pages/MatchList';
-import Theme from './Components/Layout/Theme';
-import SignIn from './Components/Pages/SignIn';
-import Ladevorgang from './Components/Dialog/Ladevorgang';
-import Error_Message from './Components/Dialog/Error_Message';
-import PythonLernappBeispielConfig from '../src/http-fake-backend/server/api/PythonLernappBeispiel-config';
+// import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+// import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
+// import firebase from 'firebase/app';
+// import 'firebase/auth';
+// import Navigation from '../src/Navigation';
+// import MatchList from '../src/Components/Pages/MatchList';
+// import Theme from './Components/Layout/Theme';
+// import SignIn from './Components/Pages/SignIn';
+// import Ladevorgang from './Components/Dialog/Ladevorgang';
+// import Error_Message from './Components/Dialog/Error_Message';
+// import PythonLernappBeispielConfig from '../src/http-fake-backend/server/api/PythonLernappBeispiel-config';
+// import Bla from './showMatches';
+import MatchOperations from './Components/Pages/MatchOperations';
 
 
 class App extends React.Component {
@@ -112,13 +114,18 @@ class App extends React.Component {
   //Hier fehlen noch Funktionen
   render(){
     return(
-      <ThemeProvider theme={Theme}>
-        <CssBaseline/>
-        <Container maxWidth='md'>
-          <Navigation/>
+      // <ThemeProvider theme={Theme}>
+      //   <CssBaseline/>
+      //   <Container maxWidth='md'>
+      //     <Navigation/>
           
-        </Container>
-      </ThemeProvider>
+      //   </Container>
+      // </ThemeProvider>
+      <div>
+        
+        <MatchOperations/>
+      </div> 
+      
     )
   }
 }
