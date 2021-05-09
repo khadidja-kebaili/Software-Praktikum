@@ -1,0 +1,17 @@
+{"chatrooms":[
+    {"roomID":"1",
+    "messageHistory":[
+        {"profilID":"1", "text":"Hello"},
+        {"profilID":"2", "text":"Hey"},
+        {"profilID":"1", "text":"Bye"}
+    ]
+    },
+    {"roomID":"2",
+    "messageHistory":[
+        {"profilID":"2", "text":"Cat"},
+        {"profilID":"1", "text":"Dog"}
+    ]
+    }
+]
+}
+

@@ -22,7 +22,7 @@ chat = api.inherit('Chat', bo, {
 
 #Seite für alle Chats
 @api.route('/chat')
-class Chatliste(Resource):
+class CreateMessages(Resource):
     @api.marshal_with(profil)
     @api.expect(profil)
     def index():
@@ -31,7 +31,10 @@ class Chatliste(Resource):
 
         if proposal is not None:
             p = adm.create_chatlist(
-
+                proposal.get_senderID(),
+                proposal.get_roomID(),
+                proposal.get_text(),
+                
             )
             return p;
 
