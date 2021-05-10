@@ -119,8 +119,8 @@ export default class LernappAPI {
     return this.#api;
   }
 
-  #lernappServerBaseURL = 'http://127.0.0.1:5000';
-  
+  // #lernappServerBaseURL = 'http://127.0.0.1:5000';
+  #lernappServerBaseURL = '../../../public/matches';
   
 
   #addProfileURL = () => `${this.#lernappServerBaseURL}/profile`;
@@ -203,7 +203,6 @@ export default class LernappAPI {
     return this.#fetchAdvanced(this.#getAllProfilesURL())
       .then((responseJSON) => {
         let ProfileBOs = ProfileBO.fromJSON(responseJSON);
-        // console.info(accountBOs);
         return new Promise(function (resolve) {
           resolve(ProfileBOs);
         })
