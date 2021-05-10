@@ -5,20 +5,24 @@ class Businesslogik(object):
     def __init__(self):
         pass;
 
-    def create_message(self, senderID, raum, text):
-        message = Message(senderID, raum, text);
+    
+    #Methoden für den Chat
+    def create_message(self, profilID, room, text, time):
+        message = MessageBO();
+        message.set_profilID(profilID);
+        message.set_room(room);
+        message.set_text(text);
+        message.set_time(time);
+        #Überprüfen
+        message.set_id(1);
 
         with MessageMapper() as mapper:
             return mapper.insert(message);
 
-    def get_message_by_id(self, number):
+    def get_message_by_roomID(self, id):
         with MessageMapper() as mapper:
-            return mapper.find_by_key(number);
+            return mapper.find_by_room(id);
     
     def save_message(self, message):
         with MessageMapper() as mapper:
             mapper.update(message);
-
-    def delete_profil(self, message):
-        with MessageMapper() as mapper:
-            mapper.delete(message);
