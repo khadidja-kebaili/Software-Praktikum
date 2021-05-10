@@ -12,7 +12,7 @@ class Mapper(AbstractContextManager, ABC):
       user = "root",
       password = "hdmsw201920",
       host = "localhost",
-      database = "Messages"
+      database = "messages"
     )
     return self;
 
@@ -21,6 +21,22 @@ class Mapper(AbstractContextManager, ABC):
 
   @abstractmethod
   def insert(self, object):
+    pass;
+
+  @abstractmethod
+  def update(self, object):
+    pass;
+
+  @abstractmethod
+  def find_all(self, object):
+    pass;
+
+  @abstractmethod
+  def find_by_key(self, key):
+    pass;
+
+  @abstractmethod
+  def delete(self, object):
     pass;
 
 
