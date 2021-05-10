@@ -1,17 +1,6 @@
-{"chatrooms":[
-    {"roomID":"1",
-    "messageHistory":[
-        {"profilID":"1", "text":"Hello"},
-        {"profilID":"2", "text":"Hey"},
-        {"profilID":"1", "text":"Bye"}
-    ]
-    },
-    {"roomID":"2",
-    "messageHistory":[
-        {"profilID":"2", "text":"Cat"},
-        {"profilID":"1", "text":"Dog"}
-    ]
-    }
-]
-}
-
+{"messages":[
+    {"profilID":"1", "room":"1", "text":"User1Room1", "time":""},
+    {"profilID":"2", "room":"1", "text":"User2Room1", "time":""},
+    {"profilID":"2", "room":"2", "text":"User2Room2", "time":""},
+    {"profilID":"1", "room":"1", "text":"User1Room1", "time":""}
+]}

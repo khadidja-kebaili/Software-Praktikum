@@ -1,6 +1,0 @@
-{"messages":[
-    {"roomID":"1", "senderID":"1", "text":"User1Room1", "roomCounter":"0"},
-    {"roomID":"1", "senderID":"2", "text":"User2Room1", "roomCounter":"1"},
-    {"roomID":"2", "senderID":"2", "text":"User2Room2", "roomCounter":"0"},
-    {"roomID":"1", "senderID":"1", "text":"User1Room1", "roomCounter":"2"}
-]}
