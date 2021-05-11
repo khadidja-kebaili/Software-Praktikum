@@ -7,7 +7,7 @@ class MessageBO (Businessobject):
         self.profilID = None;
         self.room = None;
         self.text = None;
-        self.time = None;
+#        self.time = None;
 
     def get_profilID(self):
         return self.senderID;
@@ -27,14 +27,14 @@ class MessageBO (Businessobject):
     def set_text(self, text):
         self.text = text;
     
-    def get_time(self):
-        return self.time;
+#    def get_time(self):
+#        return self.time;
 
 #    def set_time(self):
 #        this.time = datetime.now(tz = None);
      
     def __str__(self):
-        return "Id: {}, Message von Profil {} im Chat {}: {} (Zeit: {})".format(self.get_id(), self.get_profilID(), self.get_room(), self.get_text(), self.get_time());
+        return "Id: {}, Message von Profil {} im Chat {}: {}".format(self.get_id(), self.get_profilID(), self.get_room(), self.get_text());
 
 #Umwandlung eines Dictonary Eintrags in ein Message Objekt
 @staticmethod
@@ -44,5 +44,4 @@ def from_dict(dictionary=dict()):
     obj.set_profilID(dictionary["profilID"]);
     obj.set_room(dictionary["room"]);
     obj.set_text(dictionary["text"]);
-    obj.set_time(dictionary["time"]);
     return obj;

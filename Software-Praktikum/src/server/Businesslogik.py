@@ -1,4 +1,4 @@
-from .bo.MessageBO import Message;
+from .bo.MessageBO import MessageBO;
 from .db.MessageMapper import MessageMapper;
 
 class Businesslogik(object):

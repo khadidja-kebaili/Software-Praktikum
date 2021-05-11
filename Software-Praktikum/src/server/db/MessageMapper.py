@@ -1,5 +1,5 @@
 from server.db.Mapper import Mapper;
-from server.bo.MessageBO import Message;
+from server.bo.MessageBO import MessageBO;
 
 class MessageMapper(Mapper):
     def __init__(self):
@@ -33,7 +33,7 @@ class MessageMapper(Mapper):
     def find_by_room(self, roomID):
         res = [];
         cursor = self._cnx.cursor();
-        command = "SELECT id, profilID, room, text, time FROM messages WHERE room={} ORDER BY time".format(roomID);
+        command = "SELECT id, profilID, room, text, time FROM messages WHERE room={} ORDER BY id".format(roomID);
         cursor.execute(command);
         tuples = cursor.fetchall();
 
