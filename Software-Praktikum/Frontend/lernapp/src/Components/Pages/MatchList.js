@@ -30,8 +30,8 @@ class MatchList extends Component {
             showMatchForm: false
         };
     }
-    getMatches = () => {
-        LernappAPI.getAPI().getMatches()
+    getAllProfiles = () => {
+        LernappAPI.getAPI().getAllProfiles()
         .then(matchesBOs =>
             this.setState({
                 matches: matchesBOs,

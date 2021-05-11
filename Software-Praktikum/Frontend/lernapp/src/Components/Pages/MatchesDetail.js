@@ -10,9 +10,8 @@ class MatchDetail extends Component {
 
     // Init state
     this.state = {
-      Profile: null,
-      loadingInProgress: false,
-      loadingError: null,
+      profile: null,
+      
     };
   }
 
@@ -23,7 +22,7 @@ class MatchDetail extends Component {
 
   /** gets the balance for this account */
   getProfile = () => {
-   LernappAPI.getAPI().getProfile(this.props.ProfileID).then(profile =>
+   LernappAPI.getAPI().getProfile(this.props.profileID).then(profile =>
       this.setState({
         profile: profile,
         

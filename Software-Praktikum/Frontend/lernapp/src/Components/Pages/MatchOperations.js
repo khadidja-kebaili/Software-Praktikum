@@ -39,7 +39,7 @@
 
 // export default MatchOperations;
 import React, { Component } from 'react';
-import LernappAPI from "../../API/LernappAPI";
+import LernappAPI from '../../API/LernappAPI';
 import BusinessObject from '../../API/BusinessObject';
 import MatchDetail from '../Pages/MatchesDetail';
 
@@ -55,23 +55,23 @@ class MatchOperations extends Component {
    };
   }
   componentDidMount() {
-    this.getAllProfiles();
+    this.loadProfiles();
   }
 
 
-  // loadProfiles = () => {
-  //   LernappAPI.getAPI.getAllProfiles().then( profiles =>
-  //     this.setState({
-  //       profiles: profiles,
-
-  //     }))
-  // }
-  getAllProfiles = () => {
-    LernappAPI.getAPI().getAllProfiles().then(profiles =>
+  loadProfiles = () => {
+    LernappAPI.getAPI.getAllProfiles().then( profiles =>
       this.setState({
         profiles: profiles,
+
       }))
   }
+  // getAllProfiles = () => {
+  //   LernappAPI.getAPI().getAllProfiles().then(profiles =>
+  //     this.setState({
+  //       profiles: profiles,
+  //     }))
+  // }
   
   render() { 
     const { profiles } = this.state;
@@ -79,8 +79,8 @@ class MatchOperations extends Component {
       <div>
         {
           profiles.map(profile => <MatchDetail key={profile.getID()}
-          profileID={profile.getAllProfiles().toString()} 
-          // profileID={profile.getID().toString()}
+          profileID={profile.loadProfiles().toString()} 
+          profileID={profile.getID().toString()}
           />)
         }
 

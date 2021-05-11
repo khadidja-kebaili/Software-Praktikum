@@ -119,8 +119,8 @@ export default class LernappAPI {
     return this.#api;
   }
 
-  // #lernappServerBaseURL = 'http://127.0.0.1:5000';
-  #lernappServerBaseURL = '../../../public/matches';
+  #lernappServerBaseURL = 'http://127.0.0.1:5000';
+  // #lernappServerBaseURL = '../../../public/matches';
   
 
   #addProfileURL = () => `${this.#lernappServerBaseURL}/profile`;
