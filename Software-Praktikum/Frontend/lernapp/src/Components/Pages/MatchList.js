@@ -10,6 +10,7 @@ import Ladevorgang from '../Dialog/Ladevorgang';
 import MatchForm from '../Dialog/MatchForm';
 import MatchListEntry from './MatchListEntry';
 
+//Kommentar
 class MatchList extends Component {
     constructor(props){
         super(props);
