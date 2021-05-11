@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, IconButton, InputAdornment, TextField,  Paper , Grid} from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
-import { ElectivAPI } from '../api';
+import {IconButton, InputAdornment, TextField,  Paper , Grid} from '@material-ui/core';
+import LernappAPI from "../../Lernapp/API/LernappAPI";
 import ClearIcon from '@material-ui/icons/Clear';
 import ContextErrorMessage from './dialogs/ContextErrorMessage';
 import LoadingProgress from './dialogs/LoadingProgress';
 import List from '@material-ui/core/List';
 import GroupEntry from '/GroupEntry';
 import GroupForm from '/GroupForm';
-
-
 
 
 //Die Suche und das Filtern der Gruppe 
@@ -69,7 +65,7 @@ GroupFormClosed = Group => {
 
   // API Anbindung um alle Module vom Backend zu bekommen 
   getGroup = () => {
-    ElectivAPI.getAPI().getGroup()
+    LernappAPI.getAPI().getGroup()
     .then(GroupBO =>
         this.setState({
             Group: GroupBO,
@@ -89,11 +85,6 @@ GroupFormClosed = Group => {
     });
 }
 
-
-  // Lifecycle methode, wird aufgerufen wenn componente in den DOM eingesetzt wird
-  componentDidMount() {
-      this.getGroup();
-  }
   
 
   /** Renders the component */
@@ -137,4 +128,4 @@ GroupFormClosed = Group => {
   }
 }
 
-export default withRouter(withStyles(styles)(GroupList));
+export default GroupList;
