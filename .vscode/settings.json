@@ -1,4 +1,4 @@
 {
     "git.ignoreLimitWarning": true,
-    "python.pythonPath": "Software-Praktikum\\Frontend\\lernapp\\env\\Scripts\\python.exe"
+    "python.pythonPath": "Software-Praktikum\\src\\venv\\Scripts\\python.exe"
 }
