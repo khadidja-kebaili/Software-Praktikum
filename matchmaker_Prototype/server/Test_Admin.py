@@ -6,6 +6,7 @@ class Businesslogik (object):
     def __init__(self):
         pass
 
+
     def create_profil(self, name, vorname, alter, semester, studiengang, hobbies, interessen,
                       persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung, email, passwort):
         studentprofil = Studentprofil()
@@ -24,7 +25,6 @@ class Businesslogik (object):
         studentprofil.set_berufserfahrung(berufserfahrung)
         studentprofil.set_email(email)
         studentprofil.set_passwort(passwort)
-        studentprofil.set_requested_by= None
 
         with StudentprofilMapper() as mapper:
             return mapper.insert(studentprofil)
@@ -47,27 +47,17 @@ class Businesslogik (object):
             return mapper.find_all()
 
 #####################################################################
-
     def set_score(self, profile1, profile2):
-        newList = []
-        no_match = []
-        score = 0
-        list1 = self.get_learning_habbits(profile2)
-        list2 = self.get_learning_habbits(profile1)
+        newList = 0
+        no_match = 0
+        list1 = [self.get_learning_habbits(profile2)]
+        list2 = [self.get_learning_habbits(profile1)]
         for element in list1:
                 if element in list2:
-                    items = [element]
-                    newList.append(items)
+                    newList += 1
                 elif element not in list2:
-                    elements = [element]
-                    no_match.append(elements)
-        # print (no_match)
-        # print(newList)
-        score += len(newList) - len(no_match)
-        # if score >= 1:
-        #     return score
-        # else:
-        #     return 0
+                    no_match += 1
+        score = newList - no_match
         return score
 
     def get_learning_habbits(self, id):
@@ -77,25 +67,32 @@ class Businesslogik (object):
         return learning_habbits
 
 
+    # def print_set_score(self, student1, student2):
+    #     print("")
+    #     print("Hier sind die Matches für den Studenten mit der ID: ", int(student1))
+    #     # print(self)
+    #     print("\t%s: %s" % (self.set_score(student1, student2), self.get_profil_by_id(student2)))
 
-    def print_matches_for_id(self, student1, student2):
-        print("")
-        print("Hier sind die Matches für den Studenten mit der ID: ", int(student1))
-        # print(self)
-        print("\t%s: %s" % (self.set_score(student1, student2), self.get_profil_by_id(student2)))
+    # def into_list(self, profile1):
+    #     length = len(self.get_all_profiles())
+    #     list = []
+    #     for element in range(1, length + 1):
+    #         self.print_matches_for_id(profile1, element)
 
-    def print_all_matches(self, profile1):
-        length = len(self.get_all_profiles())
+
+    def into_list(self, id):
         list = []
-        for element in range(1, length + 1):
-            self.print_matches_for_id(profile1, element)
+        profiles = []
+        for element in range(1,57):
+            list.append(self.set_score(element, id))
+        for element in self.get_all_profiles():
+            profiles.append(element)
+        dic = dict(zip(profiles, list))
+        sort_orders = sorted(dic.items(), key=lambda x: x[1], reverse=True)
+        return sort_orders
 
-    def into_list(self, student1):
-        score = []
-        profile = []
-        length = len(self.get_all_profiles())
-        for element in range(1, length +1 ):
-            score.append(self.set_score(student1, element))
-            profile.append(element)
-        dicti = dict(zip(profile, score))
-        return dicti
+
+# BL = Businesslogik()
+# match = BL.into_list(55)
+# # print(BL.set_score(55,56))
+# print(match)
