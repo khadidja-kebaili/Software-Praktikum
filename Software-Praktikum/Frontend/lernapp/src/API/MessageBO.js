@@ -2,34 +2,56 @@ import BusinessObject from './Businessobject';
 
 /**
  * Die einzelnen Nachrichten als BO
- * Die gegebenen Variablen
- *  senderID - entspricht der ProfilID des Nachrichtensenders, wird später genutzt um die Nachrichten entsprechend des Nutzers
- *             zu rendern (eigene Nachricht: rechtbündig, andere Nachricht: linksbündig)
- *  room - entspricht der RaumID des ChatraumBO
- *  text - enthält die Nachricht des MessageBO, entnommen aus der Textfeldeingabe im Chatfenster
  */
 export default class MessageBO extends BusinessObject {
-    constructor(senderID, room, text){
-        this.senderID = senderID;
+
+    /**
+     * 
+     * @param {*} profilID 
+     * @param {*} room 
+     * @param {*} text 
+     * @param {*} time
+     */
+    constructor(profilID, room, text){
+        super();
+        this.profilID = profilID;
         this.room = room;
         this.text = text;
-        this.chatroomCounter = 0;
+        //Plan: Zeitpunkt des Sendens speichern
+        this.time = Date.now;
     }
 
-    set_chatroomCounter(counter){
-        this.chatroomCounter = counter;
+    //Getter und Setter Methoden für die Objekte der Klasse MessageBO
+    set_profilID(id){
+        this.profilID = id;
     }
 
-    getSenderID(){
-        return this.senderID;
+    get_profilID(){
+        return this.profilID;
     }
 
-    getRaum(){
+    set_room(id){
+        this.room = id;
+    }
+
+    get_room(){
         return this.room;
     }
 
-    getText(){
+    set_text(text){
+        this.text = text;
+    }
+
+    get_text(){
         return this.text;
+    }
+
+    set_time(time){
+        this.time = time;
+    }
+
+    get_time(){
+        return this.time;
     }
 
     static fromJSON(message){
@@ -42,7 +64,7 @@ export default class MessageBO extends BusinessObject {
             })
         }else{
             let c = message;
-            Object.setPrototypeOf(c, ProfilBO.prototype);
+            Object.setPrototypeOf(c, MessageBO.prototype);
             result.push(c);
         }
         return result;
