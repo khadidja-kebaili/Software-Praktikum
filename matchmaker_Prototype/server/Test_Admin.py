@@ -48,7 +48,7 @@ class Businesslogik (object):
 
 #####################################################################
 
-    def matchmaking_for_two(self, profile1, profile2):
+    def set_score(self, profile1, profile2):
         newList = []
         no_match = []
         score = 0
@@ -76,13 +76,26 @@ class Businesslogik (object):
                 profile.get_hobbies(), profile.get_studiengang(), profile.get_lernfrequenz()]
         return learning_habbits
 
+
+
     def print_matches_for_id(self, student1, student2):
         print("")
         print("Hier sind die Matches für den Studenten mit der ID: ", int(student1))
         # print(self)
-        print("\t%s: %s" % (self.matchmaking_for_two(student1, student2), self.get_profil_by_id(student2)))
+        print("\t%s: %s" % (self.set_score(student1, student2), self.get_profil_by_id(student2)))
 
     def print_all_matches(self, profile1):
-        result = len(self.get_all_profiles())
-        for element in range(1, result + 1):
+        length = len(self.get_all_profiles())
+        list = []
+        for element in range(1, length + 1):
             self.print_matches_for_id(profile1, element)
+
+    def into_list(self, student1):
+        score = []
+        profile = []
+        length = len(self.get_all_profiles())
+        for element in range(1, length +1 ):
+            score.append(self.set_score(student1, element))
+            profile.append(element)
+        dicti = dict(zip(profile, score))
+        return dicti
