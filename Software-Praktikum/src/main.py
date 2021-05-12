@@ -97,6 +97,16 @@ class Profilanzeigen (Resource):
         else:
             return '', 500
 
+@api.route('/matchmaking/<int:id>')
+@api.param('id', 'Die ID des Account-Objekts')
+class Matcher(Resource):
+    @api.marshal_with(profile)
+    def get(self, id):
+        adm = Businesslogic()
+        matches = adm.into_list(id)
+        return matches
+
 
 if __name__ == '__main__':
     app.run(debug=True)
+

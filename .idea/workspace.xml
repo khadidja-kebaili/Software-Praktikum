@@ -20,7 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp">
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Dialog/MatchesForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Dialog/MatchesForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/matchmaker_Prototype/server/Businesslogic.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/main_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/main_5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,12 +47,42 @@
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\khadi\WebstormProjects\Software-Praktikum\Software-Praktikum\Frontend\lernapp\src" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="main_5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Software-Praktikum" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Software-Praktikum/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Software-Praktikum/src/main_5.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.main_5" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -62,6 +95,7 @@
       <workItem from="1618420504785" duration="1229000" />
       <workItem from="1618933857813" duration="12000" />
       <workItem from="1619949083464" duration="43000" />
+      <workItem from="1620775772948" duration="412000" />
     </task>
     <task id="LOCAL-00001" summary="npm create-creact app lernapp">
       <created>1618421028412</created>
@@ -92,14 +126,7 @@
     <MESSAGE value="npm create-creact app lernapp" />
     <option name="LAST_COMMIT_MESSAGE" value="npm create-creact app lernapp" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="409" y="144" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1618420996460">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="409" y="144" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1618420996460" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1618473366435">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1618473366435" />
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Software_Praktikum$main_5.coverage" NAME="main_5 Coverage Results" MODIFIED="1620775926031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Software-Praktikum/src" />
   </component>
 </project>
