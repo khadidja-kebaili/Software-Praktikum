@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, CircularProgress } from '@material-ui/core';
 
-// Zeigt den Ladevorgang von den Matches an
-class Ladevorgang extends Component {
+// Zeigt den LoadingProcess von den Matches an
+class LoadingProcess extends Component {
 
   /** Renders die Komponente */
   render() {
@@ -28,11 +28,11 @@ const styles = theme => ({
 });
 
 /** PropTypes */
-Ladevorgang.propTypes = {
+LoadingProcess.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** If true, the loading progress is rendered */
   show: PropTypes.bool.isRequired,
 }
 
-export default withStyles(styles)(Ladevorgang);
+export default withStyles(styles)(LoadingProcess);

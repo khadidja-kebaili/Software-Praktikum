@@ -1,6 +1,6 @@
 # from matchmaker_Prototype.server.BO.Profil import Studentprofil
 # from matchmaker_Prototype.server.db.ProfileMapper import StudentprofilMapper
-from .bo.ProfileBO import Studentprofil
+from .bo.Test_Profil import Studentprofil
 from .db.Profilemapper import StudentprofileMapper
 
 class Businesslogik (object):

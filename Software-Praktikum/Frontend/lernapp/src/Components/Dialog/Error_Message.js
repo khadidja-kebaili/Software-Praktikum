@@ -10,10 +10,10 @@ import AutorenewIcon from '@material-ui/icons/Autorenew';
 //  * if the error obejct is not null
 
 
-class ContextErrorMessage extends Component {
-  #standardText = 'This should not have happend. Soooo sorry...';
+class Error_Massage extends Component {
+  #standardText = 'Das sollte nicht passieren, tut uns sehr Leid. Wir Bitten um Geduld.';
 
-  /** Renders the ContextErrorMessage if error object is not null  */
+  /** Renders the Error_Massage if error object is not null  */
   render() {
     const { classes, error, contextErrorMsg, onReload } = this.props;
 
@@ -55,7 +55,7 @@ const styles = theme => ({
 });
 
 /** PropTypes */ 
-ContextErrorMessage.propTypes = {
+Error_Massage.propTypes = {
   /** @ignore */
   classes: PropTypes.object.isRequired,
   /** 
@@ -72,4 +72,4 @@ ContextErrorMessage.propTypes = {
   onReload: PropTypes.func
 }
 
-export default withStyles(styles)(ContextErrorMessage);
+export default withStyles(styles)(Error_Massage);
