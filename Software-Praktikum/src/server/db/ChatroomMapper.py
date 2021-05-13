@@ -1,7 +1,7 @@
 from server.db.Mapper import Mapper;
 from server.bo.ChatroomBO import ChatroomBO;
 
-class MessageMapper(Mapper):
+class ChatroomMapper(Mapper):
     def __init__(self):
         super().__init__();
 
