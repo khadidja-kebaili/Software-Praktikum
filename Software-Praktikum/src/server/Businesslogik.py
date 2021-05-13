@@ -7,13 +7,12 @@ class Businesslogik(object):
 
     
     #Methoden für den Chat
-    def create_message(self, profilID, room, text, time):
+    def create_message(self, profilID, room, text):
         message = MessageBO();
         message.set_profilID(profilID);
         message.set_room(room);
         message.set_text(text);
-        message.set_time(time);
-        #Überprüfen
+        #message.set_time(time);
         message.set_id(1);
 
         with MessageMapper() as mapper:
@@ -26,3 +25,7 @@ class Businesslogik(object):
     def save_message(self, message):
         with MessageMapper() as mapper:
             mapper.update(message);
+
+    def get_allMessages(self):
+        with MessageMapper() as mapper:
+            return mapper.find_all;

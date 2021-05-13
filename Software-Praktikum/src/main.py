@@ -1,8 +1,9 @@
-from flask import Flask, render_template;
+from flask import Flask;
 from flask_restx import Resource, Api, fields;
 from flask_cors import CORS;
 
 from server.Businesslogik import Businesslogik;
+from server.bo.MessageBO import MessageBO;
 
 app = Flask(__name__);
 CORS(app, resources=r'/*');
@@ -13,40 +14,33 @@ bo = api.model('BusinessObject', {
 })
 
 #Einzelne Nachrichten als BO
-chat = api.inherit('Chat', bo, {
+message = api.inherit('Chat', bo, {
     'profilID': fields.Integer(attribute='senderID',description='ID des Senders'),
     'roomID': fields.Integer(attribute='room', description="ID des Chatraums"),
     'text': fields.String(attribute='text', description='Text')
 })
 
 #Seite für alle Chats
-@api.route('/chat')
+@api.route('/message')
 class CreateMessages(Resource):
-    @api.marshal_with(profil)
-    @api.expect(profil)
-    def index():
+    @api.marshal_with(message)
+    @api.expect(message)
+    def post(self):
         adm = Businesslogik();
-        proposal = _.from_dict(api.payload);
-
+        proposal = MessageBO.from_dict(api.payload);
         if proposal is not None:
-            p = adm.create_chatlist(
+            p = adm.create_message(
                 proposal.get_profilID(),
-                proposal.get_roomID(),
-                proposal.get_text(),
-                
-            )
+                proposal.get_room(),
+                proposal.get_text()
+            );
             return p;
-
-    @api.marshal_list_with(chat)
+    
+    @api.marshal_list_with(message)
     def get(self):
         adm = Businesslogik();
-        profil = adm.get_all();
-        return profil;
+        profile = adm.get_allMessages();
+        return message;
         
-#Seite für einen Chat
-#@api.route('/chat/<int:id>')
-#@api.param('id','ID des Chatraums')
-#    return 'Chatraum'
-
 if __name__ == '__main__':
     app.run(debug = True)
