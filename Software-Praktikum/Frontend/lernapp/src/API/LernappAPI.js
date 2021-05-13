@@ -37,7 +37,7 @@ export default class LernappAPI{
 
     /**
      * 
-     * @returns Array von ChatroomBOs
+     * @returns Array von ChatroomBOs auf welche der aktuelle User Zugriff hat
      */
     get_Chatlist(){
         return this.#fetchAdvanced(this.#get_Chatlist())

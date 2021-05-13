@@ -11,7 +11,7 @@ class ChatList extends Component{
     }
 
     get_Chats = () => {
-        BankAPI.getAPI().get_chatsForUser(this.props.profile.getID()).then(ChatroomBOs =>
+        BankAPI.getAPI().get_Chatlist(this.props.profile.getID()).then(ChatroomBOs =>
             this.setState({
                 Chats: ChatroomBOs
             })).catch(e =>
