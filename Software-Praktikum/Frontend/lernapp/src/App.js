@@ -50,7 +50,7 @@ import React from 'react';
 // import PythonLernappBeispielConfig from '../src/http-fake-backend/server/api/PythonLernappBeispiel-config';
 // import Bla from './showMatches';
 import MatchOperations from './Components/Pages/MatchOperations';
-
+import MatchList from './Components/Pages/MatchList';
 
 class App extends React.Component {
   
@@ -122,7 +122,8 @@ class App extends React.Component {
       //   </Container>
       // </ThemeProvider>
       <div>
-        <MatchOperations/>
+        {/* <MatchOperations/> */}
+        <MatchList/>
       </div> 
       
     )

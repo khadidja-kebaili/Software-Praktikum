@@ -1,5 +1,5 @@
 from server.db.Mapper import Mapper
-from server.bo.ProfileBO import Studentprofile
+from server.bo.Test_Profil import Studentprofile
 
 
 class StudentprofileMapper (Mapper):

@@ -6,7 +6,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { withRouter } from 'react-router-dom';
 import LernappAPI from '../../API/LernappAPI';
 import Error_Message from '../Dialog/Error_Message';
-import Ladevorgang from '../Dialog/Ladevorgang';
+import LoadingProcess from '../Dialog/LoadingProcess';
 import MatchForm from '../Dialog/MatchForm';
 import MatchListEntry from './MatchListEntry';
 
@@ -14,73 +14,64 @@ import MatchListEntry from './MatchListEntry';
 class MatchList extends Component {
     constructor(props){
         super(props);
-
-        let expandendID = null;
-
-        if (this.props.lacation.expandMatch) {
-            expandendID = this.props.lacation.expandMatch.getID();    
-        }
+        
         //Eine leere INIT setzten
         this.state={
-            matches: [],
-            filteredMatches:[],
-            matchesFilter:'',
+            profile: [],
             error: null,
-            loadingInProgress: false,
-            expandedMatchID: expandendID,
-            showMatchForm: false
+            LoadingProcess: false,
+            
         };
     }
-    getAllProfiles = () => {
-        LernappAPI.getAPI().getAllProfiles()
-        .then(matchesBOs =>
+    getMatchmaking = () => {
+        LernappAPI.getAPI().getMatchmaking()
+        .then(ProfileBOs =>
             this.setState({
-                matches: matchesBOs,
-                filteredMatches: [...matchesBOs],
-                loadingInProgress: false,
+                profile: ProfileBOs,
+                LoadingProcess: false,
                 error: null
             })).catch(e =>
                 this.setState({
-                    matches: [],
-                    loadingInProgress: false,
+                    profile: [],
+                    LoadingProcess: false,
                     error: e
                 })
                 );
                 //setzt loading auf true
             this.setState({
-                loadingInProgress: true,
+                LoadingProcess: true,
                 error: null
             });
         }
         //Lifecycle Methode wird aufgerufen, wenn die Komponente in den DOM Browser eingefügt wird
         componentDidMount(){
-            this.getMatches();
+            this.getMatchmaking();
         }
         //behandelt onExpandedStateChange Ereignisse aus der MatchListEntry Komponente. Toggelt den Zustand von MatchListEntry von dem angegebenen 
         //ProfilBO (=Eigentlich ist es voraussichtloch so gedacht.).
         /** 
-        * @param {matches} ProfilBO of the CustomerListEntry to be toggeled
+        * @param {profile} ProfilBO of the CustomerListEntry to be toggeled
         */
-        onExpandedStateChange = matches =>{
+        onExpandedStateChange = profile =>{
           //Kundeneintrag wird dann auf null gesetzt
           let newID = null;
           
-          //Wenn auf Matcheseintrag geklickt wird, soll es diese erweitern oder reduzieren
-          if (matches.getID() !== this.state.expandMatchID){
+          //Wenn auf profileeintrag geklickt wird, soll es diese erweitern oder reduzieren
+          if (profile.getID() !== this.state.expandMatchID){
               //Erweitert den Matcheintrag mit MatchID
-              newID = matches.getID();
+              newID = profile.getID();
           }
           this.setState({
               expandedMatchID: newID,
           });
         }
         //Behandelt den onclose Event von MatchForm
-        matchFormClosed = matches => {
-            //Matches sind nicht null und wird daher erstellt
-            if (matches){
-                const newMatchList = [...this.state.matches, matches];
+        matchFormClosed = profile => {
+            //profile sind nicht null und wird daher erstellt
+            if (profile){
+                const newMatchList = [...this.state.profile, profile];
                 this.setState({
-                    matches: newMatchList,
+                    profile: newMatchList,
                     showMatchForm: false
                 });
             }else{
@@ -92,17 +83,17 @@ class MatchList extends Component {
         //Die Komponente die gerendert werden
         render(){
            const {classes}= this.props
-           const{expandMatchID,loadingInProgress,error,showMatchForm}=this.state;
+           const{LoadingProcess,error,showMatchForm}=this.state;
         
             return(
                 <div className={classes.root}>
                     {
-                        //Zeigt die MatchesListEntry Komponente
-                        <MatchListEntry key={matches.getID()} matches={matches} expandedState={expandedMatchID === matches.getID()}
+                        //Zeigt die profileListEntry Komponente
+                        <MatchListEntry key={profile.getID()} profile={profile}
                             onExpandedStateChange={this.onExpandedStateChange}/>    
                     }
-                    <Ladevorgang show={loadingInProgress}/>
-                    <Error_Message error={error} contextErrorMsg={'Die Liste konnte leider nicht geladen werden.'} onReload={this.getMatches}/>
+                    <LoadingProcess show={LoadingProcess}/>
+                    <Error_Message error={error} contextErrorMsg={'Die Liste konnte leider nicht geladen werden.'} onReload={this.getMatchmaking}/>
                     <MatchForm show ={showMatchForm} onClose={this.matchFormClosed}/> 
                 </div>
             );     
