@@ -49,4 +49,21 @@ class MessageMapper(Mapper):
         cursor.close();
         return res;
 
+    def find_associatedRooms(self, profilID):
+        res = [];
+        cursor = self._cnx.cursor();
+        #SQL UNIQUE nachschauen
+        command = "SELECT room FROM messages WHERE profilID={}".format(profilID);
+        cursor.execute(command);
+        tuples = cursor.fetchall();
+
+        #Nur die RaumID soll in dem Array gespeichert werden
+        for(room) in tuples:
+            res.append(room);
+        
+        self._cnx.commit();
+        cursor.close();
+        return res;
+
+
     
