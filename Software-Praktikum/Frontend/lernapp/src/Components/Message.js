@@ -1,9 +1,39 @@
-function Message (senderID, text, room){
-    this.senderID = senderID;
-    //Prüfen ob es eine Nachricht vom aktuellen User ist
-    this.myMessage = get_messageID == user.getID;
-    this.text = text;
-    this.room = room;
+import React, {Component} from 'react';
+
+class Message extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            profilID:"",
+            room: "",
+            text:""
+        }
+    }
+
+    componentDidMount(){
+        //get
+    }
+
+    componentDidUpdate(prevProps){
+        if((this.props.show)&&(this.props.show !== prevProps.show)){
+            //get
+        }
+    }
+
+    //get Methoden
+
+
+    /**
+     * Rendern der Komponente
+     */
+    render(){
+        return(
+            <div></div>
+        )
+    }
 }
 
-//message muss entsprechend von MyMessage gerendert werden
+//Stylesheet 
+const styles;
+
+export default withStyles(styles)(Message);
