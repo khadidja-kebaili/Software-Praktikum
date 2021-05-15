@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import ClearIcon from '@material-ui/icons/Clear';
 import { withRouter } from 'react-router-dom';
 import LernappAPI from '../../API/LernappAPI';
 import Error_Message from '../Dialog/Error_Message';
 import LoadingProcess from '../Dialog/LoadingProcess';
-import MatchForm from '../Dialog/MatchForm';
 import MatchListEntry from './MatchListEntry';
+import BusinessObject from '../../API/BusinessObject';
 
 //Kommentar
 class MatchList extends Component {
@@ -82,20 +80,24 @@ class MatchList extends Component {
         }
         //Die Komponente die gerendert werden
         render(){
-           const {classes}= this.props
+           const {classes,profile}= this.props
            const{LoadingProcess,error,showMatchForm}=this.state;
         
             return(
                 <div className={classes.root}>
-                    {
-                        //Zeigt die profileListEntry Komponente
-                        <MatchListEntry key={profile.getID()} profile={profile}
-                            onExpandedStateChange={this.onExpandedStateChange}/>    
-                    }
+                    
+                        
+            {/* Zeigt die profileListEntry Komponente */}
+                       
+                    <MatchListEntry key={profile.getID()} profile={profile}
+                    onExpandedStateChange={this.onExpandedStateChange}/>   }
+                          
+                     
                     <LoadingProcess show={LoadingProcess}/>
                     <Error_Message error={error} contextErrorMsg={'Die Liste konnte leider nicht geladen werden.'} onReload={this.getMatchmaking}/>
-                    <MatchForm show ={showMatchForm} onClose={this.matchFormClosed}/> 
+                   
                 </div>
+            
             );     
         } 
 }
@@ -108,11 +110,11 @@ const styles = theme => ({
     }  
 });
 
-//PropTypes
-MatchList.PropTypes = {
-    /** @ignore */
-    classes: PropTypes.object.isRequired,
-    /** @ignore */
-    location: PropTypes.object.isRequired,
-}
-export default withRouter(withStyles(styles)(MatchList));
+// //PropTypes
+// MatchList.PropTypes = {
+//     /** @ignore */
+//     classes: PropTypes.object.isRequired,
+//     /** @ignore */
+//     location: PropTypes.object.isRequired,
+// }
+export default withStyles(styles)(MatchList);
