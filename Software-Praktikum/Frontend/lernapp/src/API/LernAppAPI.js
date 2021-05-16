@@ -101,14 +101,23 @@ export default class LernappAPI {
       })
   }
 
-  getMatchmaking(){
-    return this.#fetchAdvanced(this.#getMatchmakingURL())
-      .then((responseJSON)=>{
-        let ProfileBOs = ProfileBO.fromJSON(responseJSON);
-        return new Promise(function(resolve){
-          resolve(ProfileBOs);
-        })
+  // getMatchmaking(profileID){
+  //   return this.#fetchAdvanced(this.#getMatchmakingURL())
+  //     .then((responseJSON)=>{
+  //       let ProfileBOs = ProfileBO.fromJSON(responseJSON);
+  //       return new Promise(function(resolve){
+  //         resolve(ProfileBOs);
+  //       })
+  //     })
+  // }
+  getMatchmaking(profileID) {
+    return this.#fetchAdvanced(this.#getMatchmakingURL(profileID)).then((responseJSON) => {
+      let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
+      // console.info(responseProfileBO);
+      return new Promise(function (resolve) {
+        resolve(responseProfileBO);
       })
+    })
   }
   
 

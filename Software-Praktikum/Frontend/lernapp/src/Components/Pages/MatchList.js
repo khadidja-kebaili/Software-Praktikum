@@ -7,6 +7,7 @@ import Error_Message from '../Dialog/Error_Message';
 import LoadingProcess from '../Dialog/LoadingProcess';
 import MatchListEntry from './MatchListEntry';
 import BusinessObject from '../../API/BusinessObject';
+import ProfileBOs from '../../API/ProfileBO';
 
 //Kommentar
 class MatchList extends Component {
@@ -17,12 +18,13 @@ class MatchList extends Component {
         this.state={
             profile: [],
             error: null,
-            LoadingProcess: false,
+            // LoadingProcess: false,
             
         };
     }
     getMatchmaking = () => {
-        LernappAPI.getAPI().getMatchmaking()
+         let data= 3
+        LernappAPI.getAPI().getMatchmaking(data)
         .then(ProfileBOs =>
             this.setState({
                 profile: ProfileBOs,
@@ -50,38 +52,40 @@ class MatchList extends Component {
         /** 
         * @param {profile} ProfilBO of the CustomerListEntry to be toggeled
         */
-        onExpandedStateChange = profile =>{
-          //Kundeneintrag wird dann auf null gesetzt
-          let newID = null;
+        // onExpandedStateChange = profile =>{
+        //   //Kundeneintrag wird dann auf null gesetzt
+        //   let newID = null;
           
-          //Wenn auf profileeintrag geklickt wird, soll es diese erweitern oder reduzieren
-          if (profile.getID() !== this.state.expandMatchID){
-              //Erweitert den Matcheintrag mit MatchID
-              newID = profile.getID();
-          }
-          this.setState({
-              expandedMatchID: newID,
-          });
-        }
+        //   //Wenn auf profileeintrag geklickt wird, soll es diese erweitern oder reduzieren
+        //   if (profile.getID() !== this.state.expandMatchID){
+        //       //Erweitert den Matcheintrag mit MatchID
+        //       newID = profile.getID();
+        //   }
+        //   this.setState({
+        //       expandedMatchID: newID,
+        //   });
+        // }
         //Behandelt den onclose Event von MatchForm
-        matchFormClosed = profile => {
-            //profile sind nicht null und wird daher erstellt
-            if (profile){
-                const newMatchList = [...this.state.profile, profile];
-                this.setState({
-                    profile: newMatchList,
-                    showMatchForm: false
-                });
-            }else{
-                this.setState({
-                    showMatchForm: false
-                });
-            }
-        }
+        // matchFormClosed = profile => {
+        //     //profile sind nicht null und wird daher erstellt
+        //     if (profile){
+        //         const newMatchList = [this.state.profile, profile];
+        //         this.setState({
+        //             profile: newMatchList,
+        //             showMatchForm: false
+        //         });
+        //     }else{
+        //         this.setState({
+        //             showMatchForm: false
+        //         });
+        //     }
+        // }
         //Die Komponente die gerendert werden
         render(){
            const {classes,profile}= this.props
-           const{LoadingProcess,error,showMatchForm}=this.state;
+           const{LoadingProcess,error,
+            // showMatchForm
+        }=this.state;
         
             return(
                 <div className={classes.root}>
@@ -89,11 +93,15 @@ class MatchList extends Component {
                         
             {/* Zeigt die profileListEntry Komponente */}
                        
-                    <MatchListEntry key={profile.getID()} profile={profile}
-                    onExpandedStateChange={this.onExpandedStateChange}/>   }
-                          
+                    {/* <MatchListEntry key={profile.getID()} profile={profile}
+                    // onExpandedStateChange={this.onExpandedStateChange}
+            />    */}
+
+            {/* <MatchListEntry>
+                    
                      
-                    <LoadingProcess show={LoadingProcess}/>
+                    <LoadingProcess show={LoadingProcess}/> */}
+                    <MatchListEntry>Hallo Kaddi</MatchListEntry>
                     <Error_Message error={error} contextErrorMsg={'Die Liste konnte leider nicht geladen werden.'} onReload={this.getMatchmaking}/>
                    
                 </div>

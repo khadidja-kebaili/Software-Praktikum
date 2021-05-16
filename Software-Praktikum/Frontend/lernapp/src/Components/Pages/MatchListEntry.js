@@ -42,6 +42,8 @@ class MatchListEntry extends Component{
             });
         }
     }
+
+    
     // //Behandelt den onClose-Event für profileDeleteDialog
     // deleteprofileDialogClosed = (profile) => {
     //     //Wenn profile is not null, dann wird es gelöscht
@@ -56,7 +58,7 @@ class MatchListEntry extends Component{
     // }
     //Rendert die Komponente
     render() {
-        const { classes, expandedState } = this.props;
+        const { classes } = this.props;
         //Die state profile werden angewendet
         const { profile, 
             // showprofileForm, showprofileDeleteDialog
@@ -64,29 +66,27 @@ class MatchListEntry extends Component{
 
         return (
             <div>
-                <Accordion defaultExpanded={false} expanded={expandedState} onChange={this.expansionPanelStateChanged}> 
+                <Accordion> 
                     <AccordionSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        id={`profile${profile.getID()}profilpanel-header`}>
+                       
+                        id={`profile${profile.getID()}`}>
                            <Grid container spacing={1} justify='flex-start' alignItems='center'>
                                 <Typography variant='body1' className={classes.heading}>
-                                    {profile.getLastName()}, {profile.getFirstName()}, {profile.getID()}
+                                    {profile.getLastName()}, {profile.getFirstName()}
                                 </Typography>
                             </Grid>
                             <Grid item>
                                 <ButtonGroup variant='text' size='small'>
                                     {/* Das muss geändert werden zu adden */}
-                                    <Button color='primary' onClick={this.editprofileButtonClicked}>
-                                        edit
-                                    </Button>
+                                    
                                 </ButtonGroup>
                             </Grid>
                             <Grid item xs/>
                      </AccordionSummary>
-                    <MatchForm 
+                    {/* <MatchForm 
                     // show={showprofileForm} 
                     profile={profile} 
-                    onClose={this.profileFormClosed}/>
+                    onClose={this.profileFormClosed}/> */}
                     {/* <profileDeleteDialog show={showprofileDeleteDialog} profile={profile} onClose={this.deleteprofileDialogClosed}/> */}
                 </Accordion>
             </div>
