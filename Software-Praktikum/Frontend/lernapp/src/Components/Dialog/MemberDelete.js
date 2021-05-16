@@ -52,4 +52,4 @@ class MemberDelete extends Component {
     );
   }
 }
-export default DeleteMember;
+export default MemberDelete;
