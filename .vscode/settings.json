@@ -1,4 +1,6 @@
 {
-    "git.ignoreLimitWarning": true,
-    "python.pythonPath": "e:\\__Dump\\venv\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\Users\\Ha Mi Duong\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "python.analysis.extraPaths": [
+        "Software-Praktikum/src"
+    ]
 }
