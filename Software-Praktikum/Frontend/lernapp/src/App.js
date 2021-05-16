@@ -8,7 +8,7 @@ import Chatlist from './Components/ChatList';
 export default function App(){
     return(
         <div>
-            <Chatlist/>
+            <Message/>
         </div>
     )
 }
