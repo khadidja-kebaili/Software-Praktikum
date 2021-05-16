@@ -5,20 +5,11 @@ import BusinessObject from './Businessobject';
  */
 export default class MessageBO extends BusinessObject {
 
-    /**
-     * 
-     * @param {*} profilID 
-     * @param {*} room 
-     * @param {*} text 
-     * @param {*} time
-     */
     constructor(profilID, room, text){
         super();
         this.profilID = profilID;
         this.room = room;
         this.text = text;
-        //Plan: Zeitpunkt des Sendens speichern
-        this.time = Date.now;
     }
 
     //Getter und Setter Methoden für die Objekte der Klasse MessageBO

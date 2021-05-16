@@ -6,7 +6,7 @@ export default class LernappAPI{
     //Singelton instance
     static #api = null;
     
-    #lernappServerBaseURL = 'http://127.0.0.1:5000/';
+    #lernappServerBaseURL = 'http://127.0.0.1:3306/';
 
     // Chatroom related
     #get_Chatlist = () => '${this.#lernappServerBaseURL}/chat';
