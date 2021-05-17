@@ -1,4 +1,5 @@
 import mysql.connector as connector;
+import mysql as mysql;
 import os;
 from contextlib import AbstractContextManager;
 from abc import ABC, abstractmethod;
