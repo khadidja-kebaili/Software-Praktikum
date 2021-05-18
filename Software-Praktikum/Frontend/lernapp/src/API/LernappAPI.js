@@ -51,8 +51,10 @@ export default class LernappAPI{
     }
 
     static getAPI(){
-        this.#api = new LernappAPI();
-    return this.#api;
+        if(this.#api == null){
+            this.#api = new LernappAPI();            
+        }
+        return this.#api;
     }
     
 }
