@@ -67,6 +67,14 @@ class ProfilOperations(Resource):
         return profile
 
 
+@api.route('/matches')
+class Profilanzeigen (Resource):
+    def get(self):
+        adm = Businesslogic()
+        profile = adm.get_matches()
+        return profile
+
+
 @api.route('/profile/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
 class Profilanzeigen (Resource):
