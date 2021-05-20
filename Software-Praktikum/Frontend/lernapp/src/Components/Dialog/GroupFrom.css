@@ -1,0 +1,35 @@
+
+  .Gruppe {
+    display: flex;
+    border-radius: 25px;
+    border: 2px solid black;
+    width: 45%;
+    margin: auto;
+  }
+  .Gruppe {
+    display: grid;
+    grid-auto-columns: auto;
+    grid-auto-rows: 65px;
+    gap: 1em;
+    padding: 1em;
+  }
+  
+  
+  .Überschrift {
+    text-align: center;
+  }
+  
+  h2 {
+    text-align: left;
+    grid-column: 1;
+    grid-row: 1;
+  }
+  
+  #Bearbeiten {
+    margin-left: 420px;
+    margin-bottom: 3em;
+  }
+  #Hinzufügen {
+    margin-left: 420px;
+    margin-bottom: 3em;
+  }
