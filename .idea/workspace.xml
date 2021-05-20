@@ -19,7 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp" />
+    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp">
+      <change beforePath="$PROJECT_DIR$/.idea/Software-Praktikum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Software-Praktikum.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/backend/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/server/bo/Businessobject" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/server/bo/GruppeBO.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/server/db/GroupMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/backend/server/db/GroupMapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/server/db/Mapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/backend/server/db/Mapper.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,6 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="57614af9-8cf1-4910-86a7-42b114e1eef7" />
   <component name="ProjectId" id="1rAYkGgF0QWYo9XupnP14NYuSu0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -36,6 +45,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -43,6 +53,35 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\khadi\WebstormProjects\Software-Praktikum\Software-Praktikum\Frontend\lernapp\src" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="GroupMapper" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Software-Praktikum" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\sarah\AppData\Local\Programs\Python\Python39\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Software-Praktikum/backend/server/db" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Software-Praktikum/backend/server/db/GroupMapper.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.GroupMapper" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -53,6 +92,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618420503629</updated>
       <workItem from="1618420504785" duration="1229000" />
+      <workItem from="1621516088459" duration="1567000" />
     </task>
     <task id="LOCAL-00001" summary="npm create-creact app lernapp">
       <created>1618421028412</created>
@@ -77,6 +117,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="npm create-creact app lernapp" />
@@ -87,9 +128,28 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="409" y="144" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1618420996460" />
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom" timestamp="1621517252073">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1621517252073" />
+    <state width="1237" height="163" key="GridCell.Tab.0.center" timestamp="1621517252073">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1621517252073" />
+    <state width="1237" height="163" key="GridCell.Tab.0.left" timestamp="1621517252073">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1621517252073" />
+    <state width="1237" height="163" key="GridCell.Tab.0.right" timestamp="1621517252073">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="163" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1621517252073" />
     <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1618473366435">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1618473366435" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Software_Praktikum$GroupMapper.coverage" NAME="GroupMapper Coverage Results" MODIFIED="1621517252064" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Software-Praktikum/backend/server/db" />
   </component>
 </project>
