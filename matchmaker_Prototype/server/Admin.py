@@ -1,4 +1,4 @@
-from matchmaker_Prototype.server.BO.Profil import Studentprofil
+from matchmaker_Prototype.server.BO.Profile import Studentprofil
 
 from matchmaker_Prototype.server.db.ProfileMapper import StudentprofilMapper
 

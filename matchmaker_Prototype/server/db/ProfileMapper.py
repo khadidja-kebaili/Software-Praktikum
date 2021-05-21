@@ -1,67 +1,65 @@
 from matchmaker_Prototype.server.db.Mapper import Mapper
-from matchmaker_Prototype.server.BO.Profil import Studentprofil
+from matchmaker_Prototype.server.BO.Profile import Studentprofile
 
-
-class StudentprofilMapper (Mapper):
+class StudentprofileMapper(Mapper):
 
     def __init__(self):
         super().__init__()
 
-    def insert(self, studentprofil):
-
+    def insert(self, studentprofile):
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM profil ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM profile ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
             if maxid[0] is not None:
-                studentprofil.set_id(maxid[0] + 1)
+                studentprofile.set_id(maxid[0] + 1)
             else:
                 """Wenn wir KEINE maximale ID feststellen konnten, dann gehen wir
                 davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
-                studentprofil.set_id(1)
+                studentprofile.set_id(1)
 
-        command = "INSERT INTO profil (id, name, vorname, age, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung) VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
+        command = "INSERT INTO profile (id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
         data = (
-            studentprofil.get_id(), studentprofil.get_name(),
-            studentprofil.get_vorname(), studentprofil.get_alter(),
-            studentprofil.get_semester(), studentprofil.get_studiengang(),
-            studentprofil.get_hobbies(), studentprofil.get_interessen(),
-            studentprofil.get_persönlichkeit(), studentprofil.get_lerntyp(),
-            studentprofil.get_lernzeitraum(), studentprofil.get_lernort(),
-            studentprofil.get_lernfrequenz(), studentprofil.get_berufserfahrung())
+            studentprofile.get_id(), studentprofile.get_last_name(),
+            studentprofile.get_first_name(), studentprofile.get_age(),
+            studentprofile.get_semester(), studentprofile.get_major(),
+            studentprofile.get_hobbys(), studentprofile.get_interests(),
+            studentprofile.get_personality(), studentprofile.get_learnstyle(),
+            studentprofile.get_studytime(), studentprofile.get_studyplace(),
+            studentprofile.get_studyfrequence(), studentprofile.get_workexperience())
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
 
-        return studentprofil
+        return studentprofile
 
     def find_all(self):
 
         result = []
         cursor = self._cnx.cursor()
         cursor.execute(
-            "SELECT id, name, vorname, age, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung from profil")
+            "SELECT id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience from profile")
         tuples = cursor.fetchall()
 
-        for (id, name, vorname, alter, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung) in tuples:
-            profil = Studentprofil()
-            profil.set_id(id)
-            profil.set_name(name)
-            profil.set_vorname(vorname)
-            profil.set_alter(alter)
-            profil.set_semester(semester)
-            profil.set_studiengang(studiengang)
-            profil.set_hobbies(hobbies)
-            profil.set_interessen(interessen)
-            profil.set_persönlichkeit(persönlichkeit)
-            profil.set_lerntyp(lerntyp)
-            profil.set_lernzeitraum(lernzeitraum)
-            profil.set_lernort(lernort),
-            profil.set_lernfrequenz(lernfrequenz)
-            profil.set_berufserfahrung(berufserfahrung)
-            result.append(profil)
+        for (id, first_name, last_name, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) in tuples:
+            profile = Studentprofile()
+            profile.set_id(id)
+            profile.set_first_name(first_name)
+            profile.set_last_name(last_name)
+            profile.set_age(age)
+            profile.set_semester(semester)
+            profile.set_major(major)
+            profile.set_hobbys(hobbys)
+            profile.set_interests(interests)
+            profile.set_personality(personality)
+            profile.set_learnstyle(learnstyle)
+            profile.set_studytime(studytime)
+            profile.set_studyplace(studyplace),
+            profile.set_studyfrequence(studyfrequence)
+            profile.set_workexperience(workexperience)
+            result.append(profile)
 
         self._cnx.commit()
         cursor.close()
@@ -72,30 +70,30 @@ class StudentprofilMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, vorname, age, semester, studiengang, hobbies, interessen, persönlichkeit, lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung FROM profil WHERE id={}".format(
+        command = "SELECT id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience FROM profile WHERE id={}".format(
             key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, name, vorname, alter, semester, studiengang, hobbies, interessen, persönlichkeit,
-             lerntyp, lernzeitraum, lernort, lernfrequenz, berufserfahrung) = tuples[0]
-            profil = Studentprofil()
-            profil.set_id(id)
-            profil.set_name(name)
-            profil.set_vorname(vorname)
-            profil.set_alter(alter)
-            profil.set_semester(semester)
-            profil.set_studiengang(studiengang)
-            profil.set_hobbies(hobbies)
-            profil.set_interessen(interessen)
-            profil.set_persönlichkeit(persönlichkeit)
-            profil.set_lerntyp(lerntyp)
-            profil.set_lernzeitraum(lernzeitraum)
-            profil.set_lernort(lernort),
-            profil.set_lernfrequenz(lernfrequenz)
-            profil.set_berufserfahrung(berufserfahrung)
-            result = profil
+            (id, first_name, last_name, age, semester, major, hobbys, interests, personality,
+             learnstyle, studytime, studyplace, studyfrequence, workexperience) = tuples[0]
+            profile = Studentprofile()
+            profile.set_id(id)
+            profile.set_first_name(first_name)
+            profile.set_last_name(last_name)
+            profile.set_age(age)
+            profile.set_semester(semester)
+            profile.set_major(major)
+            profile.set_hobbys(hobbys)
+            profile.set_interests(interests)
+            profile.set_personality(personality)
+            profile.set_learnstyle(learnstyle)
+            profile.set_studytime(studytime)
+            profile.set_studyplace(studyplace),
+            profile.set_studyfrequence(studyfrequence)
+            profile.set_workexperience(workexperience)
+            result = profile
         except IndexError:
             """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
             keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
@@ -106,37 +104,41 @@ class StudentprofilMapper (Mapper):
 
         return result
 
-    def update(self, studentprofil):
+    def update(self, studentprofile):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE profil " + "SET name=%s, vorname=%s, age=%s, semester=%s, studiengang=%s, hobbies=%s, interessen=%s, persönlichkeit=%s, lerntyp=%s, lernzeitraum=%s, lernort=%s, lernfrequenz=%s, berufserfahrung=%s  WHERE id=%s"
-        data = (studentprofil.get_name(),
-                studentprofil.get_vorname(), studentprofil.get_alter(),
-                studentprofil.get_semester(), studentprofil.get_studiengang(),
-                studentprofil.get_hobbies(), studentprofil.get_interessen(),
-                studentprofil.get_persönlichkeit(), studentprofil.get_lerntyp(),
-                studentprofil.get_lernzeitraum(), studentprofil.get_lernort(),
-                studentprofil.get_lernfrequenz(), studentprofil.get_berufserfahrung(), studentprofil.get_id())
+        command = "UPDATE profile " + "SET firstname=%s, lastname=%s, age=%s, semester=%s, major=%s, hobbys=%s, interests=%s, personality=%s, learnstyle=%s, studytime=%s, studyplace=%s, studyfrequence=%s, workexperience=%s  WHERE id=%s"
+        data = (
+            studentprofile.get_last_name(),
+            studentprofile.get_first_name(), studentprofile.get_age(),
+            studentprofile.get_semester(), studentprofile.get_major(),
+            studentprofile.get_hobbys(), studentprofile.get_interests(),
+            studentprofile.get_personality(), studentprofile.get_learnstyle(),
+            studentprofile.get_studytime(), studentprofile.get_studyplace(),
+            studentprofile.get_studyfrequence(), studentprofile.get_workexperience(), studentprofile.get_id(),)
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
 
-        return studentprofil
+        return studentprofile
 
-    def delete(self, studentprofil):
+    def delete(self, studentprofile):
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM profil WHERE id={}".format(
-            studentprofil.get_id())
+        command = "DELETE FROM profile WHERE id={}".format(
+            studentprofile.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close()
 
+    def update_requested_by(self, object):
+        pass
+
 if (__name__ == "__main__"):
-    with StudentprofilMapper() as mapper:
+    with StudentprofileMapper() as mapper:
         result = mapper.find_all()
-        for student in result:
-            print((student))
+        for p in result:
+            print(p)
