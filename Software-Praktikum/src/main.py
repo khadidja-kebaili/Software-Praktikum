@@ -111,6 +111,13 @@ class Matcher(Resource):
         matches = adm.into_list(id)
         return matches
 
+# Test 
+@api.route('/matches')
+class Profilanzeigen (Resource):
+    def get(self):
+        adm = Businesslogik()
+        profile = adm.get_matches()
+        return profile
 
 if __name__ == '__main__':
     app.run(debug=True)

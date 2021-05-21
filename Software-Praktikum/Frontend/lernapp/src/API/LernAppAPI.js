@@ -20,7 +20,8 @@ export default class LernappAPI {
   #deleteProfileURL = (id) =>`${this.#lernappServerBaseURL}/profile/${id}`;
   #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
   #getAllProfilesURL = () => `${this.#lernappServerBaseURL}/profile`;
-  #getMatchmakingURL = (id) => `${this.#lernappServerBaseURL}/matchmaking/${id}`;
+  // #getMatchmakingURL = (id) => `${this.#lernappServerBaseURL}/matchmaking/${id}`;
+  #getMatchmakingURL = () => `${this.#lernappServerBaseURL}/matches`;
 
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
@@ -110,12 +111,13 @@ export default class LernappAPI {
   //       })
   //     })
   // }
-  getMatchmaking(profileID) {
-    return this.#fetchAdvanced(this.#getMatchmakingURL(profileID)).then((responseJSON) => {
-      let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
-      // console.info(responseProfileBO);
+  
+  getMatchmaking() {
+    return this.#fetchAdvanced(this.#getMatchmakingURL()).then((responseJSON) => {
+      let profileBO = ProfileBO.fromJSON(responseJSON);
+      console.info(profileBO);
       return new Promise(function (resolve) {
-        resolve(responseProfileBO);
+        resolve(profileBO);
       })
     })
   }

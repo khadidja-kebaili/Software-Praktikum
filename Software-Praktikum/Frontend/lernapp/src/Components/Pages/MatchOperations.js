@@ -38,58 +38,58 @@
 // }
 
 // export default MatchOperations;
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 
-import BusinessObject from '../../API/BusinessObject';
-import MatchDetail from '../Pages/MatchesDetail';
-import LernappAPI from '../../API/LernappAPI';
+// import BusinessObject from '../../API/BusinessObject';
+// import MatchDetail from '../Pages/MatchesDetail';
+// import LernappAPI from '../../API/LernappAPI';
 
 
 
-class MatchOperations extends Component {
-  constructor(props){
-  super(props);
+// class MatchOperations extends Component {
+//   constructor(props){
+//   super(props);
   
-  this.state = { 
-    profiles: [],
+//   this.state = { 
+//     profiles: [],
    
-   };
-  }
-  componentDidMount() {
-    this.loadProfiles();
-  }
+//    };
+//   }
+//   componentDidMount() {
+//     this.loadProfiles();
+//   }
 
 
-  loadProfiles = () => {
-    LernappAPI.getAPI.getAllProfiles().then( profiles =>
-      this.setState({
-        profiles: profiles,
+//   loadProfiles = () => {
+//     LernappAPI.getAPI.getAllProfiles().then( profiles =>
+//       this.setState({
+//         profiles: profiles,
 
-      }))
-  }
-  // getAllProfiles = () => {
-  //   LernappAPI.getAPI().getAllProfiles().then(profiles =>
-  //     this.setState({
-  //       profiles: profiles,
-  //     }))
-  // }
+//       }))
+//   }
+//   // getAllProfiles = () => {
+//   //   LernappAPI.getAPI().getAllProfiles().then(profiles =>
+//   //     this.setState({
+//   //       profiles: profiles,
+//   //     }))
+//   // }
   
-  render() { 
-    const { profiles } = this.state;
-    return (
-      <div>
-        {
-          profiles.map(profile => <MatchDetail key={profile.getID()}
-          profileID={profile.loadProfiles().toString()} 
-          profileID={profile.getID().toString()}
-          />)
-        }
+//   render() { 
+//     const { profiles } = this.state;
+//     return (
+//       <div>
+//         {
+//           profiles.map(profile => <MatchDetail key={profile.getID()}
+//           profileID={profile.loadProfiles().toString()} 
+//           profileID={profile.getID().toString()}
+//           />)
+//         }
 
 
-      </div>
-    )
-}
-}
+//       </div>
+//     )
+// }
+// }
 
-export default MatchOperations;
+// export default MatchOperations;
 
