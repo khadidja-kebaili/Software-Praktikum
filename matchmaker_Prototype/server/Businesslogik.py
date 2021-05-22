@@ -77,23 +77,21 @@ class Businesslogic (object):
         with GroupMapper() as mapper:
             mapper.update(group)
 
-    def delete_profile(self, group):
+    def delete_group(self, group):
         with GroupMapper() as mapper:
             mapper.delete(group)
 
-#####################################################################
     def set_score(self, profile1, profile2):
-        newList = 0
-        no_match = 0
-        list1 = [self.get_learning_habbits(profile2)]
-        list2 = [self.get_learning_habbits(profile1)]
+        match_score = 0
+        no_match_score = 0
+        list1 = self.get_learning_habbits(profile1)
+        list2 = self.get_learning_habbits(profile2)
         for element in list1:
                 if element in list2:
-                    newList += 1
+                    match_score += 1
                 elif element not in list2:
-                    no_match += 1
-        score = newList - no_match
-        return score
+                    no_match_score += 1
+        return match_score
 
     def get_learning_habbits(self, id):
         profile = self.get_profile_by_id(id)
@@ -102,72 +100,20 @@ class Businesslogic (object):
         return learning_habbits
 
 
-    # def print_set_score(self, student1, student2):
-    #     print("")
-    #     print("Hier sind die Matches für den Studenten mit der ID: ", int(student1))
-    #     # print(self)
-    #     print("\t%s: %s" % (self.set_score(student1, student2), self.get_profil_by_id(student2)))
-
-    # def into_list(self, profile1):
-    #     length = len(self.get_all_profiles())
-    #     list = []
-    #     for element in range(1, length + 1):
-    #         self.print_matches_for_id(profile1, element)
-
-
-    # def into_list(self, id):
-    #     scores = []
-    #     profiles = []
-    #     for element in range(1, (len(self.get_all_profiles())+1)):
-    #         scores.append(self.set_score(element, id))
-    #     for element in self.get_all_profiles():
-    #         profiles.append(element)
-    #     dic = dict(zip(profiles, scores))
-    #     sort_orders = sorted(dic.items(), key=lambda x: x[1], reverse=True)
-    #     return sort_orders
-
-    # def into_list(self, id):
-    #     scores = []
-    #     profiles = []
-    #     for element in self.get_all_profiles():
-    #         if element.get_id() == id:
-    #             continue
-    #         else:
-    #             scores.append(self.set_score(int(element.get_id()),id))
-    #     for element in self.get_all_profiles():
-    #         if element.get_id() == id:
-    #             continue
-    #         else:
-    #             profiles.append(element)
-    #     dic = dict(zip(profiles, scores))
-    #     sort_orders = sorted(dic.items(), key=lambda x: x[1], reverse=True)
-    #     for element in sort_orders:
-    #         print(element)
-        # return sort_orders
-
-    def into_list(self, id):
+    def matching_list(self, id):
         scores = []
         profiles = []
         for element in range(1, (len(self.get_all_profiles())+1)):
             profiles.append(self.get_profile_by_id(element))
             scores.append(self.set_score(element, id))
-        # for element in self.get_all_profiles():
-        #     if element.get_id() == id:
-        #         continue
-        #     else:
-        #         scores.append(self.set_score(int(element.get_id()),id))
         for element in self.get_all_profiles():
             if element.get_id() == id:
                 continue
             else:
                 profiles.append(element)
-        dic = dict(zip(profiles, scores))
-        sort_orders = sorted(dic.items(), key=lambda x: x[1], reverse=True)
-        return sort_orders
-
-
-    # def send_request(self, student1, student2):
-    #     requested = self.get_profil_by_id(student2)
-    #     requester_id = int(self.get_profil_by_id(student1).get_id())
-    #     requested.set_request(requester_id)
-    #     return requested.get_requested_by()
+        matches = dict(zip(profiles, scores))
+        matches = dict(sorted(matches.items(), key=lambda item: item[1], reverse= True))
+        new_sorted_list = []
+        for element in matches:
+            new_sorted_list.append(element)
+        return new_sorted_list
