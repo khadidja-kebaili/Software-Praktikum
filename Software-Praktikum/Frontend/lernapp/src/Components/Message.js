@@ -34,6 +34,7 @@ class Message extends Component{
 }
 
 //Stylesheet 
-const styles;
+//const styles;
 
-export default withStyles(styles)(Message);
+//export default withStyles(styles)(Message);
+export default Message;

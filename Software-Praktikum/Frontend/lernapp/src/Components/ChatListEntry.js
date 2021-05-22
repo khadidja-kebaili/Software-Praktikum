@@ -32,6 +32,6 @@ class ChatlistEntry extends Component{
 }
 
 //Stylesheet 
-const styles;
+//const styles;
 
-export default withStyles(styles)(ChatlistEntry);
+//export default withStyles(styles)(ChatlistEntry);
