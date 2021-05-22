@@ -4,6 +4,7 @@ import Header from './Components/Layout/Header';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Chats from './Chats';
 import Gruppen from './Gruppen';
+import Profil from './Profil';
 import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
 
 class App extends React.Component {
@@ -26,6 +27,9 @@ class App extends React.Component {
                   </Route>
                   <Route path='/gruppen'>
                     <Gruppen/>
+                  </Route>
+                  <Route path='/profil'>
+                    <Profil/>
                   </Route>
                 </>
               }

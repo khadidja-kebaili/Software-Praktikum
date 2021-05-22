@@ -22,7 +22,7 @@ class Header extends Component {
     }
   
     /** Handles onChange events of the Tabs component */
-    handleTabChange = (e, newIndex) => {
+    changeTab = (e, newIndex) => {
       // console.log(newValue)
       this.setState({
         tabindex: newIndex
@@ -42,10 +42,11 @@ class Header extends Component {
           
           {
             
-              <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.handleTabChange} >
+              <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
                 <Tab label='Matchmaker' component={RouterLink} to={`/matchmaker`} />
                 <Tab label='Chats' component={RouterLink} to={`/chats`} />
                 <Tab label='Gruppen' component={RouterLink} to={`/gruppen`} />
+                <Tab label='Profil' component={RouterLink} to={`/profil`} />
               </Tabs>
               
           }

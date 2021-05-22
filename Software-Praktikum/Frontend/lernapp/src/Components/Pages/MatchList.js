@@ -49,6 +49,7 @@ class MatchList extends Component {
                         matches.map(profiles =>
                             <MatchListEntry key={profiles.getID()} profiles={profiles}/>)
                     }
+                    
                 </div>
             )
     }
