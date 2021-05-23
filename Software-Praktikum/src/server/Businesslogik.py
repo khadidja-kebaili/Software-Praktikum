@@ -15,11 +15,14 @@ class Businesslogik(object):
         message.set_profilID(profilID);
         message.set_room(room);
         message.set_text(text);
-        #message.set_time(time);
         message.set_id(1);
 
         with MessageMapper() as mapper:
             return mapper.insert(message);
+
+    def get_message_by_id(self, id):
+        with MessageMapper() as mapper:
+            return mapper.find_by_key(id);
 
     def get_messages_by_roomID(self, id):
         with MessageMapper() as mapper:
@@ -31,7 +34,11 @@ class Businesslogik(object):
 
     def get_allMessages(self):
         with MessageMapper() as mapper:
-            return mapper.find_all;
+            return mapper.find_all();
+    
+    def get_room_by_user(self, id):
+        with MessageMapper() as mapper:
+            return mapper.find_associatedRooms(id);
 
     #Methoden für Chatroom
     def create_chatroom(self):
@@ -40,4 +47,12 @@ class Businesslogik(object):
 
         with ChatroomMapper() as mapper:
             return mapper.insert(room);
+
+    def get_allRooms(self):
+        with ChatroomMapper() as mapper:
+            return mapper.find_all();
+
+    def get_room_by_id(self, id):
+        with ChatroomMapper() as mapper:
+            return mapper.find_by_key(id);
     

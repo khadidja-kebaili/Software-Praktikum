@@ -30,19 +30,59 @@ class MessageMapper(Mapper):
         cursor.close();
         return message;
 
-    def find_by_room(self, roomID):
+    def find_all(self):
         res = [];
         cursor = self._cnx.cursor();
-        command = "SELECT id, profilID, room, text, time FROM messages WHERE room={} ORDER BY id".format(roomID);
-        cursor.execute(command);
+        cursor.execute("SELECT id, profilID, room, text FROM messages")
         tuples = cursor.fetchall();
 
-        for (id, profilID, room, text, time) in tuples:
+        for(id, profilID, room, text) in tuples:
             message = MessageBO();
             message.set_id(id);
             message.set_profilID(profilID);
             message.set_room(room);
-            message.set_time(time);
+            message.set_text(text);
+            res.append(message);
+        
+        self._cnx.commit();
+        cursor.close();
+        return res;
+
+    def find_by_key(self, id):
+        res = None;
+        cursor = self._cnx.cursor();
+        command = "SELECT id, profilID, room, text FROM messages WHERE id={}".format(id);
+        cursor.execute(command);
+        tuples = cursor.fetchall();
+    
+        try:
+            (id, profilID, room, text) = tuples[0]
+            message = MessageBO();
+            message.set_id(id);
+            message.set_profilID(profilID);
+            message.set_room(room);
+            message.set_text(text);
+            res = message;
+        except IndexError:
+            res = None;
+        
+        self._cnx.commit();
+        cursor.close();
+        return res;
+    
+    def find_by_room(self, roomID):
+        res = [];
+        cursor = self._cnx.cursor();
+        command = "SELECT id, profilID, room, text FROM messages WHERE room={} ORDER BY id".format(roomID);
+        cursor.execute(command);
+        tuples = cursor.fetchall();
+
+        for (id, profilID, room, text) in tuples:
+            message = MessageBO();
+            message.set_id(id);
+            message.set_profilID(profilID);
+            message.set_room(room);
+            message.set_text(text);
             res.append(message);
 
         self._cnx.commit();
@@ -53,7 +93,7 @@ class MessageMapper(Mapper):
         res = [];
         cursor = self._cnx.cursor();
         #SQL UNIQUE nachschauen
-        command = "SELECT room FROM messages WHERE profilID={}".format(profilID);
+        command = "SELECT DISTINCT room FROM messages WHERE profilID={}".format(profilID);
         cursor.execute(command);
         tuples = cursor.fetchall();
 
@@ -65,5 +105,9 @@ class MessageMapper(Mapper):
         cursor.close();
         return res;
 
-
-    
+    def delete(self, message):
+        cursor = self._cnx.cursor();
+        command = "DELETE FROM messages WHERE id={}".format(message.get_id());
+        cursor.execute(command);
+        self._cnx.commit();
+        cursor.close();
