@@ -1,5 +1,4 @@
-import BusinessObject from "./src/BusinessObject"
-
+import BusinessObject from "./BusinessObject"
 export default class GroupBO extends BusinessObject{
 
 	constructor(groupname, id, member,admin, description,) {
