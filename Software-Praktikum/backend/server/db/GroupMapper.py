@@ -1,6 +1,9 @@
 from server.db.Mapper import Mapper
 from server.bo.GroupBO import Group
 
+#from matchmaker_Prototype.server.db.Mapper import Mapper
+#from matchmaker_Prototype.server.BO.GroupBO import Group
+
 
 class GroupMapper(Mapper):
 
@@ -10,7 +13,7 @@ class GroupMapper(Mapper):
     def insert(self, group):
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM group ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM test.group ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
@@ -37,7 +40,7 @@ class GroupMapper(Mapper):
         result = []
         cursor = self._cnx.cursor()
         cursor.execute(
-            "SELECT id, admin, description, groupname FROM group")
+            "SELECT id, admin, description, groupname FROM test.group")
         tuples = cursor.fetchall()
 
         for (id, admin, description, groupname) in tuples:
@@ -57,7 +60,7 @@ class GroupMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, admin, description,groupname FROM group WHERE id={}".format(
+        command = "SELECT id, admin, description,groupname FROM test.group WHERE id={}".format(
             key)
         cursor.execute(command)
         tuples = cursor.fetchall()
@@ -84,7 +87,7 @@ class GroupMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE group " + "SET admin=%s, groupname=%s, id=%s, description=%s WHERE id=%s"
+        command = "UPDATE test.group " + "SET admin=%s, groupname=%s, id=%s, description=%s WHERE id=%s"
         data = (
             group.get_admin(),
             group.get_description(),
@@ -100,16 +103,19 @@ class GroupMapper(Mapper):
     def delete(self, group):
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM group WHERE id={}".format(
+        command = "DELETE FROM test.group WHERE id={}".format(
             group.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close()
 
+    def update_requested_by(self, object):
+        pass    
+
 if(__name__=="__main__"):
     print("test")
     with GroupMapper() as mapper:
         result = mapper.find_all()
-        for element in result:
-            print(element)
+        for p in result:
+            print(p)
