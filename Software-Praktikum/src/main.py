@@ -2,7 +2,7 @@ from flask import Flask;
 from flask_restx import Resource, Api, fields;
 from flask_cors import CORS;
 
-from server.Businesslogik import Businesslogik;
+from server.Businesslogic import Businesslogic;
 from server.bo.MessageBO import MessageBO;
 
 app = Flask(__name__);
@@ -26,7 +26,7 @@ class CreateMessages(Resource):
     @api.marshal_with(message)
     @api.expect(message)
     def post(self):
-        adm = Businesslogik();
+        adm = Businesslogic();
         proposal = MessageBO.from_dict(api.payload);
         if proposal is not None:
             p = adm.create_message(
@@ -38,7 +38,7 @@ class CreateMessages(Resource):
     
     @api.marshal_list_with(message)
     def get(self):
-        adm = Businesslogik();
+        adm = Businesslogic();
         profile = adm.get_allMessages();
         return message;
         
