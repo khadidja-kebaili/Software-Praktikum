@@ -48,18 +48,12 @@ class GroupForm extends Component {
         return (
           <div className="Gruppe">
               <h2>Gruppe</h2>
-              <p>Gib hier bitte den Gruppenamen und ID der Gruppe an, die du bearbeiten möchtest</p>
+              <p>Gib hier bitte deiner Gruppe einen Gruppennamen und eine Gruppenbeschreibung</p>
               <div className="groupname"><TextField name="groupname" label="Name" variant="outlined" /></div>
-              <div className="groupiD"><TextField name="groupid" label="ID" variant="outlined" /> </div>
-          <Typography variant="h9" color="inherit" >
-            Hier kannst du deine Gruppe bearbeiten oder eine neue Gruppe erstellen
-          </Typography>
-         
+              <div className="gruppenbeschreibung"><TextField id="outlined-multiline-flexible" 
+              label="Gruppenbeschreibung" multiline rowsMax={20} variant="outlined"/> </div><br/>
           <Button href="#" color="primary" variant="outlined">
-            Gruppe bearbeiten 
-          </Button> 
-          <Button href="#" color="primary" variant="outlined">
-            Eine neue Gruppe erstellen  
+         Gruppe erstellen  
           </Button>
          
          </div>
