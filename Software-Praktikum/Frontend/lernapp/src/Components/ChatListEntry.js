@@ -1,5 +1,3 @@
-import React, {Component} from 'react';
-
 class ChatlistEntry extends Component{
     constructor(props){
         super(props);

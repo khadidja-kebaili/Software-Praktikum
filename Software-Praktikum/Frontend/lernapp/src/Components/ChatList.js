@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ChatListEntry from './ChatListEntry';
-import {BankAPI} from '../api';
+import {LernappAPI} from '../api';
 
 class ChatList extends Component{
     constructor(props){
@@ -11,7 +11,7 @@ class ChatList extends Component{
     }
 
     get_Chats = () => {
-        BankAPI.getAPI().get_Chatlist(this.props.profile.getID()).then(ChatroomBOs =>
+        LernappAPI.getAPI().get_Chatlist(this.props.profile.getID()).then(ChatroomBOs =>
             this.setState({
                 Chats: ChatroomBOs
             })).catch(e =>

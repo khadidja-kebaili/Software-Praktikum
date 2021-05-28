@@ -16,13 +16,12 @@ class MessageMapper(Mapper):
             else:
                 message.set_id(1);
 
-        command = "INSERT INTO messages (id, profilID, room, text, time) VALUES (%s, %s, %s, %s)"
+        command = "INSERT INTO messages (id, profilID, room, text) VALUES (%s, %s, %s, %s)"
         data = (
             message.get_id(),
             message.get_profilID(),
             message.get_room(),
             message.get_text(),
-            message.get_time(),
         )
 
         cursor.execute(command, data);
@@ -70,6 +69,7 @@ class MessageMapper(Mapper):
         cursor.close();
         return res;
     
+    #alle Messages welche zu einem Raum gehören werden zurück gegeben
     def find_by_room(self, roomID):
         res = [];
         cursor = self._cnx.cursor();
@@ -89,21 +89,21 @@ class MessageMapper(Mapper):
         cursor.close();
         return res;
 
-    def find_associatedRooms(self, profilID):
-        res = [];
-        cursor = self._cnx.cursor();
-        #SQL UNIQUE nachschauen
-        command = "SELECT DISTINCT room FROM messages WHERE profilID={}".format(profilID);
-        cursor.execute(command);
-        tuples = cursor.fetchall();
+    #Was wenn die Person gelöscht wird aus der Gruppe?
+    #def find_associatedRooms(self, profilID):
+    #    res = [];
+    #    cursor = self._cnx.cursor();
+    #    command = "SELECT DISTINCT room FROM messages WHERE profilID={}".format(profilID);
+    #    cursor.execute(command);
+    #    tuples = cursor.fetchall();
 
         #Nur die RaumID soll in dem Array gespeichert werden
-        for(room) in tuples:
-            res.append(room);
+    #    for(room) in tuples:
+    #        res.append(room);
         
-        self._cnx.commit();
-        cursor.close();
-        return res;
+    #    self._cnx.commit();
+    #    cursor.close();
+    #    return res;
 
     def delete(self, message):
         cursor = self._cnx.cursor();

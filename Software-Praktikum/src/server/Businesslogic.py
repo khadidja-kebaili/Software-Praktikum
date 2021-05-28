@@ -4,7 +4,7 @@ from .db.MessageMapper import MessageMapper;
 from .bo.ChatroomBO import ChatroomBO;
 from .db.ChatroomMapper import ChatroomMapper;
 
-class Businesslogik(object):
+class Businesslogic(object):
     def __init__(self):
         pass;
 
