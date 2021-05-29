@@ -1,3 +1,5 @@
+from server.bo.ChatAccessBO import ChatAccessBO
+from server.db.ChatAccessMapper import ChatAccessMapper
 from .bo.MessageBO import MessageBO;
 from .db.MessageMapper import MessageMapper;
 
@@ -36,9 +38,13 @@ class Businesslogic(object):
         with MessageMapper() as mapper:
             return mapper.find_all();
     
-    def get_room_by_user(self, id):
+    #def get_room_by_user(self, id):
+    #    with MessageMapper() as mapper:
+    #        return mapper.find_associatedRooms(id);
+
+    def delete_message(self, id):
         with MessageMapper() as mapper:
-            return mapper.find_associatedRooms(id);
+            return mapper.delete(id);
 
     #Methoden für Chatroom
     def create_chatroom(self):
@@ -55,4 +61,31 @@ class Businesslogic(object):
     def get_room_by_id(self, id):
         with ChatroomMapper() as mapper:
             return mapper.find_by_key(id);
-    
+        
+    def delete_chatroom(self, room):
+        with ChatroomMapper() as mapper:
+            return mapper.delete(room);
+
+    #Methoden für ChatAccess
+    def create_chataccess(self):
+        access = ChatAccessBO();
+        access.set_id(1);
+
+        with ChatAccessMapper() as mapper:
+            return mapper.insert(access);
+
+    def get_allChataccess(self):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_all;
+
+    def get_Chataccess_by_id(self, id):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_by_key(id);
+
+    def get_chataccess_by_profil(self, profil):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_by_profil(profil);
+
+    def delete_chataccess(self, room):
+        with ChatAccessMapper() as mapper:
+            return mapper.delete(room);

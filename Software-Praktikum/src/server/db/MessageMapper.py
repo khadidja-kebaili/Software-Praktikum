@@ -111,3 +111,14 @@ class MessageMapper(Mapper):
         cursor.execute(command);
         self._cnx.commit();
         cursor.close();
+
+    def update(self, message):
+        cursor = self._cnx.cursor();
+        command = "UPDATE messages " + "SET profilID=%s, room=%s, text=%s WHERE id=%s"
+        data = (message.get_profilID(),
+                message.get_room(),
+                message.get_text(),
+                message.get_id())
+        cursor.execute(command, data);
+        self._cnx.commit();
+        cursor.close();

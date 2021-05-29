@@ -91,3 +91,13 @@ class ChatAccessMapper(Mapper):
         cursor.execute(command);
         self._cnx.commit();
         cursor.close();
+
+    def update(self, access):
+        cursor = self._cnx.cursor();
+        command = "UPDATE chataccess " + "SET profilID=%s, room=%s WHERE id=%s"
+        data = (access.get_profilID(),
+                access.get_room(),
+                access.get_id())
+        cursor.execute(command, data);
+        self._cnx.commit();
+        cursor.close();
