@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restx import Resource, Api, fields
-from matchmaker_Prototype.server.Businesslogik import Businesslogic
+from matchmaker_Prototype.server.Businesslogic import Businesslogic
 from matchmaker_Prototype.server.BO.Profile import Studentprofile
 from flask_cors import CORS
 # from SecurityDecorator import secured

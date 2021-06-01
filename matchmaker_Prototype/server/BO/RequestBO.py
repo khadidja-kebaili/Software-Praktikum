@@ -5,6 +5,14 @@ class Request(BusinessObject):
     def __init__(self):
         super().__init__()
         self.requested_by = ""
+        self.requested = ""
+
+
+    def set_requested(self, value):
+        self.requested = value
+
+    def get_requested(self):
+        return self.get_requested
 
     def set_requested_by(self, value):
         self.requested_by = value
@@ -14,7 +22,7 @@ class Request(BusinessObject):
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "Request: ID: {}, Requested_by: {}".format(self.get_id(), self.get_requested_by())
+        return "Request: ID: {}, Requested_by: {}, Requested: {}".format(self.get_id(), self.get_requested_by(), self.get_requested())
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -22,5 +30,6 @@ class Request(BusinessObject):
         obj = Request()
         obj.set_id(dictionary["id"])
         obj.set_requested_by(dictionary["requested_by"])
+        obj.set_requested(dictionary['requested'])
         return obj
 
