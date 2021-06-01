@@ -4,6 +4,7 @@ import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typogr
 import { withRouter } from 'react-router-dom';
 import LernappAPI from '../../API/LernappAPI';
 import MatchListEntry from './MatchListEntry';
+import AddIcon from '@material-ui/icons/Add';
 
 
 
@@ -48,6 +49,7 @@ class MatchList extends Component {
                     {
                         matches.map(profiles =>
                             <MatchListEntry key={profiles.getID()} profiles={profiles}/>)
+                            
                     }
                     
                 </div>

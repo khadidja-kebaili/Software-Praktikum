@@ -1,5 +1,9 @@
 import React,{Component} from 'react';
 import {Typography} from '@material-ui/core';
+import { Button } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+
+
 
 class MatchListEntry extends Component{
     constructor(props){
@@ -15,10 +19,14 @@ class MatchListEntry extends Component{
         
         return(
             <div>
+                
                 <Typography>
                     {matches.getFirstname()}, {matches.getLastname()}, {matches.getLearnstyle()}, {matches.getStudytime()},
                     {matches.getStudyplace()}, {matches.getStudyfrequence()}
-                </Typography>
+                 <Button color='primary' startIcon={<AddIcon />} flex="flex-end" >Anfrage senden</Button>
+                 </Typography>
+               
+                
             </div>
         );
     }
