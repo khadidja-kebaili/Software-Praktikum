@@ -1,8 +1,6 @@
 from server.db.Mapper import Mapper
 from server.bo.GroupBO import Group
 
-#from matchmaker_Prototype.server.db.Mapper import Mapper
-#from matchmaker_Prototype.server.BO.GroupBO import Group
 
 
 class GroupMapper(Mapper):

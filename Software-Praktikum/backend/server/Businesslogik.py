@@ -1,3 +1,6 @@
+from server.db.GroupMapper import GroupMapper
+from server.bo.GroupBO import Group
+
 class Businesslogik (object):
     
     def __init__(self):
@@ -15,7 +18,7 @@ class Businesslogik (object):
             return mapper.insert(group)
 
     def get_group_by_gruppenid(self, number):
-        with GROUPMapper() as mapper:
+        with GroupMapper() as mapper:
             return mapper.find_by_key(number)
 
     def update_Group(self, group):

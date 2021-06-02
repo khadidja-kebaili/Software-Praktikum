@@ -20,13 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp">
-      <change beforePath="$PROJECT_DIR$/.idea/Software-Praktikum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Software-Praktikum.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/backend/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/server/bo/Businessobject" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/server/bo/GruppeBO.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/server/Businesslogik.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/backend/server/Businesslogik.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/server/db/GroupMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/backend/server/db/GroupMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/server/db/Mapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/backend/server/db/Mapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/backend/server/db/GruppeAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/backend/server/db/GruppeAPI.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,9 +40,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -54,7 +58,7 @@
       <recent name="C:\Users\khadi\WebstormProjects\Software-Praktikum\Software-Praktikum\Frontend\lernapp\src" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.GroupMapper">
     <configuration name="GroupMapper" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Software-Praktikum" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -77,9 +81,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="GruppeAPI" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Software-Praktikum" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Software-Praktikum/backend/server/db" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Software-Praktikum/backend/server/db/GruppeAPI.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.GroupMapper" />
+        <item itemvalue="Python.GruppeAPI" />
       </list>
     </recent_temporary>
   </component>
@@ -92,7 +119,7 @@
       <option name="presentableId" value="Default" />
       <updated>1618420503629</updated>
       <workItem from="1618420504785" duration="1229000" />
-      <workItem from="1621516088459" duration="1567000" />
+      <workItem from="1621516088459" duration="4324000" />
     </task>
     <task id="LOCAL-00001" summary="npm create-creact app lernapp">
       <created>1618421028412</created>
