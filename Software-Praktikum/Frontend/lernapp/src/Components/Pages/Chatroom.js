@@ -13,11 +13,9 @@ import { LernappAPI } from '../../API';
  */
 class Chatroom extends Component{
 
-    get_messages = (id) => {
-        return LernappAPI.getAPI().get_allMessages_fromChatroom(id)
-    }
+    
 
-    update_messages() {
+    render_messages() {
         var parent = document.getElementById("chat");
         //parent.innerHTML = "";
         //var messageMapper = new MessageMapper();

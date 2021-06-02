@@ -1,3 +1,5 @@
+import { LernappAPI } from "../API";
+
 class ChatlistEntry extends Component{
     constructor(props){
         super(props);
@@ -7,7 +9,7 @@ class ChatlistEntry extends Component{
     }
 
     componentDidMount(){
-        //get
+        this.getChatentry();
     }
 
     componentDidUpdate(prevProps){
@@ -16,7 +18,9 @@ class ChatlistEntry extends Component{
         }
     }
 
-    //get Methoden
+    getChatentry = () => {
+        LernappAPI.getAPI().getC
+    }
 
 
     /**

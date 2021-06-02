@@ -10,8 +10,9 @@ class ChatList extends Component{
         }
     }
 
+    //Chaträume des aktuellen Users holen
     get_Chats = () => {
-        LernappAPI.getAPI().get_Chatlist(this.props.profile.getID()).then(ChatroomBOs =>
+        LernappAPI.getAPI().get_Chataccess(this.props.profile.getID()).then(ChatroomBOs =>
             this.setState({
                 Chats: ChatroomBOs
             })).catch(e =>
@@ -21,10 +22,21 @@ class ChatList extends Component{
     }
 
     componentDidMount(){
-        //get
+        this.get_Chats();
     }
 
     addChatroom = () => {
+        LernappAPI.getAPI().add_Chataccess(this.props.profile.getID()).then(ChataccessBO =>)
         
     }
+
+    render(){
+        return(
+            <div>
+
+            </div>
+        )
+    }
 }
+
+export default ChatList;
