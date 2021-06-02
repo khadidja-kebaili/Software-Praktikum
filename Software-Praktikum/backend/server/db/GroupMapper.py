@@ -1,5 +1,5 @@
 from server.db.Mapper import Mapper
-from server.bo.GroupBO import Group
+from server.bo.GroupBO import GroupBO
 
 
 
@@ -11,23 +11,19 @@ class GroupMapper(Mapper):
     def insert(self, group):
 
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM test.group ")
-        tuples = cursor.fetchall()
+        
 
-        for (maxid) in tuples:
-            if maxid[0] is not None:
-                group.set_id(maxid[0] + 1)
-            else:
-                """Wenn wir KEINE maximale ID feststellen konnten, dann gehen wir
-                davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
-                group.set_id(1)
-
-        command = "INSERT INTO group (id, admin, description,groupname) VALUES (%s,%s,%s,%s)"
+        command = "INSERT INTO test.group (admin, description, groupname) VALUES (%s,%s,%s)"
         data = (
-            group.get_id(), group.get_admin(),
-            group.get_description(), group.get_groupname())
+            group.get_admin(),
+            group.get_description(), 
+            group.get_groupname())
         cursor.execute(command, data)
 
+        for member in group.get_memberlist():
+            command = "INSERT into test.groupmember (groupid, profilid) VALUES (%s, %s )" 
+            data = (group.get_id(),member)
+            cursor.execute(command, data)
         self._cnx.commit()
         cursor.close()
 
@@ -42,11 +38,18 @@ class GroupMapper(Mapper):
         tuples = cursor.fetchall()
 
         for (id, admin, description, groupname) in tuples:
-            group = Group()
+            group = GroupBO()
             group.set_id(id)
             group.set_admin(admin)
             group.set_description(description)
             group.set_groupname(groupname)
+            
+            cursor.execute(
+                "SELECT  profilid FROM test.groupmember WHERE groupid= %s",(id,))
+            tuples2 = cursor.fetchall()
+            for profilid in tuples2:
+                group.add_member(profilid)   # die methode aus GroupBO
+
             result.append(group)
 
         self._cnx.commit()
@@ -65,11 +68,17 @@ class GroupMapper(Mapper):
 
         try:
             (id, admin, description,groupname) = tuples[0]
-            group = Group()
+            group = GroupBO()
             group.set_id(id)
             group.set_admin(admin)
             group.set_description(description)
             group.set_groupname(groupname)
+            cursor.execute(
+                "SELECT  profilid FROM test.groupmember WHERE groupid= %s",(id,))
+            tuples2 = cursor.fetchall()
+            for profilid in tuples2:
+                group.add_member(profilid)
+
             result = group
         except IndexError:
             """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
@@ -85,13 +94,24 @@ class GroupMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE test.group " + "SET admin=%s, groupname=%s, id=%s, description=%s WHERE id=%s"
+        command = "UPDATE test.group " + "SET admin=%s, groupname=%s, description=%s WHERE id=%s"
         data = (
             group.get_admin(),
-            group.get_description(),
             group.get_groupname(),
-            group.get_id(),)
+            group.get_description(),
+            group.get_id(),
+            )
         cursor.execute(command, data)
+        # user werden gelöscht
+        command = "DELETE from test.groupmember WHERE groupid=%s "  
+        data = (group.get_id(),)
+        cursor.execute(command, data)
+
+        # user werden eingefügt mit der for schleife
+        for member in group.get_memberlist():
+            command = "INSERT into test.groupmember (groupid, profilid) VALUES (%s, %s )" 
+            data = (group.get_id(),member)
+            cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
@@ -105,11 +125,14 @@ class GroupMapper(Mapper):
             group.get_id())
         cursor.execute(command)
 
+        command = "DELETE from test.groupmember WHERE groupid=%s "  
+        data = (group.get_id(),)
+        cursor.execute(command, data)
         self._cnx.commit()
         cursor.close()
 
     def update_requested_by(self, object):
-        pass    
+        pass                                 
 
 if(__name__=="__main__"):
     print("test")

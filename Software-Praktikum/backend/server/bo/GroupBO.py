@@ -4,7 +4,7 @@
 
 from .Businessobject import BusinessObject
 
-class Group (BusinessObject):
+class GroupBO (BusinessObject):
     def __init__(self):
         super().__init__()
     
@@ -14,11 +14,6 @@ class Group (BusinessObject):
 
         self.memberlist=[]
 
-   # def set_id(self, value):
-      #  self.id = value
-
-  #  def get_id(self):
-       # return self.id
 
     def set_groupname(self, value):
         self.groupname = value
@@ -38,17 +33,27 @@ class Group (BusinessObject):
     def get_admin(self):
         return self.admin   
 
+    def set_memberlist(self, value):
+        self.memberlist = value
+
+    def get_memberlist(self):
+        return self.memberlist
+
+    def add_member(self, value):    #methode das man einen neuen member hinzugügen kann
+        self.memberlist.append(value)
+
     def __str__(self):
             """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-            return "Info:{}, {}, {},".format(self.get_groupname(), self.get_description(), self.get_admin())
+            return "Info:{}, {}, {}, {},".format(self.get_groupname(), self.get_description(), self.get_admin(), self.get_memberlist())
 
     @staticmethod
     def from_dict(dictionary=dict()):
             """Umwandeln eines Python dict() in einen User()."""
-            obj = Group()
+            obj = GroupBO()
             obj.set_groupname(dictionary["groupname"])
             obj.set_description(dictionary["description"])
             obj.set_admin(dictionary["admin"])
+            obj.set_memberlist(dictionary["memberlist"])
             return obj
 
         

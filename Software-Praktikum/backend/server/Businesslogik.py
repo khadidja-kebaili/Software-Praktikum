@@ -1,18 +1,13 @@
 from server.db.GroupMapper import GroupMapper
-from server.bo.GroupBO import Group
+
 
 class Businesslogik (object):
     
     def __init__(self):
         pass
 
-    def create_group(self, gruppenid,gruppenname, beschreibung, admin):
-        group = Group()
-        group.set_gruppenid(gruppenid)
-        group.set_gruppenname(gruppenname)
-        group.set_beschreibung(beschreibung)
-        group.set_admin(admin)
-        
+    def create_group(self, group):
+               
 
         with GroupMapper() as mapper:
             return mapper.insert(group)
