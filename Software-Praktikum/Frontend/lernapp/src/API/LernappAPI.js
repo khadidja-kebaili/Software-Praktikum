@@ -1,5 +1,6 @@
 import MessageBO from './MessageBO';
 import ChatroomBO from './ChatroomBO';
+import ChataccessBO from './ChataccessBO'
 
 export default class LernappAPI{
     
@@ -15,13 +16,24 @@ export default class LernappAPI{
     
     #lernappServerBaseURL = 'http://127.0.0.1:3306/';
 
+    //Chatroom
     #add_ChatroomURL = () => '${this.#lernappServerBaseURL}/chatroom';
     #get_ChatroomURL = (id) => '${this.#lernappServerBaserURL}/chatroom/${id}';
     #delete_ChatroomURL = (id) => '${this.#lernappServerBaserURL}/chatroom/${id}';
 
+    #get_MessagesForChatroomURL = (id) => '${this.#lernappServerBaseURL}/chatroom/${id}';
+
+    //Chataccess
     #add_ChataccessURL = () => '${this.#lernappServerBaseURL}/chataccess';
     #get_ChataccessURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
     #delete_ChataccessURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
+
+    #get_ChataccesForUserURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
+
+    //Message
+    #add_MessageURL = () => '${this.#lernappServerBaseURL}/messages';
+    #get_MessageURL = (id) => '${this.#lernappServerBaseURL}/messages/${id}';
+    #delete_MessageURL = (id) => '${this.#lernappServerBaseURL}/messages/${id}';
 
     #fetchAdvanced = (url, init) => fetch(url, init)
     .then(res => {
@@ -30,8 +42,6 @@ export default class LernappAPI{
         }
         return res.json();
     });
-
-    //Message Methoden
 
     //Chatroom Methoden
     add_Chatroom(chatroom){
@@ -70,6 +80,15 @@ export default class LernappAPI{
         })
     }
 
+    get_MessagesForChatroom(chatroom){
+        return this.#fetchAdvanced(this.#get_MessagesForChatroomURL(chatroom)).then((responseJSON) => {
+            let messageBOs = MessageBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(messageBOs);
+            })
+        })
+    }
+
     //Chataccess Methoden
 
     //User erhält Zugriff auf einen Chat
@@ -82,7 +101,7 @@ export default class LernappAPI{
             },
             body: JSON.stringify(chataccess)
         }).them((responseJSON) => {
-            let responseChataccess = ChatroomBO.fromJSON(responseJSON)[0];
+            let responseChataccess = ChataccessBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve){
                 resolve(responseChataccess);
             })
@@ -92,7 +111,7 @@ export default class LernappAPI{
     //alle zugreifbaren Chats eines Users
     get_Chataccess(profil){
         return this.#fetchAdvanced(this.#get_ChataccessURL(profil)).then((responseJSON) => {
-            let responseChataccess = ChatroomBO.fromJSON(responseJSON)[0];
+            let responseChataccess = ChataccessBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve) {
                 resolve(responseChataccess);
             })
@@ -104,9 +123,55 @@ export default class LernappAPI{
         return this.#fetchAdvanced(this.#delete_ChataccessURL(chataccess), {
             method: 'DELETE'
         }).them((responseJSON) => {
-            let responseChataccess = ChatroomBO.fromJSON(responseJSON)[0];
+            let responseChataccess = ChataccessBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve){
                 resolve(responseChataccess);
+            })
+        })
+    }
+
+    get_ChataccessForUser(profil){
+        return this.#fetchAdvanced(this.#get_ChataccesForUserURL(profil)).then((responseJSON) => {
+            let chataccesBOs = ChataccessBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(chataccesBOs);
+            })
+        })
+    }
+
+    //Messages Methoden
+    add_Message(message){
+        return this.#fetchAdvanced(this.#add_MessageURL(), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(message)
+        }).them((responseJSON) => {
+            let responseMessage = MessageBO.fromJSON(responseJSON)[0];
+            return new Promise(function(resolve){
+                resolve(responseMessage);
+            })
+        })
+    }
+
+    get_Message(message){
+        return this.#fetchAdvanced(this.#get_MessageURL(message)).then((responseJSON) => {
+            let responseMessage = MessageBO.fromJSON(responseJSON)[0];
+            return new Promise(function(resolve) {
+                resolve(responseMessage);
+            })
+        })
+    }
+
+    delete_Message(message){
+        return this.#fetchAdvanced(this.#delete_MessageURL(message), {
+            method: 'DELETE'
+        }).them((responseJSON) => {
+            let responseMessage = MessageBO.fromJSON(responseJSON)[0];
+            return new Promise(function(resolve){
+                resolve(responseMessage);
             })
         })
     }

@@ -26,7 +26,13 @@ class ChatList extends Component{
     }
 
     addChatroom = () => {
-        LernappAPI.getAPI().add_Chataccess(this.props.profile.getID()).then(ChataccessBO =>)
+        LernappAPI.getAPI().add_Chataccess(this.props.profile.getID()).then(ChataccessBO =>
+            this.setState({
+                Chats: ChatroomBOs
+            })).catcj(e =>
+                this.setState({
+                    
+                }))
         
     }
 
