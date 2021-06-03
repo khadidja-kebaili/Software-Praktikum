@@ -196,6 +196,108 @@ class Businesslogik (object):
         ]
         return matches
 
+    def get_request(self):
+        request = [
+            {
+                "first_name": "Esra",
+                "last_name": "Copuro",
+                # "age": 0,
+                # "semester": 0,
+                # "major": "string",
+                # "hobbys": "string",
+                # "interests": "string",
+                # "personality": "0",
+                # "learnstyle": "string",
+                # "studytime": "string",
+                # "studyplace": "string",
+                # "studyfrequence": 0,
+                # "workexperience": "string",
+                # "id": 1
+            },
+            {
+                "first_name": "Lisa",
+                "last_name": "Mario",
+                # "age": 22,
+                # "semester": 1,
+                # "major": "WI7",
+                # "hobbys": "kayak fahren",
+                # "interests": "sport",
+                # "personality": "4",
+                # "learnstyle": "kommunikativ",
+                # "studytime": "abends",
+                # "studyplace": "Universität",
+                # "studyfrequence": 1,
+                # "workexperience": "Ausbildung",
+                # "id": 2
+            },
+            {
+                "first_name": "Leon",
+                "last_name": "Müller",
+                # "age": 0,
+                # "semester": 0,
+                # "major": "string",
+                # "hobbys": "string",
+                # "interests": "string",
+                # "personality": "0",
+                # "learnstyle": "string",
+                # "studytime": "string",
+                # "studyplace": "string",
+                # "studyfrequence": 0,
+                # "workexperience": "string",
+                # "id": 4
+            },
+            {
+                "first_name": "UPDATE",
+                "last_name": "string",
+                "age": 0,
+                "semester": 0,
+                "major": "string",
+                "hobbys": "string",
+                "interests": "string",
+                "personality": "0",
+                "learnstyle": "string",
+                "studytime": "string",
+                "studyplace": "string",
+                "studyfrequence": 0,
+                "workexperience": "string",
+                "id": 5
+            },
+            {
+                "first_name": "MEROS",
+                "last_name": "TOM",
+                "age": 55,
+                "semester": 4,
+                "major": "WI7",
+                "hobbys": "string",
+                "interests": "string",
+                "personality": "0",
+                "learnstyle": "string",
+                "studytime": "string",
+                "studyplace": "string",
+                "studyfrequence": 0,
+                "workexperience": "string",
+                "id": 7
+            },
+            {
+                "first_name": "string",
+                "last_name": "string",
+                "age": 0,
+                "semester": 5,
+                "major": "ID7",
+                "hobbys": "string",
+                "interests": "string",
+                "personality": "5",
+                "learnstyle": "kommunikativ",
+                "studytime": "Abends",
+                "studyplace": "Universität",
+                "studyfrequence": 5,
+                "workexperience": "string",
+                "id": 8
+            }
+        ]
+        return request
+
+
 # BL = Businesslogik()
 # match = BL.into_list(2)
 # print(BL.set_score(3,4))

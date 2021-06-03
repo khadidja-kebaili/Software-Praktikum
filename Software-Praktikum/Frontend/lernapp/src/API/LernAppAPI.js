@@ -22,6 +22,7 @@ export default class LernappAPI {
   #getAllProfilesURL = () => `${this.#lernappServerBaseURL}/profile`;
   // #getMatchmakingURL = (id) => `${this.#lernappServerBaseURL}/matchmaking/${id}`;
   #getMatchmakingURL = () => `${this.#lernappServerBaseURL}/matches`;
+  #getRequestURL = () => `${this.#lernappServerBaseURL}/request`;
 
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
@@ -121,6 +122,18 @@ export default class LernappAPI {
       })
     })
   }
+
+  getRequest() {
+    return this.#fetchAdvanced(this.#getRequestURL()).then((responseJSON) => {
+      let profileBO = ProfileBO.fromJSON(responseJSON);
+      console.info(profileBO);
+      return new Promise(function (resolve) {
+        resolve(profileBO);
+      })
+    })
+  }
+
+
   
 
 }

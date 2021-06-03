@@ -1,5 +1,6 @@
 import React from 'react';
 import MatchList from './Components/Pages/MatchList';
+import RequestList from './Components/Pages/RequestList';
 import Header from './Components/Layout/Header';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import Chats from './Chats';
@@ -21,6 +22,9 @@ class App extends React.Component {
                   <Redirect from='/' to='matchmaker'/>
                   <Route exact path='/matchmaker'>
                     <MatchList/>
+                  </Route>
+                  <Route exact path='/request'>
+                    <RequestList/>
                   </Route>
                   <Route path='/chats'>
                     <Chats/>

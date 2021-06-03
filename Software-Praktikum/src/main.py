@@ -119,5 +119,14 @@ class Profilanzeigen (Resource):
         profile = adm.get_matches()
         return profile
 
+#Test für Anfragen anzeigen
+@api.route('/request')
+class Profilanzeigen (Resource):
+    def get(self):
+        adm = Businesslogik()
+        profile = adm.get_request()
+        return profile
+
+
 if __name__ == '__main__':
     app.run(debug=True)
