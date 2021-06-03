@@ -8,7 +8,7 @@ class RequestMapper(Mapper):
 
     def insert(self, request):
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM request ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM request")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
@@ -21,7 +21,7 @@ class RequestMapper(Mapper):
 
         command = "INSERT INTO request (id, requested_by, requested) VALUES (%s, %s, %s)"
         data = (
-            request.get_id(), request.get_requested_by())
+            request.get_id(), request.get_requested_by(), request.get_requested())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -32,15 +32,15 @@ class RequestMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute(
-            "SELECT id, requested_by, requested FROM request")
+        cursor.execute("SELECT id, requested_by, requested, request_date FROM request")
         tuples = cursor.fetchall()
 
-        for (id, requested_by, requested) in tuples:
+        for (id, requested_by, requested, request_date) in tuples:
             request = Request()
             request.set_id(id)
             request.set_requested_by(requested_by)
             request.set_requested(requested)
+            request.set_request_date(request_date)
             result.append(request)
 
         self._cnx.commit()
@@ -52,16 +52,18 @@ class RequestMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, requested_by, requested FROM request WHERE id={}".format(
+        command = "SELECT id, requested_by, requested, request_date FROM request WHERE id={}".format(
             key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, requested_by) = tuples[0]
+            (id, requested_by, requested, request_date) = tuples[0]
             request = Request()
             request.set_id(id)
             request.set_requested_by(requested_by)
+            request.set_request_date(request_date)
+            request.set_requested(requested)
             result = request
         except IndexError:
             """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
@@ -74,20 +76,8 @@ class RequestMapper(Mapper):
         return result
 
     def update(self, request):
-
         pass
 
-        # cursor = self._cnx.cursor()
-        #
-        # command = "UPDATE request " + "SET requested_by=%s  WHERE id=%s"
-        # data = (
-        #     request.get_requested_by(),request.get_id(),)
-        # cursor.execute(command, data)
-        #
-        # self._cnx.commit()
-        # cursor.close()
-        #
-        # return request
 
     def delete(self, request):
         cursor = self._cnx.cursor()
@@ -98,7 +88,6 @@ class RequestMapper(Mapper):
 
         self._cnx.commit()
         cursor.close()
-
 
 if (__name__ == "__main__"):
     with RequestMapper() as mapper:

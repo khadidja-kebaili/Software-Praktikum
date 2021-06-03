@@ -4,7 +4,7 @@ from matchmaker_Prototype.server.BO.GroupBO import Group
 from matchmaker_Prototype.server.db.GroupMapper import GroupMapper
 from matchmaker_Prototype.server.db.RequestMapper import RequestMapper
 from matchmaker_Prototype.server.BO.RequestBO import Request
-from datetime import date, datetime, timedelta
+from datetime import datetime
 
 class Businesslogic (object):
 
@@ -141,9 +141,9 @@ class Businesslogic (object):
         return new_sorted_list
 
     def create_request(self, requested_by, requested):
-        request = Request
-        request.set_requested_by(requested_by)
+        request = Request()
         request.set_requested(requested)
+        request.set_requested_by(requested_by)
         with RequestMapper() as mapper:
             return mapper.insert(request)
 
@@ -166,5 +166,6 @@ class Businesslogic (object):
         deltatime = abs((request_date - today).days)
         if deltatime > 5:
             self.delete_request(request)
+            print("request was older than 5 days, so its been deleted.")
         else:
             print("Its not time yet")
