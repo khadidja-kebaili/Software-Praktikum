@@ -29,7 +29,10 @@ class App extends React.Component {
                   <Route path='/chats'>
                     <Chats/>
                   </Route>
-                  <Route path='/gruppen'>
+                  <Route path='/groups'>
+                    <Gruppen/>
+                  </Route>
+                  <Route path='/mygroups'>
                     <Gruppen/>
                   </Route>
                   <Route path='/profil'>

@@ -46,7 +46,8 @@ class Header extends Component {
                 <Tab label='Matchmaker' component={RouterLink} to={`/matchmaker`} />
                 <Tab label='Anfragen' component={RouterLink} to={`/request`} />
                 <Tab label='Chats' component={RouterLink} to={`/chats`} />
-                <Tab label='Gruppen' component={RouterLink} to={`/gruppen`} />
+                <Tab label='Gruppen' component={RouterLink} to={`/groups`} />
+                <Tab label='Meine Gruppen' component={RouterLink} to={`/mygroups`} />
                 <Tab label='Profil' component={RouterLink} to={`/profil`} />
               </Tabs>
               
