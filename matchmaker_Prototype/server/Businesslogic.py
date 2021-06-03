@@ -2,6 +2,9 @@ from matchmaker_Prototype.server.BO.Profile import Studentprofile
 from matchmaker_Prototype.server.db.ProfileMapper import StudentprofileMapper
 from matchmaker_Prototype.server.BO.GroupBO import Group
 from matchmaker_Prototype.server.db.GroupMapper import GroupMapper
+from matchmaker_Prototype.server.db.RequestMapper import RequestMapper
+from matchmaker_Prototype.server.BO.RequestBO import Request
+from datetime import date, datetime, timedelta
 
 class Businesslogic (object):
 
@@ -136,3 +139,32 @@ class Businesslogic (object):
         for element in matches:
             new_sorted_list.append(element)
         return new_sorted_list
+
+    def create_request(self, requested_by, requested):
+        request = Request
+        request.set_requested_by(requested_by)
+        request.set_requested(requested)
+        with RequestMapper() as mapper:
+            return mapper.insert(request)
+
+    def delete_request(self, request):
+        with RequestMapper() as mapper:
+            mapper.delete(request)
+
+    def get_all_requests(self):
+        with RequestMapper() as mapper:
+            return mapper.find_all()
+
+    def get_request_by_id(self, number):
+        with RequestMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    def check_timedelta_of_request(self, id):
+        request = self.get_request_by_id(id)
+        request_date = request.get_request_date()
+        today = datetime.today()
+        deltatime = abs((request_date - today).days)
+        if deltatime > 5:
+            self.delete_request(request)
+        else:
+            print("Its not time yet")
