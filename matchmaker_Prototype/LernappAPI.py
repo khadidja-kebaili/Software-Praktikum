@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restx import Resource, Api, fields
 from matchmaker_Prototype.server.Businesslogic import Businesslogic
 from matchmaker_Prototype.server.BO.Profile import Studentprofile
+from matchmaker_Prototype.server.BO.RequestBO import Request
 from flask_cors import CORS
 # from SecurityDecorator import secured
 
@@ -38,6 +39,48 @@ profile = api.inherit('Profil', bo, {
 })
 
 
+matchmaker_profile = api.inherit('Profil', bo, {
+    'first_name': fields.String(attribute='first_name', description='first_name'),
+    'last_name': fields.String(attribute='last_name', description='last_name'),
+    'semester': fields.Integer(attribute='semester', description='semester'),
+    'major': fields.String(attribute='major', description='major'),
+    'personality': fields.String(attribute='personality', description='personality'),
+    'learnstyle': fields.String(attribute='learnstyle', description='learnstyle'),
+    'studytime': fields.String(attribute='studytime', description='studytime'),
+    'studyplace': fields.String(attribute='studyplace', description='studyplace'),
+    'studyfrequence': fields.Integer(attribute='studyfrequence', description='studyfrequence'),
+    'workexperience': fields.String(attribute='workexperience', description='workexperience'),
+})
+
+request = api.inherit('Request', bo, {
+    'requested':fields.String(attribute = 'requested', description = 'requested'),
+    'requested_by': fields.String(attribute = 'requested_by', description = 'requested_by'),
+    # 'request_date': fields.String(attribute = 'request_date', description = 'request_date')
+})
+
+@api.route('/requests')
+class RequestOperations(Resource):
+    @api.marshal_with(request)
+    @api.expect(request)
+    def post(self):
+        adm = Businesslogic()
+        proposal = Request.from_dict(api.payload)
+        # //Notiz Daten von Frontend werden in proposal gespeichert
+        if proposal is not None:
+
+            p = adm.create_request(
+                proposal.get_requested(),
+                proposal.get_requested_by()
+            )
+            return p
+
+    @api.marshal_list_with(request)
+    def get(self):
+        adm = Businesslogic()
+        request = adm.get_all_requests()
+        return request
+
+
 @api.route('/profile')
 class ProfilOperations(Resource):
     @api.marshal_with(profile)
@@ -69,7 +112,7 @@ class ProfilOperations(Resource):
 
 @api.route('/matches/<int:id>')
 class Matcher(Resource):
-    @api.marshal_with(profile)
+    @api.marshal_with(matchmaker_profile)
     def get(self, id):
         adm = Businesslogic()
         matches = adm.matching_list(id)
