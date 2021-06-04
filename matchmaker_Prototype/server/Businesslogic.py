@@ -165,9 +165,17 @@ class Businesslogic (object):
         for element in all_requests:
             if element.get_requested() == number:
                 request.append(element)
-            else:
-                continue
         return request
+
+    def get_profiles_of_request(self, id):
+        requests_of_profiles= self.get_request_of_profile(id)
+        requested_by = []
+        requester_id = []
+        for element in requests_of_profiles:
+            requested_by.append(element.get_id())
+        for element in requested_by:
+            requester_id.append(self.get_profile_by_id(element))
+        return requester_id
 
     def check_timedelta_of_request(self, id):
         request = self.get_request_by_id(id)
@@ -179,6 +187,3 @@ class Businesslogic (object):
             print("request was older than 5 days, so its been deleted.")
         else:
             print("Its not time yet")
-
-l = Businesslogic()
-print(l.get_request_of_profile(5))
