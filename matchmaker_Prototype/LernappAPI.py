@@ -81,6 +81,16 @@ class RequestOperations(Resource):
         return request
 
 
+@api.route('/request/<int:id>')
+@api.param('id', 'Die ID des Profil-Objekts')
+class Requestanzeigen (Resource):
+    @api.marshal_with(request)
+    def get(self, id):
+        adm = Businesslogic()
+        request = adm.get_request_of_profile(id)
+        return request
+
+
 @api.route('/profile')
 class ProfilOperations(Resource):
     @api.marshal_with(profile)
