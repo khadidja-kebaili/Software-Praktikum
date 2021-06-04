@@ -159,6 +159,16 @@ class Businesslogic (object):
         with RequestMapper() as mapper:
             return mapper.find_by_key(number)
 
+    def get_request_of_profile(self, number):
+        all_requests = self.get_all_requests()
+        request = []
+        for element in all_requests:
+            if element.get_requested() == number:
+                request.append(element)
+            else:
+                continue
+        return request
+
     def check_timedelta_of_request(self, id):
         request = self.get_request_by_id(id)
         request_date = request.get_request_date()
@@ -169,3 +179,6 @@ class Businesslogic (object):
             print("request was older than 5 days, so its been deleted.")
         else:
             print("Its not time yet")
+
+l = Businesslogic()
+print(l.get_request_of_profile(5))
