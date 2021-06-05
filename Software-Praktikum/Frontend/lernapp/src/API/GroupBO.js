@@ -1,17 +1,13 @@
-import BusinessObject from "./BusinessObject.js"
+import BusinessObject from "./Businessobject.js"
 
 export default class GroupBO extends BusinessObject{
 
-	constructor(groupname, id, member, admin, description,) {
+	constructor(groupname, member, admin, description,) {
 		super();
 		this.groupname = groupname;
-		this.groupID = id;
-		this.member= member;
 		this.admin = admin;
 		this.description = description;
-	
-		
-	  }
+	}
  
 	  setGroupname(groupname) {
 		this.groupname = groupname;
@@ -20,24 +16,6 @@ export default class GroupBO extends BusinessObject{
 	
 	  getGroupname() {
 		return this.groupname;
-	  }
-
-
-	  setGroupID(id) {
-		this.groupID = id;
-	  }
-
-	  getGroupID() {
-		return this.groupID;
-	  }
-
-	  setMember (member) {
-		this.member = member;
-	  }
-	
-	
-	  getMember() {
-		return this.member;
 	  }
 
 	  setAdmin (admin) {
