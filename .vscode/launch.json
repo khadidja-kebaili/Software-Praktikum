@@ -18,7 +18,7 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "/backend/server/main.py",
+                "FLASK_APP": "./Software-Praktikum/backend/main.py",
                 "FLASK_ENV": "development"
             },
             "args": [

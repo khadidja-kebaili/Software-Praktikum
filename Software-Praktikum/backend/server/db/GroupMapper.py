@@ -19,10 +19,14 @@ class GroupMapper(Mapper):
             group.get_description(), 
             group.get_groupname())
         cursor.execute(command, data)
-
+        cursor.execute("SELECT id FROM test.group")
+        res = cursor.fetchall()
+        (id,) = res[-1]
+        if not group.get_admin() in group.get_memberlist():
+            group.add_member(group.get_admin())
         for member in group.get_memberlist():
             command = "INSERT into test.groupmember (groupid, profilid) VALUES (%s, %s )" 
-            data = (group.get_id(),member)
+            data = (id,member)
             cursor.execute(command, data)
         self._cnx.commit()
         cursor.close()
