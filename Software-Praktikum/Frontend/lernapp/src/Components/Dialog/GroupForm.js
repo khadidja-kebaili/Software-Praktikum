@@ -5,6 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import GroupBO from "../../API/GroupBO";
 import LernappAPI from "../../API/LernappAPI"
+import AddMember from "./AddMember.js"
 
 class GroupForm extends Component {
   constructor(props){
@@ -19,6 +20,7 @@ class GroupForm extends Component {
   this.state = { 
     groupname: gn,
     description: descr,
+    showAddMember: false
    };
    this.handleChange = this.handleChange.bind(this);
    this.baseState = this.state;
@@ -26,6 +28,20 @@ class GroupForm extends Component {
   handleChange = (e) =>{
     this.setState({ [e.target.name] : e.target.value });}
 
+
+    
+  addMemberButtonClicked = (event) => {
+    event.stopPropagation();
+    this.setState({
+      showAddMember: true
+    });
+  }
+
+  closeAddMemberDialog = () => {
+    this.setState({
+    showAddMember: false
+  });
+}
 
 //  addGroup = () => {
 //   let newGroup = new GroupBO(
@@ -74,9 +90,10 @@ class GroupForm extends Component {
                   Erstellen
              </Button>
             } <br></br>
-            <Button type="submit" variant="contained" color="primary" size="large" onClick={this.addGroup} color='primary'>
+            <Button type="submit" variant="contained" color="primary" size="large" onClick={this.addMemberButtonClicked} color='primary'>
               Mitglieder Hinzufügen
             </Button>
+            <AddMember show={this.state.showAddMember} onClose={this.closeAddMemberDialog}/>
             </div> 
             </div> 
    
