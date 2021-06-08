@@ -1,6 +1,5 @@
 # gruppen editieren/ löschen 
 #get und set, init :gruppenid, name, mitglieder, lernbereich, admin
-#gruppe eigenschaft admin=none
 
 from .Businessobject import BusinessObject
 
