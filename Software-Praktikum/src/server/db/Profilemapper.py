@@ -1,16 +1,14 @@
 from server.db.Mapper import Mapper
-from server.bo.Test_Profil import Studentprofile
+from server.bo.Profile import Studentprofile
 
-
-class StudentprofileMapper (Mapper):
+class StudentprofileMapper(Mapper):
 
     def __init__(self):
         super().__init__()
 
     def insert(self, studentprofile):
-
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM profile ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM profiles ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
@@ -21,7 +19,7 @@ class StudentprofileMapper (Mapper):
                 davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
                 studentprofile.set_id(1)
 
-        command = "INSERT INTO profile (id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
+        command = "INSERT INTO profiles (id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
         data = (
             studentprofile.get_id(), studentprofile.get_last_name(),
             studentprofile.get_first_name(), studentprofile.get_age(),
@@ -42,7 +40,7 @@ class StudentprofileMapper (Mapper):
         result = []
         cursor = self._cnx.cursor()
         cursor.execute(
-            "SELECT id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience from profile")
+            "SELECT id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience from profiles")
         tuples = cursor.fetchall()
 
         for (id, first_name, last_name, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) in tuples:
@@ -72,7 +70,7 @@ class StudentprofileMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience FROM profile WHERE id={}".format(
+        command = "SELECT id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience FROM profiles WHERE id={}".format(
             key)
         cursor.execute(command)
         tuples = cursor.fetchall()
@@ -110,7 +108,7 @@ class StudentprofileMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE profile " + "SET firstname=%s, lastname=%s, age=%s, semester=%s, major=%s, hobbys=%s, interests=%s, personality=%s, learnstyle=%s, studytime=%s, studyplace=%s, studyfrequence=%s, workexperience=%s  WHERE id=%s"
+        command = "UPDATE profiles " + "SET firstname=%s, lastname=%s, age=%s, semester=%s, major=%s, hobbys=%s, interests=%s, personality=%s, learnstyle=%s, studytime=%s, studyplace=%s, studyfrequence=%s, workexperience=%s  WHERE id=%s"
         data = (
             studentprofile.get_last_name(),
             studentprofile.get_first_name(), studentprofile.get_age(),
@@ -129,9 +127,19 @@ class StudentprofileMapper (Mapper):
     def delete(self, studentprofile):
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM profile WHERE id={}".format(
+        command = "DELETE FROM profiles WHERE id={}".format(
             studentprofile.get_id())
         cursor.execute(command)
 
         self._cnx.commit()
         cursor.close()
+
+    def update_requested_by(self, object):
+        pass
+
+if (__name__ == "__main__"):
+    with StudentprofileMapper() as mapper:
+        result = mapper.find_all()
+        for p in result:
+            print(p)
+

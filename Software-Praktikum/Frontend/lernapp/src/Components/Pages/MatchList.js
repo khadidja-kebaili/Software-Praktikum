@@ -15,19 +15,20 @@ class MatchList extends Component {
         //Eine leere INIT setzten für matches
         this.state={
             matches: [],
-            
+            currentUser : 3
         };
     }
         //Lifecycle Methode wird aufgerufen, wenn die Komponente in den DOM Browser eingefügt wird
         componentDidMount(){
             this.getMatchmaking();
         }
-   
+        
+        
     
     // Die Funktion getMatchmaking() soll die matches anzeigen
     getMatchmaking =() => {
         
-        LernappAPI.getAPI().getMatchmaking().then(profileBOs =>
+        LernappAPI.getAPI().getMatchmaking(this.state.currentUser).then(profileBOs =>
             this.setState({
                 matches:  profileBOs,
         

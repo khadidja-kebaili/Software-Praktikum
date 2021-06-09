@@ -1,5 +1,4 @@
 
-# from src.server.db.Test_ProfileMapper import StudentprofilMapper
 from server.db.Test_ProfileMapper import StudentprofilMapper
 from server.bo.Test_Profil import Studentprofil
 
@@ -302,3 +301,4 @@ class Businesslogik (object):
 # match = BL.into_list(2)
 # print(BL.set_score(3,4))
 # print(match)
+

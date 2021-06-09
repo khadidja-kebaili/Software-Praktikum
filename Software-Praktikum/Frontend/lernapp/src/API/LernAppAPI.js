@@ -12,8 +12,6 @@ export default class LernappAPI {
   }
 
   #lernappServerBaseURL = 'http://127.0.0.1:5000';
-  // #lernappServerBaseURL = '../../../public/matches';
-  
 
   #addProfileURL = () => `${this.#lernappServerBaseURL}/profile`;
   #getProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
@@ -21,9 +19,10 @@ export default class LernappAPI {
   #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
   #getAllProfilesURL = () => `${this.#lernappServerBaseURL}/profile`;
   // #getMatchmakingURL = (id) => `${this.#lernappServerBaseURL}/matchmaking/${id}`;
-  #getMatchmakingURL = () => `${this.#lernappServerBaseURL}/matches`;
-  #getRequestURL = () => `${this.#lernappServerBaseURL}/request`;
+  #getMatchmakingURL = (id) => `${this.#lernappServerBaseURL}/matches/${id}`;
+  #getRequestURL = (id) => `${this.#lernappServerBaseURL}/request/${id}`;
 
+  
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
     if (!res.ok) {
@@ -113,8 +112,8 @@ export default class LernappAPI {
   //     })
   // }
   
-  getMatchmaking() {
-    return this.#fetchAdvanced(this.#getMatchmakingURL()).then((responseJSON) => {
+  getMatchmaking(profileID) {
+    return this.#fetchAdvanced(this.#getMatchmakingURL(profileID)).then((responseJSON) => {
       let profileBO = ProfileBO.fromJSON(responseJSON);
       console.info(profileBO);
       return new Promise(function (resolve) {
@@ -123,8 +122,8 @@ export default class LernappAPI {
     })
   }
 
-  getRequest() {
-    return this.#fetchAdvanced(this.#getRequestURL()).then((responseJSON) => {
+  getRequest(profileID) {
+    return this.#fetchAdvanced(this.#getRequestURL(profileID)).then((responseJSON) => {
       let profileBO = ProfileBO.fromJSON(responseJSON);
       console.info(profileBO);
       return new Promise(function (resolve) {
@@ -132,7 +131,15 @@ export default class LernappAPI {
       })
     })
   }
-
+  // getProfile(profileID) {
+  //   return this.#fetchAdvanced(this.#getProfileURL(profileID)).then((responseJSON) => {
+  //     let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
+  //     // console.info(responseProfileBO);
+  //     return new Promise(function (resolve) {
+  //       resolve(responseProfileBO);
+  //     })
+  //   })
+  // }
 
   
 
