@@ -134,9 +134,6 @@ class StudentprofileMapper(Mapper):
         self._cnx.commit()
         cursor.close()
 
-    def update_requested_by(self, object):
-        pass
-
 if (__name__ == "__main__"):
     with StudentprofileMapper() as mapper:
         result = mapper.find_all()
