@@ -3,6 +3,7 @@ from flask_restx import Resource, Api, fields
 from matchmaker_Prototype.server.Businesslogic import Businesslogic
 from matchmaker_Prototype.server.BO.Profile import Studentprofile
 from matchmaker_Prototype.server.BO.RequestBO import Request
+from matchmaker_Prototype.server.BO.GroupBO import Group
 from flask_cors import CORS
 # from SecurityDecorator import secured
 
@@ -57,6 +58,37 @@ request = api.inherit('Request', bo, {
     'requested_by': fields.String(attribute = 'requested_by', description = 'requested_by'),
     # 'request_date': fields.String(attribute = 'request_date', description = 'request_date')
 })
+
+group = api.inherit('Group', bo, {
+    'groupname':fields.String(attribute = 'groupname', description = 'groupname'),
+    'admin': fields.String(attribute = 'admin', description = 'admin'),
+    'description': fields.String(attribute = 'description', description = 'description')
+})
+
+
+@api.route('/groups')
+class GroupOperations(Resource):
+    @api.marshal_with(group)
+    @api.expect(group)
+    def post(self):
+        adm = Businesslogic()
+        proposal = Group.from_dict(api.payload)
+        # //Notiz Daten von Frontend werden in proposal gespeichert
+        if proposal is not None:
+
+            p = adm.create_group(
+                proposal.get_admin(),
+                proposal.get_description()
+            )
+            return p
+
+    @api.marshal_list_with(group)
+    def get(self):
+        adm = Businesslogic()
+        groups = adm.get_all_groups()
+        return groups
+
+
 
 @api.route('/requests')
 class RequestOperations(Resource):
