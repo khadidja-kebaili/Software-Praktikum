@@ -121,6 +121,12 @@ class Requestanzeigen (Resource):
 #         adm = Businesslogic()
 #         request = adm.get_request_of_profile(id)
 #         return request
+    @api.marshal_with(request)
+    def delete(self, id):
+        adm = Businesslogic()
+        request = adm.get_request_by_id(id)
+        adm.delete_request(request)
+        return ''
 
 
 
