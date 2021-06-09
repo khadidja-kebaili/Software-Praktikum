@@ -68,20 +68,6 @@ group = api.inherit('Group', bo, {
 
 @api.route('/groups')
 class GroupOperations(Resource):
-    @api.marshal_with(group)
-    @api.expect(group)
-    def post(self):
-        adm = Businesslogic()
-        proposal = Group.from_dict(api.payload)
-        # //Notiz Daten von Frontend werden in proposal gespeichert
-        if proposal is not None:
-
-            p = adm.create_group(
-                proposal.get_admin(),
-                proposal.get_description()
-            )
-            return p
-
     @api.marshal_list_with(group)
     def get(self):
         adm = Businesslogic()
@@ -89,6 +75,14 @@ class GroupOperations(Resource):
         return groups
 
 
+@api.route('/group/<int:id>')
+@api.param('id', 'Die ID des Gruppen-Objekts')
+class Gruppeanzeigen (Resource):
+    @api.marshal_with(group)
+    def get(self, id):
+        adm = Businesslogic()
+        group = adm.get_group_by_id(id)
+        return group
 
 @api.route('/requests')
 class RequestOperations(Resource):
