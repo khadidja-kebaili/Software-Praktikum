@@ -167,6 +167,13 @@ class Matcher(Resource):
         matches = adm.matching_list(id)
         return matches
 
+    @api.marshal_with(request)
+    def delete(self, id):
+
+        adm = Businesslogic()
+        request = adm.get_request_by_id(id)
+        adm.delete_request(request)
+        return ''
 
 @api.route('/profile/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
