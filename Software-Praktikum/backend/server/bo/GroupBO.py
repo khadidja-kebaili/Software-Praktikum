@@ -41,6 +41,9 @@ class GroupBO (BusinessObject):
     def add_member(self, value):    #methode das man einen neuen member hinzugügen kann
         self.memberlist.append(value)
 
+    def delete_member(self, value):
+        self.memberlist.remove(value)
+
     def __str__(self):
             """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
             return "Info:{}, {}, {}, {},".format(self.get_groupname(), self.get_description(), self.get_admin(), self.get_memberlist())

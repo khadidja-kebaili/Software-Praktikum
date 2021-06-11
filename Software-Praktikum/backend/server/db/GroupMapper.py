@@ -51,7 +51,7 @@ class GroupMapper(Mapper):
             cursor.execute(
                 "SELECT  profilid FROM test.groupmember WHERE groupid= %s",(id,))
             tuples2 = cursor.fetchall()
-            for profilid in tuples2:
+            for (profilid,) in tuples2:
                 group.add_member(profilid)   # die methode aus GroupBO
 
             result.append(group)
@@ -80,7 +80,7 @@ class GroupMapper(Mapper):
             cursor.execute(
                 "SELECT  profilid FROM test.groupmember WHERE groupid= %s",(id,))
             tuples2 = cursor.fetchall()
-            for profilid in tuples2:
+            for (profilid,) in tuples2:
                 group.add_member(profilid)
 
             result = group

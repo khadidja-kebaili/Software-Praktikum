@@ -46,6 +46,10 @@ group = api.inherit('Group', bo, {
     'admin': fields.String(attribute='admin', description='admin'),
     'description': fields.String(attribute='description', description='description'),
     'groupname': fields.String(attribute='groupname', description='groupname'),
+    #'memberlist': fields.List(fields.Integer, attribute='memberlist', description='memberlist')
+    })
+
+member = api.inherit('Member', bo,{
     'memberlist': fields.List(fields.Integer, attribute='memberlist', description='memberlist')
     })
 
@@ -156,14 +160,14 @@ class GroupById (Resource):
     @api.marshal_with(group)
     def get(self, id):
         adm = Businesslogik()
-        group = adm.get_group_by_id(id)
+        group = adm.get_group_by_gruppenid(id)
         return group
 
     @api.marshal_with(group)
     def delete(self, id):
 
         adm = Businesslogik()
-        group = adm.get_group_by_id(id)
+        group = adm.get_group_by_gruppenid(id)
         adm.delete_group(group)
         return ''
 
@@ -180,6 +184,39 @@ class GroupById (Resource):
         else:
             return '', 500            
  
+
+
+@api.route('/group/<int:id>/members/')
+class Member(Resource):
+    @api.marshal_with(member)
+    @api.expect(member)
+    def post(self,id):     #neue Member hinzufügen
+        adm = Businesslogik()
+        group=adm.get_group_by_gruppenid(id)
+        if group is None:
+            return "not found", 400
+        members = api.payload['memberlist']
+        
+        if members is not None:
+            for member in members:
+                adm.group_add_member(group,member)
+               
+            return adm.get_group_by_gruppenid(id)
+
+@api.route('/group/<int:id>/members/<int:memberid>')
+class MemberById(Resource):
+    @api.marshal_with(member)
+    def delete(self,id, memberid):     #neue Member hinzufügen
+        adm = Businesslogik()
+        group=adm.get_group_by_gruppenid(id)
+        if group is None:
+            return "", 400
+        adm.group_delete_member(group,memberid)
+               
+        return adm.get_group_by_gruppenid(id)
+
+
+
  
 if __name__ == '__main__':
     app.run(debug=True)

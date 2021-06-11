@@ -29,23 +29,17 @@ class Businesslogik (object):
 
     def group_add_member(self, group, member):
         group.add_member(member)
-        with GroupMapper as mapper:
+        with GroupMapper() as mapper:
              mapper.update(group)
 
 
     def group_delete_member(self, group, member):
         group.delete_member(member)
-        with GroupMapper as mapper:
-            mapper.delete(group)
-
-
-
-    def add_member(self, member):
         with GroupMapper() as mapper:
-            mapper.add(member)
+            mapper.update(group)
 
-    def delete_member(self, member):
-        with GroupMapper() as mapper:
-            mapper.delete(member)     
+
+
+       
 
     
