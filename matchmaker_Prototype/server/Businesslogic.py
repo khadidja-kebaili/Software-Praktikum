@@ -60,11 +60,11 @@ class Businesslogic (object):
             mapper.delete(studentprofile)
 
 
-    def create_group(self, groupname, description, admin):
+    def create_group(self, groupname, admin, description):
         group = Group()
+        group.set_groupname(groupname)
         group.set_admin(admin)
         group.set_description(description)
-        group.set_groupname(groupname)
         with GroupMapper() as mapper:
             return mapper.insert(group)
 
