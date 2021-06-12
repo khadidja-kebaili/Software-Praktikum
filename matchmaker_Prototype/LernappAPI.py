@@ -66,8 +66,22 @@ group = api.inherit('Group', bo, {
 })
 
 
+
 @api.route('/groups')
 class GroupOperations(Resource):
+    @api.marshal_with(group)
+    @api.expect(group)
+    def post(self):
+        adm = Businesslogic()
+        proposal = Group.from_dict(api.payload)
+        if proposal is not None:
+            p = adm.create_group(
+                proposal.get_groupname(),
+                proposal.get_admin(),
+                proposal.get_description()
+            )
+            return p
+
     @api.marshal_list_with(group)
     def get(self):
         adm = Businesslogic()
