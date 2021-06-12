@@ -136,3 +136,23 @@ class StudentprofileMapper (Mapper):
 
         self._cnx.commit()
         cursor.close()
+
+    def find_by_last_name(self, name):
+        result = []
+        cursor = self._cnx.cursor()
+        command = "SELECT id, firstname, lastname FROM profile WHERE lastname LIKE '{}' ORDER BY lastname".format(
+            name)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for (id, first_name, last_name) in tuples:
+            profile = Studentprofile()
+            profile.set_id(id)
+            profile.set_first_name(first_name)
+            profile.set_last_name(last_name)
+            result.append(profile)
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result

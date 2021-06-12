@@ -41,7 +41,7 @@ group = api.inherit('Group', bo, {
     'group_name': fields.String(attribute='first_name', description='first_name'),
     'description': fields.String(attribute='last_name', description='last_name')
 })
-member = api.inherit("Member", bo, {
+member = api.inherit('Member', bo, {
     'first_name': fields.String(attribute='first_name', description='first_name'),
     'last_name': fields.String(attribute='last_name', description='last_name')
 })
@@ -137,6 +137,16 @@ class MemberOperations(Resource):
         adm = Businesslogic()
         members = adm.get_members()
         return members
+
+
+@api.route('/profiles-by-name/<string:lastname>')
+@api.param('lastname', 'Der Nachname des Kunden')
+class ProfilesByNameOperations(Resource):
+    @api.marshal_with(member)
+    def get(self, lastname):
+        adm = Businesslogic()
+        profile = adm.get_profile_by_name(lastname)
+        return profile
 
 
 if __name__ == '__main__':

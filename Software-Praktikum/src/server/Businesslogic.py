@@ -113,3 +113,7 @@ class Businesslogic (object):
 
             }]
         return members
+
+    def get_profile_by_name(self, last_name):
+        with StudentprofileMapper() as mapper:
+            return mapper.find_by_last_name(last_name)
