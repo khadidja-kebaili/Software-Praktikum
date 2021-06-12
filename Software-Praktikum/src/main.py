@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restx import Resource, Api, fields
 from server.Businesslogic import Businesslogic
 from server.bo.ProfileBO import Studentprofile
+from server.bo.GroupBO import Group
 from flask_cors import CORS
 # from SecurityDecorator import secured
 
@@ -36,12 +37,20 @@ profile = api.inherit('Profil', bo, {
     'studyfrequence': fields.Integer(attribute='studyfrequence', description='studyfrequence'),
     'workexperience': fields.String(attribute='workexperience', description='workexperience'),
 })
+group = api.inherit('Group', bo, {
+    'group_name': fields.String(attribute='first_name', description='first_name'),
+    'description': fields.String(attribute='last_name', description='last_name')
+})
+member = api.inherit("Member", bo, {
+    'first_name': fields.String(attribute='first_name', description='first_name'),
+    'last_name': fields.String(attribute='last_name', description='last_name')
+})
 
 
-@api.route('/profile')
+@ api.route('/profile')
 class ProfilOperations(Resource):
-    @api.marshal_with(profile)
-    @api.expect(profile)
+    @ api.marshal_with(profile)
+    @ api.expect(profile)
     def post(self):
         adm = Businesslogic()
         proposal = Studentprofile.from_dict(api.payload)
@@ -64,14 +73,6 @@ class ProfilOperations(Resource):
     def get(self):
         adm = Businesslogic()
         profile = adm.get_all_profiles()
-        return profile
-
-
-@api.route('/matches')
-class Profilanzeigen (Resource):
-    def get(self):
-        adm = Businesslogic()
-        profile = adm.get_matches()
         return profile
 
 
@@ -104,6 +105,38 @@ class Profilanzeigen (Resource):
             return p, 200
         else:
             return '', 500
+
+
+@api.route('/group')
+class GroupOperations(Resource):
+    @api.marshal_with(group)
+    @api.expect(group)
+    def post(self):
+        adm = Businesslogic()
+        proposal = Group.from_dict(api.payload)
+        # //Notiz Daten von Frontend werden in proposal gespeichert
+        if proposal is not None:
+
+            p = adm.create_group_for_profile(
+                proposal.get_group_name(),
+                proposal.get_description()
+            )
+            return p
+
+    @api.marshal_list_with(group)
+    def get(self):
+        adm = Businesslogic()
+        groups = adm.get_all_groups()
+        return group
+
+
+@api.route('/member')
+class MemberOperations(Resource):
+    @api.marshal_list_with(member)
+    def get(self):
+        adm = Businesslogic()
+        members = adm.get_members()
+        return members
 
 
 if __name__ == '__main__':

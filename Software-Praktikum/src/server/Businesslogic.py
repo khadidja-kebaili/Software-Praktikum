@@ -1,7 +1,9 @@
 from .bo.ProfileBO import Studentprofile
 from .bo.UserBO import User
+from .bo.GroupBO import Group
 from .db.Profilemapper import StudentprofileMapper
 from .db.UserMapper import UserMapper
+from .db.GroupMapper import GroupMapper
 
 
 class Businesslogic (object):
@@ -58,103 +60,56 @@ class Businesslogic (object):
         with StudentprofileMapper() as mapper:
             mapper.delete(studentprofile)
 
-    def get_matches(self):
-        matches = [
+    def get_all_groups(self):
+        with GroupMapper() as mapper:
+            return mapper.find_all()
+
+    def get_group_by_id(self, number):
+        with GroupMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    def get_group_of_profile(self, profile):
+        with GroupMapper() as mapper:
+            return mapper.find_by_owner_id(profile.get_id())
+
+    def delete_group(self, group):
+        with GroupMapper() as mapper:
+            mapper.delete(group)
+
+    def create_group_for_profile(self, profile):
+        with GroupMapper() as mapper:
+            if profile is not None:
+                group = Group()
+                group.set_owner(group.get_id())
+                group.set_id(1)
+
+                return mapper.insert(group)
+            else:
+                return None
+
+    def get_members(self):
+        members = [
             {
-                "first_name": "string",
-                "last_name": "string",
-                "age": 0,
-                "semester": 0,
-                "major": "string",
-                "hobbys": "string",
-                "interests": "string",
-                "personality": "0",
-                "learnstyle": "string",
-                "studytime": "string",
-                "studyplace": "string",
-                "studyfrequence": 0,
-                "workexperience": "string",
-                "id": 1
-            },
-            {
-                "first_name": "Gomez",
-                "last_name": "Mario",
-                "age": 22,
-                "semester": 1,
-                "major": "WI7",
-                "hobbys": "kayak fahren",
-                "interests": "sport",
-                "personality": "4",
-                "learnstyle": "kommunikativ",
-                "studytime": "abends",
-                "studyplace": "Universität",
-                "studyfrequence": 1,
-                "workexperience": "Ausbildung",
+                "first_name": "Thomas",
+                "last_name": "Müller",
                 "id": 2
             },
             {
-                "first_name": "string",
-                "last_name": "UPDATE",
-                "age": 0,
-                "semester": 0,
-                "major": "string",
-                "hobbys": "string",
-                "interests": "string",
-                "personality": "0",
-                "learnstyle": "string",
-                "studytime": "string",
-                "studyplace": "string",
-                "studyfrequence": 0,
-                "workexperience": "string",
+                "first_name": "Khadidja",
+                "last_name": "Kebaili",
+                "id": 3
+
+            },
+            {
+                "first_name": "Esra",
+                "last_name": "Copuro",
+                "id": 1
+
+            },
+            {
+                "first_name": "Hami",
+                "last_name": "Duong",
                 "id": 4
-            },
-            {
-                "first_name": "UPDATE",
-                "last_name": "string",
-                "age": 0,
-                "semester": 0,
-                "major": "string",
-                "hobbys": "string",
-                "interests": "string",
-                "personality": "0",
-                "learnstyle": "string",
-                "studytime": "string",
-                "studyplace": "string",
-                "studyfrequence": 0,
-                "workexperience": "string",
-                "id": 5
-            },
-            {
-                "first_name": "MEROS",
-                "last_name": "TOM",
-                "age": 55,
-                "semester": 4,
-                "major": "WI7",
-                "hobbys": "string",
-                "interests": "string",
-                "personality": "0",
-                "learnstyle": "string",
-                "studytime": "string",
-                "studyplace": "string",
-                "studyfrequence": 0,
-                "workexperience": "string",
-                "id": 7
-            },
-            {
-                "first_name": "string",
-                "last_name": "string",
-                "age": 0,
-                "semester": 5,
-                "major": "ID7",
-                "hobbys": "string",
-                "interests": "string",
-                "personality": "5",
-                "learnstyle": "kommunikativ",
-                "studytime": "Abends",
-                "studyplace": "Universität",
-                "studyfrequence": 5,
-                "workexperience": "string",
-                "id": 8
-            }
-        ]
-        return matches
+
+            }]
+        return members
