@@ -19,10 +19,11 @@ class GroupMapper(Mapper):
                 davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
                 group.set_id(1)
 
-        command = "INSERT INTO test.group (id, groupname, description, admin) VALUES (%s, %s,%s,%s)"
+        command = "INSERT INTO test.group (id, groupname, admin, description) VALUES (%s, %s,%s,%s)"
         data = (
-            group.get_id(), group.get_description(),
-            group.get_admin(), group.get_id())
+            group.get_id(), group.get_groupname(),
+            group.get_admin(),
+            group.get_description())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -35,16 +36,16 @@ class GroupMapper(Mapper):
         result = []
         cursor = self._cnx.cursor()
         cursor.execute(
-            "SELECT id, groupname, description, admin FROM test.group")
+            "SELECT id, groupname, admin, description FROM group")
         tuples = cursor.fetchall()
 
-        for (id, admin, groupname, description) in tuples:
-            profile = Group()
-            profile.set_id(id)
-            profile.set_description(description)
-            profile.set_groupname(groupname)
-            profile.set_admin(admin)
-            result.append(profile)
+        for (id, groupname, admin, description) in tuples:
+            group = Group()
+            group.set_id(id)
+            group.set_groupname(groupname)
+            group.set_admin(admin)
+            group.set_description(description)
+            result.append(group)
 
         self._cnx.commit()
         cursor.close()
@@ -55,7 +56,7 @@ class GroupMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, admin, description, groupname FROM test.group WHERE id={}".format(
+        command = "SELECT id, admin, groupname, description FROM test.group WHERE id={}".format(
             key)
         cursor.execute(command)
         tuples = cursor.fetchall()
@@ -64,9 +65,9 @@ class GroupMapper(Mapper):
             (id, admin, description, groupname) = tuples[0]
             profile = Group()
             profile.set_id(id)
-            profile.set_description(description)
-            profile.set_admin(admin)
             profile.set_groupname(groupname)
+            profile.set_admin(admin)
+            profile.set_description(description)
             result = profile
         except IndexError:
             """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
