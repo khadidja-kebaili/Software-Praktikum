@@ -187,13 +187,13 @@ class Businesslogic (object):
                 if request.get_requested_by() == requsted_by_id and request.get_requested() == requested_id:
                     self.delete_request(request)
 
-    def __check_timedelta_of_request__(self, id):
-        request = self.get_request_by_id(id)
-        request_date = request.get_request_date()
+    def __check_timedelta_of_request__(self):
+        request = self.get_all_requests()
+        request_date = []
+        for element in request:
+            request_date.append(element.get_request_date())
         today = datetime.today()
-        deltatime = abs((request_date - today).days)
-        if deltatime > 1:
-            self.delete_request(request)
-            print("request was older than 5 days, so its been deleted.")
-        else:
-            print("Its not time yet")
+        for element in request_date:
+            deltatime = abs((element - today).days)
+            if deltatime > 3:
+                self.delete_request(request)
