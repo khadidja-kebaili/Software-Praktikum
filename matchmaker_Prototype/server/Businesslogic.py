@@ -147,10 +147,6 @@ class Businesslogic (object):
         with RequestMapper() as mapper:
             return mapper.insert(request)
 
-    def delete_request(self, request):
-        with RequestMapper() as mapper:
-            mapper.delete(request)
-
     def get_all_requests(self):
         with RequestMapper() as mapper:
             return mapper.find_all()
@@ -177,12 +173,26 @@ class Businesslogic (object):
             requester_id.append(self.get_profile_by_id(element))
         return requester_id
 
-    def check_timedelta_of_request(self, id):
+    def delete_request(self, request):
+        with RequestMapper() as mapper:
+            mapper.delete(request)
+
+
+    '''Hier wird eine Request gelöscht, indem man der Methode 2 Ids übergibt: Die des Requested und die des 
+    Requested_by.'''
+    def delete_request_by_ids(self, requested_id, requsted_by_id):
+        all_requests = [self.get_all_requests()]
+        for element in all_requests:
+            for request in element:
+                if request.get_requested_by() == requsted_by_id and request.get_requested() == requested_id:
+                    self.delete_request(request)
+
+    def __check_timedelta_of_request__(self, id):
         request = self.get_request_by_id(id)
         request_date = request.get_request_date()
         today = datetime.today()
         deltatime = abs((request_date - today).days)
-        if deltatime > 5:
+        if deltatime > 1:
             self.delete_request(request)
             print("request was older than 5 days, so its been deleted.")
         else:
