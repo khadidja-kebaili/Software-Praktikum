@@ -16,11 +16,12 @@ class ChatAccessMapper(Mapper):
             else:
                 access.set_id(1);
 
-        command = "INSERT INTO chataccess (id, profilID, room) VALUES (%s, %s, %s)"
+        command = "INSERT INTO chataccess (id, profilID, room, chattype) VALUES (%s, %s, %s, %s)"
         data = (
             access.get_id(),
             access.get_profilID(),
             access.get_room(),
+            access.get_chattype()
         )
 
         cursor.execute(command, data);
@@ -31,14 +32,15 @@ class ChatAccessMapper(Mapper):
     def find_all(self):
         res = [];
         cursor = self._cnx.cursor();
-        cursor.execute("SELECT id, profilID, room FROM chataccess")
+        cursor.execute("SELECT id, profilID, room, chattype FROM chataccess")
         tuples = cursor.fetchall();
 
-        for(id, profilID, room) in tuples:
+        for(id, profilID, room, chattype) in tuples:
             access = ChatAccessBO();
             access.set_id(id);
             access.set_profilID(profilID);
             access.set_room(room);
+            access.set_chattype(chattype);
             res.append(access);
         
         self._cnx.commit();
@@ -48,16 +50,17 @@ class ChatAccessMapper(Mapper):
     def find_by_key(self, id):
         res = None;
         cursor = self._cnx.cursor();
-        command = "SELECT id, profilID, room FROM chataccess WHERE id={}".format(id);
+        command = "SELECT id, profilID, room, chattype FROM chataccess WHERE id={}".format(id);
         cursor.execute(command);
         tuples = cursor.fetchall();
     
         try:
-            (id, profilID, room) = tuples[0]
+            (id, profilID, room, chattype) = tuples[0]
             access = ChatAccessBO();
             access.set_id(id);
             access.set_profilID(profilID);
             access.set_room(room);
+            access.set_chattype(chattype);
             res = access;
         except IndexError:
             res = None;
@@ -66,24 +69,65 @@ class ChatAccessMapper(Mapper):
         cursor.close();
         return res;
     
-    #gibt die Chaträume des gegebenen Profils zurück
-    def find_by_profil(self, profilID):
+    #gibt die Gruppenchaträume des gegebenen Profils zurück
+    def find_groupchat_by_profil(self, profilID):
         res = [];
         cursor = self._cnx.cursor();
-        command = "SELECT id, profilID, room FROM chataccess WHERE profilID={}".format(profilID);
+        command = "SELECT id, profilID, room, chattype FROM chataccess WHERE profilID={} AND chattype='g'".format(profilID);
         cursor.execute(command);
         tuples = cursor.fetchall();
 
-        for (id, profilID, room) in tuples:
+        for (id, profilID, room, chattype) in tuples:
             access = ChatAccessBO();
             access.set_id(id);
             access.set_profilID(profilID);
             access.set_room(room);
+            access.set_chattype(chattype);
             res.append(access);
 
         self._cnx.commit();
         cursor.close();
         return res;
+
+    #gibt die Zweier-Chats des gegebenen Profils zurück
+    def find_singelchat_by_profil(self, profilID):
+        res = [];
+        cursor = self._cnx.cursor();
+        command = "SELECT id, profilID, room, chattype FROM chataccess WHERE profilID={} AND chattype='e'".format(profilID);
+        cursor.execute(command);
+        tuples = cursor.fetchall();
+
+        for (id, profilID, room, chattype) in tuples:
+            access = ChatAccessBO();
+            access.set_id(id);
+            access.set_profilID(profilID);
+            access.set_room(room);
+            access.set_chattype(chattype);
+            res.append(access);
+
+        self._cnx.commit();
+        cursor.close();
+        return res;    
+
+    #gibt die Gruppenmitglieder einer Gruppe zurück
+    def get_groupmembers(self, room):
+        res=[];
+        cursor = self._cnx.cursor();
+        command = "SELECT id, profilID, room, chattype FROM chataccess WHERE room={}".format(room);
+        cursor.execute(command);
+        tuples = cursor.fetchall();
+
+        for (id, profilID, room, chattype) in tuples:
+            access = ChatAccessBO();
+            access.set_id(id);
+            access.set_profilID(profilID);
+            access.set_room(room);
+            access.set_chattype(chattype);
+            res.append(access);
+
+        self._cnx.commit();
+        cursor.close();
+        return res;          
 
     def delete(self, access):
         cursor = self._cnx.cursor();
@@ -94,9 +138,10 @@ class ChatAccessMapper(Mapper):
 
     def update(self, access):
         cursor = self._cnx.cursor();
-        command = "UPDATE chataccess " + "SET profilID=%s, room=%s WHERE id=%s"
+        command = "UPDATE chataccess " + "SET profilID=%s, room=%s chattype=%s WHERE id=%s"
         data = (access.get_profilID(),
                 access.get_room(),
+                access.get_chattype(),
                 access.get_id())
         cursor.execute(command, data);
         self._cnx.commit();

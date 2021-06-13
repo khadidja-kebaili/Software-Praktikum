@@ -5,20 +5,27 @@ import {LernappAPI} from '../api';
 class ChatList extends Component{
     constructor(props){
         super(props);
+
         this.state = {
-            Chats: []
+            Chataccess: [],
+            Chats: [],
+            error: null
         }
     }
 
     //Chaträume des aktuellen Users holen
-    get_Chats = () => {
-        LernappAPI.getAPI().get_Chataccess(this.props.profile.getID()).then(ChatroomBOs =>
+    get_Chataccess = () => {
+        LernappAPI.getAPI().get_ChataccessForUser(this.props.profile.getID()).then(ChataccessBOs =>
             this.setState({
-                Chats: ChatroomBOs
+                Chataccess: ChataccessBOs
             })).catch(e =>
                 this.setState({
-                    Chats: []
+                    Chatsaccess: []
                 }))
+    }
+
+    get_Chats = () => {
+        LernappAPI.getAPI().get_
     }
 
     componentDidMount(){

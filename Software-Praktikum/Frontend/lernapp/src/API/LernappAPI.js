@@ -70,7 +70,7 @@ export default class LernappAPI{
     }
 
     delete_Chatroom(chatroom){
-        return this.#fetchAdvanced(this.#delete_ChatroomURL(), {
+        return this.#fetchAdvanced(this.#delete_ChatroomURL(chatroom), {
             method: 'DELETE'
         }).them((responseJSON) => {
             let responseChatroom = ChatroomBO.fromJSON(responseJSON)[0];
@@ -108,9 +108,9 @@ export default class LernappAPI{
         })
     }
 
-    //alle zugreifbaren Chats eines Users
-    get_Chataccess(profil){
-        return this.#fetchAdvanced(this.#get_ChataccessURL(profil)).then((responseJSON) => {
+    //einen Chataccess zurückgeben nach Id
+    get_Chataccess(id){
+        return this.#fetchAdvanced(this.#get_ChataccessURL(id)).then((responseJSON) => {
             let responseChataccess = ChataccessBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve) {
                 resolve(responseChataccess);
@@ -130,6 +130,7 @@ export default class LernappAPI{
         })
     }
 
+    //alle Chataccess für einen Nutzer
     get_ChataccessForUser(profil){
         return this.#fetchAdvanced(this.#get_ChataccesForUserURL(profil)).then((responseJSON) => {
             let chataccesBOs = ChataccessBO.fromJSON(responseJSON);
@@ -140,6 +141,8 @@ export default class LernappAPI{
     }
 
     //Messages Methoden
+
+    //Message hinzufügen
     add_Message(message){
         return this.#fetchAdvanced(this.#add_MessageURL(), {
             method: 'POST',
@@ -156,6 +159,7 @@ export default class LernappAPI{
         })
     }
 
+    //
     get_Message(message){
         return this.#fetchAdvanced(this.#get_MessageURL(message)).then((responseJSON) => {
             let responseMessage = MessageBO.fromJSON(responseJSON)[0];

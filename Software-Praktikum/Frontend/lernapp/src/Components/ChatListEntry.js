@@ -4,24 +4,9 @@ class ChatlistEntry extends Component{
     constructor(props){
         super(props);
         this.state = {
-            name: ""
+            chat: props.chat
         }
     }
-
-    componentDidMount(){
-        this.getChatentry();
-    }
-
-    componentDidUpdate(prevProps){
-        if((this.props.show)&&(this.props.show !== prevProps.show)){
-            //get
-        }
-    }
-
-    getChatentry = () => {
-        LernappAPI.getAPI().getC
-    }
-
 
     /**
      * Rendern der Komponente

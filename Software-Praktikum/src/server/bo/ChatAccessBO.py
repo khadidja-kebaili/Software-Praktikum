@@ -6,6 +6,7 @@ class ChatAccessBO (Businessobject):
         super().__init__()
         self.profilID = None;
         self.room = None;
+        self.chattype = None;
        
     def get_profilID(self):
         return self.senderID;
@@ -19,8 +20,14 @@ class ChatAccessBO (Businessobject):
     def set_room(self, room):
         self.room = room;
 
+    def get_chattype(self):
+        return self.chattype;
+
+    def set_chattype(self, type):
+        self.chattype = type;
+
     def __str__(self):
-        return "Id: {}, Profil {} kann in Raum {}".format(self.get_id(), self.get_profilID(), self.get_room());
+        return "Id: {}, Profil {} kann in Raum {}, Type: ".format(self.get_id(), self.get_profilID(), self.get_room(), self.get_chattype());
 
 #Umwandlung eines Dictonary Eintrags in ein Message Objekt
 @staticmethod
