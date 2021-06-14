@@ -32,7 +32,7 @@ class ChatAccessMapper(Mapper):
     def find_all(self):
         res = [];
         cursor = self._cnx.cursor();
-        cursor.execute("SELECT id, profilID, room, chattype FROM chataccess")
+        cursor.execute("SELECT id, profilID, room, chattype FROM chataccess");
         tuples = cursor.fetchall();
 
         for(id, profilID, room, chattype) in tuples:
@@ -90,7 +90,7 @@ class ChatAccessMapper(Mapper):
         return res;
 
     #gibt die Zweier-Chats des gegebenen Profils zurück
-    def find_singelchat_by_profil(self, profilID):
+    def find_singlechat_by_profil(self, profilID):
         res = [];
         cursor = self._cnx.cursor();
         command = "SELECT id, profilID, room, chattype FROM chataccess WHERE profilID={} AND chattype='e'".format(profilID);
@@ -99,10 +99,10 @@ class ChatAccessMapper(Mapper):
 
         for (id, profilID, room, chattype) in tuples:
             access = ChatAccessBO();
-            access.set_id(id);
-            access.set_profilID(profilID);
-            access.set_room(room);
-            access.set_chattype(chattype);
+            access.get_id(id);
+            access.get_profilID(profilID);
+            access.get_room(room);
+            access.get_chattype(chattype);
             res.append(access);
 
         self._cnx.commit();
@@ -111,23 +111,23 @@ class ChatAccessMapper(Mapper):
 
     #gibt die Gruppenmitglieder einer Gruppe zurück
     def get_groupmembers(self, room):
-        res=[];
-        cursor = self._cnx.cursor();
-        command = "SELECT id, profilID, room, chattype FROM chataccess WHERE room={}".format(room);
-        cursor.execute(command);
-        tuples = cursor.fetchall();
+        res=[]
+        cursor = self._cnx.cursor()
+        command = "SELECT id, profilID, room, chattype FROM chataccess WHERE room={}".format(room)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
 
         for (id, profilID, room, chattype) in tuples:
-            access = ChatAccessBO();
-            access.set_id(id);
-            access.set_profilID(profilID);
-            access.set_room(room);
-            access.set_chattype(chattype);
-            res.append(access);
+            member = ChatAccessBO()
+            member.set_id(id)
+            member.set_profilID(profilID)
+            member.set_room(room)
+            member.set_chattype(chattype)
+            res.append(member)
 
-        self._cnx.commit();
-        cursor.close();
-        return res;          
+        self._cnx.commit()
+        cursor.close()
+        return res
 
     def delete(self, access):
         cursor = self._cnx.cursor();

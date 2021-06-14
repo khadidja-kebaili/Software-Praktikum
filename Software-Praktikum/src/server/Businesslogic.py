@@ -1,10 +1,10 @@
 from server.bo.ChatAccessBO import ChatAccessBO
 from server.db.ChatAccessMapper import ChatAccessMapper
-from .bo.MessageBO import MessageBO;
-from .db.MessageMapper import MessageMapper;
+from server.bo.MessageBO import MessageBO;
+from server.db.MessageMapper import MessageMapper;
 
-from .bo.ChatroomBO import ChatroomBO;
-from .db.ChatroomMapper import ChatroomMapper;
+from server.bo.ChatroomBO import ChatroomBO;
+from server.db.ChatroomMapper import ChatroomMapper;
 
 class Businesslogic(object):
     def __init__(self):
@@ -47,9 +47,11 @@ class Businesslogic(object):
             return mapper.delete(id);
 
     #Methoden für Chatroom
-    def create_chatroom(self):
+    def create_chatroom(self, name, type):
         room = ChatroomBO();
         room.set_id(1);
+        room.set_name(name);
+        room.set_chattype(type);
 
         with ChatroomMapper() as mapper:
             return mapper.insert(room);
@@ -66,10 +68,17 @@ class Businesslogic(object):
         with ChatroomMapper() as mapper:
             return mapper.delete(room);
 
+    def update_chatroom(self, room):
+        with ChatroomMapper() as mapper:
+            return mapper.update(room);
+
     #Methoden für ChatAccess
-    def create_chataccess(self):
+    def create_chataccess(self, profilID, room, chattype):
         access = ChatAccessBO();
         access.set_id(1);
+        access.profilID = profilID;
+        access.room = room;
+        access.chattype = chattype;
 
         with ChatAccessMapper() as mapper:
             return mapper.insert(access);
@@ -82,10 +91,25 @@ class Businesslogic(object):
         with ChatAccessMapper() as mapper:
             return mapper.find_by_key(id);
 
-    def get_chataccess_by_profil(self, profil):
+    def get_groupchataccess_by_profil(self, profil):
         with ChatAccessMapper() as mapper:
-            return mapper.find_by_profil(profil);
+            return mapper.find_groupchat_by_profil(profil);
+        
+    def get_singlechataccess_by_profil(self, profil):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_singlechat_by_profil(profil);
 
-    def delete_chataccess(self, room):
+    def get_profils_by_room(self, id):
         with ChatAccessMapper() as mapper:
-            return mapper.delete(room);
+            return mapper.get_groupmembers(id);
+
+    def delete_chataccess(self, access):
+        with ChatAccessMapper() as mapper:
+            return mapper.delete(access);
+
+    def update_chataccess(self, access):
+        with ChatAccessMapper() as mapper:
+            return mapper.update(access)
+
+# l = Businesslogic()
+# print(l.get_profils_by_room(1))

@@ -3,7 +3,7 @@ from .Businessobject import Businessobject;
 class ChatAccessBO (Businessobject):
     #Instanziierung des Objekts der Klasse ChatAccess
     def __init__(self):
-        super().__init__()
+        super().__init__();
         self.profilID = None;
         self.room = None;
         self.chattype = None;

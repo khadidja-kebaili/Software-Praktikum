@@ -5,6 +5,7 @@ from contextlib import AbstractContextManager;
 from abc import ABC, abstractmethod;
 
 class Mapper(AbstractContextManager, ABC):
+
   def __init__(self):
     self._cnx = None;
 

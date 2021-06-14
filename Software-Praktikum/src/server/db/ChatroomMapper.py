@@ -16,9 +16,11 @@ class ChatroomMapper(Mapper):
             else:
                 chatroom.set_id(1);
 
-        command = "INSERT INTO chatrooms (id) VALUES (%s)"
+        command = "INSERT INTO chatrooms (id, name, chattype) VALUES (%s)"
         data = (
             chatroom.get_id(),
+            chatroom.get_name(),
+            chatroom.get_chattype()
         )
 
         cursor.execute(command, data);
@@ -35,11 +37,14 @@ class ChatroomMapper(Mapper):
     def find_all(self):
         res = [];
         cursor = self._cnx.cursor();
-        cursor.execute("SELECT id FROM chatroom")
+        cursor.execute("SELECT id, name, chattype FROM chatroom")
         tuples = cursor.fetchall();
 
-        for(id) in tuples:
+        for(id, name, chattype) in tuples:
             room = ChatroomBO();
+            room.set_id(id);
+            room.set_name(name);
+            room.set_chattype(chattype);
             res.append(room);
         
         self._cnx.commit();
@@ -49,14 +54,16 @@ class ChatroomMapper(Mapper):
     def find_by_key(self, id):
         res = None;
         cursor = self._cnx.cursor();
-        command = "SELECT id FROM chatroom WHERE id={}".format(id);
+        command = "SELECT id, name, chattype FROM chatroom WHERE id={}".format(id);
         cursor.execute(command);
         tuples = cursor.fetchall();
     
         try:
-            (id) = tuples[0]
+            (id, name, type) = tuples[0]
             room = ChatroomBO();
             room.set_id(id);
+            room.set_name(name);
+            room.set_chattype(type);
             res = room;
         except IndexError:
             res = None;
@@ -64,3 +71,12 @@ class ChatroomMapper(Mapper):
         self._cnx.commit();
         cursor.close();
         return res;
+
+    def update(self, room):
+        cursor = self._cnx.cursor();
+        command = "UPDATE chatroom " + "SET name=%s, chattype=%s"
+        data = (room.get_name(),
+                room.get_chattype())
+        cursor.execute(command, data)
+        self._cnx.commit();
+        cursor.close();
