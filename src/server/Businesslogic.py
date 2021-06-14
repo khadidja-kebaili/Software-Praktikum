@@ -1,9 +1,9 @@
-from matchmaker_Prototype.server.BO.Profile import Studentprofile
-from matchmaker_Prototype.server.db.ProfileMapper import StudentprofileMapper
-from matchmaker_Prototype.server.BO.GroupBO import Group
-from matchmaker_Prototype.server.db.GroupMapper import GroupMapper
-from matchmaker_Prototype.server.db.RequestMapper import RequestMapper
-from matchmaker_Prototype.server.BO.RequestBO import Request
+from src.server.BO.Profile import Studentprofile
+from src.server.db.ProfileMapper import StudentprofileMapper
+from src.server.BO.GroupBO import Group
+from src.server.db.GroupMapper import GroupMapper
+from src.server.db.RequestMapper import RequestMapper
+from src.server.BO.RequestBO import Request
 from datetime import datetime
 
 class Businesslogic (object):
@@ -176,7 +176,6 @@ class Businesslogic (object):
     def delete_request(self, request):
         with RequestMapper() as mapper:
             mapper.delete(request)
-
 
     '''Hier wird eine Request gelöscht, indem man der Methode 2 Ids übergibt: Die des Requested und die des 
     Requested_by.'''

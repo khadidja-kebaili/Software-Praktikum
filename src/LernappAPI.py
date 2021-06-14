@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_restx import Resource, Api, fields
-from matchmaker_Prototype.server.Businesslogic import Businesslogic
-from matchmaker_Prototype.server.BO.Profile import Studentprofile
-from matchmaker_Prototype.server.BO.RequestBO import Request
-from matchmaker_Prototype.server.BO.GroupBO import Group
+from src.server.Businesslogic import Businesslogic
+from src.server.BO.Profile import Studentprofile
+from src.server.BO.RequestBO import Request
+from src.server.BO.GroupBO import Group
 from flask_cors import CORS
 # from SecurityDecorator import secured
 
@@ -135,12 +135,6 @@ class Requestanzeigen (Resource):
 #         adm = Businesslogic()
 #         request = adm.get_request_of_profile(id)
 #         return request
-    @api.marshal_with(request)
-    def delete(self, id):
-        adm = Businesslogic()
-        request = adm.get_request_by_id(id)
-        adm.delete_request(request)
-        return ''
 
 
 

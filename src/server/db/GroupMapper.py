@@ -1,5 +1,5 @@
-from matchmaker_Prototype.server.db.Mapper import Mapper
-from matchmaker_Prototype.server.BO.GroupBO import Group
+from src.server.db.Mapper import Mapper
+from src.server.BO.GroupBO import Group
 
 class GroupMapper(Mapper):
 
@@ -36,7 +36,7 @@ class GroupMapper(Mapper):
         result = []
         cursor = self._cnx.cursor()
         cursor.execute(
-            "SELECT id, groupname, admin, description FROM group")
+            "SELECT id, groupname, admin, description FROM test.group")
         tuples = cursor.fetchall()
 
         for (id, groupname, admin, description) in tuples:

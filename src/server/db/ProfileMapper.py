@@ -1,5 +1,5 @@
-from matchmaker_Prototype.server.db.Mapper import Mapper
-from matchmaker_Prototype.server.BO.Profile import Studentprofile
+from src.server.db.Mapper import Mapper
+from src.server.BO.Profile import Studentprofile
 
 class StudentprofileMapper(Mapper):
 
@@ -133,6 +133,9 @@ class StudentprofileMapper(Mapper):
 
         self._cnx.commit()
         cursor.close()
+
+    def update_requested_by(self, object):
+        pass
 
 if (__name__ == "__main__"):
     with StudentprofileMapper() as mapper:

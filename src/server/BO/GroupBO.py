@@ -1,4 +1,4 @@
-from matchmaker_Prototype.server.BO.Businessobjects import BusinessObject
+from src.server.BO.Businessobjects import BusinessObject
 
 class Group(BusinessObject):
     def __init__(self):
@@ -27,7 +27,7 @@ class Group(BusinessObject):
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "Group: ID: {}, Name: {}, Admin: {}".format(self.get_id(), self.get_admin(), self.get_description(), self.get_groupname())
+        return "Group: ID: {}, Admin: {}, Beschreibung: {}, Gruppenname : {}".format(self.get_id(), self.get_admin(), self.get_description(), self.get_groupname())
 
     @staticmethod
     def from_dict(dictionary=dict()):

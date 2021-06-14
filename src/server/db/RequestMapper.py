@@ -1,5 +1,5 @@
-from matchmaker_Prototype.server.db.Mapper import Mapper
-from matchmaker_Prototype.server.BO.RequestBO import Request
+from src.server.db.Mapper import Mapper
+from src.server.BO.RequestBO import Request
 
 class RequestMapper(Mapper):
 

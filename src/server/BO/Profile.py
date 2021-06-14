@@ -1,4 +1,4 @@
-from matchmaker_Prototype.server.BO.Businessobjects import BusinessObject
+from src.server.BO.Businessobjects import BusinessObject
 
 class Studentprofile(BusinessObject):
     def __init__(self):

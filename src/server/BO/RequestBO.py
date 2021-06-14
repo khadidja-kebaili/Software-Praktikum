@@ -1,4 +1,4 @@
-from matchmaker_Prototype.server.BO.Businessobjects import BusinessObject
+from src.server.BO.Businessobjects import BusinessObject
 
 class Request(BusinessObject):
 
@@ -38,6 +38,6 @@ class Request(BusinessObject):
         obj.set_id(dictionary['id'])
         obj.set_requested_by(dictionary['requested_by'])
         obj.set_requested(dictionary['requested'])
-        # obj.set_request_date(dictionary['requested_date'])
+        obj.set_request_date(dictionary['requested_date'])
         return obj
 
