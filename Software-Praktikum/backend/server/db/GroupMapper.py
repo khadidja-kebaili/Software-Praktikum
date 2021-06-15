@@ -13,11 +13,12 @@ class GroupMapper(Mapper):
         cursor = self._cnx.cursor()
         
 
-        command = "INSERT INTO test.group (admin, description, groupname) VALUES (%s,%s,%s)"
+        command = "INSERT INTO test.group (admin, description, groupname, chatid) VALUES (%s,%s,%s,%s)"
         data = (
             group.get_admin(),
             group.get_description(), 
-            group.get_groupname())
+            group.get_groupname(),
+            group.get_chatid())
         cursor.execute(command, data)
         cursor.execute("SELECT id FROM test.group")
         res = cursor.fetchall()
@@ -38,15 +39,16 @@ class GroupMapper(Mapper):
         result = []
         cursor = self._cnx.cursor()
         cursor.execute(
-            "SELECT id, admin, description, groupname FROM test.group")
+            "SELECT id, admin, description, groupname, chatid FROM test.group")
         tuples = cursor.fetchall()
 
-        for (id, admin, description, groupname) in tuples:
+        for (id, admin, description, groupname, chatid) in tuples:
             group = GroupBO()
             group.set_id(id)
             group.set_admin(admin)
             group.set_description(description)
             group.set_groupname(groupname)
+            group.set_chatid(chatid)
             
             cursor.execute(
                 "SELECT  profilid FROM test.groupmember WHERE groupid= %s",(id,))
@@ -65,18 +67,19 @@ class GroupMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, admin, description,groupname FROM test.group WHERE id={}".format(
+        command = "SELECT id, admin, description, groupname, chatid FROM test.group WHERE id={}".format(
             key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, admin, description,groupname) = tuples[0]
+            (id, admin, description, groupname, chatid) = tuples[0]
             group = GroupBO()
             group.set_id(id)
             group.set_admin(admin)
             group.set_description(description)
             group.set_groupname(groupname)
+            group.set_chatid(chatid)
             cursor.execute(
                 "SELECT  profilid FROM test.groupmember WHERE groupid= %s",(id,))
             tuples2 = cursor.fetchall()
@@ -98,12 +101,13 @@ class GroupMapper(Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE test.group " + "SET admin=%s, groupname=%s, description=%s WHERE id=%s"
+        command = "UPDATE test.group " + "SET admin=%s, groupname=%s, description=%s, chatid=%s WHERE id=%s"
         data = (
             group.get_admin(),
             group.get_groupname(),
             group.get_description(),
             group.get_id(),
+            group.get_chatid(),
             )
         cursor.execute(command, data)
         # user werden gelöscht
