@@ -15,12 +15,9 @@ class AddMember extends Component {
   initialState = {
     // TextField values
     memberName: '',
-    targetMembers: [],
+    targetMember: [],
     selectedMember: null,
-    transferAmountValidationFailed: false,
-    transferAmountFieldEdited: false,
-    // Network states
-    
+
   };
 
   constructor(props) {
@@ -30,82 +27,56 @@ class AddMember extends Component {
     this.state = this.initialState;
   }
 
-  /** Searches for customers with a customerName and loads the corresponding accounts */
+  /** Searches for members with a memberName and loads the corresponding accounts */
   searchMember = async () => {
     const { memberName } = this.state;
     if (memberName.length > 0) {
       try {
-        // set loading to true
-        this.setState({
-          targetMember: [],              // Set empty array
-          selectedMember: null,               // the initial customer
+        // Load members first
+        const member = await LernappAPI.getAPI().searchMember(memberName);
 
-        });
-
-        // Load customers first
-        const members = await LernappAPI.getAPI().searchMember(memberName);
-
- 
         let selectedMember = null;
 
-        if (members.length > 0) {
-          selectedMember = members[0];
+        if (member.length > 0) {
+          selectedMember = member[0];
         }
         // Set the final state
         this.setState({
-          targetMembers: members,
+          targetMember: member,
           selectedMember: selectedMember,
         });
       } catch (e) {
         this.setState({
-          targetMembers: [],              // Set empty array
+          targetMember: [],              // Set empty array
           selectedMember: null,
         });
+        console.log(this.state.targetMember)
       }
     }
   }
 
-  
 
 
   /** Handles value changes of the forms textfields and validates the transferAmout field */
   textFieldValueChange = (event) => {
     const val = event.target.value;
-    // Validate the amount field
-    if (event.target.id === 'transferAmount') {
-      let result = false;
-      let amount = val.replace(/,/g, '.');
-      if (amount.length === 0) {
-        // length must not be 0
-        result = true;
-      }
-      if (isNaN(amount)) {
-        // Its not a numer in the text field
-        result = true;
-      }
-      this.setState({
-        transferAmountValidationFailed: result,
-        transferAmountFieldEdited: true
-      });
-    }
     this.setState({
       [event.target.id]: val
     });
   }
 
-  /** Handles value changes of the customer select textfield */
-  memberSelectionChange = (event) => {
-    let member = event.target.value;
+  /** Handles value changes of the member select textfield */
+ memberSelectionChange = (event) => {
     this.setState({
-      selectedMember: member,
+      selectedMember: event.target.value,
     });
   }
 
 
   /** Renders the component */
   render() {
-    const {show, member} = this.props;
-    const { memberName, targetMembers, selectedMember, } = this.state;
+    const {show} = this.props;
+    const {targetMember, selectedMember} = this.state;
 
     return (
       show ?
@@ -113,10 +84,10 @@ class AddMember extends Component {
           <DialogTitle id='form-dialog-title'>Füge Mitglieder hinzu
           </DialogTitle>
           <DialogContent>
-            <form noValidate autoComplete='off'>
-              {
-                // show a search text field if there are no searchedCustomer yet
-                (targetMembers.length === 0) ?
+            <form>
+              { 
+                // show a search text field if there are no searchedmember yet
+                (targetMember.length === 0) ?
                   <TextField autoFocus fullWidth margin='normal' type='text' required id='memberName' label='Member name:'
                     onChange={this.textFieldValueChange}
                     onBlur={this.searchMember}
@@ -128,19 +99,18 @@ class AddMember extends Component {
                       </InputAdornment>,
                     }} />
                   :
-                  // Show a selection of targetCustomers, if there are any. Provide no search button. 
                   <TextField select autoFocus fullWidth margin='normal' type='text' required id='memberName' label='Member name:'
-                    value={selectedMember}
-                    onChange={this.memberSelectionChange}>
-                    {
-                      this.state.targetMembers.map((member) => (
-                        <MenuItem key={member.getID()} value={member}>
-                          {member.getLastName()}, {member.getFirstName()}
-                        </MenuItem>
-                      ))
-                    }
-                  </TextField>
-              }
+                  value={selectedMember}
+                  onChange={this.memberSelectionChange}>
+                  {
+                    this.state.targetMember.map((member) => (
+                      <MenuItem key={member.getID()} value={member}>
+                        {member.getLastname()}, {member.getFirstname()}
+                      </MenuItem>
+                    ))
+                  }
+                </TextField>
+  }
             </form>
 
           </DialogContent>

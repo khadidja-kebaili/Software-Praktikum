@@ -1,4 +1,5 @@
 import ProfileBO from "./ProfileBO";
+import MemberBO from "./MemberBO";
 
 export default class LernappAPI {
 
@@ -19,6 +20,7 @@ export default class LernappAPI {
   #deleteProfileURL = (id) =>`${this.#lernappServerBaseURL}/profile/${id}`;
   #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
   #getMatchesURL = () => `${this.#lernappServerBaseURL}/matches`;
+  #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
 
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
@@ -98,6 +100,15 @@ export default class LernappAPI {
     })
   }
 
+  searchMember(memberName) {
+    return this.#fetchAdvanced(this.#searchMemberURL(memberName)).then((responseJSON) => {
+      let memberBOs = ProfileBO.fromJSON(responseJSON);
+      // console.info(memberBOs);
+      return new Promise(function (resolve) {
+        resolve(memberBOs);
+      })
+    })
+  }
 
   // addProfile(profileBO) {
   //     fetch('http://127.0.0.1:5000/hello/profile',{
