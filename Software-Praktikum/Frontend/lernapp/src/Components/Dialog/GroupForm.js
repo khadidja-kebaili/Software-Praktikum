@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import GroupBO from "../../API/GroupBO";
 import LernappAPI from "../../API/LernappAPI"
 import AddMember from "./AddMember.js"
+import LeaveGroup from './LeaveGroup';
 
 class GroupForm extends Component {
   constructor(props){
@@ -20,7 +21,8 @@ class GroupForm extends Component {
   this.state = { 
     groupname: gn,
     description: descr,
-    showAddMember: false
+    showAddMember: false,
+    showLeaveGroup: false
    };
    this.handleChange = this.handleChange.bind(this);
    this.baseState = this.state;
@@ -36,12 +38,24 @@ class GroupForm extends Component {
       showAddMember: true
     });
   }
-
+  leaveGroupButtonClicked = (event) => {
+    event.stopPropagation();
+    this.setState({
+      showLeaveGroup: true
+    });
+  }
   closeAddMemberDialog = () => {
     this.setState({
     showAddMember: false
   });
 }
+
+closeLeaveGroupDialog = () => {
+  this.setState({
+  showLeaveGroup: false
+});
+}
+
 
 //  addGroup = () => {
 //   let newGroup = new GroupBO(
@@ -94,6 +108,10 @@ class GroupForm extends Component {
               Mitglieder Hinzufügen
             </Button>
             <AddMember show={this.state.showAddMember} onClose={this.closeAddMemberDialog}/>
+            <Button type="submit" variant="contained" color="primary" size="large" onClick={this.leaveGroupButtonClicked} color='primary'>
+              Gruppe verlassen
+            </Button>
+            <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>
             </div> 
             </div> 
    
