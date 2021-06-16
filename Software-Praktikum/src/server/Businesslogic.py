@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 from src.server.BO.Profile import Studentprofile
 from src.server.db.ProfileMapper import StudentprofileMapper
 from src.server.BO.GroupBO import Group
@@ -6,6 +7,15 @@ from src.server.db.GroupMapper import GroupMapper
 from src.server.db.RequestMapper import RequestMapper
 from src.server.BO.RequestBO import Request
 from datetime import datetime
+=======
+from .bo.ProfileBO import Studentprofile
+from .bo.UserBO import User
+from .bo.GroupBO import Group
+from .db.Profilemapper import StudentprofileMapper
+from .db.UserMapper import UserMapper
+from .db.GroupMapper import GroupMapper
+
+>>>>>>> origin/Mihri
 
 class Businesslogic (object):
 
@@ -13,6 +23,7 @@ class Businesslogic (object):
         pass
 
     def create_user(self, name, user_id, email):
+<<<<<<< HEAD
         user = Studentprofile()
         user.set_name(name)
         user.set_user_id(user_id)
@@ -22,6 +33,17 @@ class Businesslogic (object):
 
     def get_user_by_google_user_id(self, id):
         with StudentprofileMapper() as mapper:
+=======
+        user = User()
+        user.set_name(name)
+        user.set_user_id(user_id)
+        user.set_email(email)
+        with UserMapper() as mapper:
+            return mapper.insert(user)
+
+    def get_user_by_google_user_id(self, id):
+        with UserMapper() as mapper:
+>>>>>>> origin/Mihri
             return mapper.find_by_google_user_id(id)
 
     def create_profile(self, first_name, last_name, age, semester, major, hobbys, interests,
@@ -37,7 +59,11 @@ class Businesslogic (object):
         studentprofile.set_personality(personality)
         studentprofile.set_learnstyle(learnstyle)
         studentprofile.set_studytime(studytime)
+<<<<<<< HEAD
         studentprofile.set_studyplace(studyplace)
+=======
+        studentprofile.set_studyplace(studyplace),
+>>>>>>> origin/Mihri
         studentprofile.set_studyfrequence(studyfrequence)
         studentprofile.set_workexperience(workexperience)
 
@@ -45,6 +71,10 @@ class Businesslogic (object):
             return mapper.insert(studentprofile)
 
     def get_profile_by_id(self, number):
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Mihri
         with StudentprofileMapper() as mapper:
             return mapper.find_by_key(number)
 
@@ -60,6 +90,7 @@ class Businesslogic (object):
         with StudentprofileMapper() as mapper:
             mapper.delete(studentprofile)
 
+<<<<<<< HEAD
 
     def create_group(self, groupname, admin, description):
         group = Group()
@@ -68,11 +99,17 @@ class Businesslogic (object):
         group.set_description(description)
         with GroupMapper() as mapper:
             return mapper.insert(group)
+=======
+    def get_all_groups(self):
+        with GroupMapper() as mapper:
+            return mapper.find_all()
+>>>>>>> origin/Mihri
 
     def get_group_by_id(self, number):
         with GroupMapper() as mapper:
             return mapper.find_by_key(number)
 
+<<<<<<< HEAD
     def get_all_groups(self):
         with GroupMapper() as mapper:
             return mapper.find_all()
@@ -80,11 +117,17 @@ class Businesslogic (object):
     def save_group(self, group):
         with GroupMapper() as mapper:
             mapper.update(group)
+=======
+    def get_group_of_profile(self, profile):
+        with GroupMapper() as mapper:
+            return mapper.find_by_owner_id(profile.get_id())
+>>>>>>> origin/Mihri
 
     def delete_group(self, group):
         with GroupMapper() as mapper:
             mapper.delete(group)
 
+<<<<<<< HEAD
     '''Hier beginnt das eigentliche Matchmaking'''
     '''Zunächst einmal wird der Score, also der Integer-Wert wie gut 2 Profile zusammenpassen berechnet
     Dazu gibt es die Methoden get_learning_habits und set_score'''
@@ -314,3 +357,46 @@ class Businesslogic(object):
 # l = Businesslogic()
 # print(l.get_profils_by_room(1))
 >>>>>>> origin/Zusammenbringen
+=======
+    def create_group_for_profile(self, profile):
+        with GroupMapper() as mapper:
+            if profile is not None:
+                group = Group()
+                group.set_owner(group.get_id())
+                group.set_id(1)
+
+                return mapper.insert(group)
+            else:
+                return None
+
+    def get_members(self):
+        members = [
+            {
+                "first_name": "Thomas",
+                "last_name": "Müller",
+                "id": 2
+            },
+            {
+                "first_name": "Khadidja",
+                "last_name": "Kebaili",
+                "id": 3
+
+            },
+            {
+                "first_name": "Esra",
+                "last_name": "Copuro",
+                "id": 1
+
+            },
+            {
+                "first_name": "Hami",
+                "last_name": "Duong",
+                "id": 4
+
+            }]
+        return members
+
+    def get_profile_by_name(self, last_name):
+        with StudentprofileMapper() as mapper:
+            return mapper.find_by_last_name(last_name)
+>>>>>>> origin/Mihri

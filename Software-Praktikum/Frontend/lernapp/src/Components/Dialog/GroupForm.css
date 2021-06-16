@@ -1,0 +1,14 @@
+.GroupForm {
+  border-radius: 25px;
+  border: 2px solid black;
+  width: 600px;
+  height: 270px;
+  margin: auto;
+}
+.GroupForm {
+  display: grid;
+  grid-auto-columns: auto;
+  grid-auto-rows: 65px;
+  gap: 1em;
+  padding: 1em;
+}
