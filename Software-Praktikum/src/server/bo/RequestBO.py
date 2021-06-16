@@ -1,97 +1,43 @@
-from src.server.db.Mapper import Mapper
-from src.server.BO.RequestBO import Request
+from src.server.bo.Businessobject import Businessobject
 
-class RequestMapper(Mapper):
+class Request(Businessobject):
 
     def __init__(self):
         super().__init__()
-
-    def insert(self, request):
-        cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM request")
-        tuples = cursor.fetchall()
-
-        for (maxid) in tuples:
-            if maxid[0] is not None:
-                request.set_id(maxid[0] + 1)
-            else:
-                """Wenn wir KEINE maximale id feststellen konnten, dann gehen wir
-                davon aus, dass die Tabelle leer ist und wir mit der id 1 beginnen können."""
-                request.set_id(1)
-
-        command = "INSERT INTO request (id, requested_by, requested) VALUES (%s, %s, %s)"
-        data = (
-            request.get_id(), request.get_requested_by(), request.get_requested())
-        cursor.execute(command, data)
-
-        self._cnx.commit()
-        cursor.close()
-        return request
-
-    def find_all(self):
-
-        result = []
-        cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, requested_by, requested, request_date FROM request")
-        tuples = cursor.fetchall()
-
-        for (id, requested_by, requested, request_date) in tuples:
-            request = Request()
-            request.set_id(id)
-            request.set_requested_by(requested_by)
-            request.set_requested(requested)
-            request.set_request_date(request_date)
-            result.append(request)
-
-        self._cnx.commit()
-        cursor.close()
-
-        return result
-
-    def find_by_key(self, key):
-        result = None
-
-        cursor = self._cnx.cursor()
-        command = "SELECT id, requested_by, requested, request_date FROM request WHERE id={}".format(
-            key)
-        cursor.execute(command)
-        tuples = cursor.fetchall()
-
-        try:
-            (id, requested_by, requested, request_date) = tuples[0]
-            request = Request()
-            request.set_id(id)
-            request.set_requested_by(requested_by)
-            request.set_request_date(request_date)
-            request.set_requested(requested)
-            result = request
-        except IndexError:
-            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
-            result = None
-
-        self._cnx.commit()
-        cursor.close()
-
-        return result
-
-    def update(self, request):
-        pass
+        self.requested_by = "",
+        self.requested = "",
+        self.request_date = ""
 
 
-    def delete(self, request):
-        cursor = self._cnx.cursor()
+    def set_request_date(self, value):
+        self.request_date = value
 
-        command = "DELETE FROM request WHERE id={}".format(
-            request.get_id())
-        cursor.execute(command)
+    def get_request_date(self):
+        return self.request_date
 
-        self._cnx.commit()
-        cursor.close()
+    def set_requested(self, value):
+        self.requested = value
 
-if (__name__ == "__main__"):
-    with RequestMapper() as mapper:
-        result = mapper.find_all()
-        for p in result:
-           print(p)
+    def get_requested(self):
+        return self.requested
+
+    def set_requested_by(self, value):
+        self.requested_by = value
+
+    def get_requested_by(self):
+        return self.requested_by
+
+    def __str__(self):
+        """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
+        return "Request: ID: {}, Requested_by: {}, Requested: {}, Date of request: {}".format(self.get_id(), self.get_requested_by(), self.get_requested(), self.get_request_date())
+
+    @staticmethod
+    def from_dict(dictionary=dict()):
+        """Umwandeln eines Python dict() in einen Request."""
+        obj = Request()
+        obj.set_id(dictionary['id'])
+        obj.set_requested_by(dictionary['requested_by'])
+        obj.set_requested(dictionary['requested'])
+        obj.set_request_date(dictionary['requested_date'])
+        return obj
 

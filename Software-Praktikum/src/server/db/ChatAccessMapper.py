@@ -1,5 +1,5 @@
-from server.db.Mapper import Mapper;
-from server.bo.ChatAccessBO import ChatAccessBO;
+from src.server.db.Mapper import Mapper;
+from src.server.bo.ChatAccessBO import ChatAccessBO;
 
 class ChatAccessMapper(Mapper):
     def __init__(self):

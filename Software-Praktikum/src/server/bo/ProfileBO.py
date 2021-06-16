@@ -1,7 +1,7 @@
-from .Businessobject import BusinessObject
+from .Businessobject import Businessobject
 
 
-class Studentprofile (BusinessObject):
+class Studentprofile (Businessobject):
     def __init__(self):
         super().__init__()
         self.last_name = "",

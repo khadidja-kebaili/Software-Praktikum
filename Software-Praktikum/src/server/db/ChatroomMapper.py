@@ -1,5 +1,5 @@
-from server.db.Mapper import Mapper;
-from server.bo.ChatroomBO import ChatroomBO;
+from src.server.db.Mapper import Mapper;
+from src.server.bo.ChatroomBO import ChatroomBO;
 
 class ChatroomMapper(Mapper):
     def __init__(self):

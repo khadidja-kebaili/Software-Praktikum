@@ -1,6 +1,5 @@
-
-from server.db.Mapper import Mapper
-from server.bo.ProfileBO import Studentprofile
+from src.server.db.Mapper import Mapper
+from src.server.bo.ProfileBO import Studentprofile
 
 
 class StudentprofileMapper (Mapper):
