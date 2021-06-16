@@ -19,7 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp" />
+    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/fake-backend_V2.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/ChatList.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/ChatList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/ChatListEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/ChatListEntry.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,7 +41,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -77,19 +85,10 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="npm create-creact app lernapp" />
     <option name="LAST_COMMIT_MESSAGE" value="npm create-creact app lernapp" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="409" y="144" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1618420996460">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="409" y="144" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1618420996460" />
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1618473366435">
-      <screen x="0" y="0" width="1280" height="680" />
-    </state>
-    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1618473366435" />
   </component>
 </project>

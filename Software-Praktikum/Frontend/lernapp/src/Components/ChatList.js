@@ -9,6 +9,7 @@ class ChatList extends Component{
         this.state = {
             Chataccess: [],
             Chats: [],
+            loadingInProgress: false,
             error: null
         }
     }
@@ -17,39 +18,79 @@ class ChatList extends Component{
     get_Chataccess = () => {
         LernappAPI.getAPI().get_ChataccessForUser(this.props.profile.getID()).then(ChataccessBOs =>
             this.setState({
-                Chataccess: ChataccessBOs
+                Chataccess: ChataccessBOs,
+                loadingInProgress: false,
+                error: null
             })).catch(e =>
                 this.setState({
-                    Chatsaccess: []
-                }))
+                    Chatsaccess: [],
+                    loadingInProgress: false,
+                    error: e
+                })
+            )
+        this.setState({
+            loadingInProgress: true,
+            error: null
+        })    
     }
 
     get_Chats = () => {
-        LernappAPI.getAPI().get_
+        access = this.state.Chataccess;
+    }
+
+    create_Chat = (room) => {
+        LernappAPI.getAPI().addChatroom(room).then(ChatroomBO => {
+            this.setState({
+                Chats: [...this.state.Chats, ChatroomBO],
+                loadingInProgress: false,
+                error: null
+            })
+        }).catch(e =>
+            this.setState({
+                loadingInProgress: false,
+                error: e
+            }))
+        this.setState({
+            loadingInProgress: true,
+            error: null
+        })
     }
 
     componentDidMount(){
+        this.get_Chataccess();
         this.get_Chats();
     }
 
-    addChatroom = () => {
-        LernappAPI.getAPI().add_Chataccess(this.props.profile.getID()).then(ChataccessBO =>
-            this.setState({
-                Chats: ChatroomBOs
-            })).catcj(e =>
-                this.setState({
-                    
-                }))
-        
-    }
-
     render(){
+        const {Chataccess, Chats, loadingInProgress, error} = this.state;
+        const {classes} = this.props;
+
         return(
             <div>
+                {Chats.map(groups => <ChatListEntry key={Chats.getID()} Chats = {Chats}/>)}
+                <LoadingProgress show={loadingInProgress}/>
+                <Button className={classes.addChatroomButton} variant = "contained" startIcon = {<AddIcon/>} onClick = {this.addChatroom}>
+                    Add Chatroom
+                </Button>
 
             </div>
         )
     }
 }
 
-export default ChatList;
+/** Component specific styles */
+const styles = theme => ({
+    root: {
+        width: '100%',
+    },
+    ChatList: {
+        marginBottom: theme.spacing(2),
+    },
+    addChatroomButton: {
+        position: 'absolute',
+        right: theme.spacing(3),
+        bottom: theme.spacing(1),
+    }
+});
+
+export default withStyles(styles)(ChatList);

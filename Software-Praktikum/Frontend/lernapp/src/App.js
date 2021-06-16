@@ -1,10 +1,10 @@
 import React from 'react';
-import ChatroomOperations from './Components/ChatroomOperations';
+import Chatlist from './Components/ChatList';
 
 export default function App(){
     return(
         <div>
-            <ChatroomOperations/>
+            <Chatlist/>
         </div>
         
     )
