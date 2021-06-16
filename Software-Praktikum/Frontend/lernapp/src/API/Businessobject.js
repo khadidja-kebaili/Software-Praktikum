@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export default class BusinessObject {
     constructor() {
         this.id = 0;
@@ -25,8 +26,31 @@ export default class BusinessObject {
     toString() {
         let result = '';
         for (var prop in this) {
+=======
+export default class BusinessObject{
+
+    constructor(){
+        this.id = 0;
+    }
+
+    setId(id){
+        this.id = id;
+    }
+
+    getId(){
+        return this.id;
+    }
+
+    toString(){
+        let result = '';
+        for (var prop in this){
+>>>>>>> origin/Zusammenbringen
             result += prop + ': ' + this[prop] + ' ';
         }
         return result;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Zusammenbringen
 }
