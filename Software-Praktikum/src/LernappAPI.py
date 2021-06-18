@@ -57,39 +57,13 @@ chatroom = api.inherit('Chatroom', bo, {
 chataccess = api.inherit('Chataccess', bo, {
     'profilID': fields.Integer(attribute='profilID', description='ID des Profils'),
     'room': fields.Integer(attribute='profilID', description='ID des Raums'),
-    'chattype':fields.String(attribute='chattype', description='Art des Chatraums (e-Einzel, g-Gruppe)')
+    'chattype': fields.String(attribute='chattype', description='Art des Chatraums (e-Einzel, g-Gruppe)')
 })
 
-user = api.inherit('User', bo, {
-    'name': fields.String(attribute='_name', description='Name eines Benutzers'),
-    'email': fields.String(attribute='_email', description='E-Mail-Adresse eines Benutzers'),
-    'user_id': fields.String(attribute='_user_id', description='Google User ID eines Benutzers')
-})
-profile = api.inherit('Profil', bo, {
-    'first_name': fields.String(attribute='first_name', description='first_name'),
-    'last_name': fields.String(attribute='last_name', description='last_name'),
-    'age': fields.Integer(attribute='age', description='age'),
-    'semester': fields.Integer(attribute='semester', description='semester'),
-    'major': fields.String(attribute='major', description='major'),
-    'hobbys': fields.String(attribute='hobbys', description='hobbys'),
-    'interests': fields.String(attribute='interests', description='interests'),
-    'personality': fields.String(attribute='personality', description='personality'),
-    'learnstyle': fields.String(attribute='learnstyle', description='learnstyle'),
-    'studytime': fields.String(attribute='studytime', description='studytime'),
-    'studyplace': fields.String(attribute='studyplace', description='studyplace'),
-    'studyfrequence': fields.Integer(attribute='studyfrequence', description='studyfrequence'),
-    'workexperience': fields.String(attribute='workexperience', description='workexperience'),
-})
-group = api.inherit('Group', bo, {
-    'group_name': fields.String(attribute='first_name', description='first_name'),
-    'description': fields.String(attribute='last_name', description='last_name')
-})
 member = api.inherit('Member', bo, {
     'first_name': fields.String(attribute='first_name', description='first_name'),
     'last_name': fields.String(attribute='last_name', description='last_name')
 })
-
-
 
 matchmaker_profile = api.inherit('Profil', bo, {
     'first_name': fields.String(attribute='first_name', description='first_name'),
@@ -474,13 +448,18 @@ class Requestanzeigen (Resource):
         adm = Businesslogic()
         request = adm.get_profiles_of_request(id)
         return request
-# class Requestanzeigen (Resource):
-#     @api.marshal_with(request)
-#     def get(self, id):
-#         adm = Businesslogic()
-#         request = adm.get_request_of_profile(id)
-#         return request
 
+@api.route('/delete_request/<int:id1>/requested_by/<int:id2>')
+@api.param( 'id1' , 'id des requested', 'id2 - id des requested_by')
+class RequestDelete(Resource):
+    @api.marshal_with(request)
+    def delete(self, id1, id2):
+        adm = Businesslogic()
+        requests = [adm.get_request_of_profile(id1)]
+        for element in requests:
+            for j in element:
+                if j.requested_by == id2:
+                    adm.delete_request(j)
 
 
 @api.route('/profile')
