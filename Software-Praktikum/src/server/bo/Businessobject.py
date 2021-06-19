@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class BusinessObject(ABC):
+class Businessobject(ABC):
 
     def __init__(self):
         self.id = 0

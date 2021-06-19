@@ -1,9 +1,17 @@
 from .bo.ProfileBO import Studentprofile
 from .bo.UserBO import User
-from .bo.GroupBO import Group
+# from .bo.GroupBO import Group
 from .db.Profilemapper import StudentprofileMapper
 from .db.UserMapper import UserMapper
-from .db.GroupMapper import GroupMapper
+# from .db.GroupMapper import GroupMapper
+# # chat
+from .bo.ChatAccessBO import ChatAccessBO
+from .db.ChatAccessMapper import ChatAccessMapper
+from .bo.MessageBO import MessageBO
+from .db.MessageMapper import MessageMapper
+
+from server.bo.ChatroomBO import ChatroomBO
+from server.db.ChatroomMapper import ChatroomMapper
 
 
 class Businesslogic (object):
@@ -60,32 +68,32 @@ class Businesslogic (object):
         with StudentprofileMapper() as mapper:
             mapper.delete(studentprofile)
 
-    def get_all_groups(self):
-        with GroupMapper() as mapper:
-            return mapper.find_all()
+    # def get_all_groups(self):
+    #     with GroupMapper() as mapper:
+    #         return mapper.find_all()
 
-    def get_group_by_id(self, number):
-        with GroupMapper() as mapper:
-            return mapper.find_by_key(number)
+    # def get_group_by_id(self, number):
+    #     with GroupMapper() as mapper:
+    #         return mapper.find_by_key(number)
 
-    def get_group_of_profile(self, profile):
-        with GroupMapper() as mapper:
-            return mapper.find_by_owner_id(profile.get_id())
+    # def get_group_of_profile(self, profile):
+    #     with GroupMapper() as mapper:
+    #         return mapper.find_by_owner_id(profile.get_id())
 
-    def delete_group(self, group):
-        with GroupMapper() as mapper:
-            mapper.delete(group)
+    # def delete_group(self, group):
+    #     with GroupMapper() as mapper:
+    #         mapper.delete(group)
 
-    def create_group_for_profile(self, profile):
-        with GroupMapper() as mapper:
-            if profile is not None:
-                group = Group()
-                group.set_owner(group.get_id())
-                group.set_id(1)
+    # def create_group_for_profile(self, profile):
+    #     with GroupMapper() as mapper:
+    #         if profile is not None:
+    #             group = Group()
+    #             group.set_owner(group.get_id())
+    #             group.set_id(1)
 
-                return mapper.insert(group)
-            else:
-                return None
+    #             return mapper.insert(group)
+    #         else:
+    #             return None
 
     def get_members(self):
         members = [
@@ -117,3 +125,103 @@ class Businesslogic (object):
     def get_profile_by_name(self, last_name):
         with StudentprofileMapper() as mapper:
             return mapper.find_by_last_name(last_name)
+
+# Methoden für Message
+    def create_message(self, profilID, room, text):
+        message = MessageBO()
+        message.set_profilID(profilID)
+        message.set_room(room)
+        message.set_text(text)
+        message.set_id(1)
+
+        with MessageMapper() as mapper:
+            return mapper.insert(message)
+
+    def get_message_by_id(self, id):
+        with MessageMapper() as mapper:
+            return mapper.find_by_key(id)
+
+    def get_messages_by_roomID(self, id):
+        with MessageMapper() as mapper:
+            return mapper.find_by_room(id)
+
+    def update_message(self, message):
+        with MessageMapper() as mapper:
+            mapper.update(message)
+
+    def get_allMessages(self):
+        with MessageMapper() as mapper:
+            return mapper.find_all()
+
+    # def get_room_by_user(self, id):
+    #    with MessageMapper() as mapper:
+    #        return mapper.find_associatedRooms(id);
+
+    def delete_message(self, id):
+        with MessageMapper() as mapper:
+            return mapper.delete(id)
+
+    # Methoden für Chatroom
+    def create_chatroom(self, name, type):
+        room = ChatroomBO()
+        room.set_id(1)
+        room.set_name(name)
+        room.set_chattype(type)
+
+        with ChatroomMapper() as mapper:
+            return mapper.insert(room)
+
+    def get_allRooms(self):
+        with ChatroomMapper() as mapper:
+            return mapper.find_all()
+
+    def get_room_by_id(self, id):
+        with ChatroomMapper() as mapper:
+            return mapper.find_by_key(id)
+
+    def delete_chatroom(self, room):
+        with ChatroomMapper() as mapper:
+            return mapper.delete(room)
+
+    def update_chatroom(self, room):
+        with ChatroomMapper() as mapper:
+            return mapper.update(room)
+
+    # Methoden für ChatAccess
+    def create_chataccess(self, profilID, room, chattype):
+        access = ChatAccessBO()
+        access.set_id(1)
+        access.profilID = profilID
+        access.room = room
+        access.chattype = chattype
+
+        with ChatAccessMapper() as mapper:
+            return mapper.insert(access)
+
+    def get_allChataccess(self):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_all()
+
+    def get_Chataccess_by_id(self, id):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_by_key(id)
+
+    def get_groupchataccess_by_profil(self, profil):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_groupchat_by_profil(profil)
+
+    def get_singlechataccess_by_profil(self, profil):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_singlechat_by_profil(profil)
+
+    def get_profils_by_room(self, id):
+        with ChatAccessMapper() as mapper:
+            return mapper.get_groupmembers(id)
+
+    def delete_chataccess(self, access):
+        with ChatAccessMapper() as mapper:
+            return mapper.delete(access)
+
+    def update_chataccess(self, access):
+        with ChatAccessMapper() as mapper:
+            return mapper.update(access)

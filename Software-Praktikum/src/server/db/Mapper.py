@@ -11,13 +11,9 @@ class Mapper (AbstractContextManager, ABC):
     def __enter__(self):
         self._cnx = connector.connect(user='root', password='hdmsw201920',
                                       host='localhost',
-                                      database='test')
+                                      database='lernapp')
 
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self._cnx.close()
-
-    @abstractmethod
-    def insert(self, object):
-        pass
