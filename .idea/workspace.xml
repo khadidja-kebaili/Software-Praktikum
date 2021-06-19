@@ -21,10 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/fake-backend_V2.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/ChatList.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/ChatList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/ChatListEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/ChatListEntry.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

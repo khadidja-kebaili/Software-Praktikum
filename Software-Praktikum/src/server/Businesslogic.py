@@ -85,7 +85,7 @@ class Businesslogic(object):
 
     def get_allChataccess(self):
         with ChatAccessMapper() as mapper:
-            return mapper.find_all;
+            return mapper.find_all();
 
     def get_Chataccess_by_id(self, id):
         with ChatAccessMapper() as mapper:

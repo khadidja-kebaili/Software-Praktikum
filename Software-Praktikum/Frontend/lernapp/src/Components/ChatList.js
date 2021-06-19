@@ -1,6 +1,14 @@
 import React, {Component} from 'react';
 import ChatListEntry from './ChatListEntry';
-import {LernappAPI} from '../api';
+import LernappAPI from '../API';
+import LoadingProgress from './Dialogs/LoadingProgress'
+import { withStyles, ListItem } from '@material-ui/core';
+import { Button, List } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+
+/**
+ * Plan: Zuerst Chataccess für den aktuellen User holen -> Chaträume aller RoomIds holen
+ */
 
 class ChatList extends Component{
     constructor(props){
@@ -34,8 +42,24 @@ class ChatList extends Component{
         })    
     }
 
+    //muss mit Chataccess verbunden werden, damit nur die benötigten Chats geholt werden
     get_Chats = () => {
-        access = this.state.Chataccess;
+        LernappAPI.getAPI().get_Chatroom(getID()).then(ChatroomBOs =>
+            this.setState({
+                Chats: ChatroomBOs,
+                loadingInProgress: false,
+                error: null
+            })).catch(e =>
+                this.setState({
+                    Chats: [],
+                    loadingInProgress: false,
+                    error: e
+                })
+            )
+        this.setState({
+            loadingInProgress: true,
+            error: null
+        })    
     }
 
     create_Chat = (room) => {

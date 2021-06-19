@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles, Typography, TableContainer, Table, TableHead, TableCell, Paper, TableRow, TableBody, Link, Grid } from '@material-ui/core';
 
-import fakebackend from '../fake-backend.json'
 import Message from '../Message';
 import { blue, red } from '@material-ui/core/colors';
 import { LernappAPI } from '../../API';
@@ -12,6 +11,38 @@ import { LernappAPI } from '../../API';
  * geöffneter Chat mit zugehörigen Nachrichten
  */
 class Chatroom extends Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            Messages: [],
+            loadingInProgress: false,
+            error: null
+        }
+    }
+
+    get_Messages = (id) => {
+        LernappAPI.getAPI().get_MessagesForChatroom(id).then(MessageBOs =>
+            this.setState({
+                Messages: MessageBOs,
+                loadingInProgress: false,
+                error: null
+            })).catch(e =>
+                this.setState({
+                    Messages: [],
+                    loadingInProgress: false,
+                    error: e
+                })
+            )
+        this.setState({
+            loadingInProgress: true,
+            error: null
+        })         
+    }
+
+    componentDidMount(){
+        this.get_Messages(id)
+    }
 
     
 
@@ -55,8 +86,12 @@ class Chatroom extends Component{
     }
 
     render(){
+        const {Messages, loadingInProgress, error} = this.state;
+        const {classes} = this.props;
+
         return(
             <div>
+                <LoadingProgress show={loadingInProgress}/>
                 <div id="chat">
                     
                 </div>
@@ -81,4 +116,4 @@ const styles = theme => ({
         }
 })
 
-export default (withStyles(styles)(Chatroom));
+export default withStyles(styles)(Chatroom);
