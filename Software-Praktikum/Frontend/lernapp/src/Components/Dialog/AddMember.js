@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {IconButton, TextField, Typography, InputAdornment, MenuItem, Grid } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
+import ChatAcessBO from "../../API/ChatAccessBO";
 
 
 class AddMember extends Component {
@@ -17,6 +18,10 @@ class AddMember extends Component {
     memberName: '',
     targetMember: [],
     selectedMember: null,
+    chattype: "",
+    room: null,
+    profilID: null,
+
 
   };
 
@@ -55,6 +60,18 @@ class AddMember extends Component {
     }
   }
 
+  addMember = () => {
+    let data = 2;
+    let newMember = new ChatAcessBO(
+      this.state.profileID = this.state.targetMember.getID(),
+      // this.state.chattype = props.chattype.get_chattype(), 
+      // this.state.room = props.room.get_room())
+      this.state.chattype = "e",
+      this.state.room = data,
+     
+      LernappAPI.getAPI().addMember(newMember).then(console.log(newMember)))
+     
+  }
 
 
   /** Handles value changes of the forms textfields and validates the transferAmout field */
@@ -118,7 +135,7 @@ class AddMember extends Component {
             <Button onClick={this.props.onClose} color='secondary'>
               Cancel
             </Button>
-            <Button disabled={!selectedMember} variant='contained' color='primary'>
+            <Button disabled={!selectedMember} onClick={this.addMember}variant='contained' color='primary'>
              Hinzufügen
             </Button>
           </DialogActions>

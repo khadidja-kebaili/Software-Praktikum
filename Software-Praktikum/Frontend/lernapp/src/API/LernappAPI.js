@@ -1,5 +1,6 @@
 import ProfileBO from "./ProfileBO";
-import MemberBO from "./MemberBO";
+import ChataccessBO from "./ChatAccessBO";
+
 
 export default class LernappAPI {
 
@@ -21,6 +22,7 @@ export default class LernappAPI {
   #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
   #getMatchesURL = () => `${this.#lernappServerBaseURL}/matches`;
   #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
+  #addMemberURL = () => `${this.#lernappServerBaseURL}/chataccess`;
 
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
@@ -110,6 +112,25 @@ export default class LernappAPI {
     })
   }
 
+  addMember(chataccessBO){
+    return this.#fetchAdvanced(this.#addMemberURL(), {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(chataccessBO)
+    }).then((responseJSON) => {
+      // We always get an array of CustomerBOs.fromJSON, but only need one object
+      let responsechataccessBO = ChataccessBO.fromJSON(responseJSON)[0];
+      // console.info(accountBOs);
+      return new Promise(function (resolve) {
+        resolve(responsechataccessBO);
+      })
+    })
+  }
+
+  
   // addProfile(profileBO) {
   //     fetch('http://127.0.0.1:5000/hello/profile',{
   //       method: 'POST',
