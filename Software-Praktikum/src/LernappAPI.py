@@ -89,6 +89,22 @@ class Requestanzeigen (Resource):
         adm = Businesslogic()
         request = adm.get_profiles_of_request(id)
         return request
+
+    # Request löschen
+@api.route('/delete_request/<int:id1>/requested_by/<int:id2>')
+@api.param( 'id1' , 'id des requested', 'id2 - id des requested_by')
+class RequestDelete(Resource):
+    @api.marshal_with(request)
+    def delete(self, id1, id2):
+        adm = Businesslogic()
+        requests = [adm.get_request_of_profile(id1)]
+        for element in requests:
+            for j in element:
+                if j.requested_by == id2:
+                    adm.delete_request(j)
+       
+        
+
 # class Requestanzeigen (Resource):
 #     @api.marshal_with(request)
 #     def get(self, id):

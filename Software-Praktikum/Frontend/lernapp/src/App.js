@@ -8,6 +8,7 @@ import Gruppen from './Gruppen';
 import Profil from './Profil';
 import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
 
+
 class App extends React.Component {
   
 //im ersten Schritt sollen die Matches und Navigation angezeigt werden.
@@ -43,6 +44,7 @@ class App extends React.Component {
 
             </Container>
           </Router>
+          
           {/* {
             <div>
               <Router>

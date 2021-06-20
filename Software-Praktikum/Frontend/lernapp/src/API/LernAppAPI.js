@@ -1,4 +1,5 @@
 import ProfileBO from "./ProfileBO";
+import RequestBO from "./RequestBO";
 
 export default class LernappAPI {
 
@@ -21,7 +22,8 @@ export default class LernappAPI {
   // #getMatchmakingURL = (id) => `${this.#lernappServerBaseURL}/matchmaking/${id}`;
   #getMatchmakingURL = (id) => `${this.#lernappServerBaseURL}/matches/${id}`;
   #getRequestURL = (id) => `${this.#lernappServerBaseURL}/request/${id}`;
-
+  #deleteRequestURL = (id1,id2) => `${this.#lernappServerBaseURL}/delete_request/${id1}/requested_by/${id2}`;
+  #addRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
   
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
@@ -131,15 +133,34 @@ export default class LernappAPI {
       })
     })
   }
-  // getProfile(profileID) {
-  //   return this.#fetchAdvanced(this.#getProfileURL(profileID)).then((responseJSON) => {
-  //     let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
-  //     // console.info(responseProfileBO);
-  //     return new Promise(function (resolve) {
-  //       resolve(responseProfileBO);
-  //     })
-  //   })
-  // }
+
+
+  deleteRequest(requestID) {
+    return this.#fetchAdvanced(this.#deleteRequestURL(requestID)), {
+      method: 'DELETE'
+    }.then((responseJSON) => {
+      let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
+      return new Promise(function (resolve) {
+        resolve(responseRequestBO);
+      })
+    })
+  }
+
+  addRequest(profileBO){
+    return this.#fetchAdvanced(this.#addRequestURL(), {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(profileBO)
+    }).then((responseJSON) => {
+      let responseProfileBO = ProfileBO.fromJSON(responseJSON);
+      return new Promise(function (resolve){
+        resolve(responseProfileBO);
+      })
+    })
+  }
 
   
 
