@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import ChatListEntry from './ChatListEntry';
-import LernappAPI from '../API';
+import LernappAPI from '../API/LernappAPI';
 import LoadingProgress from './Dialogs/LoadingProgress'
-import { withStyles, ListItem } from '@material-ui/core';
-import { Button, List } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
+
+import {Grid,
+        Typography,
+        withStyles,
+        Button } from '@material-ui/core';
 
 /**
  * Plan: Zuerst Chataccess für den aktuellen User holen -> Chaträume aller RoomIds holen
@@ -24,7 +26,8 @@ class ChatList extends Component{
 
     //Chaträume des aktuellen Users holen
     get_Chataccess = () => {
-        LernappAPI.getAPI().get_ChataccessForUser(this.props.profile.getID()).then(ChataccessBOs =>
+        //hier muss in der Methode später die ID des aktuellen Users übergeben werden
+        LernappAPI.getAPI().get_ChataccessForUser(1).then(ChataccessBOs =>
             this.setState({
                 Chataccess: ChataccessBOs,
                 loadingInProgress: false,
@@ -44,22 +47,35 @@ class ChatList extends Component{
 
     //muss mit Chataccess verbunden werden, damit nur die benötigten Chats geholt werden
     get_Chats = () => {
-        LernappAPI.getAPI().get_Chatroom(getID()).then(ChatroomBOs =>
-            this.setState({
-                Chats: ChatroomBOs,
-                loadingInProgress: false,
-                error: null
-            })).catch(e =>
-                this.setState({
-                    Chats: [],
-                    loadingInProgress: false,
-                    error: e
-                })
-            )
+
+        rooms = this.state.Chataccess;
+        res = [];
+
+        for(let i=0; i<rooms.length; i++){
+            res.push(LernappAPI.getAPI().get_Chatroom(rooms[i]));
+        }
+
         this.setState({
-            loadingInProgress: true,
-            error: null
-        })    
+            Chats: res
+        })
+
+        //Nur zum testen die 1
+        // LernappAPI.getAPI().get_Chatroom(1).then(ChatroomBOs =>
+        //     this.setState({
+        //         Chats: ChatroomBOs,
+        //         loadingInProgress: false,
+        //         error: null
+        //     })).catch(e =>
+        //         this.setState({
+        //             Chats: [],
+        //             loadingInProgress: false,
+        //             error: e
+        //         })
+        //     )
+        // this.setState({
+        //     loadingInProgress: true,
+        //     error: null
+        // })    
     }
 
     create_Chat = (room) => {
@@ -91,12 +107,12 @@ class ChatList extends Component{
 
         return(
             <div>
-                {Chats.map(groups => <ChatListEntry key={Chats.getID()} Chats = {Chats}/>)}
-                <LoadingProgress show={loadingInProgress}/>
-                <Button className={classes.addChatroomButton} variant = "contained" startIcon = {<AddIcon/>} onClick = {this.addChatroom}>
-                    Add Chatroom
-                </Button>
+                <Grid item>
+                    <Typography>
 
+                    </Typography>
+                </Grid>
+                {Chats.map(chats => <ChatListEntry key={chats.getID()} chats = {chats}/>)}
             </div>
         )
     }

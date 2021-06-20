@@ -15,14 +15,16 @@ class Chatroom extends Component{
     constructor(props){
         super(props);
         this.state = {
+            id: null,
             Messages: [],
             loadingInProgress: false,
             error: null
         }
     }
 
-    get_Messages = (id) => {
-        LernappAPI.getAPI().get_MessagesForChatroom(id).then(MessageBOs =>
+
+    get_Messages = () => {
+        LernappAPI.getAPI().get_MessagesForChatroom(1).then(MessageBOs =>
             this.setState({
                 Messages: MessageBOs,
                 loadingInProgress: false,
@@ -41,7 +43,7 @@ class Chatroom extends Component{
     }
 
     componentDidMount(){
-        this.get_Messages(id)
+        this.get_Messages()
     }
 
     
@@ -91,7 +93,6 @@ class Chatroom extends Component{
 
         return(
             <div>
-                <LoadingProgress show={loadingInProgress}/>
                 <div id="chat">
                     
                 </div>

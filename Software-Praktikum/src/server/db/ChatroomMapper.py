@@ -16,7 +16,7 @@ class ChatroomMapper(Mapper):
             else:
                 chatroom.set_id(1);
 
-        command = "INSERT INTO chatrooms (id, name, chattype) VALUES (%s)"
+        command = "INSERT INTO chatroom (id, name, chattype) VALUES (%s, %s, %s)"
         data = (
             chatroom.get_id(),
             chatroom.get_name(),

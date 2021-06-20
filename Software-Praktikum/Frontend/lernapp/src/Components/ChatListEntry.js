@@ -7,7 +7,7 @@ class ChatlistEntry extends Component{
     constructor(props){
         super(props);
         this.state = {
-            chat: props.Chats
+            Chats: props.Chats
         }
     }
 
@@ -15,13 +15,13 @@ class ChatlistEntry extends Component{
      * Rendern der Komponente
      */
     render(){
-        const{group} = this.state;
+        const{Chats} = this.state;
         return(
             <div>
                 <List component="nav" aria-label="main mailbox folders">
                     <ListItem button>
                         <ListItemText>
-                            {chat.getGroupname()}
+                            {Chats.getGroupname()}
                         </ListItemText>
                     </ListItem>
                 </List>

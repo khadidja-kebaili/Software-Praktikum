@@ -129,6 +129,13 @@ class ChatAccessMapper(Mapper):
         cursor.close()
         return res
 
+    def delete_by_room_and_profilID(self, profil, room):
+        cursor = self._cnx.cursor();
+        command = "DELETE FROM chataccess WHERE profilID={} AND room={}".format(profil, room);
+        cursor.execute(command);
+        self._cnx.commit();
+        cursor.close();
+
     def delete(self, access):
         cursor = self._cnx.cursor();
         command = "DELETE FROM chataccess WHERE id={}".format(access.get_id());
