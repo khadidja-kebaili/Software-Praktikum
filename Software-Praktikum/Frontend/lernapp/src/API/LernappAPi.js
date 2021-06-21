@@ -1,7 +1,9 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import GroupBO from "./GroupBO";
 import ProfileBO from "./ProfileBO";
+import MessageBO from './MessageBO';
+import ChatroomBO from './ChatroomBO';
+import ChataccessBO from './ChataccessBO';
+// import MemberBO from "./MemberBO";
 
 export default class LernappAPI {
 
@@ -20,12 +22,34 @@ export default class LernappAPI {
     // #lernappServerBaseURL = 'fake_backend/Lernappconfig.js'
 
 
-    #addGroupURL = () => `${this.#lernappServerBaseURL}/groups`;
-    #getGroupURL = (id) => `${this.#lernappServerBaseURL}/group/${id}`;
+    #addGroupURL = () => '${this.#lernappServerBaseURL}/groups';
+    #getGroupURL = (id) => '${this.#lernappServerBaseURL}/group/${id}';
     // #deleteGroupURL = (id) =>`${this.#lernappServerBaseURL}/group/${id}`;
-    #getAllGroupsURL = () => `${this.#lernappServerBaseURL}/groups`;
+    #getAllGroupsURL = () => `${this.#lernappServerBaseURL}/group`;
     // #updateGroupURL = (id) => `${this.#lernappServerBaseURL}/group/${id}`;
+    #add_ChatroomURL = () => `${this.#lernappServerBaseURL}/chatroom`;
+    #get_ChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
+    #delete_ChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
+    #get_MessagesForChatroomURL = (id) => '${this.#lernappServerBaseURL}/chatroom/${id}';
+    #get_Groups_of_ProfileURL = (id) => `${this.#lernappServerBaseURL}/groups_of_profile/${id}`;
+
+        //Chataccess
+    #add_ChataccessURL = () => '${this.#lernappServerBaseURL}/chataccess';
+    #get_ChataccessURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
+    #delete_ChataccessURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
+    #get_ChataccesForUserURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
+
+        //Message
+    #add_MessageURL = () => '${this.#lernappServerBaseURL}/messages';
+    #get_MessageURL = (id) => '${this.#lernappServerBaseURL}/messages/${id}';
+    #delete_MessageURL = (id) => '${this.#lernappServerBaseURL}/messages/${id}';
+    #addProfileURL = () => `${this.#lernappServerBaseURL}/profile`;
     #getProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
+    #deleteProfileURL = (id) =>`${this.#lernappServerBaseURL}/profile/${id}`;
+    #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
+    #getMatchesURL = () => `${this.#lernappServerBaseURL}/matches`;
+    #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
+
 
     #fetchAdvanced = (url, init) => fetch(url, init)
         .then(res => {
@@ -48,57 +72,26 @@ export default class LernappAPI {
             })
     }
 
+    getGroupsForProfile(id){
+        return this.#fetchAdvanced(this.#get_Groups_of_ProfileURL(id))
+            .then((responseJSON)=>{
+                let GroupBOs = GroupBO.fromJSON(responseJSON);
+                console.log(GroupBOs)
+                return new Promise(function (resolve){
+                    resolve(GroupBOs)
+                })
+            })
+    }
+
     getProfile(profileID) {
         return this.#fetchAdvanced(this.#getProfileURL(profileID)).then((responseJSON) => {
             let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
             // console.info(responseProfileBO);
             return new Promise(function (resolve) {
                 resolve(responseProfileBO);
-=======
-import MessageBO from './MessageBO';
-import ChatroomBO from './ChatroomBO';
-import ChataccessBO from './ChataccessBO'
-
-export default class LernappAPI{
-    
-    //Singelton instance
-    static #api = null;
-
-    static getAPI(){
-        if (this.#api == null){
-            this.#api = new LernappAPI();
-        }
-        return this.#api;
+            })
+        })
     }
-    
-    #lernappServerBaseURL = 'http://127.0.0.1:3306/';
-
-    //Chatroom
-    #add_ChatroomURL = () => '${this.#lernappServerBaseURL}/chatroom';
-    #get_ChatroomURL = (id) => '${this.#lernappServerBaserURL}/chatroom/${id}';
-    #delete_ChatroomURL = (id) => '${this.#lernappServerBaserURL}/chatroom/${id}';
-
-    #get_MessagesForChatroomURL = (id) => '${this.#lernappServerBaseURL}/chatroom/${id}';
-
-    //Chataccess
-    #add_ChataccessURL = () => '${this.#lernappServerBaseURL}/chataccess';
-    #get_ChataccessURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
-    #delete_ChataccessURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
-
-    #get_ChataccesForUserURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
-
-    //Message
-    #add_MessageURL = () => '${this.#lernappServerBaseURL}/messages';
-    #get_MessageURL = (id) => '${this.#lernappServerBaseURL}/messages/${id}';
-    #delete_MessageURL = (id) => '${this.#lernappServerBaseURL}/messages/${id}';
-
-    #fetchAdvanced = (url, init) => fetch(url, init)
-    .then(res => {
-        if(!res.ok){
-            throw Error('${res.status} ${res.statusText}');
-        }
-        return res.json();
-    });
 
     //Chatroom Methoden
     add_Chatroom(chatroom){
@@ -142,28 +135,19 @@ export default class LernappAPI{
             let messageBOs = MessageBO.fromJSON(responseJSON);
             return new Promise(function (resolve) {
                 resolve(messageBOs);
->>>>>>> origin/Zusammenbringen
+
             })
         })
     }
 
-<<<<<<< HEAD
 
     addGroup(groupBO) {
         return this.#fetchAdvanced(this.#addGroupURL(), {
-=======
-    //Chataccess Methoden
-
-    //User erhält Zugriff auf einen Chat
-    add_Chataccess(chataccess){
-        return this.#fetchAdvanced(this.#add_ChataccessURL(), {
->>>>>>> origin/Zusammenbringen
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain',
                 'Content-type': 'application/json',
             },
-<<<<<<< HEAD
             body: JSON.stringify(groupBO)
         }).then((responseJSON) => {
             // We always get an array of CustomerBOs.fromJSON, but only need one object
@@ -171,7 +155,21 @@ export default class LernappAPI{
             // console.info(accountBOs);
             return new Promise(function (resolve) {
                 resolve(responseGroupBO);
-=======
+            })
+        })
+    }
+
+
+
+
+    //User erhält Zugriff auf einen Chat
+    add_Chataccess(chataccess){
+        return this.#fetchAdvanced(this.#add_ChataccessURL(), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
             body: JSON.stringify(chataccess)
         }).them((responseJSON) => {
             let responseChataccess = ChataccessBO.fromJSON(responseJSON)[0];
@@ -209,40 +207,11 @@ export default class LernappAPI{
             let chataccesBOs = ChataccessBO.fromJSON(responseJSON);
             return new Promise(function (resolve) {
                 resolve(chataccesBOs);
->>>>>>> origin/Zusammenbringen
             })
         })
     }
 
-<<<<<<< HEAD
-    /*updateGroup(groupBO) {
-        return this.#fetchAdvanced(this.#updateGroupURL(groupBO.getID()), {
-            method: 'PUT',
-=======
-    //Messages Methoden
 
-    //Message hinzufügen
-    add_Message(message){
-        return this.#fetchAdvanced(this.#add_MessageURL(), {
-            method: 'POST',
->>>>>>> origin/Zusammenbringen
-            headers: {
-                'Accept': 'application/json, text/plain',
-                'Content-type': 'application/json',
-            },
-<<<<<<< HEAD
-            body: JSON.stringify(groupBO)
-
-        }).then((responseJSON) => {
-            // We always get an array of CustomerBOs.fromJSON
-            let responseGroupBO = GroupBO.fromJSON(responseJSON)[0];
-            // console.info(accountBOs);
-            return new Promise(function (resolve) {
-                resolve(responseGroupBO);
-            })
-        })
-    }
-*/
     getGroup(groupID) {
         return this.#fetchAdvanced(this.#getGroupURL(groupID)).then((responseJSON) => {
             let responseGroupBO = GroupBO.fromJSON(responseJSON)[0];
@@ -252,16 +221,7 @@ export default class LernappAPI{
             })
         })
     }
-}
-=======
-            body: JSON.stringify(message)
-        }).them((responseJSON) => {
-            let responseMessage = MessageBO.fromJSON(responseJSON)[0];
-            return new Promise(function(resolve){
-                resolve(responseMessage);
-            })
-        })
-    }
+
 
     //
     get_Message(message){
@@ -285,60 +245,23 @@ export default class LernappAPI{
     }
 
 
-  
-}
->>>>>>> origin/Zusammenbringen
-=======
-import ProfileBO from "./ProfileBO";
-import MemberBO from "./MemberBO";
-
-export default class LernappAPI {
-
-  static #api = null;
-
-  static getAPI() {
-    if (this.#api == null) {
-      this.#api = new LernappAPI();
+    addProfile(profileBO) {
+        return this.#fetchAdvanced(this.#addProfileURL(), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(profileBO)
+        }).then((responseJSON) => {
+            // We always get an array of CustomerBOs.fromJSON, but only need one object
+            let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
+            // console.info(accountBOs);
+            return new Promise(function (resolve) {
+                resolve(responseProfileBO);
+            })
+        })
     }
-    return this.#api;
-  }
-
-  #lernappServerBaseURL = 'http://127.0.0.1:5000';
-  
-
-  #addProfileURL = () => `${this.#lernappServerBaseURL}/profile`;
-  #getProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
-  #deleteProfileURL = (id) =>`${this.#lernappServerBaseURL}/profile/${id}`;
-  #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
-  #getMatchesURL = () => `${this.#lernappServerBaseURL}/matches`;
-  #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
-
-  #fetchAdvanced = (url, init) => fetch(url, init)
-  .then(res => {
-    if (!res.ok) {
-      throw Error(`${res.status} ${res.statusText}`);
-    }
-    return res.json();
-  }
-  )
-
-  addProfile(profileBO) {
-    return this.#fetchAdvanced(this.#addProfileURL(), {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json, text/plain',
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(profileBO)
-    }).then((responseJSON) => {
-      // We always get an array of CustomerBOs.fromJSON, but only need one object
-      let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
-      // console.info(accountBOs);
-      return new Promise(function (resolve) {
-        resolve(responseProfileBO);
-      })
-    })
-  }
 
   updateProfile(profileBO) {
     return this.#fetchAdvanced(this.#updateProfileURL(profileBO.getID()), {
@@ -391,15 +314,15 @@ export default class LernappAPI {
     })
   }
 
-  searchMember(memberName) {
-    return this.#fetchAdvanced(this.#searchMemberURL(memberName)).then((responseJSON) => {
-      let memberBOs = ProfileBO.fromJSON(responseJSON);
-      // console.info(memberBOs);
-      return new Promise(function (resolve) {
-        resolve(memberBOs);
-      })
-    })
-  }
+  // searchMember(memberName) {
+  //   return this.#fetchAdvanced(this.#searchMemberURL(memberName)).then((responseJSON) => {
+  //     let memberBOs = ProfileBO.fromJSON(responseJSON);
+  //     // console.info(memberBOs);
+  //     return new Promise(function (resolve) {
+  //       resolve(memberBOs);
+  //     })
+  //   })
+  // }
 
   // addProfile(profileBO) {
   //     fetch('http://127.0.0.1:5000/hello/profile',{
@@ -414,4 +337,3 @@ export default class LernappAPI {
   //     .catch(error => console.log("error", error));
   // }}
 }
->>>>>>> origin/Mihri

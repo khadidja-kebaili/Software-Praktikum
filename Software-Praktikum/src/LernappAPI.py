@@ -203,66 +203,6 @@ class Chatroom_withID_Operations(Resource):
             adm.update_message(p)
 
 
-@api.route('/profile')
-class ProfilOperations(Resource):
-    @api.marshal_with(profile)
-    @api.expect(profile)
-    def post(self):
-        adm = Businesslogic()
-        proposal = Studentprofile.from_dict(api.payload)
-        # //Notiz Daten von Frontend werden in proposal gespeichert
-        if proposal is not None:
-            p = adm.create_profile(
-                proposal.get_first_name(),
-                proposal.get_last_name(), proposal.get_age(),
-                proposal.get_semester(), proposal.get_major(),
-                proposal.get_hobbys(), proposal.get_interests(),
-                proposal.get_personality(), proposal.get_learnstyle(),
-                proposal.get_studytime(), proposal.get_studyplace(),
-                proposal.get_studyfrequence(),
-                proposal.get_workexperience()
-            )
-            return p
-
-    @api.marshal_list_with(profile)
-    def get(self):
-        adm = Businesslogic()
-        profile = adm.get_all_profiles()
-        return profile
-
-
-@api.route('/profile/<int:id>')
-@api.param('id', 'Die ID des Profil-Objekts')
-class Profilanzeigen(Resource):
-    @api.marshal_with(profile)
-    def get(self, id):
-        adm = Businesslogic()
-        userprofile = adm.get_profile_by_id(id)
-        return userprofile
-
-    @api.marshal_with(profile)
-    def delete(self, id):
-
-        adm = Businesslogic()
-        userprofile = adm.get_profile_by_id(id)
-        adm.delete_profile(userprofile)
-        return ''
-
-    @api.marshal_with(profile)
-    @api.expect(profile, validate=True)
-    def put(self, id):
-        adm = Businesslogic()
-        p = Studentprofile.from_dict(api.payload)
-
-        if p is not None:
-            p.set_id(id)
-            adm.save_profile(p)
-
-            return p, 200
-        else:
-            return '', 500
-
-
 @api.route('/chataccess')
 class ChataccessOperations(Resource):
     @api.marshal_with(chataccess)
@@ -278,10 +218,10 @@ class ChataccessOperations(Resource):
             )
             return p
 
-    @api.marshal_list_with(chataccess)
+    @api.marshal_with(chataccess)
     def get(self):
         adm = Businesslogic()
-        access = adm.get_allChataccess()
+        access = adm.get_all_Chataccess()
         return access
 
 
@@ -354,49 +294,8 @@ class GroupOperations(Resource):
         proposal = Group.from_dict(api.payload)
         # //Notiz Daten von Frontend werden in proposal gespeichert
         if proposal is not None:
-            p = adm.create_group_for_profile(
-                proposal.get_group_name(),
-                proposal.get_description()
-            )
-            return p
-
-    @api.marshal_list_with(group)
-    def get(self):
-        adm = Businesslogic()
-        groups = adm.get_all_groups()
-        return group
-
-
-@api.route('/member')
-class MemberOperations(Resource):
-    @api.marshal_list_with(member)
-    def get(self):
-        adm = Businesslogic()
-        members = adm.get_members()
-        return members
-
-
-@api.route('/profiles-by-name/<string:lastname>')
-@api.param('lastname', 'Der Nachname des Kunden')
-class ProfilesByNameOperations(Resource):
-    @api.marshal_with(member)
-    def get(self, lastname):
-        adm = Businesslogic()
-        profile = adm.get_profile_by_name(lastname)
-        return profile
-
-
-@api.route('/groups')
-class GroupOperations(Resource):
-    @api.marshal_with(group)
-    @api.expect(group)
-    def post(self):
-        adm = Businesslogic()
-        proposal = Group.from_dict(api.payload)
-        if proposal is not None:
             p = adm.create_group(
-                proposal.get_groupname(),
-                proposal.get_admin(),
+                proposal.get_group_name(),
                 proposal.get_description()
             )
             return p
@@ -407,7 +306,6 @@ class GroupOperations(Resource):
         groups = adm.get_all_groups()
         return groups
 
-
 @api.route('/group/<int:id>')
 @api.param('id', 'Die ID des Gruppen-Objekts')
 class Gruppeanzeigen (Resource):
@@ -416,6 +314,8 @@ class Gruppeanzeigen (Resource):
         adm = Businesslogic()
         group = adm.get_group_by_id(id)
         return group
+
+
 
 @api.route('/requests')
 class RequestOperations(Resource):
@@ -490,35 +390,26 @@ class ProfilOperations(Resource):
         profile = adm.get_all_profiles()
         return profile
 
-
-@api.route('/matches/<int:id>')
-class Matcher(Resource):
-    @api.marshal_with(matchmaker_profile)
-    def get(self, id):
-        adm = Businesslogic()
-        matches = adm.matching_list(id)
-        return matches
-
-    @api.marshal_with(request)
-    def delete(self, id):
-
-        adm = Businesslogic()
-        request = adm.get_request_by_id(id)
-        adm.delete_request(request)
-        return ''
+@api.route('/profiles-by-name/<string:lastname>')
+@api.param('lastname', 'Der Nachname des Kunden')
+class ProfilesByNameOperations(Resource):
+        @api.marshal_with(member)
+        def get(self, lastname):
+            adm = Businesslogic()
+            profile = adm.get_profile_by_name(lastname)
+            return profile
 
 @api.route('/profile/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
 class Profilanzeigen (Resource):
     @api.marshal_with(profile)
     def get(self, id):
-        adm = Businesslogic()
-        userprofile = adm.get_profile_by_id(id)
-        return userprofile
+            adm = Businesslogic()
+            userprofile = adm.get_profile_by_id(id)
+            return userprofile
 
     @api.marshal_with(profile)
     def delete(self, id):
-
         adm = Businesslogic()
         userprofile = adm.get_profile_by_id(id)
         adm.delete_profile(userprofile)
@@ -536,6 +427,29 @@ class Profilanzeigen (Resource):
             return p, 200
         else:
             return '', 500
+
+@api.route('/matches/<int:id>')
+class Matcher(Resource):
+        @api.marshal_with(matchmaker_profile)
+        def get(self, id):
+            adm = Businesslogic()
+            matches = adm.matching_list(id)
+            return matches
+
+        @api.marshal_with(request)
+        def delete(self, id):
+            adm = Businesslogic()
+            request = adm.get_request_by_id(id)
+            adm.delete_request(request)
+            return ''
+
+@api.route('/groups_of_profile/<int:id>')
+@api.param('ID eingeben für Profil')
+class GroupsforProfile(Resource):
+    @api.marshal_with(group)
+    def get(self, id):
+        adm = Businesslogic()
+        return adm.get_group_by_profileid(id)
 
 
 if __name__ == '__main__':
