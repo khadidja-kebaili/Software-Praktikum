@@ -23,7 +23,7 @@ export default class LernappAPI {
   #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
   #getMatchesURL = () => `${this.#lernappServerBaseURL}/matches`;
   #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
-  #addMemberURL = () => `${this.#lernappServerBaseURL}/chataccess`;
+  #addMemberURL = () => `${this.#lernappServerBaseURL}/chataccess_new_member`;
   #get_Groups_of_ProfileURL = (id) => `${this.#lernappServerBaseURL}/groups_of_profile/${id}`;
   #leaveGroupURL = (id) => `${this.#lernappServerBaseURL}/chataccess/${id}`;
   #getMembersForGroupURL = (id) => `${this.#lernappServerBaseURL}/chataccess_member/${id}`;
@@ -116,14 +116,14 @@ export default class LernappAPI {
     })
   }
 
-  addMember(chataccessBO){
+  addMember(chataccessMemberBO){
     return this.#fetchAdvanced(this.#addMemberURL(), {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain',
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(chataccessBO)
+      body: JSON.stringify(chataccessMemberBO)
     }).then((responseJSON) => {
       // We always get an array of CustomerBOs.fromJSON, but only need one object
       let responsechataccessBO = ChataccessBO.fromJSON(responseJSON)[0];

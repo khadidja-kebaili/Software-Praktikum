@@ -5,6 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import LernappAPI  from '../API/LernappAPI';
 import LoadingProgress from './Dialog/LoadingProgress';
 import MemberListEntry from './MemberListEntry';
+import AddMember from './Dialog/AddMember';
 
 
 class MemberList extends Component {
@@ -16,6 +17,7 @@ class MemberList extends Component {
     this.state = {
       members: [],
       loadingInProgress: false,
+      showAddMember: false,
     };
   }
 
@@ -75,6 +77,18 @@ class MemberList extends Component {
 //     });
 //   }
 
+    addMemberButtonclicked = (event) => {
+      event.stopPropagation();
+      this.setState({
+        showAddMember: true
+      });
+    }
+
+    closeAddMemberDialog = () => {
+        this.setState({
+        showAddMember: false
+      });
+    }
 
   /** Renders the component */
   render() {
@@ -94,9 +108,10 @@ class MemberList extends Component {
             <LoadingProgress show={loadingInProgress} />
           </ListItem>
         </List>
-        {/* <Button className={classes.addAccountButton} variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addAccount}>
+        <Button className={classes.addMemberButton} variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addMemberButtonclicked}>
           Add Member
-        </Button> */}
+        </Button>
+        <AddMember show={this.state.showAddMember} groups={groups} onClose={this.closeAddMemberDialog}/>
       </div>
     );
   }
@@ -110,7 +125,7 @@ const styles = theme => ({
   accountList: {
     marginBottom: theme.spacing(2),
   },
-  addAccountButton: {
+  addMemberButton: {
     position: 'absolute',
     right: theme.spacing(3),
     bottom: theme.spacing(1),
