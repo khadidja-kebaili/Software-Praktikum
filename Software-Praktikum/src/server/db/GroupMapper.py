@@ -1,106 +1,112 @@
-# from server.db.Mapper import Mapper
-# from server.bo.GroupBO import Group
+from server.db.Mapper import Mapper
+from server.bo.GroupBO import Group
 
 
-# class GroupMapper (Mapper):
+class GroupMapper(Mapper):
 
-#     def __init__(self):
-#         super().__init__()
+    def __init__(self):
+        super().__init__()
 
-#     def insert(self, group):
+    def insert(self, group):
+        cursor = self._cnx.cursor()
+        cursor.execute("SELECT MAX(id) AS maxid FROM lernapp.group ")
+        tuples = cursor.fetchall()
 
-#         cursor = self._cnx.cursor()
-#         cursor.execute("SELECT MAX(id) AS maxid FROM group ")
-#         tuples = cursor.fetchall()
+        for (maxid) in tuples:
+            if maxid[0] is not None:
+                group.set_id(maxid[0] + 1)
+            else:
+                """Wenn wir KEINE maximale ID feststellen konnten, dann gehen wir
+                davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
+                group.set_id(1)
 
-#         for (maxid) in tuples:
-#             if maxid[0] is not None:
-#                 group.set_id(maxid[0] + 1)
-#             else:
-#                 """Wenn wir KEINE maximale ID feststellen konnten, dann gehen wir
-#                 davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
-#                 group.set_id(1)
+        command = "INSERT INTO lernapp.group (id, groupname, admin, description, chatid) VALUES (%s, %s,%s,%s, %s)"
+        data = (
+            group.get_id(), group.get_groupname(), group.get_admin(), group.get_description(), group.get_chatid())
+        cursor.execute(command, data)
 
-#         command = "INSERT INTO group (id, description, groupname, admin) VALUES (%s, %s,%s,%s)"
-#         data = (
-#             group.get_id(), group.get_description(),
-#             group.get_group_name(), group.get_admin())
-#         cursor.execute(command, data)
+        self._cnx.commit()
+        cursor.close()
 
-#         self._cnx.commit()
-#         cursor.close()
+        return group
 
-#         return group
+    def find_all(self):
 
-#     def find_all(self):
+        result = []
+        cursor = self._cnx.cursor()
+        cursor.execute(
+            "SELECT * FROM lernapp.group")
+        tuples = cursor.fetchall()
 
-#         result = []
-#         cursor = self._cnx.cursor()
-#         cursor.execute(
-#             "SELECT id, description, groupname, admin from group")
-#         tuples = cursor.fetchall()
+        for (id, groupname, admin, description, chatid) in tuples:
+            group = Group()
+            group.set_id(id)
+            group.set_groupname(groupname)
+            group.set_admin(admin)
+            group.set_description(description)
+            group.set_chatid(chatid)
+            result.append(group)
 
-#         for (id, description, groupname, admin) in tuples:
-#             group = Group()
-#             group.set_id(id)
-#             group.set_description(description)
-#             group.set_group_name(groupname)
-#             group.set_admin(admin)
-#             result.append(group)
+        self._cnx.commit()
+        cursor.close()
 
-#         self._cnx.commit()
-#         cursor.close()
+        return result
 
-#         return result
+    def find_by_key(self, key):
+        result = None
 
-#     def find_by_key(self, key):
-#         result = None
+        cursor = self._cnx.cursor()
+        command = "SELECT id, description, groupname, admin, chatid FROM lernapp.group WHERE id={}".format(
+            key)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
 
-#         cursor = self._cnx.cursor()
-#         command = "SELECT id, description, groupname, admin FROM group WHERE id={}".format(
-#             key)
-#         cursor.execute(command)
-#         tuples = cursor.fetchall()
+        try:
+            (id, description, groupname, admin, chatid) = tuples[0]
+            group = Group()
+            group.set_id(id)
+            group.set_groupname(groupname)
+            group.set_admin(admin)
+            group.set_description(description)
+            group.set_chatid(chatid)
+            result = group
+        except IndexError:
+            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
+            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+            result = None
 
-#         try:
-#             (id, description, groupname, admin) = tuples[0]
-#             group = Group()
-#             group.set_id(id)
-#             group.set_description(description)
-#             group.set_group_name(groupname)
-#             group.set_admin(admin)
-#             result.append(group)
-#         except IndexError:
-#             """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-#             keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
-#             result = None
+        self._cnx.commit()
+        cursor.close()
 
-#         self._cnx.commit()
-#         cursor.close()
+        return result
 
-#         return result
+    def update(self, group):
 
-#     def update(self, group):
+        cursor = self._cnx.cursor()
 
-#         cursor = self._cnx.cursor()
+        command = "UPDATE group " + "SET description=%s, admin=%s, groupname=%s WHERE id=%s"
+        data = (group.get_groupname(), group.get_admin(),
+                group.get_description(), group.get_id())
+        cursor.execute(command, data)
 
-#         command = "UPDATE group " + "SET description=%s, groupname=%s, admin=%s WHERE id=%s"
-#         data = (
-#             group.get_description(),
-#             group.get_group_name(), group.get_admin(), group.get_id())
-#         cursor.execute(command, data)
+        self._cnx.commit()
+        cursor.close()
 
-#         self._cnx.commit()
-#         cursor.close()
+        return group
 
-#         return group
+    def delete(self, group):
+        cursor = self._cnx.cursor()
 
-#     def delete(self, group):
-#         cursor = self._cnx.cursor()
+        command = "DELETE FROM lernapp.group WHERE id={}".format(
+            group.get_id())
+        cursor.execute(command)
 
-#         command = "DELETE FROM group WHERE id={}".format(
-#             group.get_id())
-#         cursor.execute(command)
+        self._cnx.commit()
+        cursor.close()
 
-#         self._cnx.commit()
-#         cursor.close()
+
+if (__name__ == "__main__"):
+    with GroupMapper() as mapper:
+        result = mapper.find_all()
+        for p in result:
+            print(p)

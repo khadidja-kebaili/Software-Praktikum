@@ -41,8 +41,9 @@ profile = api.inherit('Profil', bo, {
     'workexperience': fields.String(attribute='workexperience', description='workexperience'),
 })
 group = api.inherit('Group', bo, {
-    'group_name': fields.String(attribute='first_name', description='first_name'),
-    'description': fields.String(attribute='last_name', description='last_name')
+    'groupname': fields.String(attribute='groupname', description='groupname'),
+    'admin': fields.String(attribute='admin', description='admin'),
+    'description': fields.String(attribute='description', description='description')
 })
 member = api.inherit('Member', bo, {
     'first_name': fields.String(attribute='first_name', description='first_name'),
@@ -300,7 +301,7 @@ class ChataccessOperations(Resource):
         proposal = ChatAccessBO.from_dict(api.payload)
         if proposal is not None:
             p = adm.create_chataccess(
-                proposal.get_profilid(),
+                proposal.get_profilID(),
                 proposal.get_room(),
                 proposal.get_chattype()
             )
@@ -371,6 +372,15 @@ class find_singlechats(Resource):
         adm = Businesslogic()
         rooms = adm.get_singlechataccess_by_profil(profilid)
         return rooms
+
+
+@api.route('/groups_of_profile/<int:id>')
+@api.param('ID eingeben für Profil')
+class GroupsforProfile(Resource):
+    @api.marshal_with(group)
+    def get(self, id):
+        adm = Businesslogic()
+        return adm.get_group_by_profileid(id)
 
 
 if __name__ == '__main__':

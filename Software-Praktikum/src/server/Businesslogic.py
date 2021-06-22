@@ -3,7 +3,7 @@ from .bo.UserBO import User
 # from .bo.GroupBO import Group
 from .db.Profilemapper import StudentprofileMapper
 from .db.UserMapper import UserMapper
-# from .db.GroupMapper import GroupMapper
+from .db.GroupMapper import GroupMapper
 # # chat
 from .bo.ChatAccessBO import ChatAccessBO
 from .db.ChatAccessMapper import ChatAccessMapper
@@ -190,10 +190,9 @@ class Businesslogic (object):
     # Methoden für ChatAccess
     def create_chataccess(self, profilID, room, chattype):
         access = ChatAccessBO()
-        access.set_id(1)
-        access.profilID = profilID
-        access.room = room
-        access.chattype = chattype
+        access.set_profilID(profilID)
+        access.set_room(room)
+        access.set_chattype(chattype)
 
         with ChatAccessMapper() as mapper:
             return mapper.insert(access)
@@ -225,3 +224,24 @@ class Businesslogic (object):
     def update_chataccess(self, access):
         with ChatAccessMapper() as mapper:
             return mapper.update(access)
+
+    def get_group_by_profileid(self, id):
+        access = [self.get_groupchataccess_by_profil(id)]
+        groups = []
+        for element in access:
+            for j in element:
+                groups.append(self.get_group_by_id(j.get_room()))
+        return groups
+
+    def get_group_by_id(self, number):
+        with GroupMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    # def get_group_for_profile(self):
+    #     groups = [
+    #         {
+    #             "id": "1",
+    #             "groupname": "Python",
+    #             "description": "Gruppe für Python",
+    #         }]
+    #     return groups
