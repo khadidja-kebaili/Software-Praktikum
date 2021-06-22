@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import LernappAPI from "../../API/LernappAPI";
 import GroupBO from "../../API/GroupBO";
@@ -44,22 +43,53 @@ class GroupForm extends Component {
          
       }
 
+      addMemberButtonClicked = (event) => {
+        event.stopPropagation();
+        this.setState({
+          showAddMember: true
+        });
+      }
+
+      
+
       render() { 
-        return (
+        let header = "";
+        if (this.props.group){
+          header = "hier kannst du deine Gruppe bearbeiten"
+        } else{
+          header = "Hier kannst du eine Gruppe erstellen und Mitglieder hinzufügen!"
+        }
+        return ( 
+          <div>
           <div className="Gruppe">
-              <h2>Gruppe</h2>
-              <p>Gib hier bitte deiner Gruppe einen Gruppennamen und eine Gruppenbeschreibung</p>
-              <div className="groupname"><TextField name="groupname" label="Name" variant="outlined" /></div>
-              <div className="gruppenbeschreibung"><TextField id="outlined-multiline-flexible" 
-              label="Gruppenbeschreibung" multiline rowsMax={20} variant="outlined"/> </div><br/>
-          <Button href="#" color="primary" variant="outlined">
-         Gruppe erstellen  
-          </Button>
-         
-         </div>
-        
-        )}
+            <h1>{header}</h1>
+          </div>
+              <form onSubmit={this.addGroup}>
+              <div className="GroupForm">
+                  <TextField name="groupname" fullWidth label="Gruppenname" variant="outlined" value ={this.state.groupname} onChange={this.handleChange}/>
+                  <TextField name="groupname" fullWidth label="Beschreibung" multiline rows={6} defaultValue="Gruppenbeschreibung" variant="outlined"/>
+              </div>
+              </form>
+                  <div className="Buttons">
+                  {
+                  this.props.group ?
+                    <Button type="submit" variant="contained" color="primary" size="large" onClick={this.updateGroup} color='primary'>
+                      Gruppe bearbeiten
+                  </Button>
+                    : <Button type="submit" variant="contained" color="primary" size="large" onClick={this.addGroup} color='primary'>
+                      neue Gruppe erstellen
+                 </Button>
+                } <br></br>
+                <Button type="submit" variant="contained" color="primary" size="large" onClick={this.addMemberButtonClicked} color='primary'>
+                  Mitglieder Hinzufügen
+                </Button>
+
+                </div> 
+                </div> 
+       
+          );
+      }
     }
-        
+      
     
   export default GroupForm;
