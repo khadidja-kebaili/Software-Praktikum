@@ -115,7 +115,7 @@ class Profilanzeigen (Resource):
         adm = Businesslogic()
         userprofile = adm.get_profile_by_id(id)
         adm.delete_profile(userprofile)
-        return ''
+        return userprofile
 
     @api.marshal_with(profile)
     @api.expect(profile, validate=True)
@@ -211,7 +211,7 @@ class Message_withID_Operations(Resource):
         adm = Businesslogic()
         messages = adm.get_message_by_id(id)
         adm.delete_message(messages)
-        return ''
+        return messages
 
     @api.marshal_with(message)
     @api.expect(message, validate=True)
@@ -274,7 +274,7 @@ class Chatroom_withID_Operations (Resource):
         adm = Businesslogic()
         room = adm.get_room_by_id(id)
         adm.delete_chatroom(room)
-        return ''
+        return room
 
     @api.marshal_with(chatroom)
     @api.expect(chatroom, validate=True)
@@ -328,7 +328,7 @@ class Chataccess_withID_Operations (Resource):
         adm = Businesslogic()
         access = adm.get_Chataccess_by_id(id)
         adm.delete_chataccess(access)
-        return ''
+        return access
 
     @api.marshal_with(chataccess)
     @api.expect(chatroom, validate=True)
