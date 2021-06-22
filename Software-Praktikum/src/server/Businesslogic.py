@@ -54,7 +54,6 @@ class Businesslogic (object):
         studentprofile.set_learnstyle(learnstyle)
         studentprofile.set_studytime(studytime)
         studentprofile.set_studyplace(studyplace)
-        studentprofile.set_studyplace(studyplace),
         studentprofile.set_studyfrequence(studyfrequence)
         studentprofile.set_workexperience(workexperience)
 
@@ -77,11 +76,12 @@ class Businesslogic (object):
         with StudentprofileMapper() as mapper:
             mapper.delete(studentprofile)
 
-    def create_group(self, groupname, admin, description):
+    def create_group(self, groupname, admin, description, chatid):
         group = Group()
         group.set_groupname(groupname)
         group.set_admin(admin)
         group.set_description(description)
+        group.set_chatid(chatid)
         with GroupMapper() as mapper:
             return mapper.insert(group)
 
@@ -101,11 +101,6 @@ class Businesslogic (object):
     def save_group(self, group):
         with GroupMapper() as mapper:
             mapper.update(group)
-
-    def get_group_of_profile(self, profile):
-        with GroupMapper() as mapper:
-            return mapper.find_by_owner_id(profile.get_id())
-
 
     def delete_group(self, group):
         with GroupMapper() as mapper:
@@ -168,12 +163,23 @@ class Businesslogic (object):
             new_sorted_list.append(element)
         return new_sorted_list
 
+    def is_it_a_match(self, requested, requester):
+        match = False
+        requests = [self.get_request_of_profile(requester)]
+        for element in requests:
+            for j in element:
+                if j.get_requested_by() == requested:
+                    match = True
+        return match
+
+
     def create_request(self, requested_by, requested):
         request = Request()
         request.set_requested(requested)
         request.set_requested_by(requested_by)
         with RequestMapper() as mapper:
             return mapper.insert(request)
+
 
     def get_all_requests(self):
         with RequestMapper() as mapper:
@@ -224,9 +230,6 @@ class Businesslogic (object):
             deltatime = abs((element - today).days)
             if deltatime > 3:
                 self.delete_request(request)
-
-
-
     
     #Methoden für Message
     def create_message(self, profilID, room, text):
@@ -266,7 +269,6 @@ class Businesslogic (object):
     #Methoden für Chatroom
     def create_chatroom(self, name, type):
         room = ChatroomBO()
-        room.set_id(1)
         room.set_name(name)
         room.set_chattype(type)
 
@@ -292,15 +294,13 @@ class Businesslogic (object):
     #Methoden für ChatAccess
     def create_chataccess(self, profilID, room, chattype):
         access = ChatAccessBO()
-        access.set_id(1)
         access.profilID = profilID
         access.room = room
         access.chattype = chattype
-
         with ChatAccessMapper() as mapper:
             return mapper.insert(access)
 
-    def get_allChataccess(self):
+    def get_all_Chataccess(self):
         with ChatAccessMapper() as mapper:
             return mapper.find_all()
 
@@ -320,6 +320,10 @@ class Businesslogic (object):
         with ChatAccessMapper() as mapper:
             return mapper.get_groupmembers(id)
 
+    def get_groups_for_profile(self,id):
+        groups = [self.get_profils_by_room(id)]
+        return groups
+
     def delete_chataccess(self, access):
         with ChatAccessMapper() as mapper:
             return mapper.delete(access)
@@ -328,49 +332,14 @@ class Businesslogic (object):
         with ChatAccessMapper() as mapper:
             return mapper.update(access)
 
-
-    def create_group_for_profile(self, profile):
-        with GroupMapper() as mapper:
-            if profile is not None:
-                group = Group()
-                group.set_owner(group.get_id())
-                group.set_id(1)
-
-                return mapper.insert(group)
-            else:
-                return None
-
-    def get_members(self):
-        members = [
-            {
-                "first_name": "Thomas",
-                "last_name": "Müller",
-                "id": 2
-            },
-            {
-                "first_name": "Khadidja",
-                "last_name": "Kebaili",
-                "id": 3
-
-            },
-            {
-                "first_name": "Esra",
-                "last_name": "Copuro",
-                "id": 1
-
-            },
-            {
-                "first_name": "Hami",
-                "last_name": "Duong",
-                "id": 4
-
-            }]
-        return members
-
     def get_profile_by_name(self, last_name):
         with StudentprofileMapper() as mapper:
             return mapper.find_by_last_name(last_name)
 
-l = Businesslogic()
-
-
+    def get_group_by_profileid(self, id):
+        access = [self.get_groupchataccess_by_profil(id)]
+        groups = []
+        for element in access:
+            for j in element:
+                groups.append(self.get_group_by_id(j.get_room()))
+        return groups
