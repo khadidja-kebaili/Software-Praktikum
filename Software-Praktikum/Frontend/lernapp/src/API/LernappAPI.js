@@ -1,5 +1,6 @@
 import ProfileBO from "./ProfileBO";
 import ChataccessBO from "./ChatAccessBO";
+import GroupBO from "./GroupBO";
 
 
 export default class LernappAPI {
@@ -23,6 +24,9 @@ export default class LernappAPI {
   #getMatchesURL = () => `${this.#lernappServerBaseURL}/matches`;
   #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
   #addMemberURL = () => `${this.#lernappServerBaseURL}/chataccess`;
+  #get_Groups_of_ProfileURL = (id) => `${this.#lernappServerBaseURL}/groups_of_profile/${id}`;
+  #leaveGroupURL = (id) => `${this.#lernappServerBaseURL}/chataccess/${id}`;
+  #getMembersForGroupURL = (id) => `${this.#lernappServerBaseURL}/chataccess_member/${id}`;
 
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
@@ -130,7 +134,39 @@ export default class LernappAPI {
     })
   }
 
-  
+  getGroupsForProfile(id){
+    return this.#fetchAdvanced(this.#get_Groups_of_ProfileURL(id))
+        .then((responseJSON)=>{
+            let GroupBOs = GroupBO.fromJSON(responseJSON);
+            console.log(GroupBOs)
+            return new Promise(function (resolve){
+                resolve(GroupBOs)
+            })
+        })
+}
+
+leaveGroup(profileID) {
+  return this.#fetchAdvanced(this.#leaveGroupURL(profileID), {
+    method: 'DELETE'
+  }).then((responseJSON) => {
+    let responseChataccessBO = ChataccessBO.fromJSON(responseJSON)[0];
+    // console.info(accountBOs);
+    return new Promise(function (resolve) {
+      resolve(responseChataccessBO);
+    })
+  })
+}
+
+getMembersForGroup(roomID) {
+  return this.#fetchAdvanced(this.#getMembersForGroupURL(roomID))
+    .then((responseJSON) => {
+      let profileBOs = ProfileBO.fromJSON(responseJSON);
+      // console.info(accountBOs);
+      return new Promise(function (resolve) {
+        resolve(profileBOs);
+      })
+    })
+}
   // addProfile(profileBO) {
   //     fetch('http://127.0.0.1:5000/hello/profile',{
   //       method: 'POST',
