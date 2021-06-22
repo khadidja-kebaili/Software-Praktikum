@@ -69,6 +69,10 @@ chataccess = api.inherit('Chataccess', bo, {
     'room': fields.Integer(attribute='profilID', description='ID des Raums'),
     'chattype': fields.String(attribute='chattype', description='Art des Chatraums (e-Einzel, g-Gruppe)')
 })
+chataccess_new_member = api.inherit('Chataccess', bo, {
+    'profilID': fields.Integer(attribute='profilID', description='ID des Profils'),
+    'room': fields.Integer(attribute='profilID', description='ID des Raums'),
+})
 
 
 @ api.route('/profile')
@@ -292,6 +296,23 @@ class Chatroom_withID_Operations (Resource):
 # Chataccess
 
 
+@api.route('/chataccess_new_member/')
+class ChataccessNewMembers (Resource):
+    @api.marshal_with(chataccess_new_member)
+    @api.expect(chataccess_new_member)
+    def post(self):
+        adm = Businesslogic()
+        proposal = ChatAccessBO.from_dict(api.payload)
+        # //Notiz Daten von Frontend werden in proposal gespeichert
+        if proposal is not None:
+
+            p = adm.create_chataccess_new_member(
+                proposal.get_profilID(),
+                proposal.get_room()
+            )
+            return p
+
+
 @api.route('/chataccess')
 class ChataccessOperations(Resource):
     @api.marshal_with(chataccess)
@@ -383,6 +404,8 @@ class GroupsforProfile(Resource):
     def get(self, id):
         adm = Businesslogic()
         return adm.get_group_by_profileid(id)
+
+# neue post Chataccess für bestimme Gruppe
 
 
 if __name__ == '__main__':

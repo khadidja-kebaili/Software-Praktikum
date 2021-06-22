@@ -197,6 +197,15 @@ class Businesslogic (object):
         with ChatAccessMapper() as mapper:
             return mapper.insert(access)
 
+    def create_chataccess_new_member(self, profilID, room):
+        access = ChatAccessBO()
+        access.set_profilID(profilID)
+        access.set_room(room)
+        access.set_chattype("g")
+
+        with ChatAccessMapper() as mapper:
+            return mapper.insert(access)
+
     def get_allChataccess(self):
         with ChatAccessMapper() as mapper:
             return mapper.find_all()

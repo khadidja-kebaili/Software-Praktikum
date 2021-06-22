@@ -10,7 +10,7 @@ class ChatAccessBO (Businessobject):
         self.chattype = None
 
     def get_profilID(self):
-        return self.senderID
+        return self.profilID
 
     def set_profilID(self, id):
         self.profilID = id
