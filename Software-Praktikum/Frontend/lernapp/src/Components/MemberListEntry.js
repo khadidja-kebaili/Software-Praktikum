@@ -1,9 +1,6 @@
 
 import React, { Component } from 'react';
-import { withStyles, Button, ListItem, ListItemSecondaryAction, Link, Typography } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { Link as RouterLink } from 'react-router-dom';
-import LernappAPI  from '../API/LernappAPI';
+import { withStyles, Button, ListItem, Typography } from '@material-ui/core';
 import LoadingProgress from './Dialog/LoadingProgress';
 
 
@@ -18,11 +15,6 @@ class MemberListEntry extends Component {
       loadingInProgress: false,
     };
   }
-
-
-
-  
- 
 
   /** Renders the component */
   render() {

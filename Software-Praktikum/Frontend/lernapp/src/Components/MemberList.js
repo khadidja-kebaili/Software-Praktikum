@@ -100,15 +100,6 @@ class MemberList extends Component {
     this.getMembers();
   }
 
-  /** Lifecycle method, which is called when the component was updated */
-  componentDidUpdate(prevProps) {
-    // reload accounts if shown state changed. Occures if the CustomerListEntrys ExpansionPanel was expanded
-    // if ((this.props.show !== prevProps.show)) {
-    //   this.getAccounts();
-    // }
-  }
-
-
     addMemberButtonclicked = (event) => {
       event.stopPropagation();
       this.setState({
@@ -121,8 +112,13 @@ class MemberList extends Component {
         showAddMember: false
       });
       if (addmember) {
-        // Transaction is not null and therefore was performed
+        //Mitglied wurde hinzugefügt also lade die Members erneut, sodass der neue Member angezeigt wird
         this.getMembers();
+        this.setState({
+          memberName: '',
+          targetMember: [],
+          selectedMember: null,
+        })
       }
     }
 
@@ -137,7 +133,7 @@ class MemberList extends Component {
       <div className={classes.root}>
         <List className={classes.accountList}>
           {
-            members.map(members=> <MemberListEntry key={members.getID()} groups={groups} members={members} getMembers={this.getMembers} show={this.props.show}
+            members.map(members=> <MemberListEntry key={members.getID()} groups={groups} members={members}
                />)
           }
           <ListItem>
