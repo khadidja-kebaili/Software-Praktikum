@@ -16,29 +16,29 @@ class Mapper(AbstractContextManager, ABC):
       host = "localhost",
       database = "lernapp"
     )
-    return self;
+    return self
 
   def __exit__(self, exc_type, exc_val, exc_tb):
-    self._cnx.close();
+    self._cnx.close()
 
   @abstractmethod
   def insert(self, object):
-    pass;
+    pass
 
   @abstractmethod
   def update(self, object):
-    pass;
+    pass
 
   @abstractmethod
   def find_all(self, object):
-    pass;
+    pass
 
   @abstractmethod
   def find_by_key(self, key):
-    pass;
+    pass
 
   @abstractmethod
   def delete(self, object):
-    pass;
+    pass
 
 

@@ -22,7 +22,6 @@ message = api.inherit('Message', bo, {
 })
 
 chatroom = api.inherit('Chatroom', bo, {
-    'name': fields.String(attribute='name', description = 'Name des Chatraums'),
     'chattype':fields.String(attribute='chattype', description = 'Art des Chatraums (e-Einzel, g-Gruppe)')
 })
 
@@ -222,6 +221,15 @@ class find_singlechats(Resource):
         adm = Businesslogic()
         rooms = adm.get_singlechataccess_by_profil(profilid)
         return rooms
+
+@api.route('/chataccess/<int:profilid>/<int:room>')
+@api.param('profilid','Id des Profils')
+class delete_targeted_chataccess(Resource):
+    @api.marshal_with(chataccess)
+    def delete(self, profil, room):
+        adm = Businesslogic()
+        adm.delete_chatacces_by_profil_room(profil, room)
+        return ''
 
 if __name__ == '__main__':
     app.run(debug = True)
