@@ -22,11 +22,10 @@ export default class LernappAPI {
     // #lernappServerBaseURL = 'fake_backend/Lernappconfig.js'
 
 
-    #addGroupURL = () => '${this.#lernappServerBaseURL}/groups';
-    #getGroupURL = (id) => '${this.#lernappServerBaseURL}/group/${id}';
+    #addGroupURL = () => `${this.#lernappServerBaseURL}/group`;
+    #getGroupURL = (id) => `${this.#lernappServerBaseURL}/group/${id}`;
     // #deleteGroupURL = (id) =>`${this.#lernappServerBaseURL}/group/${id}`;
     #getAllGroupsURL = () => `${this.#lernappServerBaseURL}/group`;
-    // #updateGroupURL = (id) => `${this.#lernappServerBaseURL}/group/${id}`;
     #add_ChatroomURL = () => `${this.#lernappServerBaseURL}/chatroom`;
     #get_ChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
     #delete_ChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
@@ -102,7 +101,7 @@ export default class LernappAPI {
                 'Content-type': 'application/json',
             },
             body: JSON.stringify(chatroom)
-        }).them((responseJSON) => {
+        }).then((responseJSON) => {
             let responseChatroom = ChatroomBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve){
                 resolve(responseChatroom);
