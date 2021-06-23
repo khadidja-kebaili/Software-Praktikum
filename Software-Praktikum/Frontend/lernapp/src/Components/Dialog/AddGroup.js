@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import LernappAPI from "../../API/Lernappapi";
+import LernappAPI from "../../API/LernappAPi";
 import GroupBO from "../../API/GroupBO";
+import {ChatroomBO} from "../../API";
+import AddChatroomForGroup from "./AddChatroom";
 
 class AddGroup extends Component {
     constructor(props){
         super(props);
-        let grpnm = '', admn = '', desc = '';
+        let grpnm = '', admn = '', desc = '', currentUser = 1
 
         if (props.group){
             grpnm = props.group.getGroupname();
@@ -16,8 +18,8 @@ class AddGroup extends Component {
         }
         this.state = {
             groupname : grpnm,
-            admin : admn,
-            description: desc
+            admin : currentUser,
+            description: desc,
 
         };
 
@@ -32,7 +34,7 @@ class AddGroup extends Component {
         let newGroup = new GroupBO(
             this.state.groupname,
             this.state.admin,
-            this.state.description
+            this.state.description,
         );
 
         LernappAPI.getAPI().addGroup(newGroup).then(console.log(newGroup))
@@ -47,13 +49,13 @@ class AddGroup extends Component {
                 <form onSubmit={this.addGroup}>
                     <div>
                         <div className="Groupname"> <TextField name="groupname"     label="Gruppenname" variant="outlined" value ={this.state.groupname} onChange={this.handleChange}/> </div>
-                        <div className="Admin"><TextField name="admin"             label="Admin" variant="outlined" value ={this.state.admin} onChange={this.handleChange}/> </div>
+                        {/*<div className="Admin"><TextField name="admin"             label="Admin" variant="outlined" value ={this.state.admin} onChange={this.handleChange}/> </div>*/}
                         <div className="Description"><TextField name="description" label="Beschreibung" variant="outlined" value ={this.state.description} onChange={this.handleChange}/> </div>
                     </div>
                 </form>
                 <div className="Buttons">
                     <Button type="submit" variant="contained" color="primary" size="large" onClick={this.addGroup} color='primary'>
-                        Hinzufügen
+                        Erstellen
                     </Button>
                 </div>
             </div>
