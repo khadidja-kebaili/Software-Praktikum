@@ -2,35 +2,17 @@ import BusinessObject from './Businessobject';
 
 export default class ChatroomBO extends BusinessObject {
 
-    constructor(groupname, messages, id){
+    constructor(chattype){
         super();
-        this.groupname = groupname;
-        this.messages = messages;
-        this.id = id;
+        this.chattype = chattype;
     }
 
-    setGroupname(groupname){
-        this.groupname = groupname;
+    setChatType(chattype){
+        this.chattype = chattype
     }
 
-    getGroupname(){
-        return this.groupname;
-    }
-
-    setMessages(messages){
-        this.messages = messages;
-    }
- 
-    getMessages(){
-        return this.messages;
-    }
-
-    setId(id){
-        this.id = id;
-    }
-
-    getId(){
-        return this.id;
+    getChatType(){
+        return this.chattype
     }
 
     static fromJSON(chatroom){
