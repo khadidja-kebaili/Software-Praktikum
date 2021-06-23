@@ -18,10 +18,6 @@ class AddMember extends Component {
     memberName: '',
     targetMember: [],
     selectedMember: null,
-    chattype: "",
-    room: null,
-    profilID: null,
-
 
   };
 
@@ -66,7 +62,7 @@ class AddMember extends Component {
         this.state.selectedMember.getID(),
         this.props.groups.getID()
       )
-      LernappAPI.getAPI().addMember(newChataccess).then(console.log(newChataccess))
+      LernappAPI.getAPI().addMember(newChataccess).then(console.log(newChataccess)).then(this.handleClose)
     }
 
   /** Handles value changes of the forms textfields and validates the transferAmout field */
@@ -82,6 +78,11 @@ class AddMember extends Component {
     this.setState({
       selectedMember: event.target.value,
     });
+  }
+  handleClose = () => {
+    // Reset the state
+    this.setState(this.initialState);
+    this.props.onClose(null);
   }
 
 
@@ -127,7 +128,7 @@ class AddMember extends Component {
 
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.props.onClose} color='secondary'>
+            <Button  onClick={this.handleClose} color='secondary'>
               Cancel
             </Button>
             <Button disabled={!selectedMember} onClick={this.addMember} variant='contained' color='primary'>
