@@ -19,17 +19,7 @@ class MemberListEntry extends Component {
     };
   }
 
-  /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
-  componentDidMount() {
-    // load initial balance
-  }
 
-  /** Lifecycle method, which is called when the component was updated */
-//   componentDidUpdate(prevProps) {
-//     if ((this.props.show) && (this.props.show !== prevProps.show)) {
-//       this.getBalance();
-//     }
-//   }
 
   
  

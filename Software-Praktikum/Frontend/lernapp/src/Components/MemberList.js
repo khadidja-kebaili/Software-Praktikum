@@ -6,6 +6,7 @@ import LernappAPI  from '../API/LernappAPI';
 import LoadingProgress from './Dialog/LoadingProgress';
 import MemberListEntry from './MemberListEntry';
 import AddMember from './Dialog/AddMember';
+import ChataccessBO from '../API/ChatAccessBO';
 
 
 class MemberList extends Component {
@@ -18,6 +19,9 @@ class MemberList extends Component {
       members: [],
       loadingInProgress: false,
       showAddMember: false,
+      memberName: '',
+      targetMember: [],
+      selectedMember: null,
     };
   }
 
@@ -40,6 +44,57 @@ class MemberList extends Component {
     });
   }
 
+   /** Searches for members with a memberName and loads the corresponding accounts */
+   searchMember = async () => {
+    const { memberName } = this.state;
+    if (memberName.length > 0) {
+      try {
+        // Load members first
+        const member = await LernappAPI.getAPI().searchMember(memberName);
+
+        let selectedMember = null;
+
+        if (member.length > 0) {
+          selectedMember = member[0];
+        }
+        // Set the final state
+        this.setState({
+          targetMember: member,
+          selectedMember: selectedMember,
+        });
+      } catch (e) {
+        this.setState({
+          targetMember: [],              // Set empty array
+          selectedMember: null,
+        });
+        console.log(this.state.targetMember)
+      }
+    }
+  }
+
+   /** Handles value changes of the member select textfield */
+ memberSelectionChange = (event) => {
+  this.setState({
+    selectedMember: event.target.value,
+  });
+}
+  /** Handles value changes of the forms textfields and validates the transferAmout field */
+  textFieldValueChange = (event) => {
+    const val = event.target.value;
+    this.setState({
+      [event.target.id]: val
+    });
+  }
+
+  
+  addMember = () => {
+      let newChataccess = new ChataccessBO(
+        this.state.selectedMember.getID(),
+        this.props.groups.getID()
+      )
+      LernappAPI.getAPI().addMember(newChataccess).then(console.log(newChataccess)).then(this.closeAddMemberDialog)
+    } 
+
   /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
     this.getMembers();
@@ -53,29 +108,6 @@ class MemberList extends Component {
     // }
   }
 
-//   /** Adds an account for the current customer */
-//   addMember = () => {
-//     LernappAPI.getAPI().addMemberForGroup(this.props.group.getID()).then( => {
-//       // console.log(accountBO)
-//       this.setState({  // Set new state when AccountBOs have been fetched
-//         accounts: [...this.state.accounts, accountBO],
-//         loadingInProgress: false, // loading indicator 
-//         addingAccountError: null
-//       })
-//     }).catch(e =>
-//       this.setState({ // Reset state with error from catch 
-//         accounts: [],
-//         loadingInProgress: false,
-//         addingAccountError: e
-//       })
-//     );
-
-//     // set loading to true
-//     this.setState({
-//       loadingInProgress: true,
-//       addingAccountError: null
-//     });
-//   }
 
     addMemberButtonclicked = (event) => {
       event.stopPropagation();
@@ -84,10 +116,14 @@ class MemberList extends Component {
       });
     }
 
-    closeAddMemberDialog = () => {
+    closeAddMemberDialog = (addmember) => {
         this.setState({
         showAddMember: false
       });
+      if (addmember) {
+        // Transaction is not null and therefore was performed
+        this.getMembers();
+      }
     }
 
   /** Renders the component */
@@ -101,7 +137,7 @@ class MemberList extends Component {
       <div className={classes.root}>
         <List className={classes.accountList}>
           {
-            members.map(members=> <MemberListEntry key={members.getID()} groups={groups} members={members}
+            members.map(members=> <MemberListEntry key={members.getID()} groups={groups} members={members} getMembers={this.getMembers} show={this.props.show}
                />)
           }
           <ListItem>
@@ -111,7 +147,11 @@ class MemberList extends Component {
         <Button className={classes.addMemberButton} variant='contained' color='primary' startIcon={<AddIcon />} onClick={this.addMemberButtonclicked}>
           Add Member
         </Button>
-        <AddMember show={this.state.showAddMember} groups={groups} onClose={this.closeAddMemberDialog}/>
+        <AddMember show={this.state.showAddMember} groups={groups} 
+        addMember={this.addMember} textFieldValueChange={this.textFieldValueChange} 
+        searchMember={this.searchMember} memberSelectionChange={this.memberSelectionChange}
+        memberName={this.state.memberName} targetMember={this.state.targetMember} selectedMember={this.state.selectedMember}
+        onClose={this.closeAddMemberDialog}/>
       </div>
     );
   }

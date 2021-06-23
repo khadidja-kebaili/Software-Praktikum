@@ -15,9 +15,6 @@ class AddMember extends Component {
 
   initialState = {
     // TextField values
-    memberName: '',
-    targetMember: [],
-    selectedMember: null,
 
   };
 
@@ -25,71 +22,20 @@ class AddMember extends Component {
     super(props);
 
     // Init the state
-    this.state = this.initialState;
+    // this.state = this.initialState;
   }
 
-  /** Searches for members with a memberName and loads the corresponding accounts */
-  searchMember = async () => {
-    const { memberName } = this.state;
-    if (memberName.length > 0) {
-      try {
-        // Load members first
-        const member = await LernappAPI.getAPI().searchMember(memberName);
-
-        let selectedMember = null;
-
-        if (member.length > 0) {
-          selectedMember = member[0];
-        }
-        // Set the final state
-        this.setState({
-          targetMember: member,
-          selectedMember: selectedMember,
-        });
-      } catch (e) {
-        this.setState({
-          targetMember: [],              // Set empty array
-          selectedMember: null,
-        });
-        console.log(this.state.targetMember)
-      }
-    }
-  }
-
-
-  addMember = () => {
-      let newChataccess = new ChataccessBO(
-        this.state.selectedMember.getID(),
-        this.props.groups.getID()
-      )
-      LernappAPI.getAPI().addMember(newChataccess).then(console.log(newChataccess)).then(this.handleClose)
-    }
-
-  /** Handles value changes of the forms textfields and validates the transferAmout field */
-  textFieldValueChange = (event) => {
-    const val = event.target.value;
-    this.setState({
-      [event.target.id]: val
-    });
-  }
-
-  /** Handles value changes of the member select textfield */
- memberSelectionChange = (event) => {
-    this.setState({
-      selectedMember: event.target.value,
-    });
-  }
-  handleClose = () => {
+  handleClose = (addmember) => {
     // Reset the state
-    this.setState(this.initialState);
-    this.props.onClose(null);
+    // this.setState(this.initialState);
+    this.props.onClose(addmember);
   }
 
 
   /** Renders the component */
   render() {
-    const {show} = this.props;
-    const {targetMember, selectedMember} = this.state;
+    const {show, targetMember, selectedMember} = this.props;
+    
 
     return (
       show ?
@@ -102,21 +48,21 @@ class AddMember extends Component {
                 // show a search text field if there are no searchedmember yet
                 (targetMember.length === 0) ?
                   <TextField autoFocus fullWidth margin='normal' type='text' required id='memberName' label='Member name:'
-                    onChange={this.textFieldValueChange}
-                    onBlur={this.searchMember}
+                    onChange={this.props.textFieldValueChange}
+                    onBlur={this.props.searchMember}
                     InputProps={{
                       endAdornment: <InputAdornment position='end'>
-                        <IconButton onClick={this.searchMember}>
+                        <IconButton onClick={this.props.searchMember}>
                           <SearchIcon />
                         </IconButton>
                       </InputAdornment>,
                     }} />
                   :
                   <TextField select autoFocus fullWidth margin='normal' type='text' required id='memberName' label='Member name:'
-                  value={selectedMember}
-                  onChange={this.memberSelectionChange}>
+                  value={this.props.selectedMember}
+                  onChange={this.props.memberSelectionChange}>
                   {
-                    this.state.targetMember.map((member) => (
+                    this.props.targetMember.map((member) => (
                       <MenuItem key={member.getID()} value={member}>
                         {member.getLastname()}, {member.getFirstname()}
                       </MenuItem>
@@ -131,7 +77,7 @@ class AddMember extends Component {
             <Button  onClick={this.handleClose} color='secondary'>
               Cancel
             </Button>
-            <Button disabled={!selectedMember} onClick={this.addMember} variant='contained' color='primary'>
+            <Button disabled={!selectedMember} onClick={this.props.addMember} variant='contained' color='primary'>
              Hinzufügen
             </Button>
           </DialogActions>
