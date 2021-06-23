@@ -51,7 +51,14 @@ class RequestListEntry extends Component{
 //     this.getRequest();
 //   }
 
-  deleteRequestButtonClicked = (event) => {
+// deleteRequestHandler = (deletedRequest) => {
+//     this.setState ({
+//         requests: this.state.request.
+//     })
+// }
+
+
+deleteRequestButtonClicked = (event) => {
     event.stopPropagation();
     this.setState({
         showDeleteRequest: true
@@ -78,8 +85,9 @@ getRequest = () => {
     
         }))} 
 
+
     render() {
-        const{request}=this.state;
+        const{request, showDeleteRequest}=this.state;
         
         return(
             <div>

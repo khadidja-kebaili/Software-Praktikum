@@ -36,9 +36,10 @@ class RequestList extends Component {
     //Handles onRequestDelete events from an RequestListEntry
     deleteRequestHandler = (deletedRequest) => {
         this.setState({
-            requests: deletedRequest.getID()
+            requests: this.state.requests.filter(request => request.getID() !== deletedRequest.getID())
         })
     }
+    
 
     //Die Komponente die gerendert werden
     render(){
@@ -52,7 +53,8 @@ class RequestList extends Component {
                     </Grid>
                     {
                         request.map(profiles =>
-                            <RequestListEntry key={profiles.getID()} profiles={profiles} onRequestDeleted={this.deleteRequestHandler}/>)
+                            <RequestListEntry key={profiles.getID()} profiles={profiles} onRequestDeleted={this.deleteRequestHandler}
+                            />)
                             
                     }
                     

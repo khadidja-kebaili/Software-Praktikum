@@ -135,10 +135,10 @@ export default class LernappAPI {
   }
 
 
-  deleteRequest(requestID) {
-    return this.#fetchAdvanced(this.#deleteRequestURL(requestID)), {
+  deleteRequest(ID1, ID2) {
+    return this.#fetchAdvanced(this.#deleteRequestURL(ID1, ID2), {
       method: 'DELETE'
-    }.then((responseJSON) => {
+    }).then((responseJSON) => {
       let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
       return new Promise(function (resolve) {
         resolve(responseRequestBO);

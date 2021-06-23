@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {IconButton, TextField, Typography, InputAdornment, MenuItem, Grid } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
+import RequestBO from './../../API/RequestBO';
 
 class AddRequest extends Component {
     

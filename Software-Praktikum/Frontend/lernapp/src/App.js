@@ -7,6 +7,8 @@ import Chats from './Chats';
 import Gruppen from './Gruppen';
 import Profil from './Profil';
 import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
+import ProfileBO from './API/ProfileBO';
+import ProfilBO from './API/ProfileBO';
 
 
 class App extends React.Component {
@@ -43,6 +45,7 @@ class App extends React.Component {
               }
 
             </Container>
+            
           </Router>
           
           {/* {

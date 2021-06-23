@@ -10,9 +10,19 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 class DeleteRequest extends Component {
     constructor(props){
         super(props);
+        
+        // console.log(props); 
+
+        let otherUser = null;
+
+        if (this.props.location.expandRequest){
+            otherUser = this.props.location.expandRequest.getID();
+        }
 
         this.state = {
-            currentUser : 6
+            currentUser : 6,
+            currenRequester: otherUser
+            
         };
     }
     // deleteRequest = () => {
@@ -20,14 +30,17 @@ class DeleteRequest extends Component {
     //     LernappAPI.getAPI().deleteRequest(data).then(this.props.onClose(null))
     // };
     
+    
+    
     deleteRequest = () => {
-      LernappAPI.getAPI().deleteRequest().then(this.props.onClose(null))
+        const {request} = this.props;
+        
+        LernappAPI.getAPI().deleteRequest(this.state.currentUser, this.state.otherUser).then(
+          this.props.onClose()
+        )
 
     };
         
-
-    
-    
       handleClose = () => {
         this.props.onClose(null);
     }
@@ -46,8 +59,8 @@ class DeleteRequest extends Component {
                         <Button color="primary" onClick={this.props.onClose}>
                             Abbrechen
                         </Button>
-                        <Button color="primary" onClick={this.deleteRequest} autoFocus>
-                            Ablehnen
+                        <Button color="primary" onClick={this.deleteRequest}>
+                            Ja, Ablehnen
                         </Button>
                     </DialogActions>
                 </Dialog>
