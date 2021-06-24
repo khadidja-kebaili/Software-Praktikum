@@ -1,35 +1,40 @@
-export default class BusinessObject {
-
-
-    constructor() {
-        this.id = 0;
-    }
+/**
+ * Basisklasse für alle BusinessObjects, für die standardmäßig eine ID angegeben ist
+ */
+ export default class BusinessObject {
 
     /**
+     * The null constructor.
+     */
+    constructor() {
+      this.id = 0;
+    }
+  
+    /**
      * Sets the ID of this BusinessObject.
-     *
+     * Setzt den ID für die BusinessObject.
+     * 
      * @param {*} aId - the new ID of this BusinessObject
      */
     setID(aId) {
-        this.id = aId;
+      this.id = aId;
     }
-
+  
     /**
      * Returns the ID of this BusinessObject.
      */
     getID() {
-        return this.id;
+      return this.id;
     }
-
+  
     /**
      * Returns a string representation of this Object. This is useful for debugging purposes.
      */
     toString() {
-        let result = '';
-        for (var prop in this) {
-            result += prop + ': ' + this[prop] + ' ';
-        }
-        return result;
+      let result = '';
+      for (var prop in this) {
+        result += prop + ': ' + this[prop] + ' ';
+      }
+      return result;
     }
-}
-
+  }

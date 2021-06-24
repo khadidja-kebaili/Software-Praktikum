@@ -43,7 +43,7 @@ class ChatAccessMapper(Mapper):
             access.set_room(room)
             access.set_chattype(chattype)
             res.append(access)
-        
+
         self._cnx.commit()
         cursor.close()
         return res
@@ -54,7 +54,7 @@ class ChatAccessMapper(Mapper):
         command = "SELECT id, profilID, room, chattype FROM lernapp.chataccess WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
-    
+
         try:
             (id, profilID, room, chattype) = tuples[0]
             access = ChatAccessBO()
@@ -65,11 +65,11 @@ class ChatAccessMapper(Mapper):
             res = access
         except IndexError:
             res = None
-        
+
         self._cnx.commit()
         cursor.close()
         return res
-    
+
     #gibt die Gruppenchaträume des gegebenen Profils zurück
     def find_groupchat_by_profil(self, profilID):
         res = []
@@ -127,20 +127,31 @@ class ChatAccessMapper(Mapper):
         self._cnx.commit()
         cursor.close()
         return res
-    #gibt die Gruppenmitglieder einer Gruppe zurück
+
     def get_groupmembers(self, room):
-        res=[]
+        res = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, profilID, room, chattype FROM lernapp.chataccess WHERE room={}".format(room)
+        command = "SELECT profilID FROM chataccess WHERE room={}".format(
+            room)
         cursor.execute(command)
         tuples = cursor.fetchall()
+        tuple1 = ()
+        L1 = list(tuple1)
+        for element in tuples:
+            for j in element:
+                L1.append(j)
+        tuple1 = tuple(L1)
 
-        for (id, profilID, room, chattype) in tuples:
-            member = ChatAccessBO()
+        command1 = "SELECT id, Lastname, Firstname FROM profile WHERE id IN {}".format(
+            tuple1)
+        cursor.execute(command1)
+        tuples1 = cursor.fetchall()
+
+        for (id, Firstname, Lastname) in tuples1:
+            member = Studentprofile()
             member.set_id(id)
-            member.set_profilID(profilID)
-            member.set_room(room)
-            member.set_chattype(chattype)
+            member.set_first_name(Firstname)
+            member.set_last_name(Lastname)
             res.append(member)
 
         self._cnx.commit()

@@ -2,10 +2,11 @@ import BusinessObject from './Businessobject';
 
 export default class ChataccessBO extends BusinessObject {
 
-    constructor(profilID, room){
+    constructor(profilID, room, chattype){
         super();
         this.profilID = profilID;
         this.room = room;
+        this.chattype = chattype;
     }
 
     set_profilID(id){
@@ -22,6 +23,14 @@ export default class ChataccessBO extends BusinessObject {
 
     get_room(){
         return this.room;
+    }
+
+    set_chattype(chattype){
+        this.chattype = chattype;
+    }
+
+    get_chattype(){
+        return this.chattype;
     }
  
     static fromJSON(chataccess){

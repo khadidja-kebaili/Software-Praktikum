@@ -1,57 +1,53 @@
-import BusinessObject from "./Businessobject.js";
-
+import BusinessObject from "./BusinessObject"
 
 export default class RequestBO extends BusinessObject {
+    constructor(Arequested_by, Arequested, Arequest_time) {
+      super();
 
-    constructor(arequested, arequested_by, arequest_date ) {
-        super();
-        this.requested = arequested;
-        this.requested_by = arequested_by;
-        this.request_date =  arequest_date;
+      this.requested = Arequested;
+      this.requestTime = Arequest_time;
+      this.requestedBy = Arequested_by;
     }
 
-
-    setRequested(arequested) {
-        this.requested = arequested;
+    setRequestedBy(Arequested_by){
+      this.requestedBy = Arequested_by;
     }
 
-
-    getFirstname() {
-        return this.requested;
+    getRequestedBy(){
+    return this.requestedBy;
     }
 
-    setRequestedBy(requester){
-        this.requested_by = requester;
+    setRequested(Arequested){
+        this.requested = Arequested;
     }
 
-    getRequestedBY(){
-        return this.requested_by
+    getRequested(){
+        return this.requested
     }
 
-    setRequestDate(requestDate){
-        this.request_date = requestDate;
+    setRequestTime(Arequest_time){
+        this.requestTime = Arequest_time
     }
 
-    getRequestDate(){
-        return this.request_date
+    getRequestTime(){
+        return this.requestTime
     }
 
-
-    static fromJSON(profile) {
+    static fromJSON(request) {
         let result = [];
 
-        if (Array.isArray(profile)) {
-            profile.forEach((c) => {
-                Object.setPrototypeOf(c, RequestBO.prototype);
-                result.push(c);
-            })
-        } else {
-            // Es handelt sich offenbar um ein singuläres Objekt
-            let c = profile;
+        if (Array.isArray(request)) {
+          request.forEach((c) => {
             Object.setPrototypeOf(c, RequestBO.prototype);
             result.push(c);
+          })
+        } else {
+          // Es handelt sich offenbar um ein singuläres Objekt
+          let c = request;
+          Object.setPrototypeOf(c, RequestBO.prototype);
+          result.push(c);
         }
 
         return result;
+      }
     }
-}
