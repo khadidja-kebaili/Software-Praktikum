@@ -111,7 +111,7 @@ closeLeaveGroupDialog = () => {
             <Button type="submit" variant="contained" color="primary" size="large" onClick={this.leaveGroupButtonClicked} color='primary'>
               Gruppe verlassen
             </Button>
-            <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>
+            {/* <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/> */}
             </div> 
             </div> 
    
