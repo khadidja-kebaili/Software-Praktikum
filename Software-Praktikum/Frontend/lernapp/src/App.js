@@ -1,16 +1,70 @@
-
-import UserProfil from './Components/Dialog/UserprofileForm.js';
-import ProfileOperations from './Components/Pages/ProfileOperations.js';
+import React from 'react';
 import MatchList from './Components/Pages/MatchList';
-import GroupForm from "./Components/Dialog/GroupForm";
-import GroupListForProfile from './Components/GroupListForProfile.js';
+import RequestList from './Components/Pages/RequestList';
+import Header from './Components/Layout/Header';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+
+import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
 
 
+class App extends React.Component {
 
-function App() {
-  return (
-    <GroupListForProfile></GroupListForProfile>
-  );
+//im ersten Schritt sollen die Matches und Navigation angezeigt werden.
+  render(){
+    return(
+        <div>
+          <Router>
+            <Container maxWidth='md'>
+              <Header/>
+              {
+                <>
+                  <Redirect from='/' to='matchmaker'/>
+                  <Route exact path='/matchmaker'>
+                    <MatchList/>
+                  </Route>
+                  <Route exact path='/request'>
+                    <RequestList/>
+                  </Route>
+                  <Route path='/chats'>
+
+                  </Route>
+                  <Route path='/groups'>
+
+                  </Route>
+                  <Route path='/mygroups'>
+
+                  </Route>
+                  <Route path='/profil'>
+
+                  </Route>
+                </>
+              }
+
+            </Container>
+
+          </Router>
+
+          {/* {
+            <div>
+              <Router>
+                <Redirect from='/' to='matchmaker'/>
+                <Route exact path='/matchmaker'>
+                  <MatchList/>
+                </Route>
+                  <Route path='/chats'>
+                  <Chats/>
+                </Route>
+              </Router>
+            </div>
+          } */}
+
+
+        </div>
+
+    )
+  }
 }
 
 export default App;
+
+

@@ -1,7 +1,5 @@
 import ProfileBO from "./ProfileBO";
-import ChataccessBO from "./ChatAccessBO";
-import GroupBO from "./GroupBO";
-
+import RequestBO from "./RequestBO";
 
 export default class LernappAPI {
 
@@ -15,19 +13,18 @@ export default class LernappAPI {
   }
 
   #lernappServerBaseURL = 'http://127.0.0.1:5000';
-  
 
   #addProfileURL = () => `${this.#lernappServerBaseURL}/profile`;
   #getProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
   #deleteProfileURL = (id) =>`${this.#lernappServerBaseURL}/profile/${id}`;
   #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
-  #getMatchesURL = () => `${this.#lernappServerBaseURL}/matches`;
-  #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
-  #addMemberURL = () => `${this.#lernappServerBaseURL}/chataccess_new_member`;
-  #get_Groups_of_ProfileURL = (id) => `${this.#lernappServerBaseURL}/groups_of_profile/${id}`;
-  #leaveGroupURL = (id) => `${this.#lernappServerBaseURL}/chataccess/${id}`;
-  #getMembersForGroupURL = (id) => `${this.#lernappServerBaseURL}/chataccess_member/${id}`;
-
+  #getAllProfilesURL = () => `${this.#lernappServerBaseURL}/profile`;
+  // #getMatchmakingURL = (id) => `${this.#lernappServerBaseURL}/matchmaking/${id}`;
+  #getMatchmakingURL = (id) => `${this.#lernappServerBaseURL}/matches/${id}`;
+  #getRequestURL = (id) => `${this.#lernappServerBaseURL}/request/${id}`;
+  #deleteRequestURL = (id1,id2) => `${this.#lernappServerBaseURL}/delete_request/${id1}/requested_by/${id2}`;
+  #addRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
+  
   #fetchAdvanced = (url, init) => fetch(url, init)
   .then(res => {
     if (!res.ok) {
@@ -46,7 +43,7 @@ export default class LernappAPI {
       },
       body: JSON.stringify(profileBO)
     }).then((responseJSON) => {
-      // We always get an array of CustomerBOs.fromJSON, but only need one object
+      // We always get an array of ProfileBOs.fromJSON, but only need one object
       let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
       // console.info(accountBOs);
       return new Promise(function (resolve) {
@@ -65,7 +62,7 @@ export default class LernappAPI {
       body: JSON.stringify(profileBO)
      
     }).then((responseJSON) => { 
-      // We always get an array of CustomerBOs.fromJSON
+      // We always get an array of ProfileBOs.fromJSON
       let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
       // console.info(accountBOs);
       return new Promise(function (resolve) {
@@ -96,87 +93,75 @@ export default class LernappAPI {
     })
   }
 
-  getMatches() {
-    return this.#fetchAdvanced(this.#getMatchesURL()).then((responseJSON) => {
-      let profileBOs = ProfileBO.fromJSON(responseJSON);
-      // console.info(profileBOs);
+  //Alle Profile sollen geholt werden
+  getAllProfiles() {
+    return this.#fetchAdvanced(this.#getAllProfilesURL())
+      .then((responseJSON) => {
+        let ProfileBOs = ProfileBO.fromJSON(responseJSON);
+        return new Promise(function (resolve) {
+          resolve(ProfileBOs);
+        })
+      })
+  }
+
+  // getMatchmaking(profileID){
+  //   return this.#fetchAdvanced(this.#getMatchmakingURL())
+  //     .then((responseJSON)=>{
+  //       let ProfileBOs = ProfileBO.fromJSON(responseJSON);
+  //       return new Promise(function(resolve){
+  //         resolve(ProfileBOs);
+  //       })
+  //     })
+  // }
+  
+  getMatchmaking(profileID) {
+    return this.#fetchAdvanced(this.#getMatchmakingURL(profileID)).then((responseJSON) => {
+      let profileBO = ProfileBO.fromJSON(responseJSON);
+      console.info(profileBO);
       return new Promise(function (resolve) {
-        resolve(profileBOs);
+        resolve(profileBO);
       })
     })
   }
 
-  searchMember(memberName) {
-    return this.#fetchAdvanced(this.#searchMemberURL(memberName)).then((responseJSON) => {
-      let memberBOs = ProfileBO.fromJSON(responseJSON);
-      // console.info(memberBOs);
+  getRequest(profileID) {
+    return this.#fetchAdvanced(this.#getRequestURL(profileID)).then((responseJSON) => {
+      let profileBO = ProfileBO.fromJSON(responseJSON);
+      console.info(profileBO);
       return new Promise(function (resolve) {
-        resolve(memberBOs);
+        resolve(profileBO);
       })
     })
   }
 
-  addMember(chataccessMemberBO){
-    return this.#fetchAdvanced(this.#addMemberURL(), {
+
+  deleteRequest(ID1, ID2) {
+    return this.#fetchAdvanced(this.#deleteRequestURL(ID1, ID2), {
+      method: 'DELETE'
+    }).then((responseJSON) => {
+      let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
+      return new Promise(function (resolve) {
+        resolve(responseRequestBO);
+      })
+    })
+  }
+
+  addRequest(profileBO){
+    return this.#fetchAdvanced(this.#addRequestURL(), {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain',
         'Content-type': 'application/json',
       },
-      body: JSON.stringify(chataccessMemberBO)
+      body: JSON.stringify(profileBO)
     }).then((responseJSON) => {
-      // We always get an array of CustomerBOs.fromJSON, but only need one object
-      let responsechataccessBO = ChataccessBO.fromJSON(responseJSON)[0];
-      // console.info(accountBOs);
-      return new Promise(function (resolve) {
-        resolve(responsechataccessBO);
+      let responseProfileBO = ProfileBO.fromJSON(responseJSON);
+      return new Promise(function (resolve){
+        resolve(responseProfileBO);
       })
     })
   }
 
-  getGroupsForProfile(id){
-    return this.#fetchAdvanced(this.#get_Groups_of_ProfileURL(id))
-        .then((responseJSON)=>{
-            let GroupBOs = GroupBO.fromJSON(responseJSON);
-            console.log(GroupBOs)
-            return new Promise(function (resolve){
-                resolve(GroupBOs)
-            })
-        })
-}
+  
 
-leaveGroup(profileID) {
-  return this.#fetchAdvanced(this.#leaveGroupURL(profileID), {
-    method: 'DELETE'
-  }).then((responseJSON) => {
-    let responseChataccessBO = ChataccessBO.fromJSON(responseJSON)[0];
-    // console.info(accountBOs);
-    return new Promise(function (resolve) {
-      resolve(responseChataccessBO);
-    })
-  })
-}
-
-getMembersForGroup(roomID) {
-  return this.#fetchAdvanced(this.#getMembersForGroupURL(roomID))
-    .then((responseJSON) => {
-      let profileBOs = ProfileBO.fromJSON(responseJSON);
-      // console.info(accountBOs);
-      return new Promise(function (resolve) {
-        resolve(profileBOs);
-      })
-    })
-}
-  // addProfile(profileBO) {
-  //     fetch('http://127.0.0.1:5000/hello/profile',{
-  //       method: 'POST',
-  //       headers: {
-  //         'Accept': 'application/json, text/plain',
-  //         'Content-type': 'application/json',
-  //       },
-  //       body: JSON.stringify(profileBO)
-  //     }).then((responseJSON) => responseJSON.text())
-  //     .then(result => console.log(result))
-  //     .catch(error => console.log("error", error));
-  // }}
 }

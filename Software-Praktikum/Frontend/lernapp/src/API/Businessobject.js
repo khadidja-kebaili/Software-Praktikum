@@ -1,13 +1,18 @@
-
+/**
+ * Basisklasse für alle BusinessObjects, für die standardmäßig eine ID angegeben ist
+ */
  export default class BusinessObject {
 
- 
+    /**
+     * The null constructor.
+     */
     constructor() {
       this.id = 0;
     }
   
     /**
      * Sets the ID of this BusinessObject.
+     * Setzt den ID für die BusinessObject.
      * 
      * @param {*} aId - the new ID of this BusinessObject
      */
