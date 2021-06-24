@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Grid, Typography } from '@material-ui/core';
-import LernappAPI from '../../API/LernappAPI';
+import LernappAPI from '../../API/LernappAPi';
 import MatchListEntry from './MatchListEntry';
 
 

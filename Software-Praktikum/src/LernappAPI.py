@@ -50,7 +50,6 @@ profile = api.inherit('Profil', bo, {
 })
 
 chatroom = api.inherit('Chatroom', bo, {
-    'name': fields.String(attribute='name', description = 'Name des Chatraums'),
     'chattype':fields.String(attribute='chattype', description = 'Art des Chatraums (e-Einzel, g-Gruppe)')
 })
 
@@ -86,8 +85,10 @@ request = api.inherit('Request', bo, {
 
 group = api.inherit('Group', bo, {
     'groupname':fields.String(attribute = 'groupname', description = 'groupname'),
-    'admin': fields.String(attribute = 'admin', description = 'admin'),
-    'description': fields.String(attribute = 'description', description = 'description')
+    'admin': fields.Integer(attribute = 'admin', description = 'admin'),
+    'description': fields.String(attribute = 'description', description = 'description'),
+    # 'chatroomID': fields.Integer(attribute='chatroomID', description='chatroomID'),
+
 })
 
 
@@ -164,7 +165,6 @@ class ChatroomOperations(Resource):
         proposal = ChatroomBO.from_dict(api.payload)
         if proposal is not None:
             p = adm.create_chatroom(
-                proposal.get_name(),
                 proposal.get_chattype()
             )
             return p
@@ -295,8 +295,10 @@ class GroupOperations(Resource):
         # //Notiz Daten von Frontend werden in proposal gespeichert
         if proposal is not None:
             p = adm.create_group(
-                proposal.get_group_name(),
-                proposal.get_description()
+                proposal.get_groupname(),
+                proposal.get_admin(),
+                proposal.get_description(),
+                # proposal.get_chatid()
             )
             return p
 
@@ -348,6 +350,12 @@ class Requestanzeigen (Resource):
         adm = Businesslogic()
         request = adm.get_profiles_of_request(id)
         return request
+
+    @api.marshal_with(request)
+    def delete(self, id):
+        adm = Businesslogic()
+        request = adm.get_request_by_id(id)
+        adm.delete_request(request)
 
 @api.route('/delete_request/<int:id1>/requested_by/<int:id2>')
 @api.param( 'id1' , 'id des requested', 'id2 - id des requested_by')

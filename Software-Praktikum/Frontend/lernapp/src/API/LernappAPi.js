@@ -3,6 +3,7 @@ import ProfileBO from "./ProfileBO";
 import MessageBO from './MessageBO';
 import ChatroomBO from './ChatroomBO';
 import ChataccessBO from './ChataccessBO';
+import RequestBO from "./RequestBO";
 // import MemberBO from "./MemberBO";
 
 export default class LernappAPI {
@@ -31,6 +32,12 @@ export default class LernappAPI {
     #delete_ChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
     #get_MessagesForChatroomURL = (id) => '${this.#lernappServerBaseURL}/chatroom/${id}';
     #get_Groups_of_ProfileURL = (id) => `${this.#lernappServerBaseURL}/groups_of_profile/${id}`;
+
+    #getRequestURL = (id) => `${this.#lernappServerBaseURL}/request/${id}`;
+    // #deleteRequestURL = (id1,id2) => `${this.#lernappServerBaseURL}/delete_request/${id1}/requested_by/${id2}`;
+    #addRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
+    #getAllRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
+    #deleteRequestURL = (id) => `${this.#lernappServerBaseURL}/request/${id}`;
 
         //Chataccess
     #add_ChataccessURL = () => '${this.#lernappServerBaseURL}/chataccess';
@@ -313,26 +320,67 @@ export default class LernappAPI {
     })
   }
 
-  // searchMember(memberName) {
-  //   return this.#fetchAdvanced(this.#searchMemberURL(memberName)).then((responseJSON) => {
-  //     let memberBOs = ProfileBO.fromJSON(responseJSON);
-  //     // console.info(memberBOs);
-  //     return new Promise(function (resolve) {
-  //       resolve(memberBOs);
-  //     })
-  //   })
-  // }
+    getRequest(profileID) {
+        return this.#fetchAdvanced(this.#getRequestURL(profileID)).then((responseJSON) => {
+            let profileBO = ProfileBO.fromJSON(responseJSON);
+            console.info(profileBO);
+            return new Promise(function (resolve) {
+                resolve(profileBO);
+            })
+        })
+    }
 
-  // addProfile(profileBO) {
-  //     fetch('http://127.0.0.1:5000/hello/profile',{
-  //       method: 'POST',
-  //       headers: {
-  //         'Accept': 'application/json, text/plain',
-  //         'Content-type': 'application/json',
-  //       },
-  //       body: JSON.stringify(profileBO)
-  //     }).then((responseJSON) => responseJSON.text())
-  //     .then(result => console.log(result))
-  //     .catch(error => console.log("error", error));
-  // }}
+    getAllRequests = () => {
+        return this.#fetchAdvanced(this.#getAllRequestURL())
+            .then((responseJSON) => {
+                let RequestBOs = RequestBO.fromJSON(responseJSON);
+                console.log(RequestBOs)
+                return new Promise(function (resolve) {
+                    resolve(RequestBOs);
+                })
+            })
+    }
+
+
+    // deleteRequest(ID1, ID2) {
+    //     return this.#fetchAdvanced(this.#deleteRequestURL(ID1, ID2), {
+    //         method: 'DELETE'
+    //     }).then((responseJSON) => {
+    //         let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
+    //         return new Promise(function (resolve) {
+    //             resolve(responseRequestBO);
+    //         })
+    //     })
+    // }
+
+
+
+    addRequest(profileBO){
+        return this.#fetchAdvanced(this.#addRequestURL(), {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(profileBO)
+        }).then((responseJSON) => {
+            let responseProfileBO = ProfileBO.fromJSON(responseJSON);
+            return new Promise(function (resolve){
+                resolve(responseProfileBO);
+            })
+        })
+    }
+
+    deleteRequest(requestID) {
+        return this.#fetchAdvanced(this.#deleteRequestURL(requestID), {
+            method: 'DELETE'
+        }).then((responseJSON) => {
+            let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseRequestBO);
+            })
+        })
+    }
+
+
 }

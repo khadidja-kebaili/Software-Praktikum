@@ -1,4 +1,4 @@
-import { LernappAPI } from "../API";
+import LernappAPI from "../API/LernappAPi";
 
 class ChatroomOperations extends Component {
     constructor(props){

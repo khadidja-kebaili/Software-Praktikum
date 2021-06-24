@@ -5,6 +5,8 @@ import LernappAPI from "../../API/LernappAPi";
 import GroupBO from "../../API/GroupBO";
 import {ChatroomBO} from "../../API";
 import AddChatroomForGroup from "./AddChatroom";
+import RequestBO from "../../API/RequestBO";
+
 
 class AddGroup extends Component {
     constructor(props){

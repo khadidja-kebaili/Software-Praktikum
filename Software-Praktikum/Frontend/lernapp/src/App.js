@@ -1,23 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import GroupList from "./Components/GroupList";
+import GroupListForProfile from "./Components/GroupListForProfile";
+import AddGroup from "./Components/Dialog/AddGroup";
+import RequestBO from "./API/RequestBO"
+import ChatroomBO from "./API/ChatroomBO";
+import AddChatroomForGroup from "./Components/Dialog/AddChatroom";
+import DeleteRequest from "./Components/Dialog/DeleteRequest";
+import RequestList from "./Components/RequestList";
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <RequestList/>
     </div>
   );
 }

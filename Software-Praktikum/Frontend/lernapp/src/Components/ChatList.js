@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ChatListEntry from './ChatListEntry';
-import {LernappAPI} from '../api';
+import LernappAPI from "../API/LernappAPi";
 
 class ChatList extends Component{
     constructor(props){
@@ -24,9 +24,9 @@ class ChatList extends Component{
                 }))
     }
 
-    get_Chats = () => {
-        LernappAPI.getAPI().get_
-    }
+    // get_Chats = () => {
+    //     LernappAPI.getAPI().get_
+    // }
 
     componentDidMount(){
         this.get_Chats();
@@ -36,7 +36,7 @@ class ChatList extends Component{
         LernappAPI.getAPI().add_Chataccess(this.props.profile.getID()).then(ChataccessBO =>
             this.setState({
                 Chats: ChatroomBOs
-            })).catcj(e =>
+            })).catch(e =>
                 this.setState({
                     
                 }))

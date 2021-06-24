@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import LernappAPI from "../../API/LernappAPI";
+import LernappAPI from "../../API/LernappAPi";
 import "./ProfileOperations.css"
 import DeleteProfile from '../Dialog/DeleteProfile';
 import UserProfile from '../Dialog/UserprofileForm';

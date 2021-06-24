@@ -21,7 +21,9 @@ class RequestMapper(Mapper):
 
         command = "INSERT INTO request (id, requested_by, requested) VALUES (%s, %s, %s)"
         data = (
-            request.get_id(), request.get_requested_by(), request.get_requested())
+            request.get_id(),
+            request.get_requested_by(),
+            request.get_requested())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -32,7 +34,7 @@ class RequestMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, requested_by, requested, request_date FROM request")
+        cursor.execute("SELECT * FROM request")
         tuples = cursor.fetchall()
 
         for (id, requested_by, requested, request_date) in tuples:
@@ -94,4 +96,5 @@ if (__name__ == "__main__"):
         result = mapper.find_all()
         for p in result:
            print(p)
+
 

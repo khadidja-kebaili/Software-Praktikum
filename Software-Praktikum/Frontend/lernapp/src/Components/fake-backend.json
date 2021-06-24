@@ -1,6 +1,0 @@
-{"messages":[
-    {"profilID":"1", "room":"1", "text":"User1Room1"},
-    {"profilID":"2", "room":"1", "text":"User2Room1"},
-    {"profilID":"2", "room":"2", "text":"User2Room2"},
-    {"profilID":"1", "room":"1", "text":"User1Room1"}
-]}

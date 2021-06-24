@@ -89,5 +89,5 @@ class Group(Businessobject):
         obj.set_groupname(dictionary["groupname"])
         obj.set_admin(dictionary["admin"])
         obj.set_description(dictionary["description"])
-        obj.set_chatid(dictionary["chatid"])
+        # obj.set_chatid(dictionary["chatid"])
         return obj

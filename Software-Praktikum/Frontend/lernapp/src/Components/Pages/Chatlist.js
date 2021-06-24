@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import LernappAPI from '../../API/LernappAPI';
+import LernappAPI from '../../API/LernappAPi';
 
 class Chatlist extends Component{
 

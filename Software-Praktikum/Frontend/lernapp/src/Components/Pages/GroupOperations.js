@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import LernappAPI from "../../API/LernappAPI";
+import LernappAPI from "../../API/LernappAPi";
 import "./GroupOperations.css"
 import AddMember from '../Dialog/AddMember';
 import GroupForm from '../Dialog/GroupForm';

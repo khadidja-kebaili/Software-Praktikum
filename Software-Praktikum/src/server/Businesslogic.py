@@ -12,6 +12,23 @@ from src.server.db.MessageMapper import MessageMapper
 from src.server.bo.ChatroomBO import ChatroomBO
 from src.server.db.ChatroomMapper import ChatroomMapper
 
+#
+# def is_it_a_mutal_request(function):
+#     def wrapper(requester, requested):
+#         match = False
+#         with RequestMapper as mapper:
+#         requests = [mapper.find_all()]
+#         for element in requests:
+#             for j in element:
+#                 if j.get_requested_by() == requested:
+#                     match = True
+#         if match == False:
+#             # return function()
+#             print('Gut wurde erstellt')
+#         else:
+#             print('Hey, this student has already sent a request to you! Why don´t you start a chat?')
+#             # return function()
+#     return wrapper
 
 class Businesslogic (object):
 
@@ -76,12 +93,13 @@ class Businesslogic (object):
         with StudentprofileMapper() as mapper:
             mapper.delete(studentprofile)
 
-    def create_group(self, groupname, admin, description, chatid):
+    def create_group(self, groupname, admin, description):
+        chatroom = self.create_chatroom('G')
         group = Group()
         group.set_groupname(groupname)
         group.set_admin(admin)
         group.set_description(description)
-        group.set_chatid(chatid)
+        group.set_chatid(chatroom.get_id())
         with GroupMapper() as mapper:
             return mapper.insert(group)
 
@@ -163,16 +181,23 @@ class Businesslogic (object):
             new_sorted_list.append(element)
         return new_sorted_list
 
-    def is_it_a_match(self, requested, requester):
-        match = False
-        requests = [self.get_request_of_profile(requester)]
-        for element in requests:
-            for j in element:
-                if j.get_requested_by() == requested:
-                    match = True
-        return match
+    def is_it_a_mutal_request(self, function):
+        def wrapper(requester, requested):
+            match = False
+            requests = [self.get_request_of_profile(requester)]
+            for element in requests:
+                for j in element:
+                    if j.get_requested_by() == requested:
+                        match = True
+            if match == False:
+                return function()
+                print('Gut wurde erstellt')
+            else:
+                print('Hey, this student has already sent a request to you! Why don´t you start a chat?')
+                return function()
+        return wrapper()
 
-
+    # @is_it_a_mutal_request
     def create_request(self, requested_by, requested):
         request = Request()
         request.set_requested(requested)
@@ -267,13 +292,11 @@ class Businesslogic (object):
             return mapper.delete(id)
 
     #Methoden für Chatroom
-    def create_chatroom(self, name, type):
-        room = ChatroomBO()
-        room.set_name(name)
-        room.set_chattype(type)
-
+    def create_chatroom(self, chattype):
+        chatroom = ChatroomBO()
+        chatroom.set_chattype(chattype)
         with ChatroomMapper() as mapper:
-            return mapper.insert(room)
+            return mapper.insert(chatroom)
 
     def get_allRooms(self):
         with ChatroomMapper() as mapper:

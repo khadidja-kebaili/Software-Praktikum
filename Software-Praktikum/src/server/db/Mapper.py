@@ -14,7 +14,7 @@ class Mapper(AbstractContextManager, ABC):
       user = "root",
       password = "hdmsw201920",
       host = "localhost",
-      database = "messages"
+      database = "lernapp"
     )
     return self;
 
