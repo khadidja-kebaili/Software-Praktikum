@@ -31,10 +31,10 @@ class MatchListEntry extends Component{
                 <Typography>
                     {matches.getFirstname()}, {matches.getLastname()}, {matches.getLearnstyle()}, {matches.getStudytime()},
                     {matches.getStudyplace()}, {matches.getStudyfrequence()}
-                 <AddRequest>
+                 
                 <Button
-                 color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addRequest}/>Anfrage senden
-                 </AddRequest>
+                 color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addRequest}>Anfrage senden
+                </Button>
                  
                  </Typography>
                

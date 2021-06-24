@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import RequestBO from '../../API/RequestBO';
 import LernappAPI from '../../API/LernappAPI';
-import { ThemeConsumer } from 'react-native-elements';
 
 class AddRequest extends Component {
     constructor(props){
@@ -47,4 +46,5 @@ class AddRequest extends Component {
         )
     }
 }
+
 export default AddRequest;
