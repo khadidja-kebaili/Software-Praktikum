@@ -1,11 +1,10 @@
-.PersProfil {
-  display: flex;
+.PersoProfil {
   border-radius: 25px;
   border: 2px solid black;
   width: 45%;
   margin: auto;
 }
-.PersProfil {
+.PersoProfil {
   display: grid;
   grid-auto-columns: auto;
   grid-auto-rows: 65px;
@@ -48,7 +47,7 @@
   text-align: center;
 }
 
-.Lernprofil {
+.Lernoprofil {
   border-radius: 25px;
   border: 2px solid black;
   width: 45%;
@@ -64,7 +63,7 @@ h2 {
   grid-row: 1;
 }
 
-.Lernprofil {
+.Lernoprofil {
   display: grid;
   grid-auto-columns: auto;
   grid-auto-rows: 65px;

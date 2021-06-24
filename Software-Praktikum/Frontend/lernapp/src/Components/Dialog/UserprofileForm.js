@@ -130,7 +130,7 @@ updateProfile = () => {
         <h1>{header}</h1>
       </div>
           <form onSubmit={this.addProfile}>
-          <div className="PersProfil"> 
+          <div className="PersoProfil"> 
               <div className="Name"><TextField name="last_name" label="Name" variant="outlined" value ={this.state.last_name} onChange={this.handleChange}/></div>
               <div className="Firstname"><TextField name="first_name" label="Vorname" variant="outlined" value ={this.state.first_name} onChange={this.handleChange}/> </div>
               <div className="Age"> <TextField name="age" label="Alter" variant="outlined" value ={this.state.age} onChange={this.handleChange}/> </div>
@@ -199,7 +199,7 @@ updateProfile = () => {
                     </RadioGroup>
               </div>
               </div>
-              <div className="Lernprofil">
+              <div className="Lernoprofil">
               <h2>Lernprofil</h2>
               <FormControl className="Learnstyle">
               <InputLabel> &nbsp; Lerntyp</InputLabel>
