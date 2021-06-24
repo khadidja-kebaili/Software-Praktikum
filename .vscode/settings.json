@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "Software-Praktikum/src",
+        "Software-Praktikum/src/server"
+    ]
+}

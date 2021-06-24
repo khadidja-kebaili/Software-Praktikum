@@ -20,104 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="Esra + Mihri Merge">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/public/matches.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/BusinessObject.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/LernAppAPI.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/RequestBO.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Dialog/AddRequest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Dialog/DeleteRequest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Dialog/Error_Message.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Dialog/LoadingProcess.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Dialog/MatchForm.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Layout/Theme.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/MatchOperations.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/MatchesDetail.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/RequestList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/RequestListEntry.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/.codeclimate.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/.travis.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/CHANGELOG.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/http-fake-backend.sublime-project" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/manifest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/nodemon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/response-files/anotherExample.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/response-files/example.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/response-files/example.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/response-files/example.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/response-files/matches.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/response-files/simpleExample.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/api/PythonLernappBeispiel-config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/api/anotherExample.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/api/fakingStatusCodes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/api/fileTypes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/api/setup/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/api/setup/lib/getContentDisposition.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/api/setup/lib/getCustomResponseHeader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/api/setup/supportedMethod.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/api/setup/unsupportedMethods.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/api/simpleExample.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/web/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/web/public.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/web/public/assets/css/styles.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/web/views/helpers/json.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/web/views/helpers/methods.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/web/views/helpers/removeCurlyBraces.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/web/views/index.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/web/views/layout/layout.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/web/views/partials/footer.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/server/web/views/partials/header.hbs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/manifest.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/server/api/customResponseHeader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/server/api/endpoint.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/server/api/fakeStatusCode.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/server/api/fileTypes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/server/api/fixtures/example.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/server/api/fixtures/response.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/server/api/fixtures/response.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/server/api/fixtures/response.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/test/server/web/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/http-fake-backend/yarn.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/showMatches.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/src/LernappAPI.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/Test_Admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/Test_Businesslogic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/Profile.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/RequestBO.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/Test_Profil.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/RequestMapper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/Test_Mapper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/Test_ProfileMapper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Software-Praktikum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Software-Praktikum.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/Businessobject.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/Businessobject.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/LernappAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/LernappAPI.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Layout/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Layout/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/MatchList.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/MatchList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/MatchListEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/MatchListEntry.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Matchmaker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Matchmaker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/Mapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/Mapper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618421028412</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Esra + Mihri Merge">
+      <created>1624537116499</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1624537116499</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
