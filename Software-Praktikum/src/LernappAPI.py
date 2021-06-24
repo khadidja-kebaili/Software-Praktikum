@@ -370,6 +370,16 @@ class RequestDelete(Resource):
                     adm.delete_request(j)
 
 
+
+# class Requestanzeigen (Resource):
+#     @api.marshal_with(request)
+#     def get(self, id):
+#         adm = Businesslogic()
+#         request = adm.get_request_of_profile(id)
+#         return request
+
+
+
 @api.route('/profile')
 class ProfilOperations(Resource):
     @api.marshal_with(profile)
@@ -418,6 +428,7 @@ class Profilanzeigen (Resource):
 
     @api.marshal_with(profile)
     def delete(self, id):
+
         adm = Businesslogic()
         userprofile = adm.get_profile_by_id(id)
         adm.delete_profile(userprofile)

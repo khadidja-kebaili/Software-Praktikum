@@ -62,7 +62,7 @@ class ProfileOperations extends Component {
             <div>
               <div className="PersProfil">
                 <h2 className="header">Persönliches Profil</h2>
-                <h3 >Name: {profile.getLastname()}</h3> 
+                <h3>Name: {profile.getLastname()}</h3> 
                 <h3>Vorname: {profile.getFirstname()}</h3>
                 <h3>Alter: {profile.getAge()}</h3>
                 <h3>Semester: {profile.getSemester()}</h3>

@@ -17,10 +17,10 @@ class LeaveGroup extends Component {
     };
   }
 
-//   deleteProfile = () => {
-//     let data = 6;
-//     LernappAPI.getAPI().deleteProfile(data).then(this.props.onClose(null))
-//     };
+    leaveGroup= () => {
+      let data = 6;
+      LernappAPI.getAPI().leaveGroup(data).then(this.props.onClose(null))
+      };
 
   handleClose = () => {
     // console.log(event);
@@ -43,7 +43,7 @@ class LeaveGroup extends Component {
                 <Button color="primary" onClick={this.props.onClose} >
                  Abbrechen
                 </Button>
-                <Button color="primary" autoFocus>
+                <Button onClick={this.leaveGroup}color="primary" autoFocus>
                   Verlassen
                 </Button>
               </DialogActions>

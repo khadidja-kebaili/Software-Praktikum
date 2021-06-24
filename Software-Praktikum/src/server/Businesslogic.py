@@ -36,12 +36,11 @@ class Businesslogic (object):
         pass
 
     def create_user(self, name, user_id, email):
-
-        user = Studentprofile()
+        user = User()
         user.set_name(name)
         user.set_user_id(user_id)
         user.set_email(email)
-        with StudentprofileMapper() as mapper:
+        with UserMapper() as mapper:
             return mapper.insert(user)
 
     # def get_user_by_google_user_id(self, id):
@@ -273,7 +272,7 @@ class Businesslogic (object):
     def get_messages_by_roomID(self, id):
         with MessageMapper() as mapper:
             return mapper.find_by_room(id)
-    
+
     def update_message(self, message):
         with MessageMapper() as mapper:
             mapper.update(message)
@@ -281,7 +280,7 @@ class Businesslogic (object):
     def get_allMessages(self):
         with MessageMapper() as mapper:
             return mapper.find_all()
-    
+
     #def get_room_by_user(self, id):
     #    with MessageMapper() as mapper:
     #        return mapper.find_associatedRooms(id);
@@ -304,7 +303,7 @@ class Businesslogic (object):
     def get_room_by_id(self, id):
         with ChatroomMapper() as mapper:
             return mapper.find_by_key(id)
-        
+
     def delete_chatroom(self, room):
         with ChatroomMapper() as mapper:
             return mapper.delete(room)
@@ -333,7 +332,7 @@ class Businesslogic (object):
     def get_groupchataccess_by_profil(self, profil):
         with ChatAccessMapper() as mapper:
             return mapper.find_groupchat_by_profil(profil)
-        
+
     def get_singlechataccess_by_profil(self, profil):
         with ChatAccessMapper() as mapper:
             return mapper.find_singlechat_by_profil(profil)
@@ -370,3 +369,132 @@ class Businesslogic (object):
             for j in element:
                 groups.append(self.get_group_by_id(j.get_room()))
         return groups
+
+# Methoden für Message
+    def create_message(self, profilID, room, text):
+        message = MessageBO()
+        message.set_profilID(profilID)
+        message.set_room(room)
+        message.set_text(text)
+        message.set_id(1)
+
+        with MessageMapper() as mapper:
+            return mapper.insert(message)
+
+    def get_message_by_id(self, id):
+        with MessageMapper() as mapper:
+            return mapper.find_by_key(id)
+
+    def get_messages_by_roomID(self, id):
+        with MessageMapper() as mapper:
+            return mapper.find_by_room(id)
+
+    def update_message(self, message):
+        with MessageMapper() as mapper:
+            mapper.update(message)
+
+    def get_allMessages(self):
+        with MessageMapper() as mapper:
+            return mapper.find_all()
+
+    # def get_room_by_user(self, id):
+    #    with MessageMapper() as mapper:
+    #        return mapper.find_associatedRooms(id);
+
+    def delete_message(self, id):
+        with MessageMapper() as mapper:
+            return mapper.delete(id)
+
+    # Methoden für Chatroom
+    def create_chatroom(self, name, type):
+        room = ChatroomBO()
+        room.set_id(1)
+        room.set_name(name)
+        room.set_chattype(type)
+
+        with ChatroomMapper() as mapper:
+            return mapper.insert(room)
+
+    def get_allRooms(self):
+        with ChatroomMapper() as mapper:
+            return mapper.find_all()
+
+    def get_room_by_id(self, id):
+        with ChatroomMapper() as mapper:
+            return mapper.find_by_key(id)
+
+    def delete_chatroom(self, room):
+        with ChatroomMapper() as mapper:
+            return mapper.delete(room)
+
+    def update_chatroom(self, room):
+        with ChatroomMapper() as mapper:
+            return mapper.update(room)
+
+    # Methoden für ChatAccess
+    def create_chataccess(self, profilID, room, chattype):
+        access = ChatAccessBO()
+        access.set_profilID(profilID)
+        access.set_room(room)
+        access.set_chattype(chattype)
+
+        with ChatAccessMapper() as mapper:
+            return mapper.insert(access)
+
+    def create_chataccess_new_member(self, profilID, room):
+        access = ChatAccessBO()
+        access.set_profilID(profilID)
+        access.set_room(room)
+        access.set_chattype("g")
+
+        with ChatAccessMapper() as mapper:
+            return mapper.insert(access)
+
+    def get_allChataccess(self):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_all()
+
+    def get_Chataccess_by_id(self, id):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_by_key(id)
+
+    def get_groupchataccess_by_profil(self, profil):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_groupchat_by_profil(profil)
+
+    def get_singlechataccess_by_profil(self, profil):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_singlechat_by_profil(profil)
+
+    def get_profils_by_room(self, id):
+        with ChatAccessMapper() as mapper:
+            return mapper.get_groupmembers(id)
+
+    def delete_chataccess(self, access):
+        with ChatAccessMapper() as mapper:
+            return mapper.delete(access)
+
+    def update_chataccess(self, access):
+        with ChatAccessMapper() as mapper:
+            return mapper.update(access)
+
+    def get_group_by_profileid(self, id):
+        access = [self.get_groupchataccess_by_profil(id)]
+        groups = []
+        for element in access:
+            for j in element:
+                groups.append(self.get_group_by_id(j.get_room()))
+        return groups
+
+    def get_group_by_id(self, number):
+        with GroupMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    # def get_group_for_profile(self):
+    #     groups = [
+    #         {
+    #             "id": "1",
+    #             "groupname": "Python",
+    #             "description": "Gruppe für Python",
+    #         }]
+    #     return groups
