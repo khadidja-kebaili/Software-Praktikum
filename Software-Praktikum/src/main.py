@@ -296,7 +296,7 @@ class Chatroom_withID_Operations (Resource):
 # Chataccess
 
 
-@api.route('/chataccess_new_member/')
+@api.route('/chataccess_new_member')
 class ChataccessNewMembers (Resource):
     @api.marshal_with(chataccess_new_member)
     @api.expect(chataccess_new_member)
