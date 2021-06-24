@@ -51,7 +51,16 @@ class Chatroom extends Component{
 
     //Input wird zu MessageBO umgewandelt und an die Datenbank geschickt
     sendMessageButtonClicked = (event) => {
-        let message = new MessageBO()
+        /**
+         * Curerent User
+         * Current Room
+         * Input from Textfield
+         */
+        let message = new MessageBO(
+            1,
+            2,
+            "Test"
+        )
         LernappAPI.getAPI().add_Message(message);
     }
     
