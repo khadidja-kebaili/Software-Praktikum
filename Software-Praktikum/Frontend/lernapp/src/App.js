@@ -7,12 +7,14 @@ import ChatroomBO from "./API/ChatroomBO";
 import AddChatroomForGroup from "./Components/Dialog/AddChatroom";
 import DeleteRequest from "./Components/Dialog/DeleteRequest";
 import RequestList from "./Components/RequestList";
+import AddRequest from "./Components/Dialog/AddChatroom";
 
 
 function App() {
   return (
     <div className="App">
-      <RequestList/>
+      {/*<RequestList/>*/}
+      <AddRequest/>
     </div>
   );
 }
