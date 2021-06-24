@@ -18,22 +18,31 @@ export default class LernappAPI{
 
     //Chatroom
     #add_ChatroomURL = () => '${this.#lernappServerBaseURL}/chatroom';
+    #get_allChatroomURL = () => '${this.#lernappServerBaseURL}/chatroom';
     #get_ChatroomURL = (id) => '${this.#lernappServerBaserURL}/chatroom/${id}';
     #delete_ChatroomURL = (id) => '${this.#lernappServerBaserURL}/chatroom/${id}';
-
-    #get_MessagesForChatroomURL = (id) => '${this.#lernappServerBaseURL}/chatroom/${id}';
+    #update_ChatroomURL = (id) => '${this.#lernappServerBaserURL}/chatroom/${id}';
 
     //Chataccess
     #add_ChataccessURL = () => '${this.#lernappServerBaseURL}/chataccess';
+    #get_allChataccessURL = () => '${this.#lernappServerBaseURL}/chataccess';
     #get_ChataccessURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
     #delete_ChataccessURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
+    #update_ChataccessURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
 
-    #get_ChataccesForUserURL = (id) => '${this.#lernappServerBaseURL}/chataccess/${id}';
+    #get_ChataccessByRoomURL = (room) => '${this.#lernappServerBaseURL}/chataccess_member/${room}';
+    #get_GroupchatsByProfilURL = (id) => '${this.#lernappServerBaseURL}/chataccess_groupchat/${id}';
+    #get_SinglechatsByProfilURL = (id) => '${this.#lernappServerBaseURL}/chataccess_singlechat/${id}';
+
+    #delete_targetedChataccessURL = (id, room) => '${this.#lernappServerBaseURL}/chataccess/${id}/${room}';
 
     //Message
     #add_MessageURL = () => '${this.#lernappServerBaseURL}/messages';
+    #get_allMessageURL = () => '${this.#lernappServerBaseURL}/messages'
     #get_MessageURL = (id) => '${this.#lernappServerBaseURL}/messages/${id}';
     #delete_MessageURL = (id) => '${this.#lernappServerBaseURL}/messages/${id}';
+    #update_MessageURL = (id) => '${this.#lernappServerBaseURL}/messages/${id}';
+    #get_MessageByRoomURL = (room) => '${this.#lernappServerBaseURL}/chatroom_message/${room]';
 
     #fetchAdvanced = (url, init) => fetch(url, init)
     .then(res => {
@@ -44,6 +53,7 @@ export default class LernappAPI{
     });
 
     //Chatroom Methoden
+
     add_Chatroom(chatroom){
         return this.#fetchAdvanced(this.#add_ChatroomURL(), {
             method: 'POST',
@@ -56,6 +66,15 @@ export default class LernappAPI{
             let responseChatroom = ChatroomBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve){
                 resolve(responseChatroom);
+            })
+        })
+    }
+
+    get_allChatroom(){
+        return this.#fetchAdvanced(this.#get_allChatroomURL()).then((responseJSON) => {
+            let responseChatroom = ChatroomBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(responseChatroom)
             })
         })
     }
@@ -80,13 +99,21 @@ export default class LernappAPI{
         })
     }
 
-    get_MessagesForChatroom(chatroom){
-        return this.#fetchAdvanced(this.#get_MessagesForChatroomURL(chatroom)).then((responseJSON) => {
-            let messageBOs = MessageBO.fromJSON(responseJSON);
+    update_Chatroom(chatroom){
+        return this.#fetchAdvanced(this.#update_ChatroomURL(chatroom), {
+            methode: 'PUT',
+            headers: {
+                'Accept': 'application/json, text/plain',
+                'Content-type': 'application/json', 
+            },
+            body: JSON.stringify(chatroom)
+        }).then((responseJSON) => {
+            let responseChatroom = ChatroomBO.fromJSON(responseJSON)[0];
             return new Promise(function (resolve) {
-                resolve(messageBOs);
+                resolve(responseChatroom);
             })
         })
+
     }
 
     //Chataccess Methoden
@@ -104,6 +131,15 @@ export default class LernappAPI{
             let responseChataccess = ChataccessBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve){
                 resolve(responseChataccess);
+            })
+        })
+    }
+
+    get_allChataccess(){
+        return this.#fetchAdvanced(this.#get_allChataccessURL()).then((responseJSON) => {
+            let responseChataccess = ChataccessBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(responseChataccess)
             })
         })
     }
@@ -130,12 +166,57 @@ export default class LernappAPI{
         })
     }
 
-    //alle Chataccess für einen Nutzer
-    get_ChataccessForUser(profil){
-        return this.#fetchAdvanced(this.#get_ChataccesForUserURL(profil)).then((responseJSON) => {
-            let chataccesBOs = ChataccessBO.fromJSON(responseJSON);
+    update_Chataccess(chataccess){
+        return this.#fetchAdvanced(this.#update_ChataccessURL(chataccess), {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json, text/plain',
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify(profileBO)
+           
+          }).then((responseJSON) => { 
+            let responseChataccess = ChataccessBO.fromJSON(responseJSON)[0];
             return new Promise(function (resolve) {
-                resolve(chataccesBOs);
+              resolve(responseChataccess);
+            })
+          })
+    }
+
+    get_ChataccessByRoom(room){
+        return this.#fetchAdvanced(this.#get_ChataccessByRoomURL(room)).then((responseJSON) => {
+            let responseChataccess = ChataccessBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(responseChataccess);
+            })
+        })
+    }
+
+    get_GroupchatsByProfil(id){
+        return this.#fetchAdvanced(this.#get_GroupchatsByProfilURL(id)).then((responseJSON) => {
+            let responseChataccess = ChataccessBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(responseChataccess);
+            })
+        })
+    }
+
+    get_SinglechatsByProfil(id){
+        return this.#fetchAdvanced(this.#get_SinglechatsByProfilURL(id)).then((responseJSON) => {
+            let responseChataccess = ChataccessBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(responseChataccess);
+            })
+        })
+    }
+
+    delete_targetedChataccess(id, room){
+        return this.#fetchAdvanced(this.#delete_targetedChataccessURL(id, room), {
+            method: 'DELETE'
+        }).then((responseJSON) => {
+            let responseChataccess = ChataccessBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseChataccess);
             })
         })
     }
@@ -159,7 +240,15 @@ export default class LernappAPI{
         })
     }
 
-    //
+    get_allMessage(){
+        return this.#fetchAdvanced(this.#get_allMessageURL()).then((responseJSON) => {
+            let responseMessage = MessageBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(responseMessage);
+            })
+        })
+    }
+
     get_Message(message){
         return this.#fetchAdvanced(this.#get_MessageURL(message)).then((responseJSON) => {
             let responseMessage = MessageBO.fromJSON(responseJSON)[0];
@@ -172,9 +261,35 @@ export default class LernappAPI{
     delete_Message(message){
         return this.#fetchAdvanced(this.#delete_MessageURL(message), {
             method: 'DELETE'
-        }).them((responseJSON) => {
+        }).then((responseJSON) => {
             let responseMessage = MessageBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve){
+                resolve(responseMessage);
+            })
+        })
+    }
+
+    update_Message(message){
+        return this.#fetchAdvanced(this.#update_MessageURL(message), {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json, text/plain',
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify(message)
+           
+          }).then((responseJSON) => { 
+            let responseMessage = MessageBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+              resolve(responseMessage);
+            })
+          })        
+    }
+
+    get_MessageByRoom(room){
+        return this.#fetchAdvanced(this.#get_MessageByRoomURL(room)).then((responseJSON) => {
+            let responseMessage = MessageBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
                 resolve(responseMessage);
             })
         })

@@ -19,13 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatroomBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatroomBO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/ChatroomMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/ChatroomMapper.py" afterDir="false" />
-    </list>
+    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="npm create-creact app lernapp" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
