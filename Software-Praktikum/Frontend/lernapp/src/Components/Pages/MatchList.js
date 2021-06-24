@@ -11,7 +11,7 @@ import AddIcon from '@material-ui/icons/Add';
 class MatchList extends Component {
     constructor(props){
         super(props);
-
+        
         //Eine leere INIT setzten für matches
         this.state={
             matches: [],
@@ -22,21 +22,21 @@ class MatchList extends Component {
         componentDidMount(){
             this.getMatchmaking();
         }
-
-
-
+        
+        
+    
     // Die Funktion getMatchmaking() soll die matches anzeigen
     getMatchmaking =() => {
-
+        
         LernappAPI.getAPI().getMatchmaking(this.state.currentUser).then(profileBOs =>
             this.setState({
                 matches:  profileBOs,
-
+        
             }))}
 
+    
 
-
-
+        
     //Die Komponente die gerendert werden
     render(){
         const{matches}=this.state
@@ -50,15 +50,15 @@ class MatchList extends Component {
                     {
                         matches.map(profiles =>
                             <MatchListEntry key={profiles.getID()} profiles={profiles}/>)
-
+                            
                     }
-
+                    
                 </div>
             )
     }
-
+        
 }
-
+    
 
 
 // Komponenten-Style wird jetzt definiert
@@ -66,7 +66,7 @@ class MatchList extends Component {
 const styles = theme => ({
     root:{
         width: '100%'
-    }
+    }  
 });
 
 // //PropTypes

@@ -8,7 +8,7 @@ import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
 
 
 class App extends React.Component {
-
+  
 //im ersten Schritt sollen die Matches und Navigation angezeigt werden.
   render(){
     return(
@@ -26,24 +26,24 @@ class App extends React.Component {
                     <RequestList/>
                   </Route>
                   <Route path='/chats'>
-
+                    
                   </Route>
                   <Route path='/groups'>
-
+                    
                   </Route>
                   <Route path='/mygroups'>
-
+                    
                   </Route>
                   <Route path='/profil'>
-
+                    
                   </Route>
                 </>
               }
 
             </Container>
-
+            
           </Router>
-
+          
           {/* {
             <div>
               <Router>
@@ -57,14 +57,12 @@ class App extends React.Component {
               </Router>
             </div>
           } */}
-
-
-        </div>
-
+            
+          
+        </div> 
+      
     )
   }
 }
 
-export default App;
-
-
+export default App; 
