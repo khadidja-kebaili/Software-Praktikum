@@ -1,31 +1,42 @@
 import React, {Component} from "react";
-import {withStyles} from "@material-ui/core";
-import { List, ListItem, ListItemText } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
+import {withStyles,
+        Button,
+        ListItem,
+        Typography,
+        Divider} from "@material-ui/core";
+import LernappAPI from '../API/LernappAPI';
+import LoadingProgress from "./Dialogs/LoadingProgress";
 
 class ChatlistEntry extends Component{
     constructor(props){
         super(props);
         this.state = {
-            Chats: props.Chats
+            loadingInProgress: false,
         }
+    }
+
+    componentDidMount(){
+
     }
 
     /**
      * Rendern der Komponente
      */
     render(){
-        const{Chats} = this.state;
+        const{loadingInProgress} = this.state;
+        const{classes, Chats} = this.props;
+
         return(
             <div>
-                <List component="nav" aria-label="main mailbox folders">
-                    <ListItem button>
-                        <ListItemText>
-                            {Chats.getGroupname()}
-                        </ListItemText>
-                    </ListItem>
-                </List>
-                <Divider/>
+                <ListItem button>
+                    <Typography className = {classes.chatEntry}>
+                        Chat Nummer {Chats.getID()}
+                    </Typography>
+                </ListItem>
+                <ListItem>
+                    <LoadingProgress show = {loadingInProgress} />
+                </ListItem>
+                <Divider />
             </div>
         );
     }
@@ -38,7 +49,7 @@ const styles = theme => ({
     buttonMargin: {
         marginRight: theme.spacing(2),
     },
-    ChatlistEntry: {
+    chatEntry:{
         fontSize: theme.typography.pxToRem(15),
         flexBasis: '33.33%',
         flexShrink: 0,

@@ -2,19 +2,9 @@ import BusinessObject from './Businessobject';
 
 export default class ChatroomBO extends BusinessObject {
 
-    constructor(groupname, messages, id){
+    constructor(messages, id){
         super();
-        this.groupname = groupname;
         this.messages = messages;
-        this.id = id;
-    }
-
-    setGroupname(groupname){
-        this.groupname = groupname;
-    }
-
-    getGroupname(){
-        return this.groupname;
     }
 
     setMessages(messages){
@@ -23,14 +13,6 @@ export default class ChatroomBO extends BusinessObject {
  
     getMessages(){
         return this.messages;
-    }
-
-    setId(id){
-        this.id = id;
-    }
-
-    getId(){
-        return this.id;
     }
 
     static fromJSON(chatroom){

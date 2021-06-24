@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import {List,
+        ListItem} from "@material-ui/core";
 import ChatListEntry from './ChatListEntry';
 import LernappAPI from '../API/LernappAPI';
 import LoadingProgress from './Dialogs/LoadingProgress'
@@ -8,16 +10,11 @@ import {Grid,
         withStyles,
         Button } from '@material-ui/core';
 
-/**
- * Plan: Zuerst Chataccess für den aktuellen User holen -> Chaträume aller RoomIds holen
- */
-
 class ChatList extends Component{
     constructor(props){
         super(props);
 
         this.state = {
-            Chataccess: [],
             Chats: [],
             loadingInProgress: false,
             error: null
@@ -25,16 +22,17 @@ class ChatList extends Component{
     }
 
     //Chaträume des aktuellen Users holen
-    get_Chataccess = () => {
+    get_Chats = () => {
         //hier muss in der Methode später die ID des aktuellen Users übergeben werden
-        LernappAPI.getAPI().get_ChataccessForUser(1).then(ChataccessBOs =>
+        LernappAPI.getAPI().get_GroupchatsByProfil(2).then(ChatroomBOs =>
+//        LernappAPI.getAPI().get_GroupchatsByProfil(this.props.profile.getID()).then(ChatroomBOs =>
             this.setState({
-                Chataccess: ChataccessBOs,
+                Chats: ChatroomBOs,
                 loadingInProgress: false,
                 error: null
             })).catch(e =>
                 this.setState({
-                    Chatsaccess: [],
+                    Chats: [],
                     loadingInProgress: false,
                     error: e
                 })
@@ -45,19 +43,27 @@ class ChatList extends Component{
         })    
     }
 
+    componentDidMount(){
+        this.get_Chats();
+    }
+
+    componentDidUpdate(){
+
+    }
+
     //muss mit Chataccess verbunden werden, damit nur die benötigten Chats geholt werden
-    get_Chats = () => {
+    // get_Chats = () => {
 
-        rooms = this.state.Chataccess;
-        res = [];
+    //     rooms = this.state.Chataccess;
+    //     res = [];
 
-        for(let i=0; i<rooms.length; i++){
-            res.push(LernappAPI.getAPI().get_Chatroom(rooms[i]));
-        }
+    //     for(let i=0; i<rooms.length; i++){
+    //         res.push(LernappAPI.getAPI().get_Chatroom(rooms[i]));
+    //     }
 
-        this.setState({
-            Chats: res
-        })
+    //     this.setState({
+    //         Chats: res
+    //     })
 
         //Nur zum testen die 1
         // LernappAPI.getAPI().get_Chatroom(1).then(ChatroomBOs =>
@@ -76,7 +82,6 @@ class ChatList extends Component{
         //     loadingInProgress: true,
         //     error: null
         // })    
-    }
 
     create_Chat = (room) => {
         LernappAPI.getAPI().addChatroom(room).then(ChatroomBO => {
@@ -96,24 +101,22 @@ class ChatList extends Component{
         })
     }
 
-    componentDidMount(){
-        this.get_Chataccess();
-        this.get_Chats();
-    }
-
     render(){
-        const {Chataccess, Chats, loadingInProgress, error} = this.state;
+        const { Chats, loadingInProgress, error} = this.state;
         const {classes} = this.props;
 
         return(
-            <div>
-                <Grid item>
-                    <Typography>
-
-                    </Typography>
-                </Grid>
-                {Chats.map(chats => <ChatListEntry key={chats.getID()} chats = {chats}/>)}
-            </div>
+            <div className={classes.root}>
+                <List className={classes.chatList}>
+                    {
+                        Chats.map(Chats => <ChatListEntry key={Chats.getID()} Chats = {Chats}
+                        />)
+                    }
+                    <ListItem>
+                        <LoadingProgress show = {loadingInProgress} />
+                    </ListItem>
+                </List>
+           </div>
         )
     }
 }
@@ -123,13 +126,8 @@ const styles = theme => ({
     root: {
         width: '100%',
     },
-    ChatList: {
+    chatList: {
         marginBottom: theme.spacing(2),
-    },
-    addChatroomButton: {
-        position: 'absolute',
-        right: theme.spacing(3),
-        bottom: theme.spacing(1),
     }
 });
 

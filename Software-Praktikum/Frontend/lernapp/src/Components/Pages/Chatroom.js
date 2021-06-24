@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles, Typography, TableContainer, Table, TableHead, TableCell, Paper, TableRow, TableBody, Link, Grid } from '@material-ui/core';
 
 import Message from '../Message';
+import MessageBO from '../../API/MessageBO'
 import { blue, red } from '@material-ui/core/colors';
 import { LernappAPI } from '../../API';
 
@@ -15,16 +16,14 @@ class Chatroom extends Component{
     constructor(props){
         super(props);
         this.state = {
-            id: null,
             Messages: [],
             loadingInProgress: false,
             error: null
         }
     }
 
-
     get_Messages = () => {
-        LernappAPI.getAPI().get_MessagesForChatroom(1).then(MessageBOs =>
+        LernappAPI.getAPI().get_MessageByRoom(1).then(MessageBOs =>
             this.setState({
                 Messages: MessageBOs,
                 loadingInProgress: false,
@@ -46,6 +45,15 @@ class Chatroom extends Component{
         this.get_Messages()
     }
 
+    componentDidUpdate(){
+
+    }
+
+    //Input wird zu MessageBO umgewandelt und an die Datenbank geschickt
+    sendMessageButtonClicked = (event) => {
+        let message = new MessageBO()
+        LernappAPI.getAPI().add_Message(message);
+    }
     
 
     render_messages() {
@@ -93,14 +101,17 @@ class Chatroom extends Component{
 
         return(
             <div>
+                //Die Nachrichten des Chats hier
                 <div id="chat">
-                    
+
                 </div>
+
+                //Eingabefeld für neue Nachrichten
                 <div className="input">
                     <TextField/>
                 </div>
                 <div className="send">
-                    <Button onClick={this.update_messages}>Senden</Button>
+                    <Button className={classes.addMessageButton} variant='contained' onClick={this.sendMessageButtonClicked}>Senden</Button>
                     <Button onClick={this.update_messages}>Updaten</Button>
                 </div>
             </div>

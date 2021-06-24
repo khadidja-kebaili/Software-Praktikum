@@ -173,7 +173,7 @@ export default class LernappAPI{
               'Accept': 'application/json, text/plain',
               'Content-type': 'application/json',
             },
-            body: JSON.stringify(profileBO)
+            body: JSON.stringify(chataccess)
            
           }).then((responseJSON) => { 
             let responseChataccess = ChataccessBO.fromJSON(responseJSON)[0];
@@ -194,18 +194,18 @@ export default class LernappAPI{
 
     get_GroupchatsByProfil(id){
         return this.#fetchAdvanced(this.#get_GroupchatsByProfilURL(id)).then((responseJSON) => {
-            let responseChataccess = ChataccessBO.fromJSON(responseJSON);
+            let responseChatroom = ChatroomBO.fromJSON(responseJSON);
             return new Promise(function (resolve) {
-                resolve(responseChataccess);
+                resolve(responseChatroom);
             })
         })
     }
 
     get_SinglechatsByProfil(id){
         return this.#fetchAdvanced(this.#get_SinglechatsByProfilURL(id)).then((responseJSON) => {
-            let responseChataccess = ChataccessBO.fromJSON(responseJSON);
+            let responseChatroom = ChatroomBO.fromJSON(responseJSON);
             return new Promise(function (resolve) {
-                resolve(responseChataccess);
+                resolve(responseChatroom);
             })
         })
     }
