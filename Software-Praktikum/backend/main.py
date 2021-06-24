@@ -207,7 +207,7 @@ class Member(Resource):
 @api.route('/group/<int:id>/members/<int:memberid>')
 class MemberById(Resource):
     @api.marshal_with(member)
-    def delete(self,id, memberid):     #neue Member hinzufügen
+    def delete(self,id, memberid):     # Member löschen
         adm = Businesslogik()
         group=adm.get_group_by_gruppenid(id)
         if group is None:
