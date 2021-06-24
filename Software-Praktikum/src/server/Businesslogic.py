@@ -255,17 +255,16 @@ class Businesslogic (object):
             deltatime = abs((element - today).days)
             if deltatime > 3:
                 self.delete_request(request)
-    
+
     #Methoden für Message
     def create_message(self, profilID, room, text):
-        message = MessageBO()
-        message.set_profilID(profilID)
-        message.set_room(room)
-        message.set_text(text)
-        message.set_id(1)
+        message = MessageBO();
+        message.set_profilID(profilID);
+        message.set_room(room);
+        message.set_text(text);
 
         with MessageMapper() as mapper:
-            return mapper.insert(message)
+            return mapper.insert(message);
 
     def get_message_by_id(self, id):
         with MessageMapper() as mapper:
@@ -285,7 +284,7 @@ class Businesslogic (object):
     
     #def get_room_by_user(self, id):
     #    with MessageMapper() as mapper:
-    #        return mapper.find_associatedRooms(id)
+    #        return mapper.find_associatedRooms(id);
 
     def delete_message(self, id):
         with MessageMapper() as mapper:
@@ -341,6 +340,11 @@ class Businesslogic (object):
 
     def get_profils_by_room(self, id):
         with ChatAccessMapper() as mapper:
+            return mapper.get_groupmembers(id)
+
+    def delete_chatacces_by_profil_room(self, profil, room):
+        with ChatAccessMapper() as mapper:
+            return mapper.delete_by_room_and_profilID(profil, room)
             return mapper.get_groupmembers(id)
 
     def get_groups_for_profile(self,id):

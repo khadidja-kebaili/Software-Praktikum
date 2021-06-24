@@ -4,7 +4,7 @@ from src.server.bo.ChatroomBO import ChatroomBO
 class ChatroomMapper(Mapper):
 
     def __init__(self):
-        super().__init__()
+        super().__init__();
 
     def insert(self, chatroom):
         cursor = self._cnx.cursor()

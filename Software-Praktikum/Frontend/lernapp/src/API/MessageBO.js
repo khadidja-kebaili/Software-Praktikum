@@ -37,14 +37,6 @@ export default class MessageBO extends BusinessObject {
         return this.text;
     }
 
-    set_time(time){
-        this.time = time;
-    }
-
-    get_time(){
-        return this.time;
-    }
-
     static fromJSON(message){
         let result = [];
 

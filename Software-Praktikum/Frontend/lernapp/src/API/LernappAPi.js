@@ -277,8 +277,8 @@ export default class LernappAPI {
         'Content-type': 'application/json',
       },
       body: JSON.stringify(profileBO)
-     
-    }).then((responseJSON) => { 
+
+    }).then((responseJSON) => {
       // We always get an array of CustomerBOs.fromJSON
       let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
       // console.info(accountBOs);

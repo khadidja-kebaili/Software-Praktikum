@@ -3,8 +3,8 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles, Typography, TableContainer, Table, TableHead, TableCell, Paper, TableRow, TableBody, Link, Grid } from '@material-ui/core';
 
-import fakebackend from '../fake-backend.json'
 import Message from '../Message';
+import MessageBO from '../../API/MessageBO'
 import { blue, red } from '@material-ui/core/colors';
 import { LernappAPI } from '../../API';
 
@@ -13,6 +13,56 @@ import { LernappAPI } from '../../API';
  */
 class Chatroom extends Component{
 
+    constructor(props){
+        super(props);
+        this.state = {
+            Messages: [],
+            loadingInProgress: false,
+            error: null
+        }
+    }
+
+    get_Messages = () => {
+        LernappAPI.getAPI().get_MessageByRoom(1).then(MessageBOs =>
+            this.setState({
+                Messages: MessageBOs,
+                loadingInProgress: false,
+                error: null
+            })).catch(e =>
+                this.setState({
+                    Messages: [],
+                    loadingInProgress: false,
+                    error: e
+                })
+            )
+        this.setState({
+            loadingInProgress: true,
+            error: null
+        })         
+    }
+
+    componentDidMount(){
+        this.get_Messages()
+    }
+
+    componentDidUpdate(){
+
+    }
+
+    //Input wird zu MessageBO umgewandelt und an die Datenbank geschickt
+    sendMessageButtonClicked = (event) => {
+        /**
+         * Curerent User
+         * Current Room
+         * Input from Textfield
+         */
+        let message = new MessageBO(
+            1,
+            2,
+            "Test"
+        )
+        LernappAPI.getAPI().add_Message(message);
+    }
     
 
     render_messages() {
@@ -21,7 +71,7 @@ class Chatroom extends Component{
         //var messageMapper = new MessageMapper();
         //var res = messageMapper.find_by_room(this.get_id);
         
-        //MessageBO müssen aus der Datenbank geholt werden -> TODO
+        //MessageBO müssen aus der Datenbank geholt werden ->
 
         //Testversion um Methode zu testen
         var res = [];
@@ -55,16 +105,22 @@ class Chatroom extends Component{
     }
 
     render(){
+        const {Messages, loadingInProgress, error} = this.state;
+        const {classes} = this.props;
+
         return(
             <div>
+                //Die Nachrichten des Chats hier
                 <div id="chat">
-                    
+
                 </div>
+
+                //Eingabefeld für neue Nachrichten
                 <div className="input">
                     <TextField/>
                 </div>
                 <div className="send">
-                    <Button onClick={this.update_messages}>Senden</Button>
+                    <Button className={classes.addMessageButton} variant='contained' onClick={this.sendMessageButtonClicked}>Senden</Button>
                     <Button onClick={this.update_messages}>Updaten</Button>
                 </div>
             </div>
@@ -81,4 +137,4 @@ const styles = theme => ({
         }
 })
 
-export default (withStyles(styles)(Chatroom));
+export default withStyles(styles)(Chatroom);

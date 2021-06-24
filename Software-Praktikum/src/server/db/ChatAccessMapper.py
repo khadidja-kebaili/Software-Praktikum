@@ -1,9 +1,10 @@
-from src.server.db.Mapper import Mapper
-from src.server.bo.ChatAccessBO import ChatAccessBO
+from src.server.db.Mapper import Mapper;
+from src.server.bo.ChatAccessBO import ChatAccessBO;
+from src.server.bo.ChatroomBO import ChatroomBO;
 
 class ChatAccessMapper(Mapper):
     def __init__(self):
-        super().__init__()
+        super().__init__();
 
     def insert(self, access):
         cursor = self._cnx.cursor()
@@ -32,7 +33,7 @@ class ChatAccessMapper(Mapper):
     def find_all(self):
         res = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * FROM lernapp.chataccess")
+        cursor.execute("SELECT id, profilID, room, chattype FROM chataccess");
         tuples = cursor.fetchall()
 
         for(id, profilID, room, chattype) in tuples:
@@ -73,17 +74,26 @@ class ChatAccessMapper(Mapper):
     def find_groupchat_by_profil(self, profilID):
         res = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, profilID, room, chattype FROM lernapp.chataccess WHERE profilID={} AND chattype='g'".format(profilID)
+        command = "SELECT room FROM chataccess WHERE profilID={} AND chattype='g'".format(profilID)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, profilID, room, chattype) in tuples:
-            access = ChatAccessBO()
-            access.set_id(id)
-            access.set_profilID(profilID)
-            access.set_room(room)
-            access.set_chattype(chattype)
-            res.append(access)
+        holder = ()
+        res2 = list(holder)
+        for elem in tuples:
+            for i in elem:
+                res2.append(i)
+        holder = tuple(res2)
+
+        command2 = "SELECT id, chattype FROM chatroom WHERE id IN {}".format(holder)
+        cursor.execute(command2)
+        holder = cursor.fetchall()
+
+        for (id, chattype) in holder:
+            room = ChatroomBO()
+            room.set_id(id)
+            room.set_chattype(chattype)
+            res.append(room)
 
         self._cnx.commit()
         cursor.close()
@@ -93,22 +103,30 @@ class ChatAccessMapper(Mapper):
     def find_singlechat_by_profil(self, profilID):
         res = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, profilID, room, chattype FROM lernapp.chataccess WHERE profilID={} AND chattype='e'".format(profilID)
+        command = "SELECT room FROM chataccess WHERE profilID={} AND chattype='e'".format(profilID)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, profilID, room, chattype) in tuples:
-            access = ChatAccessBO()
-            access.get_id(id)
-            access.get_profilID(profilID)
-            access.get_room(room)
-            access.get_chattype(chattype)
-            res.append(access)
+        holder = ()
+        res2 = list(holder)
+        for elem in tuples:
+            for i in elem:
+                res2.append(i)
+        holder = tuple(res2)
+
+        command2 = "SELECT id, chattype FROM chatroom WHERE id IN {}".format(holder)
+        cursor.execute(command2)
+        holder = cursor.fetchall()
+
+        for (id, chattype) in holder:
+            room = ChatroomBO()
+            room.set_id(id)
+            room.set_chattype(chattype)
+            res.append(room)
 
         self._cnx.commit()
         cursor.close()
-        return res    
-
+        return res
     #gibt die Gruppenmitglieder einer Gruppe zurück
     def get_groupmembers(self, room):
         res=[]
@@ -128,6 +146,13 @@ class ChatAccessMapper(Mapper):
         self._cnx.commit()
         cursor.close()
         return res
+
+    def delete_by_room_and_profilID(self, profil, room):
+        cursor = self._cnx.cursor();
+        command = "DELETE FROM chataccess WHERE profilID={} AND room={}".format(profil, room)
+        cursor.execute(command)
+        self._cnx.commit()
+        cursor.close()
 
     def delete(self, access):
         cursor = self._cnx.cursor()
