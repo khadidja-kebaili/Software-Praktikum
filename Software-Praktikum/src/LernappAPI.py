@@ -1,14 +1,14 @@
 from flask import Flask
 from flask_restx import Resource, Api, fields
-from src.server.Businesslogic import Businesslogic
-from src.server.bo.ProfileBO import Studentprofile
-from src.server.bo.RequestBO import Request
-from src.server.bo.GroupBO import Group
+from server.Businesslogic import Businesslogic
+from server.bo.ProfileBO import Studentprofile
+from server.bo.RequestBO import Request
+from server.bo.GroupBO import Group
 from flask_cors import CORS
 # from SecurityDecorator import secured
-from src.server.bo.MessageBO import MessageBO
-from src.server.bo.ChatroomBO import ChatroomBO
-from src.server.bo.ChatAccessBO import ChatAccessBO
+from server.bo.MessageBO import MessageBO
+from server.bo.ChatroomBO import ChatroomBO
+from server.bo.ChatAccessBO import ChatAccessBO
 
 
 app = Flask(__name__)

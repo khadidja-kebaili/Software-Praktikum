@@ -1,4 +1,4 @@
-from src.server.bo.Businessobject import Businessobject
+from server.bo.Businessobject import Businessobject
 
 class Request(Businessobject):
 

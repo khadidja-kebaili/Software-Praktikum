@@ -1,16 +1,16 @@
-from src.server.db.RequestMapper import RequestMapper
-from src.server.bo.RequestBO import Request
+from server.db.RequestMapper import RequestMapper
+from server.bo.RequestBO import Request
 from datetime import datetime
-from src.server.bo.ProfileBO import Studentprofile
-from src.server.bo.GroupBO import Group
-from src.server.db.Profilemapper import StudentprofileMapper
-from src.server.db.GroupMapper import GroupMapper
-from src.server.bo.ChatAccessBO import ChatAccessBO
-from src.server.db.ChatAccessMapper import ChatAccessMapper
-from src.server.bo.MessageBO import MessageBO
-from src.server.db.MessageMapper import MessageMapper
-from src.server.bo.ChatroomBO import ChatroomBO
-from src.server.db.ChatroomMapper import ChatroomMapper
+from server.bo.ProfileBO import Studentprofile
+from server.bo.GroupBO import Group
+from server.db.Profilemapper import StudentprofileMapper
+from server.db.GroupMapper import GroupMapper
+from server.bo.ChatAccessBO import ChatAccessBO
+from server.db.ChatAccessMapper import ChatAccessMapper
+from server.bo.MessageBO import MessageBO
+from server.db.MessageMapper import MessageMapper
+from server.bo.ChatroomBO import ChatroomBO
+from server.db.ChatroomMapper import ChatroomMapper
 
 
 class Businesslogic (object):
@@ -92,10 +92,6 @@ class Businesslogic (object):
     def get_group_by_id(self, number):
         with GroupMapper() as mapper:
             return mapper.find_by_key(number)
-
-    def get_all_groups(self):
-        with GroupMapper() as mapper:
-            return mapper.find_all()
 
     def save_group(self, group):
         with GroupMapper() as mapper:
@@ -324,9 +320,9 @@ class Businesslogic (object):
         with ChatAccessMapper() as mapper:
             return mapper.delete_by_room_and_profil_id(profil, room)
 
-    def get_groups_for_profile(self,id):
-        groups = [self.get_profils_by_room(id)]
-        return groups
+    # def get_groups_for_profile(self,id):
+    #    groups = [self.get_profils_by_room(id)]
+    #    return groups
 
     def delete_chataccess(self, access):
         with ChatAccessMapper() as mapper:

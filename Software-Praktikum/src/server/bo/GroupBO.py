@@ -1,12 +1,12 @@
-from src.server.bo.Businessobject import Businessobject
+from server.bo.Businessobject import Businessobject
 
 class Group(Businessobject):
     def __init__(self):
         super().__init__()
 
-        self.description = ""
         self.groupname = "",
         self.admin = "",
+        self.description = "",
         self.chatid = "",
 
     def set_description(self, value):
@@ -36,7 +36,7 @@ class Group(Businessobject):
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "Info:{}, {}, {}, {}".format(self.get_description(), self.get_groupname(), self.get_admin(),
+        return "Groupname:{}, admin:{}, description{}, chatid: {}".format(self.get_groupname(),self.get_admin(),  self.get_description(),
                                             self.get_chatid())
 
     @staticmethod
@@ -44,8 +44,8 @@ class Group(Businessobject):
         """Umwandeln eines Python dict() in einen User()."""
         obj = Group()
         obj.set_id(dictionary["id"])
-        obj.set_description(dictionary["description"])
         obj.set_groupname(dictionary["groupname"])
         obj.set_admin(dictionary["admin"])
+        obj.set_description(dictionary["description"])
         obj.set_chatid(dictionary["chatid"])
         return obj
