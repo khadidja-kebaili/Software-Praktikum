@@ -12,16 +12,14 @@ from src.server.db.MessageMapper import MessageMapper
 from src.server.bo.ChatroomBO import ChatroomBO
 from src.server.db.ChatroomMapper import ChatroomMapper
 
-#
 # def is_it_a_mutal_request(function):
-#     def wrapper(requester, requested):
+#     def wrapper(requester, requested, requesttype):
 #         match = False
 #         with RequestMapper as mapper:
-#         requests = [mapper.find_all()]
+#             requests = mapper.find_all()
 #         for element in requests:
-#             for j in element:
-#                 if j.get_requested_by() == requested:
-#                     match = True
+#             if element.get_requested_by() == requested:
+#                 match = True
 #         if match == False:
 #             # return function()
 #             print('Gut wurde erstellt')
@@ -30,31 +28,17 @@ from src.server.db.ChatroomMapper import ChatroomMapper
 #             # return function()
 #     return wrapper
 
+
 class Businesslogic (object):
 
     def __init__(self):
         pass
 
-    def create_user(self, name, user_id, email):
-        user = User()
-        user.set_name(name)
-        user.set_user_id(user_id)
-        user.set_email(email)
-        with UserMapper() as mapper:
-            return mapper.insert(user)
-
     # def get_user_by_google_user_id(self, id):
     #     with StudentprofileMapper() as mapper:
-    #     user = User()
-    #     user.set_name(name)
-    #     user.set_user_id(user_id)
-    #     user.set_email(email)
-    #     with UserMapper() as mapper:
-    #         return mapper.insert(user)
-    #
-    # def get_user_by_google_user_id(self, id):
-    #     with UserMapper() as mapper:
     #         return mapper.find_by_google_user_id(id)
+
+    '''Profil-Methoden'''
 
     def create_profile(self, first_name, last_name, age, semester, major, hobbys, interests,
                        personality, learnstyle, studytime, studyplace, studyfrequence, workexperience):
@@ -92,6 +76,8 @@ class Businesslogic (object):
         with StudentprofileMapper() as mapper:
             mapper.delete(studentprofile)
 
+    '''Gruppen-Methoden'''
+
     def create_group(self, groupname, admin, description):
         chatroom = self.create_chatroom('G')
         group = Group()
@@ -124,12 +110,13 @@ class Businesslogic (object):
             mapper.delete(group)
 
 
+
     '''Hier beginnt das eigentliche Matchmaking'''
     '''Zunächst einmal wird der Score, also der Integer-Wert wie gut 2 Profile zusammenpassen berechnet
     Dazu gibt es die Methoden get_learning_habits und set_score'''
 
-    '''Zuerst werden die für den Profilvergleich relevanten Attribute der Profile als sogenannte learning-habits
-    zusammengefasst. Dazu zählen Semester (1-7), Lernzeitraum (studytime), Lernort (studyplace), Lerntyp (learnstyle),
+    '''Zuerst werden die für den Profilvergleich relevanten Attribute der Profile als sogenannte learning-habits 
+    zusammengefasst. Dazu zählen Semester (1-7), Lernzeitraum (studytime), Lernort (studyplace), Lerntyp (learnstyle), 
      Studiengang (major) und Lernfrequenz (studyfrequenz)
      Diese Attribute werden als Liste realisiert, um den späteren verlgeichen so effizient und performant wie möglich
      zu gestalten.'''
@@ -141,9 +128,14 @@ class Businesslogic (object):
         return learning_habbits
 
     '''Als nächstes werden die Lerngewohnheiten von einem Profil mit einem anderen verglichen. Dazu gibt es einen
+
     match_score. Jedesmal wenn ein Objekt in der Liste der Lerngewohnheiten des 1. Studentens auch in der Liste
     der Lerngewohnheiten des 2. Studentens ist, so steigt der match_score um eins.
     D.h. wenn die beiden Profile 3 gleiche Werte haben (beide sind bspw. im gleichen Semester, gleicher Studiengang
+
+    match_score. Jedesmal wenn ein Objekt in der Liste der Lerngewohnheiten des 1. Studentens auch in der Liste 
+    der Lerngewohnheiten des 2. Studentens ist, so steigt der match_score um eins.
+    D.h. wenn die beiden Profile 3 gleiche Werte haben (beide sind bspw. im gleichen Semester, gleicher Studiengang 
     und wollen gleich oft in der Woche lernen), so ist der Score = 3.'''
     def set_score(self, profile1, profile2):
         match_score = 0
@@ -180,30 +172,38 @@ class Businesslogic (object):
             new_sorted_list.append(element)
         return new_sorted_list
 
-    def is_it_a_mutal_request(self, function):
-        def wrapper(requester, requested):
-            match = False
-            requests = [self.get_request_of_profile(requester)]
-            for element in requests:
-                for j in element:
-                    if j.get_requested_by() == requested:
-                        match = True
-            if match == False:
-                return function()
-                print('Gut wurde erstellt')
-            else:
-                print('Hey, this student has already sent a request to you! Why don´t you start a chat?')
-                return function()
-        return wrapper()
+    #
+    # def is_it_a_mutal_request(self, function):
+    #     def wrapper(requester, requested):
+    #         match = False
+    #         requests = [self.get_request_of_profile(requester)]
+    #         for element in requests:
+    #             for j in element:
+    #                 if j.get_requested_by() == requested:
+    #                     match = True
+    #         if match == False:
+    #             return function()
+    #             print('Gut wurde erstellt')
+    #         else:
+    #             print('Hey, this student has already sent a request to you! Why don´t you start a chat?')
+    #             return function()
+    #     return wrapper()
 
     # @is_it_a_mutal_request
-    def create_request(self, requested_by, requested):
-        request = Request()
-        request.set_requested(requested)
-        request.set_requested_by(requested_by)
-        with RequestMapper() as mapper:
-            return mapper.insert(request)
-
+    def create_request(self, requested_by, requested, requesttype):
+        requests = self.get_all_requests()
+        request_list = []
+        for element in requests:
+            if (element.get_requested_by() == requested_by) and (element.get_requested() == requested) and (
+                    element.get_requesttype() == requesttype):
+                request_list.append(element)
+        if len(request_list) == 0:
+            request = Request()
+            request.set_requested_by(requested_by)
+            request.set_requested(requested)
+            request.set_requesttype(requesttype)
+            with RequestMapper() as mapper:
+                mapper.insert(request)
 
     def get_all_requests(self):
         with RequestMapper() as mapper:
@@ -212,6 +212,10 @@ class Businesslogic (object):
     def get_request_by_id(self, number):
         with RequestMapper() as mapper:
             return mapper.find_by_key(number)
+
+    def get_request_by_type(self, type):
+        with RequestMapper() as mapper:
+            return mapper.find_by_type(type)
 
     def get_request_of_profile(self, number):
         all_requests = self.get_all_requests()
@@ -222,21 +226,19 @@ class Businesslogic (object):
         return request
 
     def get_profiles_of_request(self, id):
-        requests_of_profiles= self.get_request_of_profile(id)
-        requested_by = []
-        requester_id = []
-        for element in requests_of_profiles:
-            requested_by.append(element.get_id())
-        for element in requested_by:
-            requester_id.append(self.get_profile_by_id(element))
-        return requester_id
+        requests_of_profile = self.get_request_of_profile(id)
+        profile_ids_of_requester = []
+        profiles_of_requester = []
+        for element in requests_of_profile:
+            profile_ids_of_requester.append(element.get_requested_by())
+        for element in profile_ids_of_requester:
+            profiles_of_requester.append(self.get_profile_by_id(element))
+        return profiles_of_requester
 
     def delete_request(self, request):
         with RequestMapper() as mapper:
             mapper.delete(request)
 
-    '''Hier wird eine Request gelöscht, indem man der Methode 2 Ids übergibt: Die des Requested und die des
-    Requested_by.'''
     def delete_request_by_ids(self, requested_id, requsted_by_id):
         all_requests = [self.get_all_requests()]
         for element in all_requests:
@@ -244,26 +246,16 @@ class Businesslogic (object):
                 if request.get_requested_by() == requsted_by_id and request.get_requested() == requested_id:
                     self.delete_request(request)
 
-    def __check_timedelta_of_request__(self):
-        request = self.get_all_requests()
-        request_date = []
-        for element in request:
-            request_date.append(element.get_request_date())
-        today = datetime.today()
-        for element in request_date:
-            deltatime = abs((element - today).days)
-            if deltatime > 3:
-                self.delete_request(request)
+# Methoden für Message Message
 
-    #Methoden für Message
     def create_message(self, profilID, room, text):
-        message = MessageBO();
-        message.set_profilID(profilID);
-        message.set_room(room);
-        message.set_text(text);
+        message = MessageBO()
+        message.set_profilID(profilID)
+        message.set_room(room)
+        message.set_text(text)
 
         with MessageMapper() as mapper:
-            return mapper.insert(message);
+            return mapper.insert(message)
 
     def get_message_by_id(self, id):
         with MessageMapper() as mapper:
@@ -283,7 +275,7 @@ class Businesslogic (object):
 
     #def get_room_by_user(self, id):
     #    with MessageMapper() as mapper:
-    #        return mapper.find_associatedRooms(id);
+    #        return mapper.find_associatedRooms(id)
 
     def delete_message(self, id):
         with MessageMapper() as mapper:
@@ -344,11 +336,6 @@ class Businesslogic (object):
     def delete_chatacces_by_profil_room(self, profil, room):
         with ChatAccessMapper() as mapper:
             return mapper.delete_by_room_and_profilID(profil, room)
-            return mapper.get_groupmembers(id)
-
-    def get_groups_for_profile(self,id):
-        groups = [self.get_profils_by_room(id)]
-        return groups
 
     def delete_chataccess(self, access):
         with ChatAccessMapper() as mapper:
@@ -363,11 +350,10 @@ class Businesslogic (object):
             return mapper.find_by_last_name(last_name)
 
     def get_group_by_profileid(self, id):
-        access = [self.get_groupchataccess_by_profil(id)]
+        access = self.get_groupchataccess_by_profil(id)
         groups = []
         for element in access:
-            for j in element:
-                groups.append(self.get_group_by_id(j.get_room()))
+                groups.append(self.get_group_by_id(element.get_room()))
         return groups
 
 # Methoden für Message
@@ -376,7 +362,6 @@ class Businesslogic (object):
         message.set_profilID(profilID)
         message.set_room(room)
         message.set_text(text)
-        message.set_id(1)
 
         with MessageMapper() as mapper:
             return mapper.insert(message)
@@ -399,17 +384,15 @@ class Businesslogic (object):
 
     # def get_room_by_user(self, id):
     #    with MessageMapper() as mapper:
-    #        return mapper.find_associatedRooms(id);
+    #        return mapper.find_associatedRooms(id)
 
     def delete_message(self, id):
         with MessageMapper() as mapper:
             return mapper.delete(id)
 
     # Methoden für Chatroom
-    def create_chatroom(self, name, type):
+    def create_chatroom(self, type):
         room = ChatroomBO()
-        room.set_id(1)
-        room.set_name(name)
         room.set_chattype(type)
 
         with ChatroomMapper() as mapper:
@@ -490,11 +473,17 @@ class Businesslogic (object):
         with GroupMapper() as mapper:
             return mapper.find_by_key(number)
 
-    # def get_group_for_profile(self):
-    #     groups = [
-    #         {
-    #             "id": "1",
-    #             "groupname": "Python",
-    #             "description": "Gruppe für Python",
-    #         }]
-    #     return groups
+    @staticmethod
+    def __check_timedelta_of_request__():
+        with RequestMapper() as mapper:
+            request = mapper.find_all()
+        request_date = []
+        for element in request:
+            request_date.append(element.get_request_date())
+        today = datetime.today()
+        for element in request_date:
+            deltatime = abs((element - today).days)
+            if deltatime > 3:
+                mapper.delete(element)
+            else:
+                print('something')
