@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-import LernappAPI from '../../API/LernappAPI';
+// import LernappAPI from '../../API/LernappAPI';
+import LernappAPI from './../../API/LernappAPi'
 import MatchListEntry from './MatchListEntry';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -20,15 +21,15 @@ class MatchList extends Component {
     }
         //Lifecycle Methode wird aufgerufen, wenn die Komponente in den DOM Browser eingefügt wird
         componentDidMount(){
-            this.getMatchmaking();
+            this.getMatchmaker();
         }
         
         
     
     // Die Funktion getMatchmaking() soll die matches anzeigen
-    getMatchmaking =() => {
+    getMatchmaker =() => {
         
-        LernappAPI.getAPI().getMatchmaking(this.state.currentUser).then(profileBOs =>
+        LernappAPI.getAPI().getMatches(this.state.currentUser).then(profileBOs =>
             this.setState({
                 matches:  profileBOs,
         

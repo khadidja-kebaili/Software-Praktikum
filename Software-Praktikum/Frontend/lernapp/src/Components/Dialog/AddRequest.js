@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import RequestBO from '../../API/RequestBO';
-import LernappAPI from '../../API/LernappAPI';
+import LernappAPI from '../../API/LernappAPi';
 
 class AddRequest extends Component {
     constructor(props){

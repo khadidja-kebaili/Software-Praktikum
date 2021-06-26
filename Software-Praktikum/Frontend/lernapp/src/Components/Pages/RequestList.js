@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-import LernappAPI from '../../API/LernappAPI';
+// import LernappAPI from '../../API/LernappAPI';
+import LernappAPI from '../../API/LernappAPi';
 import RequestListEntry from './RequestListEntry';
 import AddIcon from '@material-ui/icons/Add';
 

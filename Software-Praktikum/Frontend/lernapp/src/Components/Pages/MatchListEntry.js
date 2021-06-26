@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import LernappAPI from '../../API/LernappAPI';
+import LernappAPI from '../../API/LernappAPi';
 import AddRequest from '../Dialog/AddRequest';
 
 
@@ -44,7 +44,7 @@ class MatchListEntry extends Component{
     }
 }
 
-export default MatchListEntry
+export default MatchListEntry;
 
 // import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
