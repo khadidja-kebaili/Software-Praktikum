@@ -1,5 +1,6 @@
-from src.server.db.Mapper import Mapper;
-from src.server.bo.MessageBO import MessageBO;
+from src.server.db.Mapper import Mapper
+from src.server.bo.MessageBO import MessageBO
+
 
 class MessageMapper(Mapper):
     def __init__(self):
@@ -19,7 +20,7 @@ class MessageMapper(Mapper):
         command = "INSERT INTO messages (id, profilID, room, text) VALUES (%s, %s, %s, %s)"
         data = (
             message.get_id(),
-            message.get_profilID(),
+            message.get_profil_id(),
             message.get_room(),
             message.get_text(),
         )
@@ -35,10 +36,10 @@ class MessageMapper(Mapper):
         cursor.execute("SELECT id, profilID, room, text FROM messages")
         tuples = cursor.fetchall()
 
-        for(id, profilID, room, text) in tuples:
+        for(id, profil_id, room, text) in tuples:
             message = MessageBO()
             message.set_id(id)
-            message.set_profilID(profilID)
+            message.set_profil_id(profil_id)
             message.set_room(room)
             message.set_text(text)
             res.append(message)
@@ -55,10 +56,10 @@ class MessageMapper(Mapper):
         tuples = cursor.fetchall()
     
         try:
-            (id, profilID, room, text) = tuples[0]
+            (id, profil_id, room, text) = tuples[0]
             message = MessageBO()
             message.set_id(id)
-            message.set_profilID(profilID)
+            message.set_profil_id(profil_id)
             message.set_room(room)
             message.set_text(text)
             res = message
@@ -69,18 +70,18 @@ class MessageMapper(Mapper):
         cursor.close()
         return res
     
-    #alle Messages welche zu einem Raum gehören werden zurück gegeben
-    def find_by_room(self, roomID):
+    # alle Messages welche zu einem Raum gehören werden zurück gegeben
+    def find_by_room(self, room):
         res = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, profilID, room, text FROM messages WHERE room={} ORDER BY id".format(roomID)
+        command = "SELECT id, profilID, room, text FROM messages WHERE room={} ORDER BY id".format(room)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, profilID, room, text) in tuples:
+        for (id, profil_id, room, text) in tuples:
             message = MessageBO()
             message.set_id(id)
-            message.set_profilID(profilID)
+            message.set_profil_id(profil_id)
             message.set_room(room)
             message.set_text(text)
             res.append(message)
@@ -89,15 +90,15 @@ class MessageMapper(Mapper):
         cursor.close()
         return res
 
-    #Was wenn die Person gelöscht wird aus der Gruppe?
-    #def find_associatedRooms(self, profilID):
+    # Was wenn die Person gelöscht wird aus der Gruppe?
+    # def find_associatedRooms(self, profilID):
     #    res = [];
     #    cursor = self._cnx.cursor();
     #    command = "SELECT DISTINCT room FROM messages WHERE profilID={}".format(profilID);
     #    cursor.execute(command);
     #    tuples = cursor.fetchall();
 
-        #Nur die RaumID soll in dem Array gespeichert werden
+    # Nur die RaumID soll in dem Array gespeichert werden
     #    for(room) in tuples:
     #        res.append(room);
         

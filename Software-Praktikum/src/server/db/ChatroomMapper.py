@@ -1,10 +1,11 @@
 from src.server.db.Mapper import Mapper
 from src.server.bo.ChatroomBO import ChatroomBO
 
+
 class ChatroomMapper(Mapper):
 
     def __init__(self):
-        super().__init__();
+        super().__init__()
 
     def insert(self, chatroom):
         cursor = self._cnx.cursor()
@@ -59,10 +60,10 @@ class ChatroomMapper(Mapper):
         tuples = cursor.fetchall()
     
         try:
-            (id, type) = tuples[0]
+            (id, chattype) = tuples[0]
             room = ChatroomBO()
             room.set_id(id)
-            room.set_chattype(type)
+            room.set_chattype(chattype)
             res = room
         except IndexError:
             res = None
