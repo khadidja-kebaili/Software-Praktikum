@@ -42,9 +42,9 @@ profile = api.inherit('Profil', bo, {
 })
 
 group = api.inherit('Group', bo, {
-    'groupname':fields.String(attribute = 'groupname', description = 'groupname'),
-    'admin': fields.Integer(attribute = 'admin', description = 'admin'),
-    'description': fields.String(attribute = 'description', description = 'description'),
+    'groupname':fields.String(attribute='groupname', description='groupname'),
+    'admin': fields.Integer(attribute='admin', description='admin'),
+    'description': fields.String(attribute='description', description='description'),
     'chatroomID': fields.Integer(attribute='chatroomID', description='chatroomID'),
 })
 
@@ -54,19 +54,19 @@ member = api.inherit('Member', bo, {
 })
 
 message = api.inherit('Message', bo, {
-    'profilID': fields.Integer(attribute='profilID',description='ID des Senders'),
+    'profilID': fields.Integer(attribute='profilID', description='ID des Senders'),
     'room': fields.Integer(attribute='room', description="ID des Chatraums"),
     'text': fields.String(attribute='text', description='Text')
 })
 
 chatroom = api.inherit('Chatroom', bo, {
-    'chattype':fields.String(attribute='chattype', description = 'Art des Chatraums (e-Einzel, g-Gruppe)')
+    'chattype': fields.String(attribute='chattype', description='Art des Chatraums (e-Einzel, g-Gruppe)')
 })
 
 chataccess = api.inherit('Chataccess', bo, {
     'profilID': fields.Integer(attribute='profilID', description='ID des Profils'),
     'room': fields.Integer(attribute='room', description='ID des Raums'),
-    'chattype':fields.String(attribute='chattype', description='Art des Chatraums (e-Einzel, g-Gruppe)')
+    'chattype': fields.String(attribute='chattype', description='Art des Chatraums (e-Einzel, g-Gruppe)')
 })
 
 matchmaker_profile = api.inherit('Profil', bo, {
@@ -88,7 +88,8 @@ request = api.inherit('Request', bo, {
     # 'request_date': fields.String(attribute = 'request_date', description = 'request_date')
 })
 
-#Message
+
+# Message
 @api.route('/message')
 class MessageOperations(Resource):
     @api.marshal_with(message)
@@ -107,8 +108,8 @@ class MessageOperations(Resource):
     @api.marshal_list_with(message)
     def get(self):
         adm = Businesslogic()
-        message = adm.get_all_messages()
-        return message
+        msg = adm.get_all_messages()
+        return msg
 
 
 @api.route('/message/<int:id>')
@@ -117,14 +118,14 @@ class MessageWithIDOperations(Resource):
     @api.marshal_with(message)
     def get(self, id):
         adm = Businesslogic()
-        message = adm.get_message_by_id(id)
-        return message
+        msg = adm.get_message_by_id(id)
+        return msg
 
     @api.marshal_with(message)
     def delete(self, id):
         adm = Businesslogic()
-        messages = adm.get_message_by_id(id)
-        adm.delete_message(messages)
+        msgs = adm.get_message_by_id(id)
+        adm.delete_message(msgs)
         return ''
 
     @api.marshal_with(message)
@@ -261,27 +262,37 @@ class FindMembers(Resource):
         return profiles
 
 
-@api.route('/chataccess_groupchat/<int:profil_id>')
-@api.param('profil_id', 'Id des Profils')
+@api.route('/chataccess_groupchat/<int:profilID>')
+@api.param('profilID', 'Id des Profils')
 class FindGroupchats(Resource):
     @api.marshal_with(chataccess)
-    def get(self, profil_id):
+    def get(self, profilID):
         adm = Businesslogic()
-        rooms = adm.get_groupchataccess_by_profil(profil_id)
+        rooms = adm.get_groupchataccess_by_profil(profilID)
         return rooms
 
 
-@api.route('/chataccess_singlechat/<int:profil_id>')
-@api.param('profil_id', 'Id des Profils')
+@api.route('/chataccess_singlechat/<int:profilID>')
+@api.param('profilID', 'Id des Profils')
 class FindSinglechats(Resource):
     @api.marshal_with(chataccess)
-    def get(self, profil_id):
+    def get(self, profilID):
         adm = Businesslogic()
-        rooms = adm.get_singlechataccess_by_profil(profil_id)
+        rooms = adm.get_singlechataccess_by_profil(profilID)
         return rooms
 
-#Profile
 
+@api.route('/chataccess-delete/<int:profilID>/<int:room>')
+@api.param('profilID', 'ID des Profils', 'room - ID des Raums')
+class DeleteTargetedChataccess(Resource):
+    @api.marshal_with(chataccess)
+    def delete(self, profilid, room):
+        adm = Businesslogic()
+        adm.delete_chatacces_by_profil_room(profilid, room)
+        return ''
+
+
+# Profile
 @ api.route('/profile')
 class ProfilOperations(Resource):
     @ api.marshal_with(profile)

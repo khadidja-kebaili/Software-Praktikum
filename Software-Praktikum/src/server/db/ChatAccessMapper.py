@@ -76,7 +76,7 @@ class ChatAccessMapper(Mapper):
     def find_groupchat_by_profil(self, profil_id):
         res = []
         cursor = self._cnx.cursor()
-        command = "SELECT room FROM chataccess WHERE profilID={} AND chattype='g'".format(profil_id)
+        command = "SELECT room FROM lernapp.chataccess WHERE profilID={} AND chattype='g'".format(profil_id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -87,7 +87,7 @@ class ChatAccessMapper(Mapper):
                 res2.append(i)
         holder = tuple(res2)
 
-        command2 = "SELECT id, chattype FROM chatroom WHERE id IN {}".format(holder)
+        command2 = "SELECT id, chattype FROM lernapp.chatroom WHERE id IN {}".format(holder)
         cursor.execute(command2)
         holder = cursor.fetchall()
 
@@ -99,7 +99,7 @@ class ChatAccessMapper(Mapper):
 
         self._cnx.commit()
         cursor.close()
-        return res
+        return red
 
     # gibt die Zweier-Chats des gegebenen Profils zurück
     def find_singlechat_by_profil(self, profil_id):
@@ -184,3 +184,4 @@ class ChatAccessMapper(Mapper):
         cursor.execute(command, data)
         self._cnx.commit()
         cursor.close()
+

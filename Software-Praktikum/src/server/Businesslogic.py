@@ -36,13 +36,13 @@ class Businesslogic (object):
     def __init__(self):
         pass
 
-    def create_user(self, name, user_id, email):
-        user = User()
-        user.set_name(name)
-        user.set_user_id(user_id)
-        user.set_email(email)
-        with UserMapper() as mapper:
-            return mapper.insert(user)
+    # def create_user(self, name, user_id, email):
+    #     user = User()
+    #     user.set_name(name)
+    #     user.set_user_id(user_id)
+    #     user.set_email(email)
+    #     with UserMapper() as mapper:
+    #         return mapper.insert(user)
 
     # def get_user_by_google_user_id(self, id):
     #     with StudentprofileMapper() as mapper:

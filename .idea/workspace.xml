@@ -19,13 +19,13 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/SW IX.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SW IX.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="95c87fdc-2f56-494b-808d-b619bba03ec6" name="Default Changelist" comment="npm create-creact app lernapp">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatAccessBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatAccessBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/ChatAccessMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/ChatAccessMapper.py" afterDir="false" />
     </list>
-    <list id="9e24f8e8-56c7-4fe3-8ca5-997fa447614c" name="Revert: " comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,6 +33,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1rAYkGgF0QWYo9XupnP14NYuSu0" />
   <component name="ProjectViewState">
@@ -56,19 +64,28 @@
       <recent name="C:\Users\khadi\WebstormProjects\Software-Praktikum\Software-Praktikum\Frontend\lernapp\src" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Software-Praktikum" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Software-Praktikum/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Software-Praktikum/src/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main_5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Software-Praktikum" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -93,17 +110,18 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.main_5" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="" />
+      <changelist id="95c87fdc-2f56-494b-808d-b619bba03ec6" name="Default Changelist" comment="npm create-creact app lernapp" />
       <created>1618420503629</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -126,18 +144,20 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.js" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="npm create-creact app lernapp" />
