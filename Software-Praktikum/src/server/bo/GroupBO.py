@@ -1,12 +1,12 @@
-from src.server.bo.Businessobject import Businessobject
+from server.bo.Businessobject import Businessobject
 
 class Group(Businessobject):
     def __init__(self):
         super().__init__()
 
         self.groupname = "",
-        self.description = "",
         self.admin = "",
+        self.description = "",
         self.chatid = "",
 
     def set_groupname(self, value):
@@ -36,7 +36,7 @@ class Group(Businessobject):
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "Info:{}, {}, {}, {}".format(self.get_groupname(),self.get_admin(),  self.get_description(),
+        return "Groupname:{}, admin:{}, description{}, chatid: {}".format(self.get_groupname(),self.get_admin(),  self.get_description(),
                                             self.get_chatid())
 
     @staticmethod

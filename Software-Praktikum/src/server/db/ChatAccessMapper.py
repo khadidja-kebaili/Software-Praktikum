@@ -1,7 +1,7 @@
-from src.server.db.Mapper import Mapper
-from src.server.bo.ChatAccessBO import ChatAccessBO
-from src.server.bo.ChatroomBO import ChatroomBO
-from src.server.bo.ProfileBO import Studentprofile
+from server.db.Mapper import Mapper
+from server.bo.ChatAccessBO import ChatAccessBO
+from server.bo.ChatroomBO import ChatroomBO
+from server.bo.ProfileBO import Studentprofile
 
 
 class ChatAccessMapper(Mapper):
