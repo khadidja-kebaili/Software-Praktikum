@@ -180,29 +180,37 @@ class Businesslogic (object):
             new_sorted_list.append(element)
         return new_sorted_list
 
-    def is_it_a_mutal_request(self, function):
-        def wrapper(requester, requested):
-            match = False
-            requests = [self.get_request_of_profile(requester)]
-            for element in requests:
-                for j in element:
-                    if j.get_requested_by() == requested:
-                        match = True
-            if match == False:
-                return function()
-                print('Gut wurde erstellt')
-            else:
-                print('Hey, this student has already sent a request to you! Why don´t you start a chat?')
-                return function()
-        return wrapper()
+    # def is_it_a_mutal_request(self, function):
+    #     def wrapper(requester, requested):
+    #         match = False
+    #         requests = [self.get_request_of_profile(requester)]
+    #         for element in requests:
+    #             for j in element:
+    #                 if j.get_requested_by() == requested:
+    #                     match = True
+    #         if match == False:
+    #             return function()
+    #             print('Gut wurde erstellt')
+    #         else:
+    #             print('Hey, this student has already sent a request to you! Why don´t you start a chat?')
+    #             return function()
+    #     return wrapper()
 
     # @is_it_a_mutal_request
-    def create_request(self, requested_by, requested):
-        request = Request()
-        request.set_requested(requested)
-        request.set_requested_by(requested_by)
-        with RequestMapper() as mapper:
-            return mapper.insert(request)
+    def create_request(self, requested_by, requested, requesttype):
+        requests = self.get_all_requests()
+        request_list = []
+        for element in requests:
+            if (element.get_requested_by() == requested_by) and (element.get_requested() == requested) and (
+                    element.get_requesttype() == requesttype):
+                request_list.append(element)
+        if len(request_list) == 0:
+            request = Request()
+            request.set_requested_by(requested_by)
+            request.set_requested(requested)
+            request.set_requesttype(requesttype)
+            with RequestMapper() as mapper:
+                mapper.insert(request)
 
 
     def get_all_requests(self):
@@ -222,14 +230,14 @@ class Businesslogic (object):
         return request
 
     def get_profiles_of_request(self, id):
-        requests_of_profiles= self.get_request_of_profile(id)
-        requested_by = []
-        requester_id = []
-        for element in requests_of_profiles:
-            requested_by.append(element.get_id())
-        for element in requested_by:
-            requester_id.append(self.get_profile_by_id(element))
-        return requester_id
+        requests_of_profile = self.get_request_of_profile(id)
+        profile_ids_of_requester = []
+        profiles_of_requester = []
+        for element in requests_of_profile:
+            profile_ids_of_requester.append(element.get_requested_by())
+        for element in profile_ids_of_requester:
+            profiles_of_requester.append(self.get_profile_by_id(element))
+        return profiles_of_requester
 
     def delete_request(self, request):
         with RequestMapper() as mapper:
@@ -490,11 +498,17 @@ class Businesslogic (object):
         with GroupMapper() as mapper:
             return mapper.find_by_key(number)
 
-    # def get_group_for_profile(self):
-    #     groups = [
-    #         {
-    #             "id": "1",
-    #             "groupname": "Python",
-    #             "description": "Gruppe für Python",
-    #         }]
-    #     return groups
+    @staticmethod
+    def __check_timedelta_of_request__():
+        with RequestMapper() as mapper:
+            request = mapper.find_all()
+        request_date = []
+        for element in request:
+            request_date.append(element.get_request_date())
+        today = datetime.today()
+        for element in request_date:
+            deltatime = abs((element - today).days)
+            if deltatime > 3:
+                mapper.delete(element)
+            else:
+                print('something')
