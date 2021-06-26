@@ -15,8 +15,6 @@ import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import LernappAPI from "../API/LernappAPI";
 import LoadingProgress from "./Dialog/LoadingProgress";
-import LeaveGroup from './Dialog/LeaveGroup';
-import MemberList from './MemberList';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-class GroupListEntry extends Component {
+class GroupListEntryAll extends Component {
 
     constructor(props) {
         super(props);
@@ -52,20 +50,20 @@ class GroupListEntry extends Component {
 
 
 
-     leaveGroupclicked = (event) => {
+    leaveGroupclicked = (event) => {
         event.stopPropagation();
         this.setState({
-          showLeaveGroup: true
+            showLeaveGroup: true
         });
-      }
-    
-      closeLeaveGroupDialog = () => {
-          this.setState({
-          showLeaveGroup: false
+    }
+
+    closeLeaveGroupDialog = () => {
+        this.setState({
+            showLeaveGroup: false
         });
-      }
-    
-     
+    }
+
+
 
     render() {
         const{groups}=this.state;
@@ -79,18 +77,13 @@ class GroupListEntry extends Component {
                         id="panel2a-header"
                     >
                         <Typography>{groups.getGroupname()}</Typography>
-                        <Button onClick={this.leaveGroupclicked} color='primary' >
-                          Gruppe Verlassen
-                        </Button>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
                             {groups.getDescription()}
-                            <MemberList  groups={groups} />
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-             <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>   
             </div>
         );
     }
@@ -111,4 +104,4 @@ const styles = theme => ({
     }
 });
 
-export default withStyles(styles)(GroupListEntry);
+export default withStyles(styles)(GroupListEntryAll);
