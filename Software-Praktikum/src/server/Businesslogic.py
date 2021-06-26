@@ -287,7 +287,11 @@ class Businesslogic (object):
         with ChatroomMapper() as mapper:
             return mapper.update(room)
 
-    #Methoden für ChatAccess
+    def get_singlechat_rooms(self, profil):
+        with ChatAccessMapper() as mapper:
+            rooms = mapper.find_groupchat_by_profil(profil)
+
+    # Methoden für ChatAccess
     def create_chataccess(self, profil, room, chattype):
         access = ChatAccessBO()
         access.profil_id = profil
@@ -296,17 +300,18 @@ class Businesslogic (object):
         with ChatAccessMapper() as mapper:
             return mapper.insert(access)
 
-    def get_all_Chataccess(self):
+    def get_all_chataccess(self):
         with ChatAccessMapper() as mapper:
             return mapper.find_all()
 
-    def get_Chataccess_by_id(self, id):
+    def get_chataccess_by_id(self, id):
         with ChatAccessMapper() as mapper:
             return mapper.find_by_key(id)
 
     def get_groupchataccess_by_profil(self, profil):
         with ChatAccessMapper() as mapper:
             return mapper.find_groupchat_by_profil(profil)
+
 
     def get_singlechataccess_by_profil(self, profil):
         with ChatAccessMapper() as mapper:
@@ -345,14 +350,6 @@ class Businesslogic (object):
                 groups.append(self.get_group_by_id(j.get_room()))
         return groups
 
-    def get_group_by_profileid(self, id):
-        access = [self.get_groupchataccess_by_profil(id)]
-        groups = []
-        for element in access:
-            for j in element:
-                groups.append(self.get_group_by_id(j.get_room()))
-        return groups
-
     def get_group_by_id(self, number):
         with GroupMapper() as mapper:
             return mapper.find_by_key(number)
@@ -368,4 +365,3 @@ class Businesslogic (object):
             deltatime = abs((element - today).days)
             if deltatime > 3:
                 self.delete_request(element)
-

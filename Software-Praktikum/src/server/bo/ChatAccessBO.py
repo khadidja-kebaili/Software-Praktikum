@@ -21,14 +21,14 @@ class ChatAccessBO (Businessobject):
     def get_room(self):
         return self.room
 
-    def set_chattype(self, type):
-        self.chattype = type
+    def set_chattype(self, chattype):
+        self.chattype = chattype
 
     def get_chattype(self):
         return self.chattype
 
     def __str__(self):
-        return "Id: {}, Profil {} kann in Raum {}, Type: ".format(self.get_id(), self.get_profil_id(), self.get_room(), self.get_chattype())
+        return "Id: {}, Profil {} kann in Raum {}, Type: {}".format(self.get_id(), self.get_profil_id(), self.get_room(), self.get_chattype())
 
     # Umwandlung eines Dictonary Eintrags in ein Message Objekt
     @staticmethod
