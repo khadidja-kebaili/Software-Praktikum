@@ -13,8 +13,41 @@ class App extends React.Component {
 //im ersten Schritt sollen die Matches und Navigation angezeigt werden.
   render(){
     return(
-      // <DeleteRequest/>
-      <GroupList/>
+      
+        <div>
+          <Router>
+            <Container maxWidth='md'>
+              <Header/>
+              {/* <DeleteRequest/>
+              <GroupList/> */}
+              {
+                <>
+                  <Redirect from='/' to='matchmaker'/>
+                  <Route exact path='/matchmaker'>
+                    <MatchList/>
+                  </Route>
+                  <Route exact path='/request'>
+                    <RequestList/>
+                  </Route>
+                  <Route path='/chats'>
+                    
+                  </Route>
+                  <Route path='/groups'>
+                    
+                  </Route>
+                  <Route path='/mygroups'>
+                    
+                  </Route>
+                  <Route path='/profil'>
+                    
+                  </Route>
+                </>
+              }
+
+            </Container>
+            
+          </Router>
+          </div>
     )
   }
 }
