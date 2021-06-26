@@ -19,11 +19,13 @@ class RequestMapper(Mapper):
                 davon aus, dass die Tabelle leer ist und wir mit der id 1 beginnen können."""
                 request.set_id(1)
 
-        command = "INSERT INTO request (id, requested_by, requested) VALUES (%s, %s, %s)"
+        command = "INSERT INTO request (id, requested_by, requested, requesttype) VALUES (%s, %s, %s, %s)"
         data = (
             request.get_id(),
             request.get_requested_by(),
-            request.get_requested())
+            request.get_requested(),
+            request.get_requesttype())
+
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -34,15 +36,16 @@ class RequestMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * FROM request")
+        cursor.execute("SELECT id, requested_by, requested, request_date, requesttype FROM request")
         tuples = cursor.fetchall()
 
-        for (id, requested_by, requested, request_date) in tuples:
+        for (id, requested_by, requested, request_date, requesttype) in tuples:
             request = Request()
             request.set_id(id)
             request.set_requested_by(requested_by)
             request.set_requested(requested)
             request.set_request_date(request_date)
+            request.set_requesttype(requesttype)
             result.append(request)
 
         self._cnx.commit()
@@ -54,18 +57,19 @@ class RequestMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, requested_by, requested, request_date FROM request WHERE id={}".format(
+        command = "SELECT id, requested_by, requested, request_date, requesttype FROM request WHERE id={}".format(
             key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, requested_by, requested, request_date) = tuples[0]
+            (id, requested_by, requested, request_date, requesttype) = tuples[0]
             request = Request()
             request.set_id(id)
             request.set_requested_by(requested_by)
             request.set_request_date(request_date)
             request.set_requested(requested)
+            request.set_requesttype(requesttype)
             result = request
         except IndexError:
             """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
@@ -76,6 +80,32 @@ class RequestMapper(Mapper):
         cursor.close()
 
         return result
+
+    # def find_by_type(self, key):
+    #     result = None
+    #     cursor = self._cnx.cursor()
+    #     command = "SELECT * FROM request WHERE requesttype = {}".format(key)
+    #     cursor.execute(command)
+    #     tuples = cursor.fetchall()
+    #
+    #     try:
+    #         (id, requested_by, requested, request_date, requesttype) = tuples[0]
+    #         request = Request()
+    #         request.set_id(id)
+    #         request.set_requested_by(requested_by)
+    #         request.set_requested(requested)
+    #         request.set_request_date(request_date)
+    #         request.set_requesttype(requesttype)
+    #         result = request
+    #     except IndexError:
+    #         """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
+    #         keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+    #         result = None
+    #
+    #     self._cnx.commit()
+    #     cursor.close()
+    #
+    #     return result
 
     def update(self, request):
         pass
@@ -90,11 +120,5 @@ class RequestMapper(Mapper):
 
         self._cnx.commit()
         cursor.close()
-
-if (__name__ == "__main__"):
-    with RequestMapper() as mapper:
-        result = mapper.find_all()
-        for p in result:
-           print(p)
 
 
