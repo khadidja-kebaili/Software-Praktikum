@@ -99,7 +99,7 @@ class ChatAccessMapper(Mapper):
 
         self._cnx.commit()
         cursor.close()
-        return red
+        return res
 
     # gibt die Zweier-Chats des gegebenen Profils zurück
     def find_singlechat_by_profil(self, profil_id):

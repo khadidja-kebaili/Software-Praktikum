@@ -109,6 +109,7 @@
 from src.server.db.Mapper import Mapper
 from src.server.bo.GroupBO import Group
 
+
 class GroupMapper(Mapper):
     def __init__(self):
         super().__init__()

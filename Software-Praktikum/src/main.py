@@ -83,8 +83,8 @@ matchmaker_profile = api.inherit('Profil', bo, {
 })
 
 request = api.inherit('Request', bo, {
-    'requested': fields.String(attribute = 'requested', description = 'requested'),
-    'requested_by': fields.String(attribute = 'requested_by', description = 'requested_by'),
+    'requested': fields.String(attribute='requested', description='requested'),
+    'requested_by': fields.String(attribute='requested_by', description='requested_by'),
     # 'request_date': fields.String(attribute = 'request_date', description = 'request_date')
 })
 
@@ -383,7 +383,8 @@ class GroupOperations(Resource):
     def get(self):
         adm = Businesslogic()
         groups = adm.get_all_groups()
-        return group
+        return groups
+
 
 @api.route('/group/<int:id>')
 @api.param('id', 'Die ID des Gruppen-Objekts')
@@ -394,6 +395,7 @@ class Gruppeanzeigen (Resource):
         group = adm.get_group_by_id(id)
         return group
 
+
 @api.route('/groups_of_profile/<int:id>')
 @api.param('ID eingeben für Profil')
 class GroupsforProfile(Resource):
@@ -402,8 +404,8 @@ class GroupsforProfile(Resource):
         adm = Businesslogic()
         return adm.get_group_by_profileid(id)
 
-#Member
 
+# Member
 @api.route('/member')
 class MemberOperations(Resource):
     @api.marshal_list_with(member)
@@ -422,8 +424,8 @@ class ProfilesByNameOperations(Resource):
         profile = adm.get_profile_by_name(lastname)
         return profile
 
-#Request
 
+# Request
 @api.route('/requests')
 class RequestOperations(Resource):
     @api.marshal_with(request)
@@ -443,8 +445,8 @@ class RequestOperations(Resource):
     @api.marshal_list_with(request)
     def get(self):
         adm = Businesslogic()
-        request = adm.get_all_requests()
-        return request
+        requests = adm.get_all_requests()
+        return requests
 
 
 @api.route('/request/<int:id>')
