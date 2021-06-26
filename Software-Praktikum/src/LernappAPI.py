@@ -284,6 +284,7 @@ class find_singlechats(Resource):
         rooms = adm.get_singlechataccess_by_profil(profilid)
         return rooms
 
+#Group
 
 @api.route('/group')
 class GroupOperations(Resource):
