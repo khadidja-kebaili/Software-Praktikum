@@ -49,8 +49,3 @@ class Mapper (AbstractContextManager, ABC):
     def delete(self, object):
         """Den Datensatz, der das gegebene Objekt in der DB repräsentiert löschen."""
         pass
-
-    # @abstractmethod
-    # def update_requested_by(self, object):
-    #     """Den Datensatz, der das gegebene Objekt in der DB repräsentiert löschen."""
-    #     pass

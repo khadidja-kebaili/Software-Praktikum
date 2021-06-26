@@ -35,7 +35,7 @@ class ChatAccessBO (Businessobject):
     def from_dict(dictionary=dict()):
         obj = ChatAccessBO()
         obj.set_id(dictionary["id"])
-        obj.set_profil_id(dictionary["profilID"])
+        obj.set_profil_id(dictionary["profil_id"])
         obj.set_room(dictionary["room"])
         obj.set_chattype(dictionary["chattype"])
         return obj

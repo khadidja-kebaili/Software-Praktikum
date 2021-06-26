@@ -50,26 +50,6 @@ class GroupList extends Component {
             loadingError: null
         });
     }
-    //
-    // getGroupsForProfile = (id) => {
-    //     LernappAPI.getAPI().getGroupsForProfile(id).then(groupBOs =>
-    //         this.setState({  // Set new state when GroupBOs have been fetched
-    //             groups: groupBOs,
-    //             filteredGroups: [...groupBOs],
-    //             loadingInProgress: false,
-    //             loadingError: null
-    //         })).catch(e =>
-    //         this.setState({ // Reset state with error from catch
-    //             groups: [],
-    //             loadingInProgress: false,
-    //             loadingError: e
-    //         })
-    //     );
-    //     this.setState({
-    //         loadingInProgress: true,
-    //         loadingError: null
-    //     });
-    // }
 
     componentDidMount() {
         this.getAllGroups();

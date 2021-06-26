@@ -2,7 +2,6 @@ from src.server.bo.Businessobject import Businessobject
 
 class Request(Businessobject):
 
-
     def __init__(self):
         super().__init__()
         self.requested_by = "",

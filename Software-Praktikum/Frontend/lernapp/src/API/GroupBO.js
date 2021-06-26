@@ -4,10 +4,10 @@ export default class GroupBO extends BusinessObject{
 
     constructor(groupname, admin, description, chatid) {
         super();
-        this.groupname = groupname;
-        this.admin = admin;
-        this.description = description;
-        this.chatid = chatid;
+        this.groupname = "";
+        this.admin = "";
+        this.description = "";
+        this.chatid = "";
 
     }
 
@@ -35,8 +35,8 @@ export default class GroupBO extends BusinessObject{
         return this.description;
     }
 
-    setChatID(chatroomid){
-        this.chatroomid = chatroomid;
+    setChatID(chatid){
+        this.chatid = chatid;
     }
 
     getChatID(){
