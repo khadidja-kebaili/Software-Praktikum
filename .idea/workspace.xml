@@ -19,25 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="Der GroupMapper funktioniert nicht... Hilfe angefordert.">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/SW IX.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SW IX.iml" afterDir="false" />
+    <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="GroupMapper funktioniert.">
+      <change afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/GroupListEntryAll.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/LernappAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/LernappAPI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatroomBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatroomBO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/GroupBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/GroupBO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/RequestBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/RequestBO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/ChatAccessMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/ChatAccessMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/ChatroomMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/ChatroomMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/GroupMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/GroupMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/MessageMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/MessageMapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/Profilemapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/Profilemapper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/RequestMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/RequestMapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/LernappAPi.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/LernappAPi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/GroupListEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/GroupListEntry.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/MatchListEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/MatchListEntry.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/main.py" afterDir="false" />
     </list>
     <list id="9e24f8e8-56c7-4fe3-8ca5-997fa447614c" name="Revert: " comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -50,6 +39,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -91,28 +81,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.LernappAPI">
-    <configuration name="Businesslogic" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="SW IX" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Software-Praktikum/src/server" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.main">
     <configuration name="GroupBO" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SW IX" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -197,12 +166,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SW IX" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Software-Praktikum/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Software-Praktikum/src/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.LernappAPI" />
-        <item itemvalue="Python.GroupMapper" />
-        <item itemvalue="Python.Businesslogic" />
-        <item itemvalue="Python.GroupBO" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -251,11 +238,28 @@
       <option name="project" value="LOCAL" />
       <updated>1624708343813</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="GroupMapper funktioniert.">
+      <created>1624711214001</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1624711214001</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -275,6 +279,7 @@
     <MESSAGE value="Sicherheitsscheck bei create_Request (Überprüfung pb Request bereits besteht)&#10;und Änderung von RequestMqpper und RequestBO (Requesttype)" />
     <MESSAGE value="Test.py geleert...." />
     <MESSAGE value="Der GroupMapper funktioniert nicht... Hilfe angefordert." />
-    <option name="LAST_COMMIT_MESSAGE" value="Der GroupMapper funktioniert nicht... Hilfe angefordert." />
+    <MESSAGE value="GroupMapper funktioniert." />
+    <option name="LAST_COMMIT_MESSAGE" value="GroupMapper funktioniert." />
   </component>
 </project>

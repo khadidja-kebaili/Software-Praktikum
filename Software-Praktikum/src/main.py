@@ -1,13 +1,13 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_restx import Resource, Api, fields
-from src.server.Businesslogic import Businesslogic
-from src.server.bo.MessageBO import MessageBO
-from src.server.bo.ChatroomBO import ChatroomBO
-from src.server.bo.ChatAccessBO import ChatAccessBO
-from src.server.bo.ProfileBO import Studentprofile
-from src.server.bo.RequestBO import Request
-from src.server.bo.GroupBO import Group
+from server.Businesslogic import Businesslogic
+from server.bo.MessageBO import MessageBO
+from server.bo.ChatroomBO import ChatroomBO
+from server.bo.ChatAccessBO import ChatAccessBO
+from server.bo.ProfileBO import Studentprofile
+from server.bo.RequestBO import Request
+from server.bo.GroupBO import Group
 
 # from SecurityDecorator import secured
 # from SecurityDecorator import secured
@@ -373,13 +373,14 @@ class GroupOperations(Resource):
         # //Notiz Daten von Frontend werden in proposal gespeichert
         if proposal is not None:
 
-            p = adm.create_group_for_profile(
+            p = adm.create_group(
                 proposal.get_group_name(),
+                proposal.get_admin(),
                 proposal.get_description()
             )
             return p
 
-    @api.marshal_list_with(group)
+    @api.marshal_with(group)
     def get(self):
         adm = Businesslogic()
         groups = adm.get_all_groups()
