@@ -153,7 +153,6 @@ class FindMessagesByRoom(Resource):
 
 
 # Chatroom
-
 @api.route('/chatroom')
 class ChatroomOperations(Resource):
     @api.marshal_with(chatroom)
@@ -282,8 +281,8 @@ class FindSinglechats(Resource):
         rooms = adm.get_singlechataccess_by_profil(profilid)
         return rooms
 
-#Group
 
+# Group
 @api.route('/group')
 class GroupOperations(Resource):
     @api.marshal_with(group)

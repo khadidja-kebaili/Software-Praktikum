@@ -1,13 +1,13 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_restx import Resource, Api, fields
-from src.server.Businesslogic import Businesslogic
-from src.server.bo.MessageBO import MessageBO
-from src.server.bo.ChatroomBO import ChatroomBO
-from src.server.bo.ChatAccessBO import ChatAccessBO
-from src.server.bo.ProfileBO import Studentprofile
-from src.server.bo.RequestBO import Request
-from src.server.bo.GroupBO import Group
+from server.Businesslogic import Businesslogic
+from server.bo.MessageBO import MessageBO
+from server.bo.ChatroomBO import ChatroomBO
+from server.bo.ChatAccessBO import ChatAccessBO
+from server.bo.ProfileBO import Studentprofile
+from server.bo.RequestBO import Request
+from server.bo.GroupBO import Group
 
 # from SecurityDecorator import secured
 # from SecurityDecorator import secured
@@ -266,9 +266,9 @@ class FindMembers(Resource):
 @api.param('profilID', 'Id des Profils')
 class FindGroupchats(Resource):
     @api.marshal_with(chataccess)
-    def get(self, profilID):
+    def get(self, profil):
         adm = Businesslogic()
-        rooms = adm.get_groupchataccess_by_profil(profilID)
+        rooms = adm.get_groupchataccess_by_profil(profil)
         return rooms
 
 
@@ -276,9 +276,9 @@ class FindGroupchats(Resource):
 @api.param('profilID', 'Id des Profils')
 class FindSinglechats(Resource):
     @api.marshal_with(chataccess)
-    def get(self, profilID):
+    def get(self, profil):
         adm = Businesslogic()
-        rooms = adm.get_singlechataccess_by_profil(profilID)
+        rooms = adm.get_singlechataccess_by_profil(profil)
         return rooms
 
 

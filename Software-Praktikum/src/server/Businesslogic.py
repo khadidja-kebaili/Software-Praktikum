@@ -231,9 +231,9 @@ class Businesslogic (object):
                     self.delete_request(request)
 
     # Methoden für Message
-    def create_message(self, profilID, room, text):
+    def create_message(self, profil, room, text):
         message = MessageBO();
-        message.set_profilID(profilID);
+        message.set_profil_id(profil);
         message.set_room(room);
         message.set_text(text);
 
@@ -244,7 +244,7 @@ class Businesslogic (object):
         with MessageMapper() as mapper:
             return mapper.find_by_key(id)
 
-    def get_messages_by_roomID(self, id):
+    def get_messages_by_room_id(self, id):
         with MessageMapper() as mapper:
             return mapper.find_by_room(id)
 
@@ -252,7 +252,7 @@ class Businesslogic (object):
         with MessageMapper() as mapper:
             mapper.update(message)
 
-    def get_allMessages(self):
+    def get_all_messages(self):
         with MessageMapper() as mapper:
             return mapper.find_all()
 
@@ -288,9 +288,9 @@ class Businesslogic (object):
             return mapper.update(room)
 
     #Methoden für ChatAccess
-    def create_chataccess(self, profilID, room, chattype):
+    def create_chataccess(self, profil, room, chattype):
         access = ChatAccessBO()
-        access.profilID = profilID
+        access.profil_id = profil
         access.room = room
         access.chattype = chattype
         with ChatAccessMapper() as mapper:
