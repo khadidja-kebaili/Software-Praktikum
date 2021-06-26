@@ -13,6 +13,7 @@ class Mapper (AbstractContextManager, ABC):
                                       host='localhost',
                                       database='lernapp')
 
+
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):

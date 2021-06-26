@@ -11,7 +11,11 @@ import AddIcon from '@material-ui/icons/Add';
 class MatchList extends Component {
     constructor(props){
         super(props);
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
         //Eine leere INIT setzten für matches
         this.state={
             matches: [],
@@ -22,6 +26,7 @@ class MatchList extends Component {
         componentDidMount(){
             this.getMatchmaking();
         }
+<<<<<<< HEAD
 
 
 
@@ -37,6 +42,23 @@ class MatchList extends Component {
 
 
 
+=======
+        
+        
+    
+    // Die Funktion getMatchmaking() soll die matches anzeigen
+    getMatchmaking =() => {
+        
+        LernappAPI.getAPI().getMatchmaking(this.state.currentUser).then(profileBOs =>
+            this.setState({
+                matches:  profileBOs,
+        
+            }))}
+
+    
+
+        
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
     //Die Komponente die gerendert werden
     render(){
         const{matches}=this.state
@@ -50,6 +72,7 @@ class MatchList extends Component {
                     {
                         matches.map(profiles =>
                             <MatchListEntry key={profiles.getID()} profiles={profiles}/>)
+<<<<<<< HEAD
 
                     }
 
@@ -59,6 +82,17 @@ class MatchList extends Component {
 
 }
 
+=======
+                            
+                    }
+                    
+                </div>
+            )
+    }
+        
+}
+    
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
 
 
 // Komponenten-Style wird jetzt definiert
@@ -66,7 +100,11 @@ class MatchList extends Component {
 const styles = theme => ({
     root:{
         width: '100%'
+<<<<<<< HEAD
     }
+=======
+    }  
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
 });
 
 // //PropTypes

@@ -2,7 +2,7 @@ from src.server.db.Mapper import Mapper
 from src.server.bo.ProfileBO import Studentprofile
 
 
-class StudentprofileMapper (Mapper):
+class StudentprofileMapper(Mapper):
 
     def __init__(self):
         super().__init__()
@@ -21,7 +21,7 @@ class StudentprofileMapper (Mapper):
                 davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
                 studentprofile.set_id(1)
 
-        command = "INSERT INTO profile (id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
+        command = "INSERT INTO profiles (id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
         data = (
             studentprofile.get_id(), studentprofile.get_last_name(),
             studentprofile.get_first_name(), studentprofile.get_age(),
@@ -43,6 +43,7 @@ class StudentprofileMapper (Mapper):
         cursor = self._cnx.cursor()
         cursor.execute(
             "SELECT id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience FROM profile")
+
         tuples = cursor.fetchall()
 
         for (id, first_name, last_name, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) in tuples:
@@ -130,6 +131,7 @@ class StudentprofileMapper (Mapper):
         cursor = self._cnx.cursor()
 
         command = "DELETE FROM profile WHERE id={}".format(
+
             studentprofile.get_id())
         cursor.execute(command)
 
@@ -155,3 +157,12 @@ class StudentprofileMapper (Mapper):
         cursor.close()
 
         return result
+
+    def update_requested_by(self, object):
+        pass
+
+if (__name__ == "__main__"):
+    with StudentprofileMapper() as mapper:
+        result = mapper.find_all()
+        for p in result:
+            print(p)

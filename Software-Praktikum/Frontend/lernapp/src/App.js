@@ -8,7 +8,11 @@ import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
 
 
 class App extends React.Component {
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
 //im ersten Schritt sollen die Matches und Navigation angezeigt werden.
   render(){
     return(
@@ -26,6 +30,7 @@ class App extends React.Component {
                     <RequestList/>
                   </Route>
                   <Route path='/chats'>
+<<<<<<< HEAD
 
                   </Route>
                   <Route path='/groups'>
@@ -36,14 +41,32 @@ class App extends React.Component {
                   </Route>
                   <Route path='/profil'>
 
+=======
+                    
+                  </Route>
+                  <Route path='/groups'>
+                    
+                  </Route>
+                  <Route path='/mygroups'>
+                    
+                  </Route>
+                  <Route path='/profil'>
+                    
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
                   </Route>
                 </>
               }
 
             </Container>
+<<<<<<< HEAD
 
           </Router>
 
+=======
+            
+          </Router>
+          
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
           {/* {
             <div>
               <Router>
@@ -57,14 +80,25 @@ class App extends React.Component {
               </Router>
             </div>
           } */}
+<<<<<<< HEAD
 
 
         </div>
 
+=======
+            
+          
+        </div> 
+      
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
     )
   }
 }
 
+<<<<<<< HEAD
 export default App;
 
 
+=======
+export default App; 
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d

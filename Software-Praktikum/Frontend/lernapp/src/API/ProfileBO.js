@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import BusinessObject from "./Businessobject.js";
 
 
@@ -5,6 +6,16 @@ export default class ProfileBO extends BusinessObject {
 
   constructor(aFirstname, aLastname, aAge, aSemester, aMajor, aHobbys, aInterests, aPersonality, aLearnstyle, aStudytime, aStudyplace, aStudyfrequence, aWorkexperience ) {
     super();
+=======
+import BusinessObject from "./BusinessObject";
+
+
+export default class ProfilBO extends BusinessObject {
+
+  constructor(aFirstname, aLastname, aAge, aSemester, aMajor, aHobbys, aInterests, aPersonality, aLearnstyle, aStudytime, aStudyplace, aStudyfrequence, aWorkexperience ) {
+    super();
+    
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
     this.last_name = aLastname;
     this.first_name = aFirstname;
     this.age =  aAge;
@@ -137,6 +148,11 @@ export default class ProfileBO extends BusinessObject {
     return this.workexperience;
   }
 
+<<<<<<< HEAD
+=======
+  
+
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
 
 
 
@@ -145,16 +161,28 @@ export default class ProfileBO extends BusinessObject {
 
     if (Array.isArray(profile)) {
       profile.forEach((c) => {
+<<<<<<< HEAD
         Object.setPrototypeOf(c, ProfileBO.prototype);
+=======
+        Object.setPrototypeOf(c, ProfilBO.prototype);
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
         result.push(c);
       })
     } else {
       // Es handelt sich offenbar um ein singuläres Objekt
       let c = profile;
+<<<<<<< HEAD
       Object.setPrototypeOf(c, ProfileBO.prototype);
+=======
+      Object.setPrototypeOf(c, ProfilBO.prototype);
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
       result.push(c);
     }
 
     return result;
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d

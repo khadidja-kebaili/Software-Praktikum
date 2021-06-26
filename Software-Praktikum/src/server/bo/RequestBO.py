@@ -2,12 +2,19 @@ from src.server.bo.Businessobject import Businessobject
 
 class Request(Businessobject):
 
+
     def __init__(self):
         super().__init__()
         self.requested_by = "",
         self.requested = "",
-        self.request_date = ""
+        self.request_date = "",
+        self.requesttype = ""
 
+    def set_requesttype(self, value):
+        self.requesttype = value
+
+    def get_requesttype(self):
+        return self.requesttype
 
     def set_request_date(self, value):
         self.request_date = value
@@ -29,7 +36,12 @@ class Request(Businessobject):
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "Request: ID: {}, Requested_by: {}, Requested: {}, Date of request: {}".format(self.get_id(), self.get_requested_by(), self.get_requested(), self.get_request_date())
+        return "Request: ID: {}, Requested_by: {}, Requested: {}, Date of request: {}, Requesttype : {}".\
+            format(self.get_id(),
+                   self.get_requested_by(),
+                   self.get_requested(),
+                   self.get_request_date(),
+                   self.get_requesttype())
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -39,5 +51,8 @@ class Request(Businessobject):
         obj.set_requested_by(dictionary['requested_by'])
         obj.set_requested(dictionary['requested'])
         obj.set_request_date(dictionary['requested_date'])
+        obj.set_requesttype(dictionary['requesttype'])
         return obj
+
+
 

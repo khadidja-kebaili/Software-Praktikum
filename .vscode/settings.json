@@ -1,6 +1,12 @@
 {
+<<<<<<< HEAD
     "python.pythonPath": "C:\\Users\\Ha Mi Duong\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
     "python.analysis.extraPaths": [
         "Software-Praktikum/src"
+=======
+    "python.analysis.extraPaths": [
+        "Software-Praktikum/src",
+        "Software-Praktikum/src/server"
+>>>>>>> 3b296e431a153e361b22e53bcd96d3d56f26993d
     ]
 }

@@ -9,9 +9,6 @@ from flask_cors import CORS
 from src.server.bo.MessageBO import MessageBO
 from src.server.bo.ChatroomBO import ChatroomBO
 from src.server.bo.ChatAccessBO import ChatAccessBO
-from src.server.bo.ProfileBO import Studentprofile
-from src.server.bo.RequestBO import Request
-
 
 app = Flask(__name__)
 
@@ -22,11 +19,13 @@ api = Api(app)
 bo = api.model('BusinessObject', {
     'id': fields.Integer(attribute='id', description='Der Unique Identifier eines Business Object'),
 })
+
 message = api.inherit('Message', bo, {
     'profilID': fields.Integer(attribute='profilID',description='ID des Senders'),
     'room': fields.Integer(attribute='room', description="ID des Chatraums"),
     'text': fields.String(attribute='text', description='Text')
 })
+
 
 user = api.inherit('User', bo, {
     'name': fields.String(attribute='_name', description='Name eines Benutzers'),
@@ -63,6 +62,7 @@ member = api.inherit('Member', bo, {
     'first_name': fields.String(attribute='first_name', description='first_name'),
     'last_name': fields.String(attribute='last_name', description='last_name')
 })
+
 
 matchmaker_profile = api.inherit('Profil', bo, {
     'first_name': fields.String(attribute='first_name', description='first_name'),
@@ -318,7 +318,6 @@ class Gruppeanzeigen (Resource):
         return group
 
 
-
 @api.route('/requests')
 class RequestOperations(Resource):
     @api.marshal_with(request)
@@ -351,6 +350,7 @@ class Requestanzeigen (Resource):
         request = adm.get_profiles_of_request(id)
         return request
 
+
     @api.marshal_with(request)
     def delete(self, id):
         adm = Businesslogic()
@@ -368,7 +368,6 @@ class RequestDelete(Resource):
             for j in element:
                 if j.requested_by == id2:
                     adm.delete_request(j)
-
 
 
 # class Requestanzeigen (Resource):
@@ -408,6 +407,7 @@ class ProfilOperations(Resource):
         profile = adm.get_all_profiles()
         return profile
 
+
 @api.route('/profiles-by-name/<string:lastname>')
 @api.param('lastname', 'Der Nachname des Kunden')
 class ProfilesByNameOperations(Resource):
@@ -417,14 +417,24 @@ class ProfilesByNameOperations(Resource):
             profile = adm.get_profile_by_name(lastname)
             return profile
 
+
+@api.route('/matches/<int:id>')
+class Matcher(Resource):
+    @api.marshal_with(matchmaker_profile)
+    def get(self, id):
+        adm = Businesslogic()
+        matches = adm.matching_list(id)
+        return matches
+
+
 @api.route('/profile/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
 class Profilanzeigen (Resource):
     @api.marshal_with(profile)
     def get(self, id):
-            adm = Businesslogic()
-            userprofile = adm.get_profile_by_id(id)
-            return userprofile
+        adm = Businesslogic()
+        userprofile = adm.get_profile_by_id(id)
+        return userprofile
 
     @api.marshal_with(profile)
     def delete(self, id):

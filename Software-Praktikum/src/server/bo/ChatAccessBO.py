@@ -1,4 +1,4 @@
-from .Businessobject import Businessobject
+from src.server.bo.Businessobject import Businessobject
 
 class ChatAccessBO (Businessobject):
     #Instanziierung des Objekts der Klasse ChatAccess
@@ -33,12 +33,12 @@ class ChatAccessBO (Businessobject):
     def __str__(self):
         return "Id: {}, Profil {} kann in Raum {}, Type: ".format(self.get_id(), self.get_profilID(), self.get_room(), self.get_chattype())
 
-#Umwandlung eines Dictonary Eintrags in ein Message Objekt
-@staticmethod
-def from_dict(dictionary=dict()):
-    obj = ChatAccessBO()
-    obj.set_id(dictionary["id"])
-    obj.set_profilID(dictionary["profilID"])
-    obj.set_room(dictionary["room"])
-    obj.set_chattype(dictionary["chattype"])
-    return obj
+    #Umwandlung eines Dictonary Eintrags in ein Message Objekt
+    @staticmethod
+    def from_dict(dictionary=dict()):
+        obj = ChatAccessBO()
+        obj.set_id(dictionary["id"])
+        obj.set_profilID(dictionary["profilID"])
+        obj.set_room(dictionary["room"])
+        obj.set_chattype(dictionary["chattype"])
+        return obj
