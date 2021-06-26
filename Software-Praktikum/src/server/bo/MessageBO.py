@@ -36,12 +36,12 @@ class MessageBO (Businessobject):
     def __str__(self):
         return "Id: {}, Message von Profil {} im Chat {}: {}".format(self.get_id(), self.get_profilID(), self.get_room(), self.get_text());
 
-#Umwandlung eines Dictonary Eintrags in ein Message Objekt
-@staticmethod
-def from_dict(dictionary=dict()):
-    obj = MessageBO()
-    obj.set_id(dictionary["id"])
-    obj.set_profilID(dictionary["profilID"])
-    obj.set_room(dictionary["room"])
-    obj.set_text(dictionary["text"])
-    return obj
+    #Umwandlung eines Dictonary Eintrags in ein Message Objekt
+    @staticmethod
+    def from_dict(dictionary=dict()):
+        obj = MessageBO()
+        obj.set_id(dictionary["id"])
+        obj.set_profilID(dictionary["profilID"])
+        obj.set_room(dictionary["room"])
+        obj.set_text(dictionary["text"])
+        return obj

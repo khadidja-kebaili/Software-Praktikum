@@ -21,15 +21,35 @@
   <component name="ChangeListManager">
     <list default="true" id="0c51688f-da55-41fe-92b7-c0da3e4e86fc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/SW IX.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SW IX.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/GroupBO.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/GroupBO.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/GroupList.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/GroupList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/LernappAPI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/LernappAPI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatAccessBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatAccessBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatroomBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatroomBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/GroupBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/GroupBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/MessageBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/MessageBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/RequestBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/RequestBO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/GroupMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/GroupMapper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/Mapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/Mapper.py" afterDir="false" />
     </list>
     <list id="9e24f8e8-56c7-4fe3-8ca5-997fa447614c" name="Revert: " comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -68,7 +88,91 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.Businesslogic">
+    <configuration name="Businesslogic" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SW IX" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Software-Praktikum/src/server" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="LernappAPI" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SW IX" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Software-Praktikum/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Software-Praktikum/src/LernappAPI.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SW IX" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Software-Praktikum/src/server" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Software-Praktikum/src/server/Test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SW IX" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Software-Praktikum/src" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Software-Praktikum/src/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main_5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Software-Praktikum" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -93,7 +197,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main_5" />
+        <item itemvalue="Python.Businesslogic" />
       </list>
     </recent_temporary>
   </component>
@@ -112,6 +216,7 @@
       <workItem from="1618933857813" duration="12000" />
       <workItem from="1619949083464" duration="43000" />
       <workItem from="1620775772948" duration="412000" />
+      <workItem from="1624705368131" duration="2059000" />
     </task>
     <task id="LOCAL-00001" summary="npm create-creact app lernapp">
       <created>1618421028412</created>
@@ -120,7 +225,21 @@
       <option name="project" value="LOCAL" />
       <updated>1618421028412</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Sicherheitsscheck bei create_Request (Überprüfung pb Request bereits besteht)&#10;und Änderung von RequestMqpper und RequestBO (Requesttype)">
+      <created>1624701705354</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1624701705354</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Test.py geleert....">
+      <created>1624701820705</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1624701820705</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +260,19 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="npm create-creact app lernapp" />
-    <option name="LAST_COMMIT_MESSAGE" value="npm create-creact app lernapp" />
+    <MESSAGE value="Sicherheitsscheck bei create_Request (Überprüfung pb Request bereits besteht)&#10;und Änderung von RequestMqpper und RequestBO (Requesttype)" />
+    <MESSAGE value="Test.py geleert...." />
+    <option name="LAST_COMMIT_MESSAGE" value="Test.py geleert...." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py</url>
+          <line>484</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

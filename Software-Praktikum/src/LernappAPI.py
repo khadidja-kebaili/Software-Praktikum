@@ -9,8 +9,6 @@ from flask_cors import CORS
 from src.server.bo.MessageBO import MessageBO
 from src.server.bo.ChatroomBO import ChatroomBO
 from src.server.bo.ChatAccessBO import ChatAccessBO
-from src.server.bo.ProfileBO import Studentprofile
-from src.server.bo.RequestBO import Request
 
 
 app = Flask(__name__)
@@ -84,7 +82,7 @@ request = api.inherit('Request', bo, {
 })
 
 group = api.inherit('Group', bo, {
-    'groupname':fields.String(attribute = 'groupname', description = 'groupname'),
+    'groupname': fields.String(attribute = 'groupname', description = 'groupname'),
     'admin': fields.Integer(attribute = 'admin', description = 'admin'),
     'description': fields.String(attribute = 'description', description = 'description'),
     # 'chatroomID': fields.Integer(attribute='chatroomID', description='chatroomID'),
@@ -303,7 +301,7 @@ class GroupOperations(Resource):
             )
             return p
 
-    @api.marshal_list_with(group)
+    @api.marshal_with(group)
     def get(self):
         adm = Businesslogic()
         groups = adm.get_all_groups()
