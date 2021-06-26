@@ -266,9 +266,9 @@ class FindMembers(Resource):
 @api.param('profilID', 'Id des Profils')
 class FindGroupchats(Resource):
     @api.marshal_with(chataccess)
-    def get(self, profilID):
+    def get(self, profil):
         adm = Businesslogic()
-        rooms = adm.get_groupchataccess_by_profil(profilID)
+        rooms = adm.get_groupchataccess_by_profil(profil)
         return rooms
 
 
@@ -276,9 +276,9 @@ class FindGroupchats(Resource):
 @api.param('profilID', 'Id des Profils')
 class FindSinglechats(Resource):
     @api.marshal_with(chataccess)
-    def get(self, profilID):
+    def get(self, profil):
         adm = Businesslogic()
-        rooms = adm.get_singlechataccess_by_profil(profilID)
+        rooms = adm.get_singlechataccess_by_profil(profil)
         return rooms
 
 
