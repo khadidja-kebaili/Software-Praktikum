@@ -332,6 +332,7 @@ class Businesslogic (object):
         with ChatAccessMapper() as mapper:
             return mapper.update(access)
 
+    # Misc
     def get_profile_by_name(self, last_name):
         with StudentprofileMapper() as mapper:
             return mapper.find_by_last_name(last_name)
@@ -368,5 +369,3 @@ class Businesslogic (object):
             if deltatime > 3:
                 self.delete_request(element)
 
-l = Businesslogic()
-l.delete_chatacces_by_profil_room(4, 2)
