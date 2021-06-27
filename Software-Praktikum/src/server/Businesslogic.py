@@ -292,6 +292,8 @@ class Businesslogic (object):
             rooms = mapper.find_groupchat_by_profil(profil)
 
     # Methoden für ChatAccess
+
+    # erstellt eine neue ChataccessBO und fügt sie in die Datenbank ein
     def create_chataccess(self, profil, room, chattype):
         access = ChatAccessBO()
         access.profil_id = profil
@@ -300,22 +302,47 @@ class Businesslogic (object):
         with ChatAccessMapper() as mapper:
             return mapper.insert(access)
 
+    # gibt alle ChataccesBO aus der Datenbank zurück
     def get_all_chataccess(self):
         with ChatAccessMapper() as mapper:
             return mapper.find_all()
 
+    # gibt die ChataccessBO mit der angegebenen id zurück
     def get_chataccess_by_id(self, id):
         with ChatAccessMapper() as mapper:
             return mapper.find_by_key(id)
 
+    # gibt ein Array von ChatroomIDs zurück mit den angegebenen Profil und dem Chattype = g
     def get_groupchataccess_by_profil(self, profil):
         with ChatAccessMapper() as mapper:
             return mapper.find_groupchat_by_profil(profil)
 
-
+    # gibt ein Array von ChatroomIDs zurück mit den angegebenen Profil und dem Chattype = e
     def get_singlechataccess_by_profil(self, profil):
         with ChatAccessMapper() as mapper:
             return mapper.find_singlechat_by_profil(profil)
+
+    # gibt alle ChatroomBO zurück mit den angegebenen Profil und dem Chattype = g
+    def get_groupchats(self, profil):
+        hold = None
+        res = []
+        with ChatAccessMapper() as mapper:
+            hold = mapper.find_groupchat_by_profil(profil)
+        with ChatroomMapper() as mapper:
+            for elem in hold:
+                res.append(mapper.find_by_key(elem))
+        return res
+
+    # gibt alle ChatroomBO zurück mit den angegebenen Profil und dem Chattype = e
+    def get_singlechats(self, profil):
+        hold = None
+        res = []
+        with ChatAccessMapper() as mapper:
+            hold = mapper.find_singlechat_by_profil(profil)
+        with ChatroomMapper() as mapper:
+            for elem in hold:
+                res.append(mapper.find_by_key(elem))
+        return res
 
     def get_profils_by_room(self, id):
         with ChatAccessMapper() as mapper:
@@ -354,7 +381,6 @@ class Businesslogic (object):
         with GroupMapper() as mapper:
             return mapper.find_by_key(number)
 
-
     def check_timedelta_of_request(self):
         request = self.get_all_requests()
         request_date = []
@@ -365,3 +391,4 @@ class Businesslogic (object):
             deltatime = abs((element - today).days)
             if deltatime > 3:
                 self.delete_request(element)
+

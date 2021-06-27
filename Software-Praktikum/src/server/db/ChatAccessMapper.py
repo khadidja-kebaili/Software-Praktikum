@@ -1,4 +1,4 @@
-from Mapper import Mapper
+from server.db.Mapper import Mapper
 from server.bo.ChatAccessBO import ChatAccessBO
 from server.bo.ChatroomBO import ChatroomBO
 from server.bo.ProfileBO import Studentprofile
