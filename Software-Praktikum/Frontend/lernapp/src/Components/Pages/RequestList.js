@@ -3,54 +3,59 @@ import PropTypes from 'prop-types';
 import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 // import LernappAPI from '../../API/LernappAPI';
-import LernappAPI from '../../API/LernappAPI'
-import MatchListEntry from './MatchListEntry';
+import LernappAPI from '../../API/LernappAPI';
+import RequestListEntry from './RequestListEntry';
 import AddIcon from '@material-ui/icons/Add';
 
 
 
-class MatchList extends Component {
+class RequestList extends Component {
     constructor(props){
         super(props);
         
-        //Eine leere INIT setzten für matches
+        //Eine leere INIT setzten für request
         this.state={
-            matches: [],
-            currentUser : 3
+            request: [],
+            currentUser : 6,
+            
         };
     }
         //Lifecycle Methode wird aufgerufen, wenn die Komponente in den DOM Browser eingefügt wird
         componentDidMount(){
-            this.getMatchmaker();
+            this.getRequest();
         }
-        
-        
+   
     
-    // Die Funktion getMatchmaking() soll die matches anzeigen
-    getMatchmaker =() => {
-        
-        LernappAPI.getAPI().getMatches(this.state.currentUser).then(profileBOs =>
+    // Die Funktion getRequest() soll die request anzeigen
+    getRequest =() => {
+        LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
             this.setState({
-                matches:  profileBOs,
+                request:  profileBOs,
         
             }))}
 
+    //Handles onRequestDelete events from an RequestListEntry
+    deleteRequestHandler = (deletedRequest) => {
+        this.setState({
+            requests: this.state.requests.filter(request => request.getID() !== deletedRequest.getID())
+        })
+    }
     
 
-        
     //Die Komponente die gerendert werden
     render(){
-        const{matches}=this.state
+        const{request}=this.state
             return(
                 <div id='head'>
                     <Grid item>
                         <Typography id='title'>
-                            Hier sind deine Matches:
+                            Hier sind deine Anfragen:
                         </Typography>
                     </Grid>
                     {
-                        matches.map(profiles =>
-                            <MatchListEntry key={profiles.getID()} profiles={profiles}/>)
+                        request.map(profiles =>
+                            <RequestListEntry key={profiles.getID()} profiles={profiles} onRequestDeleted={this.deleteRequestHandler}
+                            />)
                             
                     }
                     
@@ -77,4 +82,4 @@ const styles = theme => ({
 //     /** @ignore */
 //     location: PropTypes.object.isRequired,
 // }
-export default withStyles(styles)(MatchList);
+export default withStyles(styles)(RequestList);

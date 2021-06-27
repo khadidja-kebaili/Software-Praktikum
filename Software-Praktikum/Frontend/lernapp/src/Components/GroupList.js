@@ -5,7 +5,7 @@ import { Button, List } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import LernappAPI  from '../API/LernappAPi';
+import LernappAPI  from '../API/LernappAPI';
 import GroupListEntry from './GroupListEntry';
 import LoadingProgress from "./Dialog/LoadingProgress";
 // import ContextErrorMessage from "./dialogs/ContextErrorMessage";

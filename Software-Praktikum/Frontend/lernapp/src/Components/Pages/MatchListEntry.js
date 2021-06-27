@@ -44,7 +44,7 @@ class MatchListEntry extends Component{
     }
 }
 
-export default MatchListEntry
+export default MatchListEntry;
 
 // import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
