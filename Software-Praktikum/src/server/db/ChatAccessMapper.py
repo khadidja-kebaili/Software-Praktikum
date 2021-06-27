@@ -73,7 +73,7 @@ class ChatAccessMapper(Mapper):
         return res
 
     # gibt die Gruppenchaträume des gegebenen Profils zurück
-    def find_groupchat_by_profil(self, profil_id):
+    def find_groupchat_by_profile(self, profil_id):
         res = []
         cursor = self._cnx.cursor()
         command = "SELECT room FROM lernapp.chataccess WHERE profilID={} AND chattype='g'".format(profil_id)
@@ -117,7 +117,7 @@ class ChatAccessMapper(Mapper):
         # return res
 
     # gibt die Zweier-Chats des gegebenen Profils zurück
-    def find_singlechat_by_profil(self, profil_id):
+    def find_singlechat_by_profile(self, profil_id):
         res = []
         cursor = self._cnx.cursor()
         command = "SELECT room FROM lernapp.chataccess WHERE profilID={} AND chattype='e'".format(profil_id)

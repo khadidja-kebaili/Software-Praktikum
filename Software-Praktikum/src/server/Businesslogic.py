@@ -313,32 +313,32 @@ class Businesslogic (object):
             return mapper.find_by_key(id)
 
     # gibt ein Array von ChatroomIDs zurück mit den angegebenen Profil und dem Chattype = g
-    def get_groupchataccess_by_profil(self, profil):
-        with ChatAccessMapper() as mapper:
-            return mapper.find_groupchat_by_profil(profil)
+    # def get_groupchataccess_by_profil(self, profil):
+    #     with ChatAccessMapper() as mapper:
+    #         return mapper.find_groupchat_by_profil(profil)
 
     # gibt ein Array von ChatroomIDs zurück mit den angegebenen Profil und dem Chattype = e
-    def get_singlechataccess_by_profil(self, profil):
-        with ChatAccessMapper() as mapper:
-            return mapper.find_singlechat_by_profil(profil)
+    # def get_singlechataccess_by_profil(self, profil):
+    #     with ChatAccessMapper() as mapper:
+    #         return mapper.find_singlechat_by_profil(profil)
 
     # gibt alle ChatroomBO zurück mit den angegebenen Profil und dem Chattype = g
-    def get_groupchats(self, profil):
+    def get_groupchats_by_profile(self, profil):
         hold = None
         res = []
         with ChatAccessMapper() as mapper:
-            hold = mapper.find_groupchat_by_profil(profil)
+            hold = mapper.find_groupchat_by_profile(profil)
         with ChatroomMapper() as mapper:
             for elem in hold:
                 res.append(mapper.find_by_key(elem))
         return res
 
     # gibt alle ChatroomBO zurück mit den angegebenen Profil und dem Chattype = e
-    def get_singlechats(self, profil):
+    def get_singlechats_by_profile(self, profil):
         hold = None
         res = []
         with ChatAccessMapper() as mapper:
-            hold = mapper.find_singlechat_by_profil(profil)
+            hold = mapper.find_singlechat_by_profile(profil)
         with ChatroomMapper() as mapper:
             for elem in hold:
                 res.append(mapper.find_by_key(elem))

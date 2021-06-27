@@ -21,7 +21,7 @@ bo = api.model('BusinessObject', {
     'id': fields.Integer(attribute='id', description='Der Unique Identifier eines Business Object'),
 })
 message = api.inherit('Message', bo, {
-    'profilID': fields.Integer(attribute='profilID',description='ID des Senders'),
+    'profilID': fields.Integer(attribute='profilID', description='ID des Senders'),
     'room': fields.Integer(attribute='room', description="ID des Chatraums"),
     'text': fields.String(attribute='text', description='Text')
 })
@@ -48,7 +48,7 @@ profile = api.inherit('Profil', bo, {
 })
 
 chatroom = api.inherit('Chatroom', bo, {
-    'chattype':fields.String(attribute='chattype', description = 'Art des Chatraums (e-Einzel, g-Gruppe)')
+    'chattype': fields.String(attribute='chattype', description='Art des Chatraums (e-Einzel, g-Gruppe)')
 })
 
 chataccess = api.inherit('Chataccess', bo, {
@@ -76,15 +76,15 @@ matchmaker_profile = api.inherit('Profil', bo, {
 })
 
 request = api.inherit('Request', bo, {
-    'requested':fields.String(attribute = 'requested', description = 'requested'),
-    'requested_by': fields.String(attribute = 'requested_by', description = 'requested_by'),
+    'requested': fields.String(attribute = 'requested', description='requested'),
+    'requested_by': fields.String(attribute = 'requested_by', description='requested_by'),
     # 'request_date': fields.String(attribute = 'request_date', description = 'request_date')
 })
 
 group = api.inherit('Group', bo, {
-    'groupname': fields.String(attribute = 'groupname', description = 'groupname'),
-    'admin': fields.Integer(attribute = 'admin', description = 'admin'),
-    'description': fields.String(attribute = 'description', description = 'description'),
+    'groupname': fields.String(attribute='groupname', description='groupname'),
+    'admin': fields.Integer(attribute='admin', description='admin'),
+    'description': fields.String(attribute='description', description='description'),
     # 'chatroomID': fields.Integer(attribute='chatroomID', description='chatroomID'),
 
 })
@@ -199,7 +199,7 @@ class ChatroomWithIDOperations(Resource):
             p.set_id(id)
             adm.update_message(p)
 
-
+#Chataccess
 @api.route('/chataccess')
 class ChataccessOperations(Resource):
     @api.marshal_with(chataccess)
@@ -268,7 +268,7 @@ class FindGroupchats(Resource):
     @api.marshal_with(chataccess)
     def get(self, profilid):
         adm = Businesslogic()
-        rooms = adm.get_groupchataccess_by_profil(profilid)
+        rooms = adm.get_groupchats_by_profile(profilid)
         return rooms
 
 
@@ -278,7 +278,7 @@ class FindSinglechats(Resource):
     @api.marshal_with(chataccess)
     def get(self, profilid):
         adm = Businesslogic()
-        rooms = adm.get_singlechataccess_by_profil(profilid)
+        rooms = adm.get_singlechats_by_profile(profilid)
         return rooms
 
 
