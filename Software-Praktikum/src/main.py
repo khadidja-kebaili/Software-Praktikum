@@ -239,8 +239,7 @@ class ChataccessWithIDOperations(Resource):
     @api.marshal_with(chataccess)
     def delete(self, id):
         adm = Businesslogic()
-        access = adm.get_chataccess_by_id(id)
-        adm.delete_chataccess(access)
+        adm.delete_chataccess(id)
         return ''
 
     @api.marshal_with(chataccess)
@@ -256,9 +255,8 @@ class ChataccessWithIDOperations(Resource):
         else:
             return '', 500
 
+
 # Mitglieder anzeigen
-
-
 @api.route('/chataccess_member/<int:room>')
 @api.param('room', 'Id des Chatraums')
 class FindMembers(Resource):
