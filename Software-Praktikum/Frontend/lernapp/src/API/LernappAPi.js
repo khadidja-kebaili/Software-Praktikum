@@ -81,7 +81,7 @@ export default class LernappAPI {
     #deleteProfileURL = (id) =>`${this.#lernappServerBaseURL}/profile/${id}`;
     #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
 
-    #getMatchesURL = () => `${this.#lernappServerBaseURL}/matches`;
+    #getMatchesURL = (id) => `${this.#lernappServerBaseURL}/matches/${id}`;
     #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
 
 
@@ -525,8 +525,8 @@ export default class LernappAPI {
     })
   }
 
-  getMatches() {
-    return this.#fetchAdvanced(this.#getMatchesURL()).then((responseJSON) => {
+  getMatches(profileID) {
+    return this.#fetchAdvanced(this.#getMatchesURL(profileID)).then((responseJSON) => {
       let profileBOs = ProfileBO.fromJSON(responseJSON);
       // console.info(profileBOs);
       return new Promise(function (resolve) {
