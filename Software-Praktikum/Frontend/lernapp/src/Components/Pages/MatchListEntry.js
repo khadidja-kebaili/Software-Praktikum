@@ -3,7 +3,7 @@ import {Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import LernappAPI from '../../API/LernappAPI';
-import AddRequest from '../Dialog/AddRequest';
+// import AddRequest from '../Dialog/AddRequest';
 
 
 class MatchListEntry extends Component{

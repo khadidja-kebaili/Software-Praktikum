@@ -407,13 +407,14 @@ class GroupOperations(Resource):
         # //Notiz Daten von Frontend werden in proposal gespeichert
         if proposal is not None:
 
-            p = adm.create_group_for_profile(
+            p = adm.create_group(
                 proposal.get_group_name(),
+                proposal.get_admin(),
                 proposal.get_description()
             )
             return p
 
-    @api.marshal_list_with(group)
+    @api.marshal_with(group)
     def get(self):
         adm = Businesslogic()
         groups = adm.get_all_groups()
