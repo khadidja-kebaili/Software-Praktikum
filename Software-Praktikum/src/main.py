@@ -46,7 +46,7 @@ group = api.inherit('Group', bo, {
     'groupname': fields.String(attribute='groupname', description='groupname'),
     'admin': fields.Integer(attribute='admin', description='admin'),
     'description': fields.String(attribute='description', description='description'),
-    'chatroomID': fields.Integer(attribute='chatroomID', description='chatroomID'),
+    'chatid': fields.Integer(attribute='chatid', description='chatid'),
 })
 
 member = api.inherit('Member', bo, {

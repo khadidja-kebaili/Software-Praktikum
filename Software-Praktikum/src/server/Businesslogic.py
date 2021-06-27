@@ -377,16 +377,24 @@ class Businesslogic (object):
             return mapper.find_by_last_name(last_name)
 
     def get_group_by_profileid(self, id):
-        access = [self.get_groupchataccess_by_profil(id)]
-        groups = []
-        for element in access:
-            for j in element:
-                groups.append(self.get_group_by_id(j.get_room()))
-        return groups
-
-    def get_group_by_id(self, number):
+        # access = [self.get_groupchataccess_by_profil(id)]
+        # groups = []
+        # for element in access:
+        #     for j in element:
+        #         groups.append(self.get_group_by_id(j.get_room()))
+        # return groups
+        res = []
+        with ChatAccessMapper() as mapper:
+            holder = mapper.find_groupchat_by_profile(id)
         with GroupMapper() as mapper:
-            return mapper.find_by_key(number)
+            for elem in holder:
+                res.append(mapper.find_by_chatid(elem))
+        return res
+
+
+    # def get_group_by_id(self, number):
+    #     with GroupMapper() as mapper:
+    #         return mapper.find_by_key(number)
 
     def check_timedelta_of_request(self):
         request = self.get_all_requests()
@@ -400,6 +408,6 @@ class Businesslogic (object):
                 self.delete_request(element)
 
 adm = Businesslogic()
-hold = adm.get_messages_by_room_id(2)
+hold = adm.get_all_groups()
 for i in hold:
     print(i)

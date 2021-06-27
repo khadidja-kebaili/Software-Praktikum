@@ -79,6 +79,34 @@ class GroupMapper(Mapper):
 
         return result
 
+    def find_by_chatid(self, key):
+        result = None
+
+        cursor = self._cnx.cursor()
+        command = "SELECT id, groupname, admin, description, chatid FROM lernapp.group WHERE chatid={}".format(
+            key)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        try:
+            (id, groupname, admin, description, chatid) = tuples[0]
+            group = Group()
+            group.set_id(id)
+            group.set_groupname(groupname)
+            group.set_admin(admin)
+            group.set_description(description)
+            group.set_chatid(chatid)
+            result = group
+        except IndexError:
+            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
+            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
     def update(self, group):
 
         cursor = self._cnx.cursor()
