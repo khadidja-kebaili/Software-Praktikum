@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_restx import Resource, Api, fields
+
 from server.Businesslogic import Businesslogic
 from server.bo.MessageBO import MessageBO
 from server.bo.ChatroomBO import ChatroomBO
@@ -54,7 +55,7 @@ member = api.inherit('Member', bo, {
 })
 
 message = api.inherit('Message', bo, {
-    'profilID': fields.Integer(attribute='profilID', description='ID des Senders'),
+    'profile_id': fields.Integer(attribute='profile_id', description='ID des Senders'),
     'room': fields.Integer(attribute='room', description="ID des Chatraums"),
     'text': fields.String(attribute='text', description='Text')
 })
@@ -64,7 +65,7 @@ chatroom = api.inherit('Chatroom', bo, {
 })
 
 chataccess = api.inherit('Chataccess', bo, {
-    'profilID': fields.Integer(attribute='profilID', description='ID des Profils'),
+    'profile_id': fields.Integer(attribute='profile_id', description='ID des Profils'),
     'room': fields.Integer(attribute='room', description='ID des Raums'),
     'chattype': fields.String(attribute='chattype', description='Art des Chatraums (e-Einzel, g-Gruppe)')
 })
@@ -99,7 +100,7 @@ class MessageOperations(Resource):
         proposal = MessageBO.from_dict(api.payload)
         if proposal is not None:
             p = adm.create_message(
-                proposal.get_profil_id(),
+                proposal.get_profile_id(),
                 proposal.get_room(),
                 proposal.get_text()
             )
@@ -142,14 +143,15 @@ class MessageWithIDOperations(Resource):
             return '', 500
 
 
-# @api.route('/chatroom_message/<int:room>')
-# @api.param('room', 'Die Id des Chatraums')
-# class find_MessagesByRoom(Resource):
-#     @api.marshal_with(chatroom)
-#     def get(self, id):
-#         adm = Businesslogic();
-#         messages = adm.get_messages_by_roomID(id)
-#         return messages
+@api.route('/chatroom_message/<int:room>')
+@api.param('room', 'Die Id des Chatraums')
+class FindMessagesByRoom(Resource):
+    @api.marshal_with(message)
+    def get(self, room):
+        adm = Businesslogic()
+        messages = adm.get_messages_by_room_id(room)
+        return messages
+
 
 # Chatroom
 @api.route('/chatroom')
@@ -197,6 +199,9 @@ class ChatroomWithIDOperations(Resource):
         if p is not None:
             p.set_id(id)
             adm.update_message(p)
+            return p, 200
+        else:
+            return '', 500
 
 
 # Chataccess
@@ -209,7 +214,7 @@ class ChataccessOperations(Resource):
         proposal = ChatAccessBO.from_dict(api.payload)
         if proposal is not None:
             p = adm.create_chataccess(
-                proposal.get_profil_id(),
+                proposal.get_profile_id(),
                 proposal.get_room(),
                 proposal.get_chattype()
             )
@@ -258,55 +263,43 @@ class FindMembers(Resource):
     @api.marshal_with(chataccess)
     def get(self, room):
         adm = Businesslogic()
-        profiles = adm.get_profils_by_room(room)
+        profiles = adm.get_profiles_by_room(room)
         return profiles
 
 
-@api.route('/chataccess_groupchat/<int:profilID>')
-@api.param('profilID', 'Id des Profils')
+@api.route('/chataccess_groupchat/<int:profile_id>')
+@api.param('profile_id', 'Id des Profils')
 class FindGroupchats(Resource):
-    @api.marshal_with(chataccess)
-    def get(self, profil):
+    @api.marshal_with(chatroom)
+    def get(self, profile_id):
         adm = Businesslogic()
-        rooms = adm.get_groupchats_by_profile(profil)
+        rooms = adm.get_groupchats_by_profile(profile_id)
         return rooms
 
 
-@api.route('/chataccess_singlechat/<int:profilID>')
-@api.param('profilID', 'Id des Profils')
+@api.route('/chataccess_singlechat/<int:profile_id>')
+@api.param('profile_id', 'Id des Profils')
 class FindSinglechats(Resource):
-    @api.marshal_with(chataccess)
-    def get(self, profil):
+    @api.marshal_with(chatroom)
+    def get(self, profile_id):
         adm = Businesslogic()
-        rooms = adm.get_singlechats_by_profile(profil)
+        rooms = adm.get_singlechats_by_profile(profile_id)
         return rooms
 
 
-@api.route('/chataccess-delete/<int:profilID>/room/<int:room>')
-@api.param('profilID', 'ID des Profils', 'room - ID des Raums')
+@api.route('/chataccess-delete/<int:profile_id>/room/<int:room>')
+@api.param('profile_id', 'ID des Profils', 'room - ID des Raums')
 class DeleteTargetedChataccess(Resource):
     @api.marshal_with(chataccess)
-    def delete(self, profil, room):
+    def delete(self, profile_id, room):
         adm = Businesslogic()
-        access = [adm.get_chatacces_by_profile(profil)]
-        for elem in access:
-            for i in elem:
-                if i.room == room:
-                    adm.delete_chataccess(i)
-        # adm.delete_chatacces_by_profil_room(profil, room)
+        # access = [adm.get_chatacces_by_profile(profile_id)]
+        # for elem in access:
+        #     for i in elem:
+        #         if i.room == room:
+        #             adm.delete_chataccess(i)
+        adm.delete_chatacces_by_profil_room(profile_id, room)
         return ''
-
-@api.route('/delete_request/<int:id1>/requested_by/<int:id2>')
-@api.param( 'id1' , 'id des requested', 'id2 - id des requested_by')
-class RequestDelete(Resource):
-    @api.marshal_with(request)
-    def delete(self, id1, id2):
-        adm = Businesslogic()
-        requests = [adm.get_request_of_profile(id1)]
-        for element in requests:
-            for j in element:
-                if j.requested_by == id2:
-                    adm.delete_request(j)
 
 
 # Profile

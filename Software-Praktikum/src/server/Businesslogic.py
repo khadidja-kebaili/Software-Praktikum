@@ -101,7 +101,6 @@ class Businesslogic (object):
         with GroupMapper() as mapper:
             mapper.delete(group)
 
-
     '''Hier beginnt das eigentliche Matchmaking'''
     '''Zunächst einmal wird der Score, also der Integer-Wert wie gut 2 Profile zusammenpassen berechnet
     Dazu gibt es die Methoden get_learning_habits und set_score'''
@@ -138,8 +137,9 @@ class Businesslogic (object):
     '''Nun möchte man aber nicht nur 2 Profile miteinander vergleichen, sondern man will ein Profil mit allen anderen
     in der Datenbank verfügbaren Profilen vergleichen. Daher wird hier eine ID gefordert (hier wird später die ID des
     current-Users übergeben). Das Profil dieser ID wird dann mit allen anderen Profilen verglichen. Damit der Score und
-    die Profile miteinander verknüpft werden können werden diese in einem dict gespeichert. Das dict wird dann sortiert und
-    daraus entsteht eine Liste, die als Werte nur die Profile besitzt, jedoch sind diese geordnet nach dem Score sortiert. '''
+    die Profile miteinander verknüpft werden können werden diese in einem dict gespeichert. Das dict wird dann sortiert
+    und daraus entsteht eine Liste, die als Werte nur die Profile besitzt, jedoch sind diese geordnet nach dem Score
+    sortiert. '''
     def matching_list(self, id):
         scores = []
         profiles = []
@@ -152,7 +152,7 @@ class Businesslogic (object):
             else:
                 profiles.append(element)
         matches = dict(zip(profiles, scores))
-        matches = dict(sorted(matches.items(), key=lambda item: item[1], reverse= True))
+        matches = dict(sorted(matches.items(), key=lambda item: item[1], reverse=True))
         new_sorted_list = []
         for element in matches:
             new_sorted_list.append(element)
@@ -232,13 +232,13 @@ class Businesslogic (object):
 
     # Methoden für Message
     def create_message(self, profil, room, text):
-        message = MessageBO();
-        message.set_profil_id(profil);
-        message.set_room(room);
-        message.set_text(text);
+        message = MessageBO()
+        message.set_profile_id(profil)
+        message.set_room(room)
+        message.set_text(text)
 
         with MessageMapper() as mapper:
-            return mapper.insert(message);
+            return mapper.insert(message)
 
     def get_message_by_id(self, id):
         with MessageMapper() as mapper:
@@ -287,16 +287,16 @@ class Businesslogic (object):
         with ChatroomMapper() as mapper:
             return mapper.update(room)
 
-    def get_singlechat_rooms(self, profil):
-        with ChatAccessMapper() as mapper:
-            rooms = mapper.find_groupchat_by_profil(profil)
+    # def get_singlechat_rooms(self, profil):
+    #     with ChatAccessMapper() as mapper:
+    #         rooms = mapper.find_groupchat_by_profil(profil)
 
     # Methoden für ChatAccess
 
     # erstellt eine neue ChataccessBO und fügt sie in die Datenbank ein
     def create_chataccess(self, profil, room, chattype):
         access = ChatAccessBO()
-        access.set_profil_id(profil)
+        access.set_profile_id(profil)
         access.set_room(room)
         access.set_chattype(chattype)
         with ChatAccessMapper() as mapper:
@@ -311,6 +311,7 @@ class Businesslogic (object):
     def get_chataccess_by_id(self, id):
         with ChatAccessMapper() as mapper:
             return mapper.find_by_key(id)
+
     def get_chatacces_by_profile(self, profile):
         with ChatAccessMapper() as mapper:
             return mapper.find_by_profile(profile)
@@ -326,34 +327,37 @@ class Businesslogic (object):
     #         return mapper.find_singlechat_by_profil(profil)
 
     # gibt alle ChatroomBO zurück mit den angegebenen Profil und dem Chattype = g
-    def get_groupchats_by_profile(self, profil):
-        hold = None
+    def get_groupchats_by_profile(self, profile):
         res = []
+        print(res)
         with ChatAccessMapper() as mapper:
-            hold = mapper.find_groupchat_by_profile(profil)
+            holder = mapper.find_groupchat_by_profile(profile)
+            for elem in holder:
+                print(elem)
         with ChatroomMapper() as mapper:
-            for elem in hold:
+            for elem in holder:
+                print(mapper.find_by_key(elem))
                 res.append(mapper.find_by_key(elem))
+                print(res)
         return res
 
     # gibt alle ChatroomBO zurück mit den angegebenen Profil und dem Chattype = e
-    def get_singlechats_by_profile(self, profil):
-        hold = None
+    def get_singlechats_by_profile(self, profile):
         res = []
         with ChatAccessMapper() as mapper:
-            hold = mapper.find_singlechat_by_profile(profil)
+            holder = mapper.find_singlechat_by_profile(profile)
         with ChatroomMapper() as mapper:
-            for elem in hold:
+            for elem in holder:
                 res.append(mapper.find_by_key(elem))
         return res
 
-    def get_profils_by_room(self, id):
+    def get_profiles_by_room(self, id):
         with ChatAccessMapper() as mapper:
             return mapper.get_groupmembers(id)
 
     def delete_chatacces_by_profil_room(self, profil, room):
         with ChatAccessMapper() as mapper:
-            return mapper.delete_by_room_and_profil_id(profil, room)
+            return mapper.delete_by_room_and_profile_id(profil, room)
 
     # def get_groups_for_profile(self,id):
     #    groups = [self.get_profils_by_room(id)]
@@ -396,4 +400,6 @@ class Businesslogic (object):
                 self.delete_request(element)
 
 adm = Businesslogic()
-hold = adm.get_profils_by_room(1)
+hold = adm.get_messages_by_room_id(2)
+for i in hold:
+    print(i)
