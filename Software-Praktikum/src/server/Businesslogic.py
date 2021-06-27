@@ -296,9 +296,9 @@ class Businesslogic (object):
     # erstellt eine neue ChataccessBO und fügt sie in die Datenbank ein
     def create_chataccess(self, profil, room, chattype):
         access = ChatAccessBO()
-        access.profil_id = profil
-        access.room = room
-        access.chattype = chattype
+        access.set_profil_id(profil)
+        access.set_room(room)
+        access.set_chattype(chattype)
         with ChatAccessMapper() as mapper:
             return mapper.insert(access)
 
@@ -311,6 +311,9 @@ class Businesslogic (object):
     def get_chataccess_by_id(self, id):
         with ChatAccessMapper() as mapper:
             return mapper.find_by_key(id)
+    def get_chatacces_by_profile(self, profile):
+        with ChatAccessMapper() as mapper:
+            return mapper.find_by_profile(profile)
 
     # gibt ein Array von ChatroomIDs zurück mit den angegebenen Profil und dem Chattype = g
     # def get_groupchataccess_by_profil(self, profil):
@@ -392,3 +395,7 @@ class Businesslogic (object):
             if deltatime > 3:
                 self.delete_request(element)
 
+adm = Businesslogic()
+hold = adm.get_profils_by_room(2)
+for elem in hold:
+    print(elem)

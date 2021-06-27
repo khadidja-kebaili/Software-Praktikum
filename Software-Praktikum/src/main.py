@@ -42,7 +42,7 @@ profile = api.inherit('Profil', bo, {
 })
 
 group = api.inherit('Group', bo, {
-    'groupname':fields.String(attribute='groupname', description='groupname'),
+    'groupname': fields.String(attribute='groupname', description='groupname'),
     'admin': fields.Integer(attribute='admin', description='admin'),
     'description': fields.String(attribute='description', description='description'),
     'chatroomID': fields.Integer(attribute='chatroomID', description='chatroomID'),
@@ -268,7 +268,7 @@ class FindGroupchats(Resource):
     @api.marshal_with(chataccess)
     def get(self, profil):
         adm = Businesslogic()
-        rooms = adm.get_groupchataccess_by_profil(profil)
+        rooms = adm.get_groupchats_by_profile(profil)
         return rooms
 
 
@@ -278,18 +278,35 @@ class FindSinglechats(Resource):
     @api.marshal_with(chataccess)
     def get(self, profil):
         adm = Businesslogic()
-        rooms = adm.get_singlechataccess_by_profil(profil)
+        rooms = adm.get_singlechats_by_profile(profil)
         return rooms
 
 
-@api.route('/chataccess-delete/<int:profilID>/<int:room>')
+@api.route('/chataccess-delete/<int:profilID>/room/<int:room>')
 @api.param('profilID', 'ID des Profils', 'room - ID des Raums')
 class DeleteTargetedChataccess(Resource):
     @api.marshal_with(chataccess)
-    def delete(self, profilid, room):
+    def delete(self, profil, room):
         adm = Businesslogic()
-        adm.delete_chatacces_by_profil_room(profilid, room)
+        access = [adm.get_chatacces_by_profile(profil)]
+        for elem in access:
+            for i in elem:
+                if i.room == room:
+                    adm.delete_chataccess(i)
+        # adm.delete_chatacces_by_profil_room(profil, room)
         return ''
+
+@api.route('/delete_request/<int:id1>/requested_by/<int:id2>')
+@api.param( 'id1' , 'id des requested', 'id2 - id des requested_by')
+class RequestDelete(Resource):
+    @api.marshal_with(request)
+    def delete(self, id1, id2):
+        adm = Businesslogic()
+        requests = [adm.get_request_of_profile(id1)]
+        for element in requests:
+            for j in element:
+                if j.requested_by == id2:
+                    adm.delete_request(j)
 
 
 # Profile
@@ -501,8 +518,6 @@ class Matcher(Resource):
             request = adm.get_request_by_id(id)
             adm.delete_request(request)
             return ''
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
