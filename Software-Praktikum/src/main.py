@@ -25,7 +25,7 @@ user = api.inherit('User', bo, {
     'email': fields.String(attribute='_email', description='E-Mail-Adresse eines Benutzers'),
     'user_id': fields.String(attribute='_user_id', description='Google User ID eines Benutzers')
 })
-profile = api.inherit('Profil', bo, {
+profile = api.inherit('Profile', bo, {
     'first_name': fields.String(attribute='first_name', description='first_name'),
     'last_name': fields.String(attribute='last_name', description='last_name'),
     'age': fields.Integer(attribute='age', description='age'),
@@ -296,8 +296,9 @@ class DeleteTargetedChataccess(Resource):
         # adm.delete_chatacces_by_profil_room(profil, room)
         return ''
 
+
 @api.route('/delete_request/<int:id1>/requested_by/<int:id2>')
-@api.param( 'id1' , 'id des requested', 'id2 - id des requested_by')
+@api.param('id1', 'id des requested', 'id2 - id des requested_by')
 class RequestDelete(Resource):
     @api.marshal_with(request)
     def delete(self, id1, id2):
@@ -369,16 +370,18 @@ class Profilanzeigen (Resource):
         else:
             return '', 500
 
+
 @api.route('/profiles-by-name/<string:lastname>')
 @api.param('lastname', 'Der Nachname des Kunden')
 class ProfilesByNameOperations(Resource):
-        @api.marshal_with(member)
-        def get(self, lastname):
-            adm = Businesslogic()
-            profile = adm.get_profile_by_name(lastname)
-            return profile
+    @api.marshal_with(member)
+    def get(self, lastname):
+        adm = Businesslogic()
+        profile = adm.get_profile_by_name(lastname)
+        return profile
 
-#Group
+# Group
+
 
 @api.route('/group')
 class GroupOperations(Resource):
@@ -481,8 +484,9 @@ class Requestanzeigen (Resource):
         request = adm.get_request_by_id(id)
         adm.delete_request(request)
 
+
 @api.route('/delete_request/<int:id1>/requested_by/<int:id2>')
-@api.param( 'id1' , 'id des requested', 'id2 - id des requested_by')
+@api.param('id1', 'id des requested', 'id2 - id des requested_by')
 class RequestDelete(Resource):
     @api.marshal_with(request)
     def delete(self, id1, id2):
@@ -494,7 +498,6 @@ class RequestDelete(Resource):
                     adm.delete_request(j)
 
 
-
 # class Requestanzeigen (Resource):
 #     @api.marshal_with(request)
 #     def get(self, id):
@@ -502,22 +505,23 @@ class RequestDelete(Resource):
 #         request = adm.get_request_of_profile(id)
 #         return request
 
-#Matches
+# Matches
 
 @api.route('/matches/<int:id>')
 class Matcher(Resource):
-        @api.marshal_with(matchmaker_profile)
-        def get(self, id):
-            adm = Businesslogic()
-            matches = adm.matching_list(id)
-            return matches
+    @api.marshal_with(matchmaker_profile)
+    def get(self, id):
+        adm = Businesslogic()
+        matches = adm.matching_list(id)
+        return matches
 
-        @api.marshal_with(request)
-        def delete(self, id):
-            adm = Businesslogic()
-            request = adm.get_request_by_id(id)
-            adm.delete_request(request)
-            return ''
+    @api.marshal_with(request)
+    def delete(self, id):
+        adm = Businesslogic()
+        request = adm.get_request_by_id(id)
+        adm.delete_request(request)
+        return ''
+
 
 if __name__ == '__main__':
     app.run(debug=True)
