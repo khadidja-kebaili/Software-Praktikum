@@ -251,14 +251,16 @@ class ChataccessWithIDOperations(Resource):
         else:
             return '', 500
 
+# Mitglieder anzeigen
+
 
 @api.route('/chataccess_member/<int:room>')
 @api.param('room', 'Id des Chatraums')
 class FindMembers(Resource):
-    @api.marshal_with(chataccess)
+    @api.marshal_with(member)
     def get(self, room):
         adm = Businesslogic()
-        profiles = adm.get_profils_by_room(room)
+        profiles = adm.get_profiles_by_room(room)
         return profiles
 
 
