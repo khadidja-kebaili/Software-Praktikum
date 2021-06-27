@@ -13,10 +13,10 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import LernappAPI from "../API/LernappAPI";
+import LernappAPI from "../API/LernappAPi";
 import LoadingProgress from "./Dialog/LoadingProgress";
 import LeaveGroup from './Dialog/LeaveGroup';
-import MemberList from './MemberList';
+// import MemberList from './MemberList';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -85,7 +85,7 @@ class GroupListEntry extends Component {
                     <AccordionDetails>
                         <Typography>
                             {groups.getDescription()}
-                            <MemberList  groups={groups} />
+                            {/* <MemberList  groups={groups} /> */}
                         </Typography>
                     </AccordionDetails>
                 </Accordion>

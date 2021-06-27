@@ -35,9 +35,10 @@ export default class LernappAPI {
 
     #add_ChatroomURL = () => `${this.#lernappServerBaseURL}/chatroom`;
     #get_allChatroomURL = () => `${this.#lernappServerBaseURL}/chatroom`;
-    #get_ChatroomURL = (id) => `${this.#lernappServerBaserURL}/chatroom/${id}`;
-    #delete_ChatroomURL = (id) => `${this.#lernappServerBaserURL}/chatroom/${id}`;
-    #update_ChatroomURL = (id) => `${this.#lernappServerBaserURL}/chatroom/${id}`;
+    #get_ChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
+    #delete_ChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
+    #update_ChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
+   
 
     //Request
 
@@ -315,14 +316,14 @@ export default class LernappAPI {
 
 
     //alle Chataccess für einen Nutzer
-    get_ChataccessForUser(profil){
-        return this.#fetchAdvanced(this.#get_ChataccesForUserURL(profil)).then((responseJSON) => {
-            let chataccesBOs = ChataccessBO.fromJSON(responseJSON);
-            return new Promise(function (resolve) {
-                resolve(chataccesBOs);
-            })
-        })
-    }
+    // get_ChataccessForUser(profil){
+    //     return this.#fetchAdvanced(this.#get_ChataccesForUserURL(profil)).then((responseJSON) => {
+    //         let chataccesBOs = ChataccessBO.fromJSON(responseJSON);
+    //         return new Promise(function (resolve) {
+    //             resolve(chataccesBOs);
+    //         })
+    //     })
+    // }
 
 
     getGroup(groupID) {
