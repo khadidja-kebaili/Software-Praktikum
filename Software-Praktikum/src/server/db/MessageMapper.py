@@ -17,10 +17,10 @@ class MessageMapper(Mapper):
             else:
                 message.set_id(1)
 
-        command = "INSERT INTO messages (id, profilID, room, text) VALUES (%s, %s, %s, %s)"
+        command = "INSERT INTO messages (id, profile_id, room, text) VALUES (%s, %s, %s, %s)"
         data = (
             message.get_id(),
-            message.get_profil_id(),
+            message.get_profile_id(),
             message.get_room(),
             message.get_text(),
         )
@@ -33,13 +33,13 @@ class MessageMapper(Mapper):
     def find_all(self):
         res = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, profilID, room, text FROM messages")
+        cursor.execute("SELECT id, profile_id, room, text FROM messages")
         tuples = cursor.fetchall()
 
-        for(id, profil_id, room, text) in tuples:
+        for(id, profile_id, room, text) in tuples:
             message = MessageBO()
             message.set_id(id)
-            message.set_profil_id(profil_id)
+            message.set_profile_id(profile_id)
             message.set_room(room)
             message.set_text(text)
             res.append(message)
@@ -51,15 +51,15 @@ class MessageMapper(Mapper):
     def find_by_key(self, id):
         res = None
         cursor = self._cnx.cursor()
-        command = "SELECT id, profilID, room, text FROM messages WHERE id={}".format(id)
+        command = "SELECT id, profile_id, room, text FROM messages WHERE id={}".format(id)
         cursor.execute(command)
         tuples = cursor.fetchall()
     
         try:
-            (id, profil_id, room, text) = tuples[0]
+            (id, profile_id, room, text) = tuples[0]
             message = MessageBO()
             message.set_id(id)
-            message.set_profil_id(profil_id)
+            message.set_profile_id(profile_id)
             message.set_room(room)
             message.set_text(text)
             res = message
@@ -74,14 +74,14 @@ class MessageMapper(Mapper):
     def find_by_room(self, room):
         res = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, profilID, room, text FROM messages WHERE room={} ORDER BY id".format(room)
+        command = "SELECT id, profile_id, room, text FROM messages WHERE room={} ORDER BY id".format(room)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
-        for (id, profil_id, room, text) in tuples:
+        for (id, profile_id, room, text) in tuples:
             message = MessageBO()
             message.set_id(id)
-            message.set_profil_id(profil_id)
+            message.set_profile_id(profile_id)
             message.set_room(room)
             message.set_text(text)
             res.append(message)
