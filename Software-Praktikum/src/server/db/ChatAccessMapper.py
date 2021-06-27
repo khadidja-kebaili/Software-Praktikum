@@ -205,16 +205,8 @@ class ChatAccessMapper(Mapper):
             res.append(member)
 
         self._cnx.commit()
-
-        holder = ()
-        res2 = list(holder)
-        for elem in res:
-            for i in elem:
-                res2.append(i)
-        holder = tuple(res2)
-
         cursor.close()
-        return holder
+        return res
 
     def delete_by_room_and_profil_id(self, profil, room):
         cursor = self._cnx.cursor()

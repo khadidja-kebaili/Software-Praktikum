@@ -396,6 +396,4 @@ class Businesslogic (object):
                 self.delete_request(element)
 
 adm = Businesslogic()
-hold = adm.get_profils_by_room(2)
-for elem in hold:
-    print(elem)
+hold = adm.get_profils_by_room(1)
