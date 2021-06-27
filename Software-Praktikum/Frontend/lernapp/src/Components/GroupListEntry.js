@@ -13,7 +13,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import LernappAPI from "../API/LernappAPi";
+import LernappAPI from "../API/LernappAPI";
 import LoadingProgress from "./Dialog/LoadingProgress";
 import LeaveGroup from './Dialog/LeaveGroup';
 // import MemberList from './MemberList';

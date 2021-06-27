@@ -1,4 +1,4 @@
-import BusinessObject from './Businessobject';
+import BusinessObject from './BusinessObject';
 
 export default class ChatroomBO extends BusinessObject {
 
