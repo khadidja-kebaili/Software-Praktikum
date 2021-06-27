@@ -16,21 +16,21 @@ class Chatroom extends Component{
     constructor(props){
         super(props);
         this.state = {
-            Messages: [],
+            messages: [],
             loadingInProgress: false,
             error: null
         }
     }
 
-    get_Messages = () => {
-        LernappAPI.getAPI().get_MessageByRoom(1).then(MessageBOs =>
+    getMessages = () => {
+        LernappAPI.getAPI().getMessageByRoom(1).then(MessageBOs =>
             this.setState({
-                Messages: MessageBOs,
+                messages: MessageBOs,
                 loadingInProgress: false,
                 error: null
             })).catch(e =>
                 this.setState({
-                    Messages: [],
+                    messages: [],
                     loadingInProgress: false,
                     error: e
                 })
@@ -42,7 +42,7 @@ class Chatroom extends Component{
     }
 
     componentDidMount(){
-        this.get_Messages()
+        this.getMessages()
     }
 
     componentDidUpdate(){

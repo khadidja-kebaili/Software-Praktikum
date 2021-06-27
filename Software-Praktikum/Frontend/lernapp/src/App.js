@@ -29,8 +29,7 @@ class App extends React.Component {
                   <Route exact path='/request'>
                     <RequestList/>
                   </Route>
-                  <Route path='/chats'>
-                    
+                  <Route exact path='/chats'>
                   </Route>
                   <Route path='/groups'>
                     

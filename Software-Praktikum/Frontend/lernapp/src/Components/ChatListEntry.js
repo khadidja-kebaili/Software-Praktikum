@@ -16,7 +16,6 @@ class ChatlistEntry extends Component{
     }
 
     componentDidMount(){
-
     }
 
     /**
@@ -24,13 +23,14 @@ class ChatlistEntry extends Component{
      */
     render(){
         const{loadingInProgress} = this.state;
-        const{classes, Chats} = this.props;
+        const{classes, chats} = this.props;
+
 
         return(
             <div>
-                <ListItem button>
+                <ListItem button onClick=()>
                     <Typography className = {classes.chatEntry}>
-                        Chat Nummer {Chats.getID()}
+                        <b>Chat Nummer: </b> {chats.getID()}
                     </Typography>
                 </ListItem>
                 <ListItem>
