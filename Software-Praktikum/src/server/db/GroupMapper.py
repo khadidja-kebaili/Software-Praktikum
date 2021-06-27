@@ -55,7 +55,7 @@ class GroupMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT * FROM lernapp.group WHERE id={}".format(
+        command = "SELECT id, groupname, admin, description, chatid FROM lernapp.group WHERE id={}".format(
             key)
         cursor.execute(command)
         tuples = cursor.fetchall()

@@ -398,16 +398,8 @@ class Businesslogic (object):
 
     def check_timedelta_of_request(self):
         request = self.get_all_requests()
-        request_date = []
-        for element in request:
-            request_date.append(element.get_request_date())
         today = datetime.today()
-        for element in request_date:
-            deltatime = abs((element - today).days)
+        for element in request:
+            deltatime = abs((element.get_request_date() - today).days)
             if deltatime > 3:
                 self.delete_request(element)
-
-adm = Businesslogic()
-hold = adm.get_all_groups()
-for i in hold:
-    print(i)
