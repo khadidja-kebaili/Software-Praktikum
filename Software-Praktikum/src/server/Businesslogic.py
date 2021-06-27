@@ -110,6 +110,7 @@ class Businesslogic (object):
      Studiengang (major) und Lernfrequenz (studyfrequenz)
      Diese Attribute werden als Liste realisiert, um den späteren verlgeichen so effizient und performant wie möglich
      zu gestalten.'''
+
     def get_learning_habbits(self, id):
         profile = self.get_profile_by_id(id)
         learning_habbits = [profile.get_studytime(), profile.get_semester(), profile.get_studyplace(),
@@ -122,16 +123,17 @@ class Businesslogic (object):
     der Lerngewohnheiten des 2. Studentens ist, so steigt der match_score um eins.
     D.h. wenn die beiden Profile 3 gleiche Werte haben (beide sind bspw. im gleichen Semester, gleicher Studiengang
     und wollen gleich oft in der Woche lernen), so ist der Score = 3.'''
+
     def set_score(self, profile1, profile2):
         match_score = 0
         no_match_score = 0
         list1 = self.get_learning_habbits(profile1)
         list2 = self.get_learning_habbits(profile2)
         for element in list1:
-                if element in list2:
-                    match_score += 1
-                elif element not in list2:
-                    no_match_score += 1
+            if element in list2:
+                match_score += 1
+            elif element not in list2:
+                no_match_score += 1
         return match_score
 
     '''Nun möchte man aber nicht nur 2 Profile miteinander vergleichen, sondern man will ein Profil mit allen anderen
@@ -140,6 +142,7 @@ class Businesslogic (object):
     die Profile miteinander verknüpft werden können werden diese in einem dict gespeichert. Das dict wird dann sortiert
     und daraus entsteht eine Liste, die als Werte nur die Profile besitzt, jedoch sind diese geordnet nach dem Score
     sortiert. '''
+
     def matching_list(self, id):
         scores = []
         profiles = []
@@ -152,7 +155,8 @@ class Businesslogic (object):
             else:
                 profiles.append(element)
         matches = dict(zip(profiles, scores))
-        matches = dict(sorted(matches.items(), key=lambda item: item[1], reverse=True))
+        matches = dict(
+            sorted(matches.items(), key=lambda item: item[1], reverse=True))
         new_sorted_list = []
         for element in matches:
             new_sorted_list.append(element)
@@ -171,7 +175,8 @@ class Businesslogic (object):
                 print('Gut wurde erstellt')
                 return function(self, requester, requested, requesttype)
             else:
-                print('Hey, this student has already sent a request to you! Why don´t you start a chat?')
+                print(
+                    'Hey, this student has already sent a request to you! Why don´t you start a chat?')
                 return function(self, requester, requested, requesttype)
         return wrapper
 
@@ -223,6 +228,7 @@ class Businesslogic (object):
 
     '''Hier wird eine Request gelöscht, indem man der Methode 2 Ids übergibt: Die des Requested und die des
     Requested_by.'''
+
     def delete_request_by_ids(self, requested_id, requsted_by_id):
         all_requests = [self.get_all_requests()]
         for element in all_requests:
@@ -299,6 +305,15 @@ class Businesslogic (object):
         access.set_profile_id(profil)
         access.set_room(room)
         access.set_chattype(chattype)
+        with ChatAccessMapper() as mapper:
+            return mapper.insert(access)
+
+    def create_chataccess_new_member(self, profile_id, room, chattype):
+        access = ChatAccessBO()
+        access.set_profile_id(profile_id)
+        access.set_room(room)
+        access.set_chattype(chattype)
+
         with ChatAccessMapper() as mapper:
             return mapper.insert(access)
 
@@ -391,7 +406,6 @@ class Businesslogic (object):
                 res.append(mapper.find_by_chatid(elem))
         return res
 
-
     # def get_group_by_id(self, number):
     #     with GroupMapper() as mapper:
     #         return mapper.find_by_key(number)
@@ -406,6 +420,7 @@ class Businesslogic (object):
             deltatime = abs((element - today).days)
             if deltatime > 3:
                 self.delete_request(element)
+
 
 adm = Businesslogic()
 hold = adm.get_all_groups()

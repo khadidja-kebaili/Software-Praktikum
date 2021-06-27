@@ -29,6 +29,9 @@ export default class LernappAPI {
     // #deleteGroupURL = (id) =>`${this.#lernappServerBaseURL}/group/${id}`;
     #getAllGroupsURL = () => `${this.#lernappServerBaseURL}/group`;
     #get_Groups_of_ProfileURL = (id) => `${this.#lernappServerBaseURL}/groups_of_profile/${id}`;
+    #addMemberURL = () => `${this.#lernappServerBaseURL}/chataccess_new_member`;
+    #leaveGroupURL = (id) => `${this.#lernappServerBaseURL}/chataccess/${id}`;
+    #getMembersForGroupURL = (id) => `${this.#lernappServerBaseURL}/chataccess_member/${id}`;
 
 
     //Chatroom
@@ -208,6 +211,58 @@ export default class LernappAPI {
         })
     }
 
+    addMember(chataccessMemberBO){
+        return this.#fetchAdvanced(this.#addMemberURL(), {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json, text/plain',
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(chataccessMemberBO)
+        }).then((responseJSON) => {
+          // We always get an array of CustomerBOs.fromJSON, but only need one object
+          let responsechataccessBO = ChataccessBO.fromJSON(responseJSON)[0];
+          // console.info(accountBOs);
+          return new Promise(function (resolve) {
+            resolve(responsechataccessBO);
+          })
+        })
+      }
+
+    leaveGroup(profileID) {
+        return this.#fetchAdvanced(this.#leaveGroupURL(profileID), {
+          method: 'DELETE'
+        }).then((responseJSON) => {
+          let responseChataccessBO = ChataccessBO.fromJSON(responseJSON)[0];
+          // console.info(accountBOs);
+          return new Promise(function (resolve) {
+            resolve(responseChataccessBO);
+          })
+        })
+      }
+      
+    getMembersForGroup(roomID) {
+        return this.#fetchAdvanced(this.#getMembersForGroupURL(roomID))
+          .then((responseJSON) => {
+            let profileBOs = ProfileBO.fromJSON(responseJSON);
+            // console.info(accountBOs);
+            return new Promise(function (resolve) {
+              resolve(profileBOs);
+            })
+          })
+      }
+
+
+    searchMember(memberName) {
+        return this.#fetchAdvanced(this.#searchMemberURL(memberName)).then((responseJSON) => {
+          let memberBOs = ProfileBO.fromJSON(responseJSON);
+          // console.info(memberBOs);
+          return new Promise(function (resolve) {
+            resolve(memberBOs);
+          })
+        })
+      }
+    
     //Chataccess
 
     //User erhält Zugriff auf einen Chat

@@ -6,7 +6,7 @@ import LernappAPI  from '../API/LernappAPI';
 import LoadingProgress from './Dialog/LoadingProgress';
 import MemberListEntry from './MemberListEntry';
 import AddMember from './Dialog/AddMember';
-import ChataccessBO from '../API/ChatAccessBO';
+import ChataccessBO from '../API/ChataccessBO'
 
 
 class MemberList extends Component {
@@ -88,9 +88,11 @@ class MemberList extends Component {
 
   
   addMember = () => {
+    let chattype = "g"
       let newChataccess = new ChataccessBO(
         this.state.selectedMember.getID(),
-        this.props.groups.getID()
+        this.props.groups.getID(),
+        chattype
       )
       LernappAPI.getAPI().addMember(newChataccess).then(console.log(newChataccess)).then(this.closeAddMemberDialog)
     } 

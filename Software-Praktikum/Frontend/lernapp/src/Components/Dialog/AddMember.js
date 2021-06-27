@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import {IconButton, TextField, Typography, InputAdornment, MenuItem, Grid } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
-import ChataccessBO from '../../API/ChatAccessBO';
+import ChataccessBO from '../../API/ChataccessBO';
 
 
 class AddMember extends Component {

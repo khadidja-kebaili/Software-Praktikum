@@ -16,6 +16,7 @@ import AddIcon from '@material-ui/icons/Add';
 import LernappAPI from "../API/LernappAPI";
 import LoadingProgress from "./Dialog/LoadingProgress";
 import LeaveGroup from './Dialog/LeaveGroup';
+import MemberList from "./MemberList.js"
 // import MemberList from './MemberList';
 
 const useStyles = makeStyles((theme) => ({
@@ -85,7 +86,7 @@ class GroupListEntry extends Component {
                     <AccordionDetails>
                         <Typography>
                             {groups.getDescription()}
-                            {/* <MemberList  groups={groups} /> */}
+                            {<MemberList  groups={groups} />}
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
