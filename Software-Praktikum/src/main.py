@@ -530,16 +530,27 @@ class Requestanzeigen(Resource):
         adm.delete_request(request)
 
 
-@api.route('/delete_request/<int:id1>/requested_by/<int:id2>')
+@api.route('/delete_profile_request/<int:id1>/requested_by/<int:id2>')
 @api.param('id1', 'id des requested', 'id2 - id des requested_by')
-class RequestDelete(Resource):
+class ProfileRequestDelete(Resource):
     @api.marshal_with(request)
     def delete(self, id1, id2):
         adm = Businesslogic()
         requests = adm.get_request_of_profile(id1)
         for element in requests:
-            if element.requested_by == id2:
-                adm.delete_request(j)
+            if element.requested_by == id2 and element.request_type() == 'E':
+                adm.delete_request(element)
+
+@api.route('/delete_group_request/<int:id1>/requested_by/<int:id2>')
+@api.param('id1', 'id des requested', 'id2 - id des requested_by')
+class GroupRequestDelete(Resource):
+    @api.marshal_with(request)
+    def delete(self, id1, id2):
+        adm = Businesslogic()
+        requests = adm.get_request_of_profile(id1)
+        for element in requests:
+            if element.requested_by == id2 and element.request_type() == 'G':
+                adm.delete_request(element)
 
 @api.route('/matches/<int:id>')
 class Matcher(Resource):
