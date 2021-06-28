@@ -22,7 +22,7 @@ class RequestList extends Component {
     }
         //Lifecycle Methode wird aufgerufen, wenn die Komponente in den DOM Browser eingefügt wird
         componentDidMount(){
-            this.getRequest();
+            this.getRequestForProfile();
         }
    
     
