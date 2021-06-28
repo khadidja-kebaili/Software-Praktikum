@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
 // import DeleteRequest from "./Components/Dialog/DeleteRequest";
 import GroupList from "./Components/GroupList";
+import GroupListForProfile from "./Components/GroupListForProfile";
 
 class App extends React.Component {
 
@@ -18,8 +19,6 @@ class App extends React.Component {
           <Router>
             <Container maxWidth='md'>
               <Header/>
-              {/* <DeleteRequest/>
-              <GroupList/> */}
               {
                 <>
                   <Redirect from='/' to='matchmaker'/>
@@ -33,10 +32,10 @@ class App extends React.Component {
                     <Chatroom/>
                   </Route>
                   <Route path='/groups'>
-                    
+                      <GroupList/>
                   </Route>
                   <Route path='/mygroups'>
-                    
+                      <GroupListForProfile/>
                   </Route>
                   <Route path='/profil'>
                     

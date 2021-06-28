@@ -21,25 +21,25 @@ class RequestList extends Component {
     }
         //Lifecycle Methode wird aufgerufen, wenn die Komponente in den DOM Browser eingefügt wird
         componentDidMount(){
-            this.getRequest();
+            this.getRequestForProfile();
         }
    
     
     // Die Funktion getRequest() soll die request anzeigen
-    getRequest =() => {
-        LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
+    getRequestForProfile =() => {
+        LernappAPI.getAPI().getRequestForProfile(this.state.currentUser).then(profileBOs =>
             this.setState({
                 request:  profileBOs,
         
             }))}
 
     //Handles onRequestDelete events from an RequestListEntry
-    deleteRequestHandler = (deletedRequest) => {
-        this.setState({
-            requests: this.state.requests.filter(request => request.getID() !== deletedRequest.getID())
-        })
-    }
-    
+    // deleteRequestHandler = (deletedRequest) => {
+    //     this.setState({
+    //         requests: this.state.requests.filter(request => request.getID() !== deletedRequest.getID())
+    //     })
+    // }
+    //
 
     //Die Komponente die gerendert werden
     render(){

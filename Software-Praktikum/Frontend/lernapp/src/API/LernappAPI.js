@@ -39,7 +39,8 @@ export default class LernappAPI {
 
     //Request
 
-    #getRequestURL = (id) => `${this.#lernappServerBaseURL}/request/${id}`;
+    #getRequestForProfileURL = (id) => `${this.#lernappServerBaseURL}/request_for_profile/${id}`;
+    #getRequestForGroupURL = (id) => `${this.#lernappServerBaseURL}/request_for_groups/${id}`;
     // #deleteRequestURL = (id1,id2) => `${this.#lernappServerBaseURL}/delete_request/${id1}/requested_by/${id2}`;
     #addRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
     #getAllRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
@@ -544,8 +545,18 @@ export default class LernappAPI {
     })
   }
 
-    getRequest(profileID) {
-        return this.#fetchAdvanced(this.#getRequestURL(profileID)).then((responseJSON) => {
+    getRequestForProfile(profileID) {
+        return this.#fetchAdvanced(this.#getRequestForProfileURL(profileID)).then((responseJSON) => {
+            let profileBO = ProfileBO.fromJSON(responseJSON);
+            console.info(profileBO);
+            return new Promise(function (resolve) {
+                resolve(profileBO);
+            })
+        })
+    }
+
+    getRequestForGroups(profileID) {
+        return this.#fetchAdvanced(this.#getRequestForGroupURL(profileID)).then((responseJSON) => {
             let profileBO = ProfileBO.fromJSON(responseJSON);
             console.info(profileBO);
             return new Promise(function (resolve) {

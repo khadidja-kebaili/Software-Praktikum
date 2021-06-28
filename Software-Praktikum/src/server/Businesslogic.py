@@ -12,7 +12,6 @@ from server.db.MessageMapper import MessageMapper
 from server.bo.ChatroomBO import ChatroomBO
 from server.db.ChatroomMapper import ChatroomMapper
 
-
 class Businesslogic (object):
 
     def __init__(self):
@@ -162,37 +161,18 @@ class Businesslogic (object):
             new_sorted_list.append(element)
         return new_sorted_list
 
-    def deco(function):
-        def wrapper(self, requester, requested, requesttype):
-            match = False
-            requests = self.get_request_of_profile(requester)
-            request = []
-            for element in requests:
-                if element.get_requested_by() == requested and element.get_requesttype() == requesttype:
-                    request.append(element)
-                    match = True
-            if match == False:
-                print('Gut wurde erstellt')
-                return function(self, requester, requested, requesttype)
-            else:
-                print(
-                    'Hey, this student has already sent a request to you! Why don´t you start a chat?')
-                return function(self, requester, requested, requesttype)
-        return wrapper
-
-    @deco
-    def create_request(self, requested_by, requested, requesttype):
+    def create_request(self, requested_by, requested, request_type):
         requests = self.get_all_requests()
         request_list = []
         for element in requests:
             if (element.get_requested_by() == requested_by) and (element.get_requested() == requested) and (
-                    element.get_requesttype() == requesttype):
+                    element.get_request_type() == request_type):
                 request_list.append(element)
         if len(request_list) == 0:
             request = Request()
             request.set_requested_by(requested_by)
             request.set_requested(requested)
-            request.set_requesttype(requesttype)
+            request.set_request_type(request_type)
             with RequestMapper() as mapper:
                 mapper.insert(request)
 
@@ -208,7 +188,15 @@ class Businesslogic (object):
         all_requests = self.get_all_requests()
         request = []
         for element in all_requests:
-            if element.get_requested() == number:
+            if element.get_requested() == number and element.get_request_type() == 'E':
+                request.append(element)
+        return request
+
+    def get_request_of_groups(self, number):
+        all_requests = self.get_all_requests()
+        request = []
+        for element in all_requests:
+            if element.get_requested() == number and element.get_request_type() == 'G':
                 request.append(element)
         return request
 
