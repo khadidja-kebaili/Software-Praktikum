@@ -1,12 +1,12 @@
 import React,  {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import LernappAPI from '../../API/LernappAPI'
 import { withStyles, Typography, TableContainer, Table, TableHead, TableCell, Paper, TableRow, TableBody, Link, Grid } from '@material-ui/core';
 
-import Message from '../Message';
-import MessageBO from '../../API/MessageBO'
+import MessageBO from '../../API/MessageBO';
+import AddMessage from '../Dialog/AddMessage';
 import { blue, red } from '@material-ui/core/colors';
-import { LernappAPI } from '../../API';
 
 /**
  * geöffneter Chat mit zugehörigen Nachrichten
@@ -17,15 +17,18 @@ class Chatroom extends Component{
         super(props);
         this.state = {
             messages: [],
+            // users: [],
+            newMessage: '',
             loadingInProgress: false,
             error: null
         }
     }
 
     getMessages = () => {
-        LernappAPI.getAPI().getMessageByRoom(1).then(MessageBOs =>
+//        LernappAPI.getAPI().getMessageByRoom(1).then(messageBOs =>
+        LernappAPI.getAPI().getAllMessage().then(messageBOs =>
             this.setState({
-                messages: MessageBOs,
+                messages: messageBOs,
                 loadingInProgress: false,
                 error: null
             })).catch(e =>
@@ -34,15 +37,38 @@ class Chatroom extends Component{
                     loadingInProgress: false,
                     error: e
                 })
-            )
+            );
         this.setState({
             loadingInProgress: true,
             error: null
-        })         
+        });         
     }
 
+/*     getUsers = () => {
+        res = []
+        LernappAPI.getAPI().getChataccessByRoom().then(ChataccessBOs =>
+            ChataccessBOs.forEach(elem => {
+                res.push(elem.get_profile_id)                
+            }),
+            this.setState({
+                users: res,
+                loadingInProgress: false,
+                error: null
+            })
+        ).catch(e =>
+            this.setState({
+                users: [],
+                loadingInProgress: false,
+                error: e
+            }))
+            this.setState ({
+                loadingInProgress: true,
+                error: null
+        })
+    } */
+
     componentDidMount(){
-        this.getMessages()
+        this.getMessages();
     }
 
     componentDidUpdate(){
@@ -50,7 +76,8 @@ class Chatroom extends Component{
     }
 
     //Input wird zu MessageBO umgewandelt und an die Datenbank geschickt
-    sendMessageButtonClicked = (event) => {
+    sendMessageButtonClicked = event => {
+        event.stopPropagation();
         /**
          * Curerent User
          * Current Room
@@ -59,13 +86,16 @@ class Chatroom extends Component{
         let message = new MessageBO(
             1,
             2,
-            "Test"
+            this.state.newMessage
         )
-        LernappAPI.getAPI().add_Message(message);
+        console.log(this.state.messages)
+        LernappAPI.getAPI().addMessage(message).then(console.log(message));
     }
     
 
-    render_messages() {
+/*     alte Idee die Nachrichten zu rendern
+
+        render_messages() {
         var parent = document.getElementById("chat");
         //parent.innerHTML = "";
         //var messageMapper = new MessageMapper();
@@ -103,26 +133,38 @@ class Chatroom extends Component{
             parent.appendChild(newdiv);
         });
     }
+ */
+    messageInputChange = e => {
+        const value = e.target.value
+        this.setState({
+            newMessage: value
+        })
+    }
 
     render(){
-        const {Messages, loadingInProgress, error} = this.state;
+        const {messages, newMessage, loadingInProgress, error} = this.state;
         const {classes} = this.props;
 
         return(
             <div>
-                //Die Nachrichten des Chats hier
-                <div id="chat">
-
-                </div>
-
-                //Eingabefeld für neue Nachrichten
-                <div className="input">
-                    <TextField/>
-                </div>
-                <div className="send">
-                    <Button className={classes.addMessageButton} variant='contained' onClick={this.sendMessageButtonClicked}>Senden</Button>
-                    <Button onClick={this.update_messages}>Updaten</Button>
-                </div>
+                <Grid>
+                    <Grid item xs={4}>
+                        <TextField
+                            id='newMessage'
+                            type='text'
+                            value={newMessage}
+                            onChange={this.messageInputChange}>
+                        </TextField>
+                        <Button variant='contained' onClick={this.sendMessageButtonClicked}>
+                            Senden
+                        </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <Button variant='contained' onClick={this.getMessages}>
+                            Update
+                        </Button>
+                    </Grid>
+                </Grid>
             </div>
         );
     }
@@ -136,5 +178,6 @@ const styles = theme => ({
             color: blue,
         }
 })
+
 
 export default withStyles(styles)(Chatroom);

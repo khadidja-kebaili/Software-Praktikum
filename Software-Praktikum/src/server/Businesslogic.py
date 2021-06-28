@@ -366,6 +366,15 @@ class Businesslogic (object):
                 res.append(mapper.find_by_key(elem))
         return res
 
+    def get_chatroom_by_profile(self, profile):
+        res = []
+        with ChatAccessMapper() as mapper:
+            holder = mapper.find_chatrooms_by_profile(profile)
+        with ChatroomMapper() as mapper:
+            for elem in holder:
+                res.append(mapper.find_by_key(elem))
+        return res
+
     def get_profiles_by_room(self, id):
         with ChatAccessMapper() as mapper:
             return mapper.get_groupmembers(id)

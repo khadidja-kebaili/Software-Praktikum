@@ -3,6 +3,9 @@ from server.bo.ChatAccessBO import ChatAccessBO
 from server.bo.ChatroomBO import ChatroomBO
 from server.bo.ProfileBO import Studentprofile
 
+# Stellt da, welches Profil auf welchen Chatraum zugreifen kann
+# Bei den Chaträumen wird dabei unter Gruppenchaträume und Zweierchaträume aufgeteilt
+# author: Ha Mi Duong
 
 class ChatAccessMapper(Mapper):
     def __init__(self):
@@ -72,30 +75,30 @@ class ChatAccessMapper(Mapper):
         cursor.close()
         return res
 
-    def find_by_profile(self, profile):
-        res = None
-        cursor = self._cnx.cursor()
-        command = "SELECT id, profile_id, room, chattype FROM lernapp.chataccess WHERE profile_id={}".format(profile)
-        cursor.execute(command)
-        tuples = cursor.fetchall()
-
-        for(id, profile_id, room, chattype) in tuples:
-            access = ChatAccessBO()
-            access.set_id(id)
-            access.set_profile_id(profile_id)
-            access.set_room(room)
-            access.set_chattype(chattype)
-            res.append(access)
-
-        self._cnx.commit()
-        cursor.close()
-        return res
+    # def find_by_profile(self, profile):
+    #     res = None
+    #     cursor = self._cnx.cursor()
+    #     command = "SELECT id, profile_id, room, chattype FROM lernapp.chataccess WHERE profile_id={}".format(profile)
+    #     cursor.execute(command)
+    #     tuples = cursor.fetchall()
+    #
+    #     for(id, profile_id, room, chattype) in tuples:
+    #         access = ChatAccessBO()
+    #         access.set_id(id)
+    #         access.set_profile_id(profile_id)
+    #         access.set_room(room)
+    #         access.set_chattype(chattype)
+    #         res.append(access)
+    #
+    #     self._cnx.commit()
+    #     cursor.close()
+    #     return res
 
     # gibt die Gruppenchaträume des gegebenen Profils zurück
     def find_groupchat_by_profile(self, profile):
         res = []
         cursor = self._cnx.cursor()
-        command = "SELECT room FROM lernapp.chataccess WHERE profile_id={} AND chattype='g'".format(profile)
+        command = "SELECT room FROM lernapp.chataccess WHERE profile_id={} AND chattype='G'".format(profile)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -139,7 +142,7 @@ class ChatAccessMapper(Mapper):
     def find_singlechat_by_profile(self, profile):
         res = []
         cursor = self._cnx.cursor()
-        command = "SELECT room FROM lernapp.chataccess WHERE profile_id={} AND chattype='e'".format(profile)
+        command = "SELECT room FROM lernapp.chataccess WHERE profile_id={} AND chattype='E'".format(profile)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -179,6 +182,29 @@ class ChatAccessMapper(Mapper):
         # self._cnx.commit()
         # cursor.close()
         # return res
+    
+    def find_chatrooms_by_profile(self, profile):
+        res = []
+        cursor = self._cnx.cursor()
+        command = "SELECT room FROM lernapp.chataccess WHERE profile_id={}".format(profile)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for (room) in tuples:
+            res.append(room)
+
+        self._cnx.commit()
+        cursor.close()
+
+        holder = ()
+        res2 = list(holder)
+        for elem in res:
+            for i in elem:
+                res2.append(i)
+        holder = tuple(res2)
+
+        return holder
+
 
     def get_groupmembers(self, room):
         res = []

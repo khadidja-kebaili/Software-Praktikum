@@ -306,8 +306,16 @@ class FindSinglechats(Resource):
         rooms = adm.get_singlechats_by_profile(profile_id)
         return rooms
 
+@api.route('/chataccess_chats/<int:profile_id>')
+@api.param('profile_id', 'Id des Profils')
+class FindChatsByProfile(Resource):
+    @api.marshal_with(chatroom)
+    def get(self, profile_id):
+        adm = Businesslogic()
+        rooms = adm.get_chatroom_by_profile(profile_id)
+        return rooms
 
-@api.route('/chataccess-delete/<int:profile_id>/room/<int:room>')
+@api.route('/chataccess_delete/<int:profile_id>/room/<int:room>')
 @api.param('profile_id', 'ID des Profils', 'room - ID des Raums')
 class DeleteTargetedChataccess(Resource):
     @api.marshal_with(chataccess)

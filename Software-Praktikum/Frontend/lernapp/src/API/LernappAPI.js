@@ -10,14 +10,8 @@ export default class LernappAPI {
 
     static #api = null;
 
-    static getAPI() {
-        if (this.#api == null){
-            this.#api = new LernappAPI();}
-        return this.#api;
-    }
-
-
     #lernappServerBaseURL = 'http://127.0.0.1:5000';
+
 
     // // Local http-fake-backend
     // #lernappServerBaseURL = 'fake_backend/Lernappconfig.js'
@@ -60,6 +54,7 @@ export default class LernappAPI {
     #updateChataccessURL = (id) => `${this.#lernappServerBaseURL}/chataccess/${id}`;
 
     #getChataccessByRoomURL = (room) => `${this.#lernappServerBaseURL}/chataccess_member/${room}`;
+    #getChataccessByProfileURL = (id) => `${this.#lernappServerBaseURL}/chataccess_chats/${id}`;
 
     #getGroupchatsByProfilURL = (id) => `${this.#lernappServerBaseURL}/chataccess_groupchat/${id}`;
     #getSinglechatsByProfilURL = (id) => `${this.#lernappServerBaseURL}/chataccess_singlechat/${id}`;
@@ -68,11 +63,11 @@ export default class LernappAPI {
 
     //Message
 
-    #addMessageURL = () => `${this.#lernappServerBaseURL}/messages`;
-    #getAllMessageURL = () => `${this.#lernappServerBaseURL}/messages`;
-    #getMessageURL = (id) => `${this.#lernappServerBaseURL}/messages/${id}`;
-    #deleteMessageURL = (id) => `${this.#lernappServerBaseURL}/messages/${id}`;
-    #updateMessageURL = (id) => `${this.#lernappServerBaseURL}/messages/${id}`;
+    #addMessageURL = () => `${this.#lernappServerBaseURL}/message`;
+    #getAllMessageURL = () => `${this.#lernappServerBaseURL}/message`;
+    #getMessageURL = (id) => `${this.#lernappServerBaseURL}/message/${id}`;
+    #deleteMessageURL = (id) => `${this.#lernappServerBaseURL}/message/${id}`;
+    #updateMessageURL = (id) => `${this.#lernappServerBaseURL}/message/${id}`;
     #getMessageByRoomURL = (room) => `${this.#lernappServerBaseURL}/chatroom_message/${room}`;
 
     //Profile
@@ -84,6 +79,12 @@ export default class LernappAPI {
 
     #getMatchesURL = (id) => `${this.#lernappServerBaseURL}/matches/${id}`;
     #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
+
+    static getAPI() {
+        if (this.#api == null){
+            this.#api = new LernappAPI();}
+        return this.#api;
+    }
 
 
     #fetchAdvanced = (url, init) => fetch(url, init)
@@ -358,6 +359,14 @@ export default class LernappAPI {
         })
     }
 
+    getChataccessByProfile(id){
+    return this.#fetchAdvanced(this.#getChataccessByProfileURL(id)).then((responseJSON) => {
+        let responseChatroom = ChatroomBO.fromJSON(responseJSON);
+        return new Promise(function (resolve) {
+            resolve(responseChatroom);
+        })
+    })}
+
     deleteTargetedChataccess(id, room){
         return this.#fetchAdvanced(this.#deleteTargetedChataccessURL(id, room), {
             method: 'DELETE'
@@ -393,15 +402,15 @@ export default class LernappAPI {
 
     //Message
 
-    addMessage(message){
+    addMessage(messageBO){
         return this.#fetchAdvanced(this.#addMessageURL(), {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain',
                 'Content-type': 'application/json',
             },
-            body: JSON.stringify(message)
-        }).them((responseJSON) => {
+            body: JSON.stringify(messageBO)
+        }).then((responseJSON) => {
             let responseMessage = MessageBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve){
                 resolve(responseMessage);
@@ -596,6 +605,4 @@ export default class LernappAPI {
             })
         })
     }
-
-
 }
