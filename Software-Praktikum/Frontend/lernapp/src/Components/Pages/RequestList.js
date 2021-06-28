@@ -16,7 +16,7 @@ class RequestList extends Component {
         //Eine leere INIT setzten für request
         this.state={
             request: [],
-            currentUser : 3,
+            currentUser : 6,
             
         };
     }
@@ -24,9 +24,10 @@ class RequestList extends Component {
         componentDidMount(){
             this.getRequestForProfile();
         }
-   
-    
-    // Die Funktion getrequest() soll die request anzeigen
+
+
+
+    // Die Funktion getRequest() soll die request anzeigen
     getRequestForProfile =() => {
         LernappAPI.getAPI().getRequestForProfile(this.state.currentUser).then(profileBOs =>
             this.setState({
@@ -34,13 +35,15 @@ class RequestList extends Component {
         
             }))}
 
-    //Handles onrequestDelete events from an requestListEntry
-    // deleterequestHandler = (deletedrequest) => {
-    //     this.setState({
-    //         requests: this.state.requests.filter(request => request.getID() !== deletedrequest.getID())
-    //     })
-    // }
-    //
+
+        requestDeleted = request => {
+        const newRequestList = this.state.request.filter(requestFromState => requestFromState.getID() !== request.getID());
+        this.setState({
+            customers: newRequestList,
+            filteredCustomers: [...newRequestList],
+            showCustomerForm: false
+        });
+    }
 
     //Die Komponente die gerendert werden
     render(){
@@ -54,9 +57,7 @@ class RequestList extends Component {
                     </Grid>
                     {
                         request.map(profiles =>
-                            <RequestListEntry key={profiles.getID()} profiles={profiles} 
-                            // onrequestDeleted={this.deleterequestHandler}
-                            />)
+                            <RequestListEntry key={profiles.getID()} profiles={profiles}/>)
                             
                     }
                     

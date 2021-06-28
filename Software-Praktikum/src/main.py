@@ -11,7 +11,6 @@ from server.bo.RequestBO import Request
 from server.bo.GroupBO import Group
 
 # from SecurityDecorator import secured
-# from SecurityDecorator import secured
 
 app = Flask(__name__)
 CORS(app, resources=r'/*')
@@ -46,7 +45,7 @@ group = api.inherit('Group', bo, {
     'groupname': fields.String(attribute='groupname', description='groupname'),
     'admin': fields.Integer(attribute='admin', description='admin'),
     'description': fields.String(attribute='description', description='description'),
-    'chatid': fields.Integer(attribute='chatid', description='chatid'),
+    # 'chatid': fields.Integer(attribute = 'chatid', description = 'description')
 })
 
 member = api.inherit('Member', bo, {
@@ -409,9 +408,9 @@ class GroupOperations(Resource):
         if proposal is not None:
 
             p = adm.create_group(
-                proposal.get_group_name(),
+                proposal.get_groupname(),
                 proposal.get_admin(),
-                proposal.get_description()
+                proposal.get_description(),
             )
             return p
 
@@ -536,10 +535,10 @@ class ProfileRequestDelete(Resource):
     @api.marshal_with(request)
     def delete(self, id1, id2):
         adm = Businesslogic()
-        requests = adm.get_request_of_profile(id1)
+        requests = adm.get_all_requests()
         for element in requests:
-            if element.requested_by == id2 and element.request_type() == 'E':
-                adm.delete_request(element)
+            if element.get_request_type() == "E":
+                adm.delete_request_by_ids(id1, id2)
 
 @api.route('/delete_group_request/<int:id1>/requested_by/<int:id2>')
 @api.param('id1', 'id des requested', 'id2 - id des requested_by')

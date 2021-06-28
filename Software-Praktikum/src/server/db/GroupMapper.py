@@ -21,12 +21,16 @@ class GroupMapper(Mapper):
 
         command = "INSERT INTO lernapp.group (id, groupname, admin, description, chatid) VALUES (%s, %s,%s,%s, %s)"
         data = (
-            group.get_id(), group.get_groupname(), group.get_admin(), group.get_description(), group.get_chatid())
+            group.get_id(),
+            group.get_groupname(),
+            group.get_admin(),
+            group.get_description(),
+            group.get_chatid())
+
         cursor.execute(command, data)
 
         self._cnx.commit()
         cursor.close()
-
         return group
 
     def find_all(self):
@@ -129,9 +133,3 @@ class GroupMapper(Mapper):
 
         self._cnx.commit()
         cursor.close()
-
-if (__name__ == "__main__"):
-    with GroupMapper() as mapper:
-        result = mapper.find_all()
-        for p in result:
-            print(p)

@@ -1,13 +1,8 @@
 import React,{Component} from 'react';
+import {Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import LernappAPI from '../../API/LernappAPi';
 import DeleteRequest from '../Dialog/DeleteRequest';
-import Chatroom from '../Pages/Chatroom';
-import Test from '../../Test';
-import {BrowserRouter as Router,
-    Switch, Route, Link as RouterLink} from "react-router-dom";
-import {Paper, Typography, Tabs, Tab} from '@material-ui/core';
-
 
 
 class RequestListEntry extends Component{
@@ -16,10 +11,6 @@ class RequestListEntry extends Component{
 
         this.state={
             request: props.profiles,
-            // loadingInProgress: false,
-            // deletingInProgress: false,
-            // loadingError: null,
-            // deletingError: null,
             currentUser: 6,
             showDeleteRequest: false,
             tabindex: 0,
@@ -27,12 +18,38 @@ class RequestListEntry extends Component{
         };
     }
 
-// deleteRequestButtonClicked = (event) => {
-//     event.stopPropagation();
-//     this.setState({
-//         showDeleteRequest: true
-//     });
-// }
+    deleteRequest = (id1) => {
+        const { request } = this.state;
+        id1 = this.state.request.getID()
+        console.log(id1)
+        console.log(this.state.request)
+        LernappAPI.getAPI().deleteRequest(id1).then(() => {
+            this.setState({  // Set new state when AccountBOs have been fetched
+                deletingInProgress: false, // loading indicator
+                deletingError: null
+            })
+            // console.log(account);
+            // this.props.onRequestDeleted(request);
+        }).then(this.closeDeleteDialog).catch(e =>
+            this.setState({ // Reset state with error from catch
+                deletingInProgress: false,
+                deletingError: e
+            })
+        );
+
+        // set loading to true
+        this.setState({
+            deletingInProgress: true,
+            deletingError: null
+        });
+    }
+
+deleteRequestButtonClicked = (event) => {
+    event.stopPropagation();
+    this.setState({
+        showDeleteRequest: true
+    });
+}
 closeDeleteDialog = () => {
     this.setState({
     showDeleteRequest: false
@@ -40,26 +57,24 @@ closeDeleteDialog = () => {
 }
 
 
+addRequest = () =>{
+    LernappAPI.getAPI().addRequest().then(profileBOs =>
+        this.setState({
+            requests : profileBOs,
+        }))
+};
+
 getRequest = () => {
-    LernappAPI.getAPI().getRequestForProfile(this.state.currentUser).then(profileBOs =>
+    LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
         this.setState({
             request:  profileBOs,
             
     
         }))} 
 
-/** Handles onChange events of the Tabs component */
-changeTab = (e, newIndex) => {
-    // console.log(newValue)
-    this.setState({
-      tabindex: newIndex
-    })
-  };
-
-
 
     render() {
-        const{request}=this.state;
+        const{request, showDeleteRequest}=this.state;
         
         return(
             <div>
@@ -80,7 +95,7 @@ changeTab = (e, newIndex) => {
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>
                 </div>
-                {/* <DeleteRequest show={this.state.showDeleteRequest} request={request} onClose={this.closeDeleteDialog}/> */}
+                <DeleteRequest deleteRequest = {this.deleteRequest} show={this.state.showDeleteRequest} request={request} onClose={this.closeDeleteDialog}/>
                 </div>
                 
                 </Typography>           
