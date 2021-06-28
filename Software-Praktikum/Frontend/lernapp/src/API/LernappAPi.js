@@ -538,10 +538,10 @@ export default class LernappAPI {
 
     getRequestForProfile(profileID) {
         return this.#fetchAdvanced(this.#getRequestForProfileURL(profileID)).then((responseJSON) => {
-            let profileBO = ProfileBO.fromJSON(responseJSON);
-            console.info(profileBO);
+            let profileBOs = ProfileBO.fromJSON(responseJSON);
+            // console.info(profileBO);
             return new Promise(function (resolve) {
-                resolve(profileBO);
+                resolve(profileBOs);
             })
         })
     }
@@ -581,7 +581,7 @@ export default class LernappAPI {
 
 
 
-    addRequest(profileBO){
+    addProfileRequest(profileBO){
         return this.#fetchAdvanced(this.#addRequestURL(), {
             method: 'POST',
             headers: {
