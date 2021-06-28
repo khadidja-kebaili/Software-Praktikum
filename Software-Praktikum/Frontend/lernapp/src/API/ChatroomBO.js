@@ -1,7 +1,19 @@
 import BusinessObject from './BusinessObject';
 
+/**
+ * Bei der Komponente Chatraum wird zwischen Gruppenchats und Zweiterchats underschieden anhand des Chattypes
+ * E: Zweierchat
+ * G: Gruppenchat
+ * 
+ * @author [Ha Mi Duong](https://github.com/HamiDuong)
+ */
+
 export default class ChatroomBO extends BusinessObject {
 
+    /**
+     * 
+     * @param {string} chattype - Art des Chatraums (Gruppen oder Zweier)
+     */
     constructor(chattype){
         super();
         this.chattype = chattype;

@@ -1,10 +1,18 @@
 import BusinessObject from './BusinessObject';
 
 /**
- * Die einzelnen Nachrichten als BO
+ * Die einzelnen Nachrichten eines Chatraums als BO
+ * 
+ * @author [Ha Mi Duong](https://github.com/HamiDuong)
  */
 export default class MessageBO extends BusinessObject {
 
+    /**
+     * 
+     * @param {int} profile_id - Id der Person welche die Nachricht geschrieben hat
+     * @param {int} room - Raum in dem die MessageBO ist
+     * @param {string} text - Text der Nachricht
+     */
     constructor(profile_id, room, text){
         super();
         this.profile_id = profile_id;

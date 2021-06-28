@@ -9,7 +9,19 @@ import {Grid,
         ListItem
         } from '@material-ui/core';
 
+/**
+ * Zeigt alle zugreifbaren Chats des aktuellen Users
+ * 
+ * @author [Ha Mi Duong](https://github.com/HamiDuong)
+ */
+
 class ChatList extends Component{
+    /**
+     * 
+     * @param {[ChatroomBO]} chats - alle ChatroomBOs auf die der aktuelle User zugreifen kann 
+     * @param {boolean} loadingInProgress - Anzeige ob die Seite gerade ladet
+     * @param {} error - gibt Fehler an 
+    */
     constructor(props){
         super(props);
 
