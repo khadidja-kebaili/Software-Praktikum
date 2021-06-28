@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import LernappAPI from '../../API/LernappAPI';
+import LernappAPI from '../../API/LernappAPi';
 import DeleteRequest from '../Dialog/DeleteRequest';
 
 

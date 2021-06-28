@@ -1,4 +1,4 @@
-import BusinessObject from './BusinessObject';
+import BusinessObject from './Businessobject';
 
 /**
  * Die einzelnen Nachrichten als BO

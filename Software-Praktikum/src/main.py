@@ -266,6 +266,26 @@ class FindMembers(Resource):
         profiles = adm.get_profiles_by_room(room)
         return profiles
 
+# Mitglieder hinzufügen
+
+
+@api.route('/chataccess_new_member')
+class ChataccessNewMembers (Resource):
+    @api.marshal_with(chataccess)
+    @api.expect(chataccess)
+    def post(self):
+        adm = Businesslogic()
+        proposal = ChatAccessBO.from_dict(api.payload)
+        # //Notiz Daten von Frontend werden in proposal gespeichert
+        if proposal is not None:
+
+            p = adm.create_chataccess_new_member(
+                proposal.get_profile_id(),
+                proposal.get_room(),
+                proposal.get_chattype()
+            )
+            return p
+
 
 @api.route('/chataccess_groupchat/<int:profile_id>')
 @api.param('profile_id', 'Id des Profils')

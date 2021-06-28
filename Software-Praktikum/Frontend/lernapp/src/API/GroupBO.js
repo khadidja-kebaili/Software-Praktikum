@@ -1,4 +1,4 @@
-import BusinessObject from "./BusinessObject.js"
+import BusinessObject from "./Businessobject.js"
 
 export default class GroupBO extends BusinessObject{
 
