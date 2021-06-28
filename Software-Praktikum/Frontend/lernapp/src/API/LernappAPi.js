@@ -50,7 +50,7 @@ export default class LernappAPI {
     // #deleteRequestURL = (id1,id2) => `${this.#lernappServerBaseURL}/delete_request/${id1}/requested_by/${id2}`;
     #addRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
     #getAllRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
-    #deleteRequestURL = (id) => `${this.#lernappServerBaseURL}/request/${id}`;
+    #deleteRequestURL = (id1) => `${this.#lernappServerBaseURL}/request/${id1}`;
 
     //Chataccess
 
@@ -568,16 +568,16 @@ export default class LernappAPI {
     }
 
 
-    // deleteRequest(ID1, ID2) {
-    //     return this.#fetchAdvanced(this.#deleteRequestURL(ID1, ID2), {
-    //         method: 'DELETE'
-    //     }).then((responseJSON) => {
-    //         let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
-    //         return new Promise(function (resolve) {
-    //             resolve(responseRequestBO);
-    //         })
-    //     })
-    // }
+    deleteRequest(ID1) {
+        return this.#fetchAdvanced(this.#deleteRequestURL(ID1), {
+            method: 'DELETE'
+        }).then((responseJSON) => {
+            let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseRequestBO);
+            })
+        })
+    }
 
 
 
@@ -597,16 +597,16 @@ export default class LernappAPI {
         })
     }
 
-    deleteRequest(requestID) {
-        return this.#fetchAdvanced(this.#deleteRequestURL(requestID), {
-            method: 'DELETE'
-        }).then((responseJSON) => {
-            let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
-            return new Promise(function (resolve) {
-                resolve(responseRequestBO);
-            })
-        })
-    }
+    // deleteRequest(requestID) {
+    //     return this.#fetchAdvanced(this.#deleteRequestURL(requestID), {
+    //         method: 'DELETE'
+    //     }).then((responseJSON) => {
+    //         let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
+    //         return new Promise(function (resolve) {
+    //             resolve(responseRequestBO);
+    //         })
+    //     })
+    // }
 
 
 }

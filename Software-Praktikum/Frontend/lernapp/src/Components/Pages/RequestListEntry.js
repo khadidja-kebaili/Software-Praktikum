@@ -5,58 +5,43 @@ import LernappAPI from '../../API/LernappAPi';
 import DeleteRequest from '../Dialog/DeleteRequest';
 
 
-
-
 class RequestListEntry extends Component{
     constructor(props){
         super(props);
 
         this.state={
             request: props.profiles,
-            // loadingInProgress: false,
-            // deletingInProgress: false,
-            // loadingError: null,
-            // deletingError: null,
             currentUser: 6,
             showDeleteRequest: false
 
         };
     }
 
-//Anfragen sollen gelöscht werden
-// deleteRequest = () => {
-//     // const {request} = this.props;
-//     LernappAPI.getAPI().deleteRequest(this.state.currentUser).then(() => {
-//         this.setState({
-//              deletingInProgress: false,
-//              deletingError: null
-           
-//         })
-//         this.props.onRequestDeleted();
-//     }).catch(e =>
-//         this.setState({
-//             deletingInProgress: false,
-//             deletingError: e     
-//         })
-//         );
-//         this.setState({
-//             deletingInProgress: true,
-//             deletingError: null
-//         })      
-// };
+    deleteRequest = (id1) => {
+        const { request } = this.state;
+        id1 = this.state.request.getID()
+        console.log(id1)
+        console.log(this.state.request)
+        LernappAPI.getAPI().deleteRequest(id1).then(() => {
+            this.setState({  // Set new state when AccountBOs have been fetched
+                deletingInProgress: false, // loading indicator
+                deletingError: null
+            })
+            // console.log(account);
+            // this.props.onRequestDeleted(request);
+        }).then(this.closeDeleteDialog).catch(e =>
+            this.setState({ // Reset state with error from catch
+                deletingInProgress: false,
+                deletingError: e
+            })
+        );
 
-
-
-// componentDidMount() {
-//     this.getRequest();
-//   }
-
-// deleteRequestHandler = (deletedRequest) => {
-//     this.setState ({
-//         requests: this.state.request.
-//     })
-// }
-
+        // set loading to true
+        this.setState({
+            deletingInProgress: true,
+            deletingError: null
+        });
+    }
 
 deleteRequestButtonClicked = (event) => {
     event.stopPropagation();
@@ -100,7 +85,7 @@ getRequest = () => {
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>
                 </div>
-                <DeleteRequest show={this.state.showDeleteRequest} request={request} onClose={this.closeDeleteDialog}/>
+                <DeleteRequest deleteRequest = {this.deleteRequest} show={this.state.showDeleteRequest} request={request} onClose={this.closeDeleteDialog}/>
                 </div>
                 
                 </Typography>           

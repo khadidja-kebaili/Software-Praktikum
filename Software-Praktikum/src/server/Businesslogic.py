@@ -12,7 +12,8 @@ from server.db.MessageMapper import MessageMapper
 from server.bo.ChatroomBO import ChatroomBO
 from server.db.ChatroomMapper import ChatroomMapper
 
-class Businesslogic (object):
+
+class Businesslogic(object):
 
     def __init__(self):
         self.check_timedelta_of_request()
@@ -145,7 +146,7 @@ class Businesslogic (object):
     def matching_list(self, id):
         scores = []
         profiles = []
-        for element in range(1, (len(self.get_all_profiles())+1)):
+        for element in range(1, (len(self.get_all_profiles()) + 1)):
             profiles.append(self.get_profile_by_id(element))
             scores.append(self.set_score(element, id))
         for element in self.get_all_profiles():
@@ -174,7 +175,7 @@ class Businesslogic (object):
             request.set_requested(requested)
             request.set_request_type(request_type)
             with RequestMapper() as mapper:
-                mapper.insert(request)
+                return mapper.insert(request)
 
     def get_all_requests(self):
         with RequestMapper() as mapper:
