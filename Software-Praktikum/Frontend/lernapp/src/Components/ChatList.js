@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import ChatListEntry from './ChatListEntry';
-import LernappAPI from "../API/LernappAPi";
-import LoadingProgress from './Dialogs/LoadingProgress'
-import {Grid, 
+import LernappAPI from '../API/LernappAPI';
+import LoadingProgress from './Dialog/LoadingProgress';
+import {Grid,
+        Button, 
         withStyles,
-        Grid,
-        Typography,
-        withStyles
+        List,
+        ListItem
         } from '@material-ui/core';
 
 class ChatList extends Component{
@@ -23,23 +23,23 @@ class ChatList extends Component{
     // Chaträume des aktuellen Users holen
     getChats = () => {
         //hier muss in der Methode später die ID des aktuellen Users übergeben werden
-        LernappAPI.getAPI().getGroupchatsByProfil(2).then(ChatroomBOs =>
+        LernappAPI.getAPI().getChataccessByProfile(2).then(ChatroomBOs =>
 //        LernappAPI.getAPI().get_GroupchatsByProfil(this.props.profile.getID()).then(ChatroomBOs =>
             this.setState({
-                Chats: ChatroomBOs,
+                chats: ChatroomBOs,
                 loadingInProgress: false,
                 error: null
             })).catch(e =>
                 this.setState({
-                    Chats: [],
+                    chats: [],
                     loadingInProgress: false,
                     error: e
                 })
             )
-        this.setState({
-            loadingInProgress: true,
-            error: null
-        })
+            this.setState({
+                loadingInProgress: true,
+                error: null
+            })
     }
 
     componentDidMount(){
@@ -47,28 +47,14 @@ class ChatList extends Component{
     }
 
     render(){
-        const { chats, loadingInProgress, error} = this.state;
+        const {chats, loadingInProgress} = this.state;
+
         return (
             <div>
-                <Grid container spacing={1} justify='flex-start' alignItems='center'>
-                    <Grid item xs={4}>
-                        <TextField
-                            autoFocus
-                            fullWidth
-                            id='customerFilter'
-                            type='text'
-                            value={groupFilter}
-                            onChange={this.filterFieldValueChange}
-                        />
-                    </Grid>
-                    <Grid item xs/>
-                </Grid>
                 {
-                    chats.map(chats =>
-                        <ChatListEntry key={chats.getID()} chats={chats}
-                        />)
+                    chats.map( chats => <ChatListEntry key={chats.getID()} chats={chats}/>)
                 }
-                <LoadingProgress show={loadingInProgress} />
+                <LoadingProgress show={loadingInProgress}/>
             </div>
         );
     }
@@ -77,10 +63,7 @@ class ChatList extends Component{
 const styles = theme => ({
     root: {
         width: '100%',
-    },
-    ChatList: {
-        marginBottom: theme.spacing(2),
-    },
+    }
 });
 
 export default withStyles(styles)(ChatList);

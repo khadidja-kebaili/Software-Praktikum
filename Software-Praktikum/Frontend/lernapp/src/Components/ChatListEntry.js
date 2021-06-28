@@ -1,32 +1,40 @@
 import React, {Component} from "react";
-import LernappAPI from "../../API/LernappAPI";
-import LoadingProgress from "./Dialogs/LoadingProgress";
+import Chatroom from './Pages/Chatroom'
 import {withStyles,
-        Button,
-        ListItem,
         Typography,
-        Divider} from "@material-ui/core";
+        Accordion,
+        AccordionSummary,
+        AccordionDetails} from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
+
 class ChatlistEntry extends Component{
     constructor(props){
         super(props);
         this.state = {
             chats: props.chats,
-            loadingInProgress: false
-        }
-    }
-
-    componentDidMount(){
+            loadingInProgress: false,
+            roomnumber: props.chats.getID()
+        };
     }
 
     /**
      * Rendern der Komponente
      */
     render(){
-        const{chats} = this.state;
-
+        const{chats, roomnumber} = this.state;
         return(
             <div>
-
+                <Accordion>
+                    <AccordionSummary expandIcon = {<ExpandMoreIcon/>}>
+                        <Typography>
+                            {chats.getID()}
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        {<Chatroom chats={chats} roomnumber={roomnumber}/>}
+                    </AccordionDetails>
+                </Accordion>
             </div>
         )
     }
@@ -35,14 +43,6 @@ class ChatlistEntry extends Component{
 const styles = theme => ({
     root: {
         width: '100%'
-    },
-    buttonMargin: {
-        marginRight: theme.spacing(2),
-    },
-    chatEntry:{
-        fontSize: theme.typography.pxToRem(15),
-        flexBasis: '33.33%',
-        flexShrink: 0,
     }
 });
 

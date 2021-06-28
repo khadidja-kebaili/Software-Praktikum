@@ -1,7 +1,8 @@
 import React from 'react';
 import MatchList from './Components/Pages/MatchList';
 import RequestList from './Components/Pages/RequestList';
-import Chatroom from './Components/Pages/Chatroom'
+import Chatroom from './Components/Pages/Chatroom';
+import ChatList from './Components/ChatList';
 import Header from './Components/Layout/Header';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
@@ -29,7 +30,7 @@ class App extends React.Component {
                     <RequestList/>
                   </Route>
                   <Route exact path='/chats'>
-                    <Chatroom/>
+                    <ChatList/>
                   </Route>
                   <Route path='/groups'>
                       <GroupList/>
@@ -38,7 +39,6 @@ class App extends React.Component {
                       <GroupListForProfile/>
                   </Route>
                   <Route path='/profil'>
-                    
                   </Route>
                 </>
               }

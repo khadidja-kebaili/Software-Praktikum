@@ -2,11 +2,11 @@ import React,  {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import LernappAPI from '../../API/LernappAPI'
-import { withStyles, Typography, TableContainer, Table, TableHead, TableCell, Paper, TableRow, TableBody, Link, Grid } from '@material-ui/core';
+import { withStyles, Typography, List, ListItem, ListItemText, Grid } from '@material-ui/core';
 
 import MessageBO from '../../API/MessageBO';
-import AddMessage from '../Dialog/AddMessage';
-import { blue, red } from '@material-ui/core/colors';
+import Message from '../Message'
+import LoadingProgress from '../Dialog/LoadingProgress';
 
 /**
  * geöffneter Chat mit zugehörigen Nachrichten
@@ -20,13 +20,14 @@ class Chatroom extends Component{
             // users: [],
             newMessage: '',
             loadingInProgress: false,
-            error: null
+            error: null,
+            roomnumber: props.roomnumber
         }
     }
 
+    // hier muss später der Current User übergeben werden
     getMessages = () => {
-//        LernappAPI.getAPI().getMessageByRoom(1).then(messageBOs =>
-        LernappAPI.getAPI().getAllMessage().then(messageBOs =>
+        LernappAPI.getAPI().getMessageByRoom(1).then(messageBOs =>
             this.setState({
                 messages: messageBOs,
                 loadingInProgress: false,
@@ -71,69 +72,24 @@ class Chatroom extends Component{
         this.getMessages();
     }
 
-    componentDidUpdate(){
-
-    }
-
     //Input wird zu MessageBO umgewandelt und an die Datenbank geschickt
     sendMessageButtonClicked = event => {
         event.stopPropagation();
         /**
          * Curerent User
          * Current Room
-         * Input from Textfield
          */
         let message = new MessageBO(
             1,
-            2,
+            1,
             this.state.newMessage
         )
-        console.log(this.state.messages)
         LernappAPI.getAPI().addMessage(message).then(console.log(message));
+        setTimeout(() => {  console.log("Warten auf Datenbank"); }, 3000);
+        this.getMessages();
+        this.renderMessage(this.state.messages);
     }
-    
 
-/*     alte Idee die Nachrichten zu rendern
-
-        render_messages() {
-        var parent = document.getElementById("chat");
-        //parent.innerHTML = "";
-        //var messageMapper = new MessageMapper();
-        //var res = messageMapper.find_by_room(this.get_id);
-        
-        //MessageBO müssen aus der Datenbank geholt werden ->
-
-        //Testversion um Methode zu testen
-        var res = [];
-        
-        //Fake Backend
-        var mes = new Message();
-        mes.profilID = 1;
-        mes.room = 1;
-        mes.text = "Hallo";
-
-        var mes2 = new Message();
-        mes2.profilID = 2;
-        mes2.room = 1;
-        mes2.text = "Tschau";
-
-        res.push(mes, mes2);
-
-        res.forEach(elem => {
-            var newdiv = document.createElement("div");
-            var content = document.createTextNode(elem.text);
-            newdiv.appendChild(content);
-            //Hier muss die ID des aktuellen Users geprüft werden, nicht 1
-            if(elem.profilID === 1){
-                newdiv.classList.add("ownmessage");
-            //Wenn nicht aktueller User
-            }else{
-                newdiv.classList.add("othermessage");
-            }
-            parent.appendChild(newdiv);
-        });
-    }
- */
     messageInputChange = e => {
         const value = e.target.value
         this.setState({
@@ -141,27 +97,55 @@ class Chatroom extends Component{
         })
     }
 
+    // Rendermethode und alle Nachrichten als TextNodes in einen Div einfügen
+    renderMessage(msg){
+        var parent = document.getElementById("chat")
+        if(parent != null){
+            while(parent.firstChild){
+                parent.removeChild(parent.firstChild);
+            } 
+        }
+        
+        msg.forEach(elem => {
+            var txt = elem.profile_id+" : "+elem.text;
+            var newdiv =  document.createElement("div");
+            var content = document.createTextNode(txt)
+            newdiv.appendChild(content);
+            parent.appendChild(newdiv)            
+        });
+
+    }
+
     render(){
         const {messages, newMessage, loadingInProgress, error} = this.state;
-        const {classes} = this.props;
+        const {classes, chats} = this.props;
 
         return(
             <div>
+                <List className='messages'>
+                    {
+                        messages.map(messages => <Message key={messages.getID()} messages={messages}/>)
+                    }
+{/*                     {
+                        messages.map(() => this.renderMessage(messages))
+                    } */}
+                    <ListItem>
+                        <LoadingProgress show={loadingInProgress}/>
+                    </ListItem>
+                </List>
+                <div id="chat"/>
                 <Grid>
                     <Grid item xs={4}>
                         <TextField
                             id='newMessage'
                             type='text'
+                            variant="outlined"
                             value={newMessage}
+                            defaultValue='Hier Nachricht eingeben'
                             onChange={this.messageInputChange}>
                         </TextField>
                         <Button variant='contained' onClick={this.sendMessageButtonClicked}>
                             Senden
-                        </Button>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <Button variant='contained' onClick={this.getMessages}>
-                            Update
                         </Button>
                     </Grid>
                 </Grid>
@@ -171,12 +155,9 @@ class Chatroom extends Component{
 }
 
 const styles = theme => ({
-        ownmessage: {
-            color: red,
-        },
-        othermessage: {
-            color: blue,
-        }
+    root: {
+        width: '100%'
+    }
 })
 
 

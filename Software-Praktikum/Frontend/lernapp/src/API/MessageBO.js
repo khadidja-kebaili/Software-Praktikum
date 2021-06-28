@@ -5,20 +5,20 @@ import BusinessObject from './BusinessObject';
  */
 export default class MessageBO extends BusinessObject {
 
-    constructor(profil_id, room, text){
+    constructor(profile_id, room, text){
         super();
-        this.profil_id = profil_id;
+        this.profile_id = profile_id;
         this.room = room;
         this.text = text;
     }
 
     //Getter und Setter Methoden für die Objekte der Klasse MessageBO
-    set_profil_id(id){
-        this.profil_id = id;
+    set_profile_id(id){
+        this.profile_id = id;
     }
 
-    get_profil_id(){
-        return this.profil_id;
+    get_profile_id(){
+        return this.profile_id;
     }
 
     set_room(id){
