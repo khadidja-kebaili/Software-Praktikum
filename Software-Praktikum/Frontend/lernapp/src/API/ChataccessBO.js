@@ -1,4 +1,11 @@
-import BusinessObject from './Businessobject';
+import BusinessObject from './BusinessObject';
+
+/**
+ * Stellt da, welches Profil auf welchen Chatraum zugreifen kann
+ * Bei den Chaträumen wird dabei unter Gruppenchaträume und Zweierchaträume aufgeteilt
+ * 
+ * @author [Ha Mi Duong](https://github.com/HamiDuong)
+ */
 
 export default class ChataccessBO extends BusinessObject {
 

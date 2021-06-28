@@ -1,17 +1,17 @@
 import React, {Component} from "react";
+import LernappAPI from "../../API/LernappAPI";
+import LoadingProgress from "./Dialogs/LoadingProgress";
 import {withStyles,
         Button,
         ListItem,
         Typography,
         Divider} from "@material-ui/core";
-import LernappAPI from '../API/LernappAPI';
-import LoadingProgress from "./Dialogs/LoadingProgress";
-
 class ChatlistEntry extends Component{
     constructor(props){
         super(props);
         this.state = {
-            loadingInProgress: false,
+            chats: props.chats,
+            loadingInProgress: false
         }
     }
 
@@ -22,23 +22,13 @@ class ChatlistEntry extends Component{
      * Rendern der Komponente
      */
     render(){
-        const{loadingInProgress} = this.state;
-        const{classes, chats} = this.props;
-
+        const{chats} = this.state;
 
         return(
             <div>
-                <ListItem button onClick=()>
-                    <Typography className = {classes.chatEntry}>
-                        <b>Chat Nummer: </b> {chats.getID()}
-                    </Typography>
-                </ListItem>
-                <ListItem>
-                    <LoadingProgress show = {loadingInProgress} />
-                </ListItem>
-                <Divider />
+
             </div>
-        );
+        )
     }
 }
 

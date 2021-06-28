@@ -1,24 +1,24 @@
-import BusinessObject from './Businessobject';
+import BusinessObject from './BusinessObject';
 
 /**
  * Die einzelnen Nachrichten als BO
  */
 export default class MessageBO extends BusinessObject {
 
-    constructor(profilID, room, text){
+    constructor(profil_id, room, text){
         super();
-        this.profilID = profilID;
+        this.profil_id = profil_id;
         this.room = room;
         this.text = text;
     }
 
     //Getter und Setter Methoden für die Objekte der Klasse MessageBO
-    set_profilID(id){
-        this.profilID = id;
+    set_profil_id(id){
+        this.profil_id = id;
     }
 
-    get_profilID(){
-        return this.profilID;
+    get_profil_id(){
+        return this.profil_id;
     }
 
     set_room(id){

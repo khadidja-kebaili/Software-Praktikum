@@ -1,6 +1,6 @@
-import Businessobject from "./Businessobject"
+import BusinessObject from "./BusinessObject"
 
-export default class RequestBO extends Businessobject {
+export default class RequestBO extends BusinessObject {
     constructor(Arequested_by, Arequested, Arequest_time) {
       super();
 

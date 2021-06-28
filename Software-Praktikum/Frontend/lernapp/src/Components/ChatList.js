@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import {List,
-        ListItem} from "@material-ui/core";
 import ChatListEntry from './ChatListEntry';
 import LernappAPI from "../API/LernappAPi";
-import LernappAPI from '../API/LernappAPI';
 import LoadingProgress from './Dialogs/LoadingProgress'
-import {Grid, Typography, withStyles, Button } from '@material-ui/core';
+import {Grid, 
+        withStyles,
+        Grid,
+        Typography,
+        withStyles
+        } from '@material-ui/core';
 
 class ChatList extends Component{
     constructor(props){
@@ -18,7 +20,7 @@ class ChatList extends Component{
         }
     }
 
-    //Chaträume des aktuellen Users holen
+    // Chaträume des aktuellen Users holen
     getChats = () => {
         //hier muss in der Methode später die ID des aktuellen Users übergeben werden
         LernappAPI.getAPI().getGroupchatsByProfil(2).then(ChatroomBOs =>
@@ -44,88 +46,41 @@ class ChatList extends Component{
         this.getChats();
     }
 
-    componentDidUpdate(){
-
-    }
-
-    //muss mit Chataccess verbunden werden, damit nur die benötigten Chats geholt werden
-    // get_Chats = () => {
-
-    //     rooms = this.state.Chataccess;
-    //     res = [];
-
-    //     for(let i=0; i<rooms.length; i++){
-    //         res.push(LernappAPI.getAPI().get_Chatroom(rooms[i]));
-    //     }
-
-    //     this.setState({
-    //         Chats: res
-    //     })
-
-        //Nur zum testen die 1
-        // LernappAPI.getAPI().get_Chatroom(1).then(ChatroomBOs =>
-        //     this.setState({
-        //         Chats: ChatroomBOs,
-        //         loadingInProgress: false,
-        //         error: null
-        //     })).catch(e =>
-        //         this.setState({
-        //             Chats: [],
-        //             loadingInProgress: false,
-        //             error: e
-        //         })
-        //     )
-        // this.setState({
-        //     loadingInProgress: true,
-        //     error: null
-        // })
-
-    create_Chat = (room) => {
-        LernappAPI.getAPI().addChatroom(room).then(ChatroomBO => {
-            this.setState({
-                Chats: [...this.state.Chats, ChatroomBO],
-                loadingInProgress: false,
-                error: null
-            })
-        }).catch(e =>
-            this.setState({
-                loadingInProgress: false,
-                error: e
-            }))
-        this.setState({
-            loadingInProgress: true,
-            error: null
-        })
-    }
-
     render(){
-        const { Chats, loadingInProgress, error} = this.state;
-        const {classes} = this.props;
-
-        return(
-            <div className={classes.root}>
-                <List className={classes.chatList}>
-                    {
-                        Chats.map(Chats => <ChatListEntry key={Chats.getID()} Chats = {Chats}
+        const { chats, loadingInProgress, error} = this.state;
+        return (
+            <div>
+                <Grid container spacing={1} justify='flex-start' alignItems='center'>
+                    <Grid item xs={4}>
+                        <TextField
+                            autoFocus
+                            fullWidth
+                            id='customerFilter'
+                            type='text'
+                            value={groupFilter}
+                            onChange={this.filterFieldValueChange}
+                        />
+                    </Grid>
+                    <Grid item xs/>
+                </Grid>
+                {
+                    chats.map(chats =>
+                        <ChatListEntry key={chats.getID()} chats={chats}
                         />)
-                    }
-                    <ListItem>
-                        <LoadingProgress show = {loadingInProgress} />
-                    </ListItem>
-                </List>
-           </div>
-        )
+                }
+                <LoadingProgress show={loadingInProgress} />
+            </div>
+        );
     }
 }
 
-/** Component specific styles */
 const styles = theme => ({
     root: {
         width: '100%',
     },
-    chatList: {
+    ChatList: {
         marginBottom: theme.spacing(2),
-    }
+    },
 });
 
 export default withStyles(styles)(ChatList);
