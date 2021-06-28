@@ -7,13 +7,13 @@ class Request(Businessobject):
         self.requested_by = "",
         self.requested = "",
         self.request_date = "",
-        self.requesttype = ""
+        self.request_type = ""
 
-    def set_requesttype(self, value):
-        self.requesttype = value
+    def set_request_type(self, value):
+        self.request_type = value
 
-    def get_requesttype(self):
-        return self.requesttype
+    def get_request_type(self):
+        return self.request_type
 
     def set_request_date(self, value):
         self.request_date = value
@@ -40,7 +40,7 @@ class Request(Businessobject):
                    self.get_requested_by(),
                    self.get_requested(),
                    self.get_request_date(),
-                   self.get_requesttype())
+                   self.get_request_type())
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -50,6 +50,6 @@ class Request(Businessobject):
         obj.set_requested_by(dictionary['requested_by'])
         obj.set_requested(dictionary['requested'])
         obj.set_request_date(dictionary['requested_date'])
-        obj.set_requesttype(dictionary['requesttype'])
+        obj.set_request_type(dictionary['request_type'])
         return obj
 

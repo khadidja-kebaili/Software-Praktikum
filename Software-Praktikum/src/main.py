@@ -86,6 +86,7 @@ matchmaker_profile = api.inherit('Profil', bo, {
 request = api.inherit('Request', bo, {
     'requested': fields.String(attribute='requested', description='requested'),
     'requested_by': fields.String(attribute='requested_by', description='requested_by'),
+    'request_type': fields.String(attribute='request_type', description='request_type'),
     # 'request_date': fields.String(attribute = 'request_date', description = 'request_date')
 })
 
@@ -473,7 +474,8 @@ class RequestOperations(Resource):
 
             p = adm.create_request(
                 proposal.get_requested(),
-                proposal.get_requested_by()
+                proposal.get_requested_by(),
+                proposal.get_request_type()
             )
             return p
 
@@ -484,13 +486,41 @@ class RequestOperations(Resource):
         return requests
 
 
-@api.route('/request/<int:id>')
+@api.route('/profile_of_request/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
-class Requestanzeigen (Resource):
+class ProfileofRequestanzeigen (Resource):
     @api.marshal_with(matchmaker_profile)
     def get(self, id):
         adm = Businesslogic()
         request = adm.get_profiles_of_request(id)
+        return request
+
+@api.route('/request_for_profile/<int:id>')
+@api.param('id', 'Die ID des Profil-Objekts')
+class RequestofProfile(Resource):
+    @api.marshal_with(request)
+    def get(self, id):
+        adm = Businesslogic()
+        request = adm.get_request_of_profile(id)
+        return request
+
+@api.route('/request_for_group/<int:id>')
+@api.param('id', 'Die ID des Profil-Objekts')
+class RequestofGroup(Resource):
+    @api.marshal_with(request)
+    def get(self, id):
+        adm = Businesslogic()
+        request = adm.get_request_of_groups(id)
+        return request
+
+
+@api.route('/request/<int:id>')
+@api.param('id', 'Die ID des Profil-Objekts')
+class Requestanzeigen(Resource):
+    @api.marshal_with(request)
+    def get(self, id):
+        adm = Businesslogic()
+        request = adm.get_request_by_id(id)
         return request
 
     @api.marshal_with(request)
@@ -506,21 +536,10 @@ class RequestDelete(Resource):
     @api.marshal_with(request)
     def delete(self, id1, id2):
         adm = Businesslogic()
-        requests = [adm.get_request_of_profile(id1)]
+        requests = adm.get_request_of_profile(id1)
         for element in requests:
-            for j in element:
-                if j.requested_by == id2:
-                    adm.delete_request(j)
-
-
-# class Requestanzeigen (Resource):
-#     @api.marshal_with(request)
-#     def get(self, id):
-#         adm = Businesslogic()
-#         request = adm.get_request_of_profile(id)
-#         return request
-
-# Matches
+            if element.requested_by == id2:
+                adm.delete_request(j)
 
 @api.route('/matches/<int:id>')
 class Matcher(Resource):
