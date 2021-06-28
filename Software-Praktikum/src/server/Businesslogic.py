@@ -76,7 +76,7 @@ class Businesslogic (object):
             mapper.delete(studentprofile)
 
     def create_group(self, groupname, admin, description):
-        chatroom = self.create_chatroom('G')
+        chatroom = self.create_chatroom('g')
         group = Group()
         group.set_groupname(groupname)
         group.set_admin(admin)
