@@ -1,12 +1,13 @@
 import Businessobject from "./Businessobject"
 
 export default class RequestBO extends Businessobject {
-    constructor(Arequested_by, Arequested, Arequest_time) {
+    constructor(Arequested_by, Arequested, Arequest_time, Arequest_type) {
       super();
 
       this.requested = Arequested;
       this.requestTime = Arequest_time;
       this.requestedBy = Arequested_by;
+      this.request_type = Arequest_type;
     }
 
     setRequestedBy(Arequested_by){
@@ -31,6 +32,14 @@ export default class RequestBO extends Businessobject {
 
     getRequestTime(){
         return this.requestTime
+    }
+
+    setRequestType(Arequest_type){
+        this.request_type = Arequest_type
+    }
+
+    getRequestType(){
+        return this.request_type
     }
 
     static fromJSON(request) {
