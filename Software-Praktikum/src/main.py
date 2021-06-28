@@ -84,8 +84,8 @@ matchmaker_profile = api.inherit('Profil', bo, {
 })
 
 request = api.inherit('Request', bo, {
-    'requested': fields.String(attribute='requested', description='requested'),
-    'requested_by': fields.String(attribute='requested_by', description='requested_by'),
+    'requested': fields.Integer(attribute='requested', description='requested'),
+    'requested_by': fields.Integer(attribute='requested_by', description='requested_by'),
     'request_type': fields.String(attribute='request_type', description='request_type'),
     # 'request_date': fields.String(attribute = 'request_date', description = 'request_date')
 })

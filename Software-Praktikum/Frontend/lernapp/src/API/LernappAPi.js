@@ -581,18 +581,18 @@ export default class LernappAPI {
 
 
 
-    addProfileRequest(profileBO){
-        return this.#fetchAdvanced(this.#addRequestURL(), {
+    addProfileRequest(requestBO){
+        return this.#fetchAdvanced(this.#addRequestURL(requestBO), {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain',
                 'Content-type': 'application/json',
             },
-            body: JSON.stringify(profileBO)
+            body: JSON.stringify(requestBO)
         }).then((responseJSON) => {
-            let responseProfileBO = ProfileBO.fromJSON(responseJSON);
+            let responseRequestBO = RequestBO.fromJSON(responseJSON);
             return new Promise(function (resolve){
-                resolve(responseProfileBO);
+                resolve(responseRequestBO);
             })
         })
     }

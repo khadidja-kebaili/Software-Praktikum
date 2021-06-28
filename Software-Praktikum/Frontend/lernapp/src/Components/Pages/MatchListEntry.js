@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import LernappAPI from '../../API/LernappAPi';
 import AddRequest from '../Dialog/AddRequest';
+import RequestBO from './../../API/RequestBO';
 
 
 class MatchListEntry extends Component{
@@ -12,15 +13,33 @@ class MatchListEntry extends Component{
 
         this.state={
             matches: props.profiles,
+            request: props.request,
+
+            
         };
     }
 
-    addProfileRequest = () =>{
-        LernappAPI.getAPI().addProfileRequest().then(profileBOs =>
-            this.setState({
-                requests : profileBOs,
-            }))
-    };
+// addProfileRequest = () =>{
+//     let request_type = "E";
+//     LernappAPI.getAPI().addProfileRequest().then(requestBOs =>
+//             this.setState({
+//                 requests : requestBOs,
+//                 l
+
+//             }))
+
+//     };
+addProfileRequest = () => {
+    let currenUser = 6;
+    let request_type = "E";
+      let newRequest = new RequestBO(
+        currenUser,
+        this.state.matches.getID(),
+        request_type
+      )
+      LernappAPI.getAPI().addProfileRequest(newRequest).then(console.log(newRequest))
+    } 
+
 
     render() {
         const{matches}=this.state;
@@ -33,7 +52,7 @@ class MatchListEntry extends Component{
                     {matches.getStudyplace()}, {matches.getStudyfrequence()}
                  
                 <Button
-                 color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addProfileRequest}>Anfrage senden
+                 color='primary'  flex="flex-end" onClick={this.addProfileRequest}>Anfrage senden
                 </Button>
                 
                  

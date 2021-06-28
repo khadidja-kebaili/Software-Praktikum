@@ -174,7 +174,7 @@ class Businesslogic (object):
             request.set_requested(requested)
             request.set_request_type(request_type)
             with RequestMapper() as mapper:
-                mapper.insert(request)
+                return mapper.insert(request)
 
     def get_all_requests(self):
         with RequestMapper() as mapper:

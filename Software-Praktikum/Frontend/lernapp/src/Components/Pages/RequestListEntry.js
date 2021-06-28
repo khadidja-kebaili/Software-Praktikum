@@ -21,7 +21,8 @@ class RequestListEntry extends Component{
             // loadingError: null,
             // deletingError: null,
             currentUser: 6,
-            showDeleteRequest: false
+            showDeleteRequest: false,
+            tabindex: 0,
 
         };
     }
@@ -43,6 +44,7 @@ getRequest = () => {
     LernappAPI.getAPI().getRequestForProfile(this.state.currentUser).then(profileBOs =>
         this.setState({
             request:  profileBOs,
+            
     
         }))} 
 
@@ -64,9 +66,11 @@ changeTab = (e, newIndex) => {
                 
                 <Typography>
                     {request.getFirstname()}, {request.getLastname()}, {request.getLearnstyle()}, {request.getStudytime()},
-                <div indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
-                <Tab label='Annehmen' component={RouterLink} to={'/chats'}/>
-                </div>
+                
+                <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
+                    <Tab label='Annehmen' component={RouterLink} to={'/chats'} /> 
+                </Tabs>
+
                 {/* <Button color='primary'
                     onClick={this.routeToChats}> 
                     Annehmen

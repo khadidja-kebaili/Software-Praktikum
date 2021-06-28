@@ -7,19 +7,9 @@ import LernappAPI from '../../API/LernappAPi';
 class AddRequest extends Component {
     constructor(props){
         super(props);
-        let rqustBY ='', rqusted='', rqust_type='', currentUser= 5
-
-        if (props.request){
-            rqustBY = props.request.getRequestedBy();
-            rqusted = props.request.getRequested();
-            rqust_type = props.request.getRequestType();
-
-
-        }
+        
         this.state = {
-            requestedBy : rqustBY,
-            requested : rqusted,
-            request_type: rqust_type
+            
         };
 
         this.handleChange = this.handleChange.bind(this);
