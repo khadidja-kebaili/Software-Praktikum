@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withStyles, ListItem } from '@material-ui/core';
 import { Button, List } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import LernappAPI  from '../API/LernappAPi';
+import LernappAPI  from '../API/LernappAPI';
 import LoadingProgress from './Dialog/LoadingProgress';
 import MemberListEntry from './MemberListEntry';
 import AddMember from './Dialog/AddMember';

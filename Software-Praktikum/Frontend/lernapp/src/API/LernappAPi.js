@@ -51,6 +51,8 @@ export default class LernappAPI {
     #addRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
     #getAllRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
     #deleteRequestURL = (id1) => `${this.#lernappServerBaseURL}/request/${id1}`;
+    #getProfileOfReqeustURL = (id) => `${this.#lernappServerBaseURL}/profile_of_request/${id}`;
+
 
     //Chataccess
 
@@ -607,6 +609,16 @@ export default class LernappAPI {
     //         })
     //     })
     // }
+
+    getProfileOfRequest(currentUser) {
+        return this.#fetchAdvanced(this.#getProfileOfReqeustURL(currentUser)).then((responseJSON) => {
+            let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
+            // console.info(responseProfileBO);
+            return new Promise(function (resolve) {
+                resolve(responseProfileBO);
+            })
+        })
+    }
 
 
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
-import LernappAPI from '../../API/LernappAPi';
+import LernappAPI from '../../API/LernappAPI';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';

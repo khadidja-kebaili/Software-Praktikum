@@ -11,7 +11,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { FormControl } from '@material-ui/core';
 import ProfileBO from "../../API/ProfileBO";
-import LernappAPI from "../../API/LernappAPi"
+import LernappAPI from "../../API/LernappAPI"
 
 class UserProfile extends Component {
   constructor(props){
