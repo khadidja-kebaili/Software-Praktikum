@@ -34,23 +34,22 @@ class ChatList extends Component{
 
     // Chaträume des aktuellen Users holen
     getChats = () => {
-        //hier muss in der Methode später die ID des aktuellen Users übergeben werden
+        // hier muss in der Methode später die ID des aktuellen Users übergeben werden
         LernappAPI.getAPI().getChataccessByProfile(2).then(ChatroomBOs =>
-//        LernappAPI.getAPI().get_GroupchatsByProfil(this.props.profile.getID()).then(ChatroomBOs =>
             this.setState({
                 chats: ChatroomBOs,
                 loadingInProgress: false,
-                error: null
+                error: null,
             })).catch(e =>
                 this.setState({
                     chats: [],
                     loadingInProgress: false,
-                    error: e
+                    error: e,
                 })
             )
             this.setState({
                 loadingInProgress: true,
-                error: null
+                error: null,
             })
     }
 

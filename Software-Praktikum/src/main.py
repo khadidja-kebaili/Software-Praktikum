@@ -307,6 +307,7 @@ class FindSinglechats(Resource):
         rooms = adm.get_singlechats_by_profile(profile_id)
         return rooms
 
+
 @api.route('/chataccess_chats/<int:profile_id>')
 @api.param('profile_id', 'Id des Profils')
 class FindChatsByProfile(Resource):
@@ -315,6 +316,17 @@ class FindChatsByProfile(Resource):
         adm = Businesslogic()
         rooms = adm.get_chatroom_by_profile(profile_id)
         return rooms
+
+
+@api.route('/chataccess_partner/<int:room>/profile/<int:profile_id>')
+@api.param('room', 'ID des Raums', 'profile_id - ID des Profils')
+class GetChatpartner(Resource):
+    @api.marshal_with(profile)
+    def get(self, room, profile_id):
+        adm = Businesslogic()
+        partner = adm.get_second_profile(room, profile_id)
+        return partner
+
 
 @api.route('/chataccess_delete/<int:profile_id>/room/<int:room>')
 @api.param('profile_id', 'ID des Profils', 'room - ID des Raums')

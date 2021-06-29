@@ -60,6 +60,8 @@ export default class LernappAPI {
     #getGroupchatsByProfilURL = (id) => `${this.#lernappServerBaseURL}/chataccess_groupchat/${id}`;
     #getSinglechatsByProfilURL = (id) => `${this.#lernappServerBaseURL}/chataccess_singlechat/${id}`;
 
+    #getChatpartnerURL = (room, id) => `${this.#lernappServerBaseURL}/chataccess_partner/${room}/profile/${id}`;
+
     #deleteTargetedChataccessURL = (id, room) => `${this.#lernappServerBaseURL}/chataccess_delete/${id}/room/${room}`;
 
     //Message
@@ -356,6 +358,15 @@ export default class LernappAPI {
             let responseChatroom = ChatroomBO.fromJSON(responseJSON);
             return new Promise(function (resolve) {
                 resolve(responseChatroom);
+            })
+        })
+    }
+
+    getChatpartner(room, id){
+        return this.#fetchAdvanced(this.#getChatpartnerURL(room, id)).then((responseJSON) => {
+            let responseChataccess = ProfileBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(responseChataccess);
             })
         })
     }

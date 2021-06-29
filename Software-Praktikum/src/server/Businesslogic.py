@@ -363,6 +363,15 @@ class Businesslogic (object):
                 res.append(mapper.find_by_key(elem))
         return res
 
+    def get_second_profile (self, room, profile):
+        with ChatAccessMapper() as mapper:
+            holder = mapper.find_second_profile(room)
+        for elem in holder:
+            if elem.get_profile_id() != profile:
+                with StudentprofileMapper() as mapper:
+                    return mapper.find_by_key(elem.get_profile_id())
+
+
     def get_profiles_by_room(self, id):
         with ChatAccessMapper() as mapper:
             return mapper.get_groupmembers(id)

@@ -1,7 +1,6 @@
 import React from 'react';
 import MatchList from './Components/Pages/MatchList';
 import RequestList from './Components/Pages/RequestList';
-import Chatroom from './Components/Pages/Chatroom';
 import ChatList from './Components/ChatList';
 import Header from './Components/Layout/Header';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';

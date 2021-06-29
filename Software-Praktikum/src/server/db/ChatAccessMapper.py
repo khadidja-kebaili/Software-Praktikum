@@ -205,6 +205,24 @@ class ChatAccessMapper(Mapper):
 
         return holder
 
+    def find_second_profile(self, room):
+        res = []
+        cursor = self._cnx.cursor()
+        command = "SELECT id, profile_id, room, chattype FROM lernapp.chataccess WHERE room={}".format(room)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        for(id, profile_id, room, chattype) in tuples:
+            access = ChatAccessBO()
+            access.set_id(id)
+            access.set_profile_id(profile_id)
+            access.set_room(room)
+            access.set_chattype(chattype)
+            res.append(access)
+        self._cnx.commit()
+        cursor.close()
+        return res
+
 
     def get_groupmembers(self, room):
         res = []
