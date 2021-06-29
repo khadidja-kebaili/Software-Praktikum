@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { withStyles,
         ListItem,
         Typography } from '@material-ui/core';
-import LoadingProgress from './Dialog/LoadingProgress';
 import LernappAPI from '../API/LernappAPI';
 
 /**
@@ -14,13 +13,23 @@ class Message extends Component {
     constructor(props){
         super(props);
         this.state = {
-            loadingInProgress: false
+//            name:'',
+//            id: props.messages.get_profile_id()
         };
     }
 
+//    componentDidMount(){
+//        this.getName()
+//    }
+//
+//    getName(){
+//        var value = LernappAPI.getAPI().getProfile(this.state.id)
+//        console.log(value)
+//    }
+
     render(){
         const {classes, messages} = this.props;
-        const {loadingInProgress} = this.state;
+//        const {name} = this.state;
 
         return (
             <div>
@@ -28,9 +37,6 @@ class Message extends Component {
                     <Typography className={classes.chatEntry}>
                         {messages.get_profile_id()} : {messages.get_text()}
                     </Typography>
-                </ListItem>
-                <ListItem>
-                    <LoadingProgress show={loadingInProgress}/>
                 </ListItem>
             </div>
         )

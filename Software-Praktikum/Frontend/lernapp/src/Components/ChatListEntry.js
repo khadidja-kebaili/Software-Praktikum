@@ -117,6 +117,7 @@ class ChatlistEntry extends Component{
         // console.log(this.state.partner)
 
     componentDidMount(){
+        this.getMessages()
         this.getNameOfChat()
     }
 

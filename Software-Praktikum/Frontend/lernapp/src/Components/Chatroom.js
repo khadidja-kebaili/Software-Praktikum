@@ -30,7 +30,6 @@ class Chatroom extends Component{
         }
     }
 
-
     // holt alle zugehörigen Nachrichten für einen Chatraum
     getMessages = () => {
         LernappAPI.getAPI().getMessageByRoom(this.state.roomnumber).then(messageBOs =>
@@ -102,7 +101,6 @@ class Chatroom extends Component{
         })
     }
 
-
     /**
      * Rendermethode und alle Nachrichten als TextNodes in einen Div einfügen
      * @param {[MessageBO]} msg - der Nachrichtenverlauf einen Chats
@@ -137,21 +135,18 @@ class Chatroom extends Component{
                         messages.map(messages => <Message key={messages.getID()} messages={messages}/>)
                     }
                 </List>
-                <Grid>
-                    <Grid item xs={4}>
                         <TextField
                             id='newMessage'
                             type='text'
-                            variant="outlined"
+                            variant="standard"
                             value={newMessage}
                             defaultValue='Hier Nachricht eingeben'
                             onChange={this.messageInputChange}>
                         </TextField>
-                        <Button variant='contained' onClick={this.sendMessageButtonClicked} className={classes.sendButton}>
+                        <Button variant='contained' onClick={this.sendMessageButtonClicked} className={classes.sendButton} color='primary'>
                             Senden
                         </Button>
-                    </Grid>
-                </Grid>
+
             </div>
         );
     }
@@ -160,8 +155,11 @@ class Chatroom extends Component{
 const styles = theme => ({
     root: {
         width: '100%'
+    },
+    sendButton: {
+        margin: '5px',
+        
     }
 })
-
 
 export default withStyles(styles)(Chatroom);
