@@ -66,7 +66,14 @@ class GroupListEntry extends Component {
         });
       }
     
-     
+    // addGroupRequest = () => {
+     //    let request_type = "G"
+     //    console.log(typeof(this.state.selectedMember))
+       //  let newRequest = new RequestBO (
+        //     this.state.selectedMember.getID(),
+        //     this
+       //  )
+    // }
 
     render() {
         const{groups}=this.state;
