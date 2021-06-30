@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 // import LernappAPI from '../../API/LernappAPI';
-import LernappAPI from '../../API/LernappAPi';
+import LernappAPI from '../../API/LernappAPI';
 import RequestListEntry from './RequestListEntry';
 import AddIcon from '@material-ui/icons/Add';
 import RequestGroupListEntry from './RequestGroupListEntry'
@@ -43,15 +43,12 @@ class RequestList extends Component {
                     //request:  profileBOs,
                 
                    // }))}
-        
-   
+
 
         requestDeleted = request => {
         const newRequestList = this.state.request.filter(requestFromState => requestFromState.getID() !== request.getID());
         this.setState({
-            customers: newRequestList,
-            filteredCustomers: [...newRequestList],
-            showCustomerForm: false
+            request: newRequestList,
         });
     }
 
@@ -69,13 +66,13 @@ class RequestList extends Component {
                     </Grid>
                     {
                         request.map(profiles =>
-                            <RequestListEntry key={profiles.getID()} profiles={profiles}/>)
+                            <RequestListEntry key={profiles.getID()} profiles={profiles} onRequestDeleted = {this.requestDeleted}/>)
                             
                     }
-                            
-                    {        <RequestGroupListEntry key={profiles.getID()} profiles={profiles}/>
+                    {/*        */}
+                    {/*{        <RequestGroupListEntry key={profiles.getID()} profiles={profiles}/>*/}
 
-                    }
+                    {/*}*/}
             
                 </div>
             )
@@ -93,11 +90,4 @@ const styles = theme => ({
     }  
 });
 
-// //PropTypes
-// MatchList.PropTypes = {
-//     /** @ignore */
-//     classes: PropTypes.object.isRequired,
-//     /** @ignore */
-//     location: PropTypes.object.isRequired,
-// }
 export default withStyles(styles)(RequestList);
