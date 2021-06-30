@@ -7,6 +7,7 @@ import DeleteGroupRequest from '../Dialog/DeleteRequest';
 
 
 
+
 class RequestGroupListEntry extends Component{
     constructor(props){
         super(props);
@@ -77,7 +78,7 @@ getRequestforGroup = () => {
     
      }))} 
 
-     addGroupForRequest = () =>{
+     addGroupRequest = () =>{
          let request_type ="E"
          let newRequest = new RequestBO(
              this.state.selectedMember.getID(),
@@ -97,7 +98,7 @@ getRequestforGroup = () => {
                 
                 <Typography>
                     {request.getAdmin()}, {request.getGroupname()}
-                 <Button color='primary' flex="flex-end" onClick={this.addGroupForRequest}> Annehmen </Button>
+                 <Button color='primary' flex="flex-end" onClick={this.addGroupRequest}> Annehmen </Button>
                 <div className="DeleteButton">
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteGroupRequestButtonClicked}> Ablehnen</Button>
@@ -111,5 +112,20 @@ getRequestforGroup = () => {
         );
     }
 }
+
+/** Component specific styles */
+const styles = theme => ({
+    root: {
+        width: '100%'
+    },
+    buttonMargin: {
+        marginRight: theme.spacing(2),
+    },
+    groupEntry: {
+        fontSize: theme.typography.pxToRem(15),
+        flexBasis: '33.33%',
+        flexShrink: 0,
+    }
+});
 
 export default RequestGroupListEntry;
