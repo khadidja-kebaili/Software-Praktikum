@@ -7,27 +7,27 @@ class ChatroomMapper(Mapper):
     def __init__(self):
         super().__init__()
 
-    def insert(self, chatroom):
+    def insert(self, room):
         cursor = self._cnx.cursor()
         cursor.execute("SELECT MAX(id) AS maxid FROM chatroom")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
             if maxid[0] is not None:
-                chatroom.set_id(maxid[0]+1)
+                room.set_id(maxid[0]+1)
             else:
-                chatroom.set_id(1)
+                room.set_id(1)
 
         command = "INSERT INTO chatroom (id, chattype) VALUES (%s, %s)"
         data = (
-            chatroom.get_id(),
-            chatroom.get_chattype()
+            room.get_id(),
+            room.get_chattype()
         )
 
         cursor.execute(command, data)
         self._cnx.commit()
         cursor.close()
-        return chatroom
+        return room
 
     def delete(self, room):
         cursor = self._cnx.cursor()

@@ -351,6 +351,24 @@ class Businesslogic(object):
                 res.append(mapper.find_by_key(elem))
         return res
 
+    def get_chatroom_by_profile(self, profile):
+        res = []
+        with ChatAccessMapper() as mapper:
+            holder = mapper.find_chatrooms_by_profile(profile)
+        with ChatroomMapper() as mapper:
+            for elem in holder:
+                res.append(mapper.find_by_key(elem))
+        return res
+
+    def get_second_profile (self, room, profile):
+        with ChatAccessMapper() as mapper:
+            holder = mapper.find_second_profile(room)
+        for elem in holder:
+            if elem.get_profile_id() != profile:
+                with StudentprofileMapper() as mapper:
+                    return mapper.find_by_key(elem.get_profile_id())
+
+
     def get_profiles_by_room(self, id):
         with ChatAccessMapper() as mapper:
             return mapper.get_groupmembers(id)
@@ -402,7 +420,3 @@ class Businesslogic(object):
             deltatime = abs((element.get_request_date() - today).days)
             if deltatime > 3:
                 self.delete_request(element)
-
-# l = Businesslogic()
-# l.get_all_profiles()
-# print(l.matching_list(1))

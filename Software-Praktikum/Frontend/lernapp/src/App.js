@@ -1,6 +1,7 @@
 import React from 'react';
 import MatchList from './Components/Pages/MatchList';
 import RequestList from './Components/Pages/RequestList';
+import ChatList from './Components/ChatList';
 import Header from './Components/Layout/Header';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
@@ -10,9 +11,8 @@ import GroupListForProfile from "./Components/GroupListForProfile";
 import Test from './Test';
 import AddGroup from "./Components/Dialog/AddGroup";
 
-
 class App extends React.Component {
-  
+
 //im ersten Schritt sollen die Matches und Navigation angezeigt werden.
   render(){
     return(
@@ -30,8 +30,8 @@ class App extends React.Component {
                   <Route exact path='/request'>
                     <RequestList/>
                   </Route>
-                  <Route path='/chats'>
-                    <Test/>
+                  <Route exact path='/chats'>
+                    <ChatList/>
                   </Route>
                   <Route path='/groups'>
                       <GroupList/>
@@ -41,7 +41,6 @@ class App extends React.Component {
                       <GroupListForProfile/>
                   </Route>
                   <Route path='/profil'>
-                    
                   </Route>
                 </>
               }
