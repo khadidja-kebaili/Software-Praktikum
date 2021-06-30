@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
-// import LernappAPI from '../../API/LernappAPI';
-import LernappAPI from '../../API/LernappAPi';
+import LernappAPI from "../../API/LernappAPI";
 import RequestListEntry from './RequestListEntry';
 import AddIcon from '@material-ui/icons/Add';
+import RequestGroupListEntry from './RequestGroupListEntry'
 
 
 
@@ -35,6 +35,15 @@ class RequestList extends Component {
         
             }))}
 
+            //Die Funktion getRequest() soll die Request für die Gruppe anzeigen
+            //getRequestForGroup =() => {
+                //LernappAPI.getAPI().getRequestForGroup(this.state.currentUser).then(profileBOs =>
+                    //this.setState({
+                    //request:  profileBOs,
+                
+                   // }))}
+        
+   
 
         requestDeleted = request => {
         const newRequestList = this.state.request.filter(requestFromState => requestFromState.getID() !== request.getID());
@@ -44,6 +53,8 @@ class RequestList extends Component {
             showCustomerForm: false
         });
     }
+
+ 
 
     //Die Komponente die gerendert werden
     render(){
@@ -60,7 +71,11 @@ class RequestList extends Component {
                             <RequestListEntry key={profiles.getID()} profiles={profiles}/>)
                             
                     }
-                    
+                            
+                    {        <RequestGroupListEntry key={profiles.getID()} profiles={profiles}/>
+
+                    }
+            
                 </div>
             )
     }

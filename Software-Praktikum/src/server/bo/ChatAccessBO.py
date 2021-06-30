@@ -1,5 +1,12 @@
 from .Businessobject import Businessobject
 
+# Stellt da, welches Profil auf welchen Chatraum zugreifen kann
+# Bei den Chaträumen wird dabei unter Gruppenchaträume und Zweierchaträume aufgeteilt
+# E: Zweierchat
+# G: Gruppenchat
+# Gleichzeitig wird Chataccess dafür genutzt, die Mitglieder einer Gruppe zu finden
+
+# @author [Ha Mi Duong](https://github.com/HamiDuong)
 
 class ChatAccessBO (Businessobject):
     # Instanziierung des Objekts der Klasse ChatAccess

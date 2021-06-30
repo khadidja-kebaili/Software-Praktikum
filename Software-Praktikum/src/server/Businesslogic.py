@@ -76,7 +76,7 @@ class Businesslogic(object):
             mapper.delete(studentprofile)
 
     def create_group(self, groupname, admin, description):
-        chatroom = self.create_chatroom('G')
+        chatroom = self.create_chatroom('g')
         group = Group()
         group.set_groupname(groupname)
         group.set_admin(admin)
@@ -354,6 +354,24 @@ class Businesslogic(object):
             for elem in holder:
                 res.append(mapper.find_by_key(elem))
         return res
+
+    def get_chatroom_by_profile(self, profile):
+        res = []
+        with ChatAccessMapper() as mapper:
+            holder = mapper.find_chatrooms_by_profile(profile)
+        with ChatroomMapper() as mapper:
+            for elem in holder:
+                res.append(mapper.find_by_key(elem))
+        return res
+
+    def get_second_profile (self, room, profile):
+        with ChatAccessMapper() as mapper:
+            holder = mapper.find_second_profile(room)
+        for elem in holder:
+            if elem.get_profile_id() != profile:
+                with StudentprofileMapper() as mapper:
+                    return mapper.find_by_key(elem.get_profile_id())
+
 
     def get_profiles_by_room(self, id):
         with ChatAccessMapper() as mapper:

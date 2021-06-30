@@ -1,4 +1,4 @@
-import BusinessObject from "./Businessobject.js";
+import BusinessObject from "./BusinessObject.js";
 
 
 export default class ProfileBO extends BusinessObject {

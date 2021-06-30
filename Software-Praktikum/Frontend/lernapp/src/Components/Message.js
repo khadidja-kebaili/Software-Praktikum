@@ -1,40 +1,51 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { withStyles,
+        ListItem,
+        Typography } from '@material-ui/core';
+import LernappAPI from '../API/LernappAPI';
 
-class Message extends Component{
+/**
+ * 
+ * @author [Ha Mi Duong](https://github.com/HamiDuong)
+ */
+
+class Message extends Component {
     constructor(props){
         super(props);
         this.state = {
-            profilID:"",
-            room: "",
-            text:""
-        }
+//            name:'',
+//            id: props.messages.get_profile_id()
+        };
     }
 
-    componentDidMount(){
-        //get
-    }
+//    componentDidMount(){
+//        this.getName()
+//    }
+//
+//    getName(){
+//        var value = LernappAPI.getAPI().getProfile(this.state.id)
+//        console.log(value)
+//    }
 
-    componentDidUpdate(prevProps){
-        if((this.props.show)&&(this.props.show !== prevProps.show)){
-            //get
-        }
-    }
-
-    //get Methoden
-
-
-    /**
-     * Rendern der Komponente
-     */
     render(){
-        return(
-            <div></div>
+        const {classes, messages} = this.props;
+//        const {name} = this.state;
+
+        return (
+            <div>
+                <ListItem>
+                    <Typography className={classes.chatEntry}>
+                        {messages.get_profile_id()} : {messages.get_text()}
+                    </Typography>
+                </ListItem>
+            </div>
         )
     }
 }
+const styles = theme => ({
+    root: {
+        width: '100%'
+    }
+})
 
-//Stylesheet 
-//const styles;
-
-//export default withStyles(styles)(Message);
-export default Message;
+export default withStyles(styles)(Message);

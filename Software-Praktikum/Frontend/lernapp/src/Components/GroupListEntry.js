@@ -13,7 +13,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import LernappAPI from "../API/LernappAPi";
+import LernappAPI from "../API/LernappAPI";
 import LoadingProgress from "./Dialog/LoadingProgress";
 import LeaveGroup from './Dialog/LeaveGroup';
 import MemberList from "./MemberList.js"
@@ -66,7 +66,14 @@ class GroupListEntry extends Component {
         });
       }
     
-     
+    // addGroupRequest = () => {
+     //    let request_type = "G"
+     //    console.log(typeof(this.state.selectedMember))
+       //  let newRequest = new RequestBO (
+        //     this.state.selectedMember.getID(),
+        //     this
+       //  )
+    // }
 
     render() {
         const{groups}=this.state;
@@ -91,7 +98,12 @@ class GroupListEntry extends Component {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-             <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>   
+             <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>
+
+             {/* Von Lena eingefügt addGroupRequest
+              <Button color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addGroupRequest}>Anfrage senden
+             </Button>   */}
+
             </div>
         );
     }

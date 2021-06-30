@@ -10,8 +10,8 @@ class MessageBO (Businessobject):
         self.text = None
 #        self.time = None;
 
-    def set_profile_id(self, key):
-        self.profile_id = key
+    def set_profile_id(self, profile_id):
+        self.profile_id = profile_id
 
     def get_profile_id(self):
         return self.profile_id
