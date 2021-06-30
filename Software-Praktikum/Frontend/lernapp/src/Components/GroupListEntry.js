@@ -19,7 +19,6 @@ import LeaveGroup from './Dialog/LeaveGroup';
 import MemberList from "./MemberList.js"
 // import MemberList from './MemberList';
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',

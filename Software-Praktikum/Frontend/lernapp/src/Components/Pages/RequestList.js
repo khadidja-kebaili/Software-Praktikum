@@ -72,10 +72,10 @@ class RequestList extends Component {
                             
                     }
                             
-                    {        <RequestGroupListEntry key={profiles.getID()} profiles={profiles}/>
+                    {/* {        <RequestGroupListEntry key={profiles.getID()} profiles={profiles}/>
 
                     }
-            
+             */}
                 </div>
             )
     }
