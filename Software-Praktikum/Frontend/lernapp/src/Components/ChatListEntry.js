@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import Chatroom from './Chatroom';
-import ProfileBO from "../API/ProfileBO";
 import LernappAPI from "../API/LernappAPI";
 import {withStyles,
         Typography,
@@ -8,7 +7,6 @@ import {withStyles,
         AccordionSummary,
         AccordionDetails} from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
 
 /**
  * Die Einträge von der Komponente ChatList
@@ -31,31 +29,8 @@ class ChatlistEntry extends Component{
             loadingInProgress: false,
             roomnumber: '',
             name: '',
-            partner: '',
-            messages: []
+            messages: null
         };
-    }
-
-    /**
-     * Nachrichten eines Chats holen
-     */
-    getMessages = () => {
-        LernappAPI.getAPI().getMessageByRoom(this.state.roomnumber).then(messageBOs =>
-            this.setState({
-                messages: messageBOs,
-                loadingInProgress: false,
-                error: null
-            })).catch(e =>
-                this.setState({
-                    messages: [],
-                    loadingInProgress: false,
-                    error: e
-                })
-            );
-        this.setState({
-            loadingInProgress: true,
-            error: null
-        });         
     }
 
     /**
@@ -76,7 +51,7 @@ class ChatlistEntry extends Component{
     getNameOfChat = () => {
         var roomtype = this.state.chats.getChatType();
         if(roomtype == 'E'){
-            LernappAPI.getAPI().getChatpartner(1, 2).then( profile =>
+            LernappAPI.getAPI().getChatpartner(1, 1).then( profile =>
                 this.setState({
                     roomnumber: this.state.chats.getID(),
                     name : profile[0].getFirstname()
@@ -100,45 +75,26 @@ class ChatlistEntry extends Component{
         }
     }
 
-    // getNameOfProfile(){
-    //     LernappAPI.getAPI().getChatpartner(1, 1).then( profile =>
-    //         this.setState({
-    //             name : profile[0].getFirstname()
-    //         })
-    //     )
-
-        // var value_p = LernappAPI.getAPI().getProfile(2)
-        // console.log(typeof(value_p))
-
-        //     this.setState({
-        //         loadingInProgress: false,
-        //         partner: value_p
-        //     })
-        // console.log("State bei Profile")
-        // console.log(this.state.partner)
-
+    /**
+     * Nachrichten eines Chats holen
+     * Hier wurde eine Callback Funktion benötigt, sonst wurde der State nicht geändert
+     */
     getMessages = () => {
-        LernappAPI.getAPI().getMessageByRoom(this.state.roomnumber).then(messageBOs =>
+        LernappAPI.getAPI().getMessageByRoom(this.state.chats.getID()).then(messageBOs =>
             this.setState({
-                messages: messageBOs,
-                loadingInProgress: false,
-                error: null
-            })).catch(e =>
-                this.setState({
-                    messages: [],
-                    loadingInProgress: false,
-                    error: e
-                })
-            );
-        this.setState({
-            loadingInProgress: true,
-            error: null
-        });
+                messages: messageBOs,                    
+            }
+            , function(){
+                console.log("this.state.messages")
+            }
+            )
+        );       
     }
 
     componentDidMount(){
         this.getNameOfChat()
         this.getMessages()
+
     }
 
     /**
@@ -146,7 +102,10 @@ class ChatlistEntry extends Component{
      * Dabei besteht jeder Entry aus dem Namen des Chats und wenn man da Akkordion öffnet liegt der zugehörige Chatraum
      */
     render(){
-        const{chats, roomnumber, name, partner} = this.state;
+        const{roomnumber, name, messages} = this.state;
+        console.log("CLE")
+        console.log(messages)
+
         return(
             <div>
                 <Accordion>
@@ -156,7 +115,7 @@ class ChatlistEntry extends Component{
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        {<Chatroom chats={chats} roomnumber={roomnumber} partner={partner}/>}
+                        {<Chatroom roomnumber={roomnumber} messages={messages}/>}
                     </AccordionDetails>
                 </Accordion>
             </div>

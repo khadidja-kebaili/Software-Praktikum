@@ -1,7 +1,9 @@
 import React,  {Component} from 'react';
 import LernappAPI from '../API/LernappAPI'
-import { withStyles, List, Grid, TextField, Button } from '@material-ui/core';
-
+import { withStyles,
+        List,
+        TextField,
+        Button } from '@material-ui/core';
 import MessageBO from '../API/MessageBO';
 import Message from './Message'
 
@@ -21,63 +23,61 @@ class Chatroom extends Component{
     constructor(props){
         super(props);
         this.state = {
-            messages: [],
-            // users: [],
+            messages: '',
             newMessage: '',
             loadingInProgress: false,
             error: null,
-            roomnumber: props.roomnumber
         }
+        this.setState({
+            messages: props.messages
+        }, function(){
+            console.log(this.state.messages)
+        })
     }
 
     // holt alle zugehörigen Nachrichten für einen Chatraum
-    getMessages = () => {
-        LernappAPI.getAPI().getMessageByRoom(this.state.roomnumber).then(messageBOs =>
-            this.setState({
-                messages: messageBOs,
-                loadingInProgress: false,
-                error: null
-            })).catch(e =>
-                this.setState({
-                    messages: [],
-                    loadingInProgress: false,
-                    error: e
-                })
-            );
-        this.setState({
-            loadingInProgress: true,
-            error: null
-        });         
-    }
+    // getMessages = () => {
+    //     LernappAPI.getAPI().getMessageByRoom(this.state.roomnumber).then(messageBOs =>
+    //         this.setState({
+    //             messages: messageBOs,
+    //             loadingInProgress: false,
+    //             error: null
+    //         })).catch(e =>
+    //             this.setState({
+    //                 messages: [],
+    //                 loadingInProgress: false,
+    //                 error: e
+    //             })
+    //         );
+    //     this.setState({
+    //         loadingInProgress: true,
+    //         error: null
+    //     });         
+    // }
 
-/*     getUsers = () => {
-        res = []
-        LernappAPI.getAPI().getChataccessByRoom().then(ChataccessBOs =>
-            ChataccessBOs.forEach(elem => {
-                res.push(elem.get_profile_id)                
-            }),
-            this.setState({
-                users: res,
-                loadingInProgress: false,
-                error: null
-            })
-        ).catch(e =>
-            this.setState({
-                users: [],
-                loadingInProgress: false,
-                error: e
-            }))
-            this.setState ({
-                loadingInProgress: true,
-                error: null
-        })
-    } */
+    // getUserNames = () => {
+    //     var map = new Map();
+    //     let msg = this.state.messages;
+    //     let ids = [];
+    //     msg.forEach(elem => {
+    //         ids.push(elem.get_profile_id());
+    //     });
+    //     let unique = [...new Set(ids)];
+    //     console.log(unique);
 
-    componentDidMount(){
-        // getMessages wird alle 1000ms aufgerufen um einen aktuellen Chatverlauf zu ermöglichen
+    //     unique.forEach(id => {
+    //         LernappAPI.getAPI().getProfile(id).then( profile =>
+    //             map.set(id, profile.getFirstname())
+    //         )
+    //     });
+    // };
+
+    //componentDidMount(){
+        // etMessages wird alle 1000ms aufgerufen um einen aktuellen Chatverlauf zu ermöglichen
         // this.interval = setInterval(() => this.getMessages(), 5000)
-        this.getMessages();
-    }
+        // this.getMessages();
+        // this.getUserNames();
+    //}
 
     //Input wird zu MessageBO umgewandelt und an die Datenbank geschickt
     sendMessageButtonClicked = () => {
@@ -123,11 +123,12 @@ class Chatroom extends Component{
 //
 //    }
 
-
     // rendert die Komponente
     render(){
-        const {messages, newMessage} = this.state;
-        const {classes} = this.props;
+        const {newMessage} = this.state;
+        const {classes, messages} = this.props;
+        console.log("Chatroom")
+        console.log(this.props.messages)
 
         return(
             <div>
@@ -147,10 +148,6 @@ class Chatroom extends Component{
                         <Button variant='contained' onClick={this.sendMessageButtonClicked} className={classes.sendButton} color='primary'>
                             Senden
                         </Button>
-                        <Button variant='contained' onClick={this.getMessages} className={classes.updateButton} color='primary'>
-                            Updaten
-                        </Button>
-
             </div>
         );
     }
