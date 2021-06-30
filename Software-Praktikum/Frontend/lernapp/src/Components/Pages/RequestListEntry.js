@@ -1,8 +1,10 @@
 import React,{Component} from 'react';
 import {Typography} from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { Button, Tab, Tabs } from '@material-ui/core';
 import LernappAPI from '../../API/LernappAPI';
 import DeleteRequest from '../Dialog/DeleteRequest';
+import {BrowserRouter as Router,
+    Switch, Route, Link as RouterLink} from "react-router-dom";
 
 
 class RequestListEntry extends Component{
@@ -38,20 +40,20 @@ deleteRequestButtonClicked = (event) => {
 }
 
 
-addRequest = () =>{
-    LernappAPI.getAPI().addRequest().then(profileBOs =>
-        this.setState({
-            requests : profileBOs,
-        }))
-};
+// addRequest = () =>{
+//     LernappAPI.getAPI().addRequest().then(profileBOs =>
+//         this.setState({
+//             requests : profileBOs,
+//         }))
+// };
 
-getRequest = () => {
-    LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
-        this.setState({
-            request:  profileBOs,
+// getRequest = () => {
+//     LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
+//         this.setState({
+//             request:  profileBOs,
             
     
-        }))} 
+//         }))} 
 
 
     render() {

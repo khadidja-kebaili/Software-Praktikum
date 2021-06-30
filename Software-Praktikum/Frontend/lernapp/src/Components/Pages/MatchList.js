@@ -16,7 +16,7 @@ class MatchList extends Component {
         //Eine leere INIT setzten für matches
         this.state={
             matches: [],
-            currentUser : 3
+            currentUser : 6
         };
     }
         //Lifecycle Methode wird aufgerufen, wenn die Komponente in den DOM Browser eingefügt wird

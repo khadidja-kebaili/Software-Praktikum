@@ -521,7 +521,7 @@ class RequestofProfile(Resource):
         request = adm.get_request_of_profile(id)
         return request
 
-@api.route('/request_for_group/<int:id>')
+@api.route('/request_for_groups/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
 class RequestofGroup(Resource):
     @api.marshal_with(request)

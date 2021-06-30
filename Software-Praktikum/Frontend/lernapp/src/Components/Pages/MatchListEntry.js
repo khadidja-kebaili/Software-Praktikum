@@ -3,7 +3,6 @@ import {Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import LernappAPI from '../../API/LernappAPI';
-import AddRequest from '../Dialog/AddRequest';
 import RequestBO from './../../API/RequestBO';
 
 
@@ -33,8 +32,8 @@ addProfileRequest = () => {
     let currenUser = 6;
     let request_type = "E";
       let newRequest = new RequestBO(
+        this.state.matches.getID(), 
         currenUser,
-        this.state.matches.getID(),
         request_type
       )
       LernappAPI.getAPI().addProfileRequest(newRequest).then(console.log(newRequest))

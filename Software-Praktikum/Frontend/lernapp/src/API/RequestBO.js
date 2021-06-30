@@ -1,11 +1,12 @@
 import BusinessObject from "./BusinessObject"
 
-export default class RequestBO extends Businessobject {
+export default class RequestBO extends BusinessObject {
     constructor(Arequested_by, Arequested,Arequest_type) {
       super();
-
-      this.requested = Arequested;
+      
+      
       this.requested_by = Arequested_by;
+      this.requested = Arequested;
       this.request_type = Arequest_type;
     }
 
