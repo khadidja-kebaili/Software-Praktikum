@@ -617,7 +617,6 @@ export default class LernappAPI {
         })
     }
 
-<<<<<<< HEAD:Software-Praktikum/Frontend/lernapp/src/API/LernappAPI.js
     deleteRequest(requestID) {
         return this.#fetchAdvanced(this.#deleteRequestURL(requestID), {
             method: 'DELETE'
@@ -629,18 +628,3 @@ export default class LernappAPI {
         })
     }
 }
-=======
-    // deleteRequest(requestID) {
-    //     return this.#fetchAdvanced(this.#deleteRequestURL(requestID), {
-    //         method: 'DELETE'
-    //     }).then((responseJSON) => {
-    //         let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
-    //         return new Promise(function (resolve) {
-    //             resolve(responseRequestBO);
-    //         })
-    //     })
-    // }
-
-
-}
->>>>>>> e84bd475694ff2d6205fb008aed1ee0183ee1183:Software-Praktikum/Frontend/lernapp/src/API/LernappAPi.js
