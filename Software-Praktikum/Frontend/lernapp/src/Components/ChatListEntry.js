@@ -157,9 +157,6 @@ class ChatlistEntry extends Component{
                                     <Button variant='contained' onClick={this.sendMessageButtonClicked} className={classes.sendButton} color='primary'>
                                         Senden
                                     </Button>
-                                    <Button variant='contained' onClick={this.getMessages} className={classes.sendButton} color='primary'>
-                                        Update
-                                    </Button>
                                 </div>
                             </ListItem>
                         </List>
