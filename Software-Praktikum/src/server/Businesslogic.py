@@ -76,7 +76,7 @@ class Businesslogic(object):
             mapper.delete(studentprofile)
 
     def create_group(self, groupname, admin, description):
-        chatroom = self.create_chatroom('g')
+        chatroom = self.create_chatroom('G')
         group = Group()
         group.set_groupname(groupname)
         group.set_admin(admin)
@@ -144,23 +144,19 @@ class Businesslogic(object):
     sortiert. '''
 
     def matching_list(self, id):
+        all_profiles = self.get_all_profiles()
         scores = []
         profiles = []
-        for element in range(1, (len(self.get_all_profiles()) + 1)):
-            profiles.append(self.get_profile_by_id(element))
-            scores.append(self.set_score(element, id))
-        for element in self.get_all_profiles():
-            if element.get_id() == id:
-                continue
-            else:
-                profiles.append(element)
-        matches = dict(zip(profiles, scores))
-        matches = dict(
-            sorted(matches.items(), key=lambda item: item[1], reverse=True))
-        new_sorted_list = []
+        for element in all_profiles:
+            if element.get_id() != id:
+                profiles.append(self.get_profile_by_id(element.get_id()))
+                scores.append(self.set_score(element.get_id(), id))
+        match_dict = dict(zip(profiles, scores))
+        matches = dict(sorted(match_dict.items(), key=lambda item: item[1], reverse=True))
+        sorted_list = []
         for element in matches:
-            new_sorted_list.append(element)
-        return new_sorted_list
+            sorted_list.append(element)
+        return sorted_list
 
     def create_request(self, requested_by, requested, request_type):
         requests = self.get_all_requests()

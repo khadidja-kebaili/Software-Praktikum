@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
-import LernappAPI from "../../API/LernappAPI";
+import LernappAPI from '../../API/LernappAPI';
 import DeleteRequest from '../Dialog/DeleteRequest';
 
 
@@ -18,29 +18,15 @@ class RequestListEntry extends Component{
         };
     }
 
-    deleteRequest = (id1) => {
-        const { request } = this.state;
-        id1 = this.state.request.getID()
-        console.log(id1)
-        console.log(this.state.request)
-        LernappAPI.getAPI().deleteRequest(id1).then(() => {
-            this.setState({  // Set new state when AccountBOs have been fetched
-                deletingInProgress: false, // loading indicator
-                deletingError: null
-            })
-            // console.log(account);
-            // this.props.onRequestDeleted(request);
-        }).then(this.closeDeleteDialog).catch(e =>
-            this.setState({ // Reset state with error from catch
-                deletingInProgress: false,
-                deletingError: e
-            })
-        );
+    deleteRequestDialogClosed = (request) => {
+        // if customer is not null, delete it
+        if (request) {
+            this.props.onRequestDeleted(request);
+        };
 
-        // set loading to true
+        // Don´t show the dialog
         this.setState({
-            deletingInProgress: true,
-            deletingError: null
+            showDeleteRequest: false
         });
     }
 
@@ -49,11 +35,6 @@ deleteRequestButtonClicked = (event) => {
     this.setState({
         showDeleteRequest: true
     });
-}
-closeDeleteDialog = () => {
-    this.setState({
-    showDeleteRequest: false
-  });
 }
 
 
@@ -95,7 +76,7 @@ getRequest = () => {
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>
                 </div>
-                <DeleteRequest deleteRequest = {this.deleteRequest} show={this.state.showDeleteRequest} request={request} onClose={this.closeDeleteDialog}/>
+                <DeleteRequest deleteRequest = {this.deleteRequest} show={this.state.showDeleteRequest} request={request} onClose={this.deleteRequestDialogClosed}/>
                 </div>
                 
                 </Typography>           

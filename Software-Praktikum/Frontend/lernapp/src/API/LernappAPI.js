@@ -10,8 +10,14 @@ export default class LernappAPI {
 
     static #api = null;
 
-    #lernappServerBaseURL = 'http://127.0.0.1:5000';
+    static getAPI() {
+        if (this.#api == null){
+            this.#api = new LernappAPI();}
+        return this.#api;
+    }
 
+
+    #lernappServerBaseURL = 'http://127.0.0.1:5000';
 
     // // Local http-fake-backend
     // #lernappServerBaseURL = 'fake_backend/Lernappconfig.js'
@@ -45,6 +51,8 @@ export default class LernappAPI {
     #addRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
     #getAllRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
     #deleteRequestURL = (id1) => `${this.#lernappServerBaseURL}/request/${id1}`;
+    #getProfileOfReqeustURL = (id) => `${this.#lernappServerBaseURL}/profile_of_request/${id}`;
+
 
     //Chataccess
 
@@ -82,12 +90,6 @@ export default class LernappAPI {
 
     #getMatchesURL = (id) => `${this.#lernappServerBaseURL}/matches/${id}`;
     #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
-
-    static getAPI() {
-        if (this.#api == null){
-            this.#api = new LernappAPI();}
-        return this.#api;
-    }
 
 
     #fetchAdvanced = (url, init) => fetch(url, init)
@@ -617,14 +619,26 @@ export default class LernappAPI {
         })
     }
 
-    deleteRequest(requestID) {
-        return this.#fetchAdvanced(this.#deleteRequestURL(requestID), {
-            method: 'DELETE'
-        }).then((responseJSON) => {
-            let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
+    // deleteRequest(requestID) {
+    //     return this.#fetchAdvanced(this.#deleteRequestURL(requestID), {
+    //         method: 'DELETE'
+    //     }).then((responseJSON) => {
+    //         let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
+    //         return new Promise(function (resolve) {
+    //             resolve(responseRequestBO);
+    //         })
+    //     })
+    // }
+
+    getProfileOfRequest(currentUser) {
+        return this.#fetchAdvanced(this.#getProfileOfReqeustURL(currentUser)).then((responseJSON) => {
+            let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
+            // console.info(responseProfileBO);
             return new Promise(function (resolve) {
-                resolve(responseRequestBO);
+                resolve(responseProfileBO);
             })
         })
     }
+
+
 }
