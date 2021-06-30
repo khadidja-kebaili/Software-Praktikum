@@ -99,7 +99,7 @@ deleteRequestButtonClicked = (event) => {
                 
                 </Typography>           
             
-            </div>
+             </div>
         );
     }
 }
@@ -118,5 +118,5 @@ deleteRequestButtonClicked = (event) => {
 //         flexShrink: 0,
 //     }
 // });
-
+    
 export default RequestGroupListEntry;

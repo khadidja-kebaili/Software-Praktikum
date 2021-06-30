@@ -32,6 +32,7 @@ export default class LernappAPI {
     #addMemberURL = () => `${this.#lernappServerBaseURL}/chataccess_new_member`;
     #leaveGroupURL = (id) => `${this.#lernappServerBaseURL}/chataccess/${id}`;
     #getMembersForGroupURL = (id) => `${this.#lernappServerBaseURL}/chataccess_member/${id}`;
+    #updateGroupURL = (id) => `${this.#lernappServerBaseURL}/group/${id}`;
 
 
     //Chatroom
@@ -269,7 +270,27 @@ export default class LernappAPI {
           })
         })
       }
-    
+      
+
+    updateGroup(groupBO){
+        return this.#fetchAdvanced(this.#updateGroupURL(groupBO.getID()), {
+            method: 'PUT',
+            headers: {
+              'Accept': 'application/json, text/plain',
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify(groupBO)
+      
+          }).then((responseJSON) => {
+            // We always get an array of CustomerBOs.fromJSON
+            let responsegroupBO = GroupBO.fromJSON(responseJSON)[0];
+            // console.info(accountBOs);
+            return new Promise(function (resolve) {
+              resolve(responsegroupBO);
+            })
+          })
+        }
+      
     //Chataccess
 
     //User erhält Zugriff auf einen Chat
