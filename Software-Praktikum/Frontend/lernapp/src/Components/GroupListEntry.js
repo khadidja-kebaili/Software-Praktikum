@@ -17,7 +17,8 @@ import LernappAPI from "../API/LernappAPI";
 import LoadingProgress from "./Dialog/LoadingProgress";
 import LeaveGroup from './Dialog/LeaveGroup';
 import MemberList from "./MemberList.js"
-// import MemberList from './MemberList';
+import GroupEditDialog from './Dialog/GroupEditDialog';
+import GroupList from './GroupList';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,6 +48,7 @@ class GroupListEntry extends Component {
         this.state = {
             groups: props.groups,
             showLeaveGroup: false,
+            showGroupEditDialog: false,
         };
     }
 
@@ -74,6 +76,27 @@ class GroupListEntry extends Component {
        //  )
     // }
 
+  editGroupButtonClicked = (event) => {
+        event.stopPropagation();
+        this.setState({
+          showGroupEditDialog: true
+        });
+      }
+
+  groupEditDialogClosed = (groups) => {
+        // customer is not null and therefor changed
+        if (groups) {
+          this.setState({
+            groups: groups,
+            showGroupEditDialog: false
+          });
+        } else {
+          this.setState({
+            showGroupEditDialog: false
+          });
+        }
+      }
+
     render() {
         const{groups}=this.state;
 
@@ -89,6 +112,9 @@ class GroupListEntry extends Component {
                         <Button onClick={this.leaveGroupclicked} color='primary' >
                           Gruppe Verlassen
                         </Button>
+                        <Button color='primary' onClick={this.editGroupButtonClicked}>
+                           Gruppe bearbeiten
+                        </Button>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
@@ -98,7 +124,7 @@ class GroupListEntry extends Component {
                     </AccordionDetails>
                 </Accordion>
              <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>
-
+             <GroupEditDialog show = {this.state.showGroupEditDialog} groups={groups} onClose={this.groupEditDialogClosed} />
              {/* Von Lena eingefügt addGroupRequest
               <Button color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addGroupRequest}>Anfrage senden
              </Button>   */}

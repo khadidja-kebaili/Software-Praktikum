@@ -112,11 +112,12 @@ class GroupMapper(Mapper):
         return result
 
     def update(self, group):
-
         cursor = self._cnx.cursor()
 
-        command = "UPDATE group " + "SET description=%s, admin=%s, groupname=%s WHERE id=%s"
-        data = (group.get_groupname(), group.get_admin(), group.get_description(), group.get_id())
+        command = "UPDATE lernapp.group " + \
+            "SET description=%s, admin=%s, groupname=%s WHERE id=%s"
+        data = (group.get_description(), group.get_admin(),
+                group.get_groupname(), group.get_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
