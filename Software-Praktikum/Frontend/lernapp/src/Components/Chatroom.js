@@ -75,8 +75,8 @@ class Chatroom extends Component{
 
     componentDidMount(){
         // getMessages wird alle 1000ms aufgerufen um einen aktuellen Chatverlauf zu ermöglichen
-        this.interval = setInterval(() => this.getMessages(), 5000)
-        // this.getMessages();
+        // this.interval = setInterval(() => this.getMessages(), 5000)
+        this.getMessages();
     }
 
     //Input wird zu MessageBO umgewandelt und an die Datenbank geschickt
@@ -123,6 +123,7 @@ class Chatroom extends Component{
 //
 //    }
 
+
     // rendert die Komponente
     render(){
         const {messages, newMessage} = this.state;
@@ -145,6 +146,9 @@ class Chatroom extends Component{
                         </TextField>
                         <Button variant='contained' onClick={this.sendMessageButtonClicked} className={classes.sendButton} color='primary'>
                             Senden
+                        </Button>
+                        <Button variant='contained' onClick={this.getMessages} className={classes.updateButton} color='primary'>
+                            Updaten
                         </Button>
 
             </div>

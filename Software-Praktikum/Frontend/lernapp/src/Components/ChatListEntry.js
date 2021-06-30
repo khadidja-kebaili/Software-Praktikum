@@ -31,7 +31,8 @@ class ChatlistEntry extends Component{
             loadingInProgress: false,
             roomnumber: '',
             name: '',
-            partner: ''
+            partner: '',
+            messages: []
         };
     }
 
@@ -75,7 +76,7 @@ class ChatlistEntry extends Component{
     getNameOfChat = () => {
         var roomtype = this.state.chats.getChatType();
         if(roomtype == 'E'){
-            LernappAPI.getAPI().getChatpartner(1, 1).then( profile =>
+            LernappAPI.getAPI().getChatpartner(1, 2).then( profile =>
                 this.setState({
                     roomnumber: this.state.chats.getID(),
                     name : profile[0].getFirstname()
@@ -116,9 +117,28 @@ class ChatlistEntry extends Component{
         // console.log("State bei Profile")
         // console.log(this.state.partner)
 
+    getMessages = () => {
+        LernappAPI.getAPI().getMessageByRoom(this.state.roomnumber).then(messageBOs =>
+            this.setState({
+                messages: messageBOs,
+                loadingInProgress: false,
+                error: null
+            })).catch(e =>
+                this.setState({
+                    messages: [],
+                    loadingInProgress: false,
+                    error: e
+                })
+            );
+        this.setState({
+            loadingInProgress: true,
+            error: null
+        });
+    }
+
     componentDidMount(){
-        this.getMessages()
         this.getNameOfChat()
+        this.getMessages()
     }
 
     /**
