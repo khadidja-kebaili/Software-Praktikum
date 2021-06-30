@@ -98,7 +98,12 @@ class GroupListEntry extends Component {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-             <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>   
+             <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>
+
+             {/* Von Lena eingefügt addGroupRequest
+              <Button color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addGroupRequest}>Anfrage senden
+             </Button>   */}
+
             </div>
         );
     }
