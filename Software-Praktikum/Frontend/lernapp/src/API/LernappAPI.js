@@ -44,7 +44,7 @@ export default class LernappAPI {
     // #deleteRequestURL = (id1,id2) => `${this.#lernappServerBaseURL}/delete_request/${id1}/requested_by/${id2}`;
     #addRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
     #getAllRequestURL = () => `${this.#lernappServerBaseURL}/requests`;
-    #deleteRequestURL = (id) => `${this.#lernappServerBaseURL}/request/${id}`;
+    #deleteRequestURL = (id1) => `${this.#lernappServerBaseURL}/request/${id1}`;
 
     //Chataccess
 
@@ -558,10 +558,10 @@ export default class LernappAPI {
 
     getRequestForProfile(profileID) {
         return this.#fetchAdvanced(this.#getRequestForProfileURL(profileID)).then((responseJSON) => {
-            let profileBO = ProfileBO.fromJSON(responseJSON);
-            console.info(profileBO);
+            let profileBOs = ProfileBO.fromJSON(responseJSON);
+            // console.info(profileBO);
             return new Promise(function (resolve) {
-                resolve(profileBO);
+                resolve(profileBOs);
             })
         })
     }
@@ -588,20 +588,20 @@ export default class LernappAPI {
     }
 
 
-    // deleteRequest(ID1, ID2) {
-    //     return this.#fetchAdvanced(this.#deleteRequestURL(ID1, ID2), {
-    //         method: 'DELETE'
-    //     }).then((responseJSON) => {
-    //         let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
-    //         return new Promise(function (resolve) {
-    //             resolve(responseRequestBO);
-    //         })
-    //     })
-    // }
+    deleteRequest(ID1) {
+        return this.#fetchAdvanced(this.#deleteRequestURL(ID1), {
+            method: 'DELETE'
+        }).then((responseJSON) => {
+            let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
+            return new Promise(function (resolve) {
+                resolve(responseRequestBO);
+            })
+        })
+    }
 
 
 
-    addRequest(profileBO){
+    addProfileRequest(profileBO){
         return this.#fetchAdvanced(this.#addRequestURL(), {
             method: 'POST',
             headers: {
@@ -617,6 +617,7 @@ export default class LernappAPI {
         })
     }
 
+<<<<<<< HEAD:Software-Praktikum/Frontend/lernapp/src/API/LernappAPI.js
     deleteRequest(requestID) {
         return this.#fetchAdvanced(this.#deleteRequestURL(requestID), {
             method: 'DELETE'
@@ -628,3 +629,18 @@ export default class LernappAPI {
         })
     }
 }
+=======
+    // deleteRequest(requestID) {
+    //     return this.#fetchAdvanced(this.#deleteRequestURL(requestID), {
+    //         method: 'DELETE'
+    //     }).then((responseJSON) => {
+    //         let responseRequestBO = RequestBO.fromJSON(responseJSON)[0];
+    //         return new Promise(function (resolve) {
+    //             resolve(responseRequestBO);
+    //         })
+    //     })
+    // }
+
+
+}
+>>>>>>> e84bd475694ff2d6205fb008aed1ee0183ee1183:Software-Praktikum/Frontend/lernapp/src/API/LernappAPi.js

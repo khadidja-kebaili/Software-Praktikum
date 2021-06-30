@@ -2,8 +2,8 @@ import React,{Component} from 'react';
 import {Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import LernappAPI from "../../API/LernappAPI";
-// import AddRequest from '../Dialog/AddRequest';
+import LernappAPI from '../../API/LernappAPI';
+import AddRequest from '../Dialog/AddRequest';
 
 
 class MatchListEntry extends Component{
@@ -15,15 +15,15 @@ class MatchListEntry extends Component{
         };
     }
 
-    addRequest = () =>{
-        LernappAPI.getAPI().addRequest().then(profileBOs =>
+    addProfileRequest = () =>{
+        LernappAPI.getAPI().addProfileRequest().then(profileBOs =>
             this.setState({
                 requests : profileBOs,
             }))
     };
 
     render() {
-        const{matches, request, showDeleteRequest}=this.state;
+        const{matches}=this.state;
         
         return(
             <div>
@@ -33,8 +33,9 @@ class MatchListEntry extends Component{
                     {matches.getStudyplace()}, {matches.getStudyfrequence()}
                  
                 <Button
-                 color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addRequest}>Anfrage senden
+                 color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addProfileRequest}>Anfrage senden
                 </Button>
+                
                  
                  </Typography>
                

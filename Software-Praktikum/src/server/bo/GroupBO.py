@@ -1,5 +1,6 @@
 from server.bo.Businessobject import Businessobject
 
+
 class Group(Businessobject):
     def __init__(self):
         super().__init__()
@@ -33,11 +34,12 @@ class Group(Businessobject):
     def get_chatid(self):
         return self.chatid
 
-
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "Groupname:{}, admin:{}, description{}, chatid: {}".format(self.get_groupname(),self.get_admin(),  self.get_description(),
-                                            self.get_chatid())
+        return "Groupname:{}, admin:{}, description{}, chatid: {}".format(self.get_groupname(),
+                                                                          self.get_admin(),
+                                                                          self.get_description(),
+                                                                          self.get_chatid())
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -47,5 +49,5 @@ class Group(Businessobject):
         obj.set_groupname(dictionary["groupname"])
         obj.set_admin(dictionary["admin"])
         obj.set_description(dictionary["description"])
-        obj.set_chatid(dictionary["chatid"])
+        # obj.set_chatid(dictionary["chatid"])
         return obj

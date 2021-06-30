@@ -55,28 +55,6 @@ class GroupList extends Component {
         this.getAllGroups();
     }
 
-    // addnewGroup = () => {
-    //     LernappAPI.getAPI().addGroup().then(groupBO => {
-    //         console.log(groupBO)
-    //         this.setState({  // Set new state when AccountBOs have been fetched
-    //             accounts: [...this.state.groups, groupBO],
-    //             loadingInProgress: false, // loading indicator
-    //             addingAccountError: null
-    //         })
-    //     }).catch(e =>
-    //         this.setState({ // Reset state with error from catch
-    //             loadingInProgress: false,
-    //             addingAccountError: e
-    //         })
-    //     );
-    //
-    //     // set loading to true
-    //     this.setState({
-    //         loadingInProgress: true,
-    //         addingAccountError: null
-    //     });
-    // }
-
     filterFieldValueChange = event => {
         const value = event.target.value.toLowerCase();
         this.setState({

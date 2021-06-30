@@ -8,6 +8,7 @@ import { Container, ThemeProvider, CssBaseline } from '@material-ui/core';
 // import DeleteRequest from "./Components/Dialog/DeleteRequest";
 import GroupList from "./Components/GroupList";
 import GroupListForProfile from "./Components/GroupListForProfile";
+import Test from './Test';
 
 class App extends React.Component {
 
@@ -28,8 +29,13 @@ class App extends React.Component {
                   <Route exact path='/request'>
                     <RequestList/>
                   </Route>
+<<<<<<< HEAD
                   <Route exact path='/chats'>
                     <ChatList/>
+=======
+                  <Route path='/chats'>
+                    <Test/>
+>>>>>>> e84bd475694ff2d6205fb008aed1ee0183ee1183
                   </Route>
                   <Route path='/groups'>
                       <GroupList/>

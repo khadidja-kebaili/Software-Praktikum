@@ -66,7 +66,14 @@ class GroupListEntry extends Component {
         });
       }
     
-     
+    // addGroupRequest = () => {
+     //    let request_type = "G"
+     //    console.log(typeof(this.state.selectedMember))
+       //  let newRequest = new RequestBO (
+        //     this.state.selectedMember.getID(),
+        //     this
+       //  )
+    // }
 
     render() {
         const{groups}=this.state;
@@ -91,7 +98,12 @@ class GroupListEntry extends Component {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-             <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>   
+             <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>
+
+             {/* Von Lena eingefügt addGroupRequest
+              <Button color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addGroupRequest}>Anfrage senden
+             </Button>   */}
+
             </div>
         );
     }

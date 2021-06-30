@@ -1,26 +1,45 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
-import LernappAPI from "../../API/LernappAPI";
+import LernappAPI from '../../API/LernappAPi';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-class DeleteRequest extends Component {
+class DeleteGroupRequest extends Component {
     constructor(props){
         super(props);
         
-        console.log(props);
+        // console.log(props); 
+
         let otherUser = null;
 
+        if (this.props.location.expandRequest){
+            otherUser = this.props.location.expandRequest.getID();
+        }
+
         this.state = {
-            currentUser : 1,
-            requestedBy: otherUser
+            currentUser : 2,
+            currenRequester: otherUser
             
         };
     }
+    // deleteRequest = () => {
+    //     let data = 5;
+    //     LernappAPI.getAPI().deleteRequest(data).then(this.props.onClose(null))
+    // };
+    
+    
+    
+    deleteRequest = () => {
+        const {request} = this.props;
+        
+        LernappAPI.getAPI().deleteRequest(this.state.currentUser, this.state.otherUser).then(
+          this.props.onClose()
+        )
 
+    };
         
       handleClose = () => {
         this.props.onClose(null);
@@ -40,7 +59,7 @@ class DeleteRequest extends Component {
                         <Button color="primary" onClick={this.props.onClose}>
                             Abbrechen
                         </Button>
-                        <Button color="primary" onClick={this.props.deleteRequest}>
+                        <Button color="primary" onClick={this.deleteGroupRequest}>
                             Ja, Ablehnen
                         </Button>
                     </DialogActions>
@@ -50,4 +69,4 @@ class DeleteRequest extends Component {
     }}
 
 
-export default DeleteRequest;
+export default DeleteGroupRequest;
