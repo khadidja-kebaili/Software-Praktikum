@@ -9,8 +9,7 @@ from server.bo.ChatAccessBO import ChatAccessBO
 from server.bo.ProfileBO import Studentprofile
 from server.bo.RequestBO import Request
 from server.bo.GroupBO import Group
-
-# from SecurityDecorator import secured
+from SecurityDecorator import secured
 
 app = Flask(__name__)
 CORS(app, resources=r'/*')
@@ -347,6 +346,7 @@ class DeleteTargetedChataccess(Resource):
 class ProfilOperations(Resource):
     @ api.marshal_with(profile)
     @ api.expect(profile)
+    @secured
     def post(self):
         adm = Businesslogic()
         proposal = Studentprofile.from_dict(api.payload)
@@ -366,6 +366,7 @@ class ProfilOperations(Resource):
             return p
 
     @api.marshal_list_with(profile)
+    @secured
     def get(self):
         adm = Businesslogic()
         profile = adm.get_all_profiles()
@@ -376,12 +377,14 @@ class ProfilOperations(Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class Profilanzeigen (Resource):
     @api.marshal_with(profile)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         userprofile = adm.get_profile_by_id(id)
         return userprofile
 
     @api.marshal_with(profile)
+    @secured
     def delete(self, id):
 
         adm = Businesslogic()
@@ -390,6 +393,7 @@ class Profilanzeigen (Resource):
         return ''
 
     @api.marshal_with(profile)
+    @secured
     @api.expect(profile, validate=True)
     def put(self, id):
         adm = Businesslogic()
@@ -534,6 +538,7 @@ class RequestofProfile(Resource):
         adm = Businesslogic()
         request = adm.get_request_of_profile(id)
         return request
+
 
 @api.route('/request_for_groups/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')

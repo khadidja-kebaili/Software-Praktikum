@@ -11,6 +11,8 @@ from server.bo.MessageBO import MessageBO
 from server.db.MessageMapper import MessageMapper
 from server.bo.ChatroomBO import ChatroomBO
 from server.db.ChatroomMapper import ChatroomMapper
+from .bo.UserBO import User
+from .db.UserMapper import UserMapper
 
 
 class Businesslogic(object):
@@ -18,26 +20,55 @@ class Businesslogic(object):
     def __init__(self):
         self.check_timedelta_of_request()
 
-    # def create_user(self, name, user_id, email):
-    #     user = User()
-    #     user.set_name(name)
-    #     user.set_user_id(user_id)
-    #     user.set_email(email)
-    #     with UserMapper() as mapper:
-    #         return mapper.insert(user)
+  # User-spezifische Methoden
 
-    # def get_user_by_google_user_id(self, id):
-    #     with StudentprofileMapper() as mapper:
-    #     user = User()
-    #     user.set_name(name)
-    #     user.set_user_id(user_id)
-    #     user.set_email(email)
-    #     with UserMapper() as mapper:
-    #         return mapper.insert(user)
-    #
-    # def get_user_by_google_user_id(self, id):
-    #     with UserMapper() as mapper:
-    #         return mapper.find_by_google_user_id(id)
+    def create_user(self, name, email, google_user_id):
+        """Einen Benutzer anlegen"""
+        user = User()
+        user.set_name(name)
+        user.set_email(email)
+        user.set_user_id(google_user_id)
+        user.set_id(1)
+
+        with UserMapper() as mapper:
+            return mapper.insert(user)
+
+    def get_user_by_name(self, name):
+        """Alle Benutzer mit Namen name auslesen."""
+        with UserMapper() as mapper:
+            return mapper.find_by_name(name)
+
+    def get_user_by_id(self, number):
+        """Den Benutzer mit der gegebenen ID auslesen."""
+        with UserMapper() as mapper:
+            return mapper.find_by_key(number)
+
+    def get_user_by_email(self, email):
+        """Alle Benutzer mit gegebener E-Mail-Adresse auslesen."""
+        with UserMapper() as mapper:
+            return mapper.find_by_email(email)
+
+    def get_user_by_google_user_id(self, id):
+        """Den Benutzer mit der gegebenen Google ID auslesen."""
+        with UserMapper() as mapper:
+            return mapper.find_by_google_user_id(id)
+
+    def get_all_users(self):
+        """Alle Benutzer auslesen."""
+        with UserMapper() as mapper:
+            return mapper.find_all()
+
+    def save_user(self, user):
+        """Den gegebenen Benutzer speichern."""
+        with UserMapper() as mapper:
+            mapper.update(user)
+
+    def delete_user(self, user):
+        """Den gegebenen Benutzer aus unserem System löschen."""
+        with UserMapper() as mapper:
+            mapper.delete(user)
+
+    # Profil
 
     def create_profile(self, first_name, last_name, age, semester, major, hobbys, interests,
                        personality, learnstyle, studytime, studyplace, studyfrequence, workexperience):
@@ -77,7 +108,8 @@ class Businesslogic(object):
 
     def create_group(self, groupname, admin, description):
         chatroom = self.create_chatroom('G')
-        chataccess = self.create_chataccess(admin, chatroom.get_id(), chatroom.get_chattype())
+        chataccess = self.create_chataccess(
+            admin, chatroom.get_id(), chatroom.get_chattype())
         group = Group()
         group.set_groupname(groupname)
         group.set_admin(admin)
@@ -153,7 +185,8 @@ class Businesslogic(object):
                 profiles.append(self.get_profile_by_id(element.get_id()))
                 scores.append(self.set_score(element.get_id(), id))
         match_dict = dict(zip(profiles, scores))
-        matches = dict(sorted(match_dict.items(), key=lambda item: item[1], reverse=True))
+        matches = dict(sorted(match_dict.items(),
+                       key=lambda item: item[1], reverse=True))
         sorted_list = []
         for element in matches:
             sorted_list.append(element)
@@ -237,6 +270,7 @@ class Businesslogic(object):
             return mapper.find_by_key(id)
 
     '''Alle Nachrichten eines Chatraums werden über die Id des Chatraums geholt'''
+
     def get_messages_by_room_id(self, id):
         with MessageMapper() as mapper:
             return mapper.find_by_room(id)
@@ -295,7 +329,7 @@ class Businesslogic(object):
         with ChatAccessMapper() as mapper:
             return mapper.insert(access)
 
-    #Wenn ein neues Mitglied der Gruppe beitritt, muss ein Chataccess für ihn erstellt werden. Dadurch können später die Gruppenmitglieder einer Gruppe geholt werden
+    # Wenn ein neues Mitglied der Gruppe beitritt, muss ein Chataccess für ihn erstellt werden. Dadurch können später die Gruppenmitglieder einer Gruppe geholt werden
     def create_chataccess_new_member(self, profile_id, room, chattype):
         access = ChatAccessBO()
         access.set_profile_id(profile_id)
@@ -363,14 +397,13 @@ class Businesslogic(object):
                 res.append(mapper.find_by_key(elem))
         return res
 
-    def get_second_profile (self, room, profile):
+    def get_second_profile(self, room, profile):
         with ChatAccessMapper() as mapper:
             holder = mapper.find_second_profile(room)
         for elem in holder:
             if elem.get_profile_id() != profile:
                 with StudentprofileMapper() as mapper:
                     return mapper.find_by_key(elem.get_profile_id())
-
 
     def get_profiles_by_room(self, id):
         with ChatAccessMapper() as mapper:
