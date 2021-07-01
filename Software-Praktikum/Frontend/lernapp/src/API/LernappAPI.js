@@ -107,7 +107,6 @@ export default class LernappAPI {
         return this.#fetchAdvanced(this.#getAllGroupsURL())
             .then((responseJSON) => {
                 let GroupBOs = GroupBO.fromJSON(responseJSON);
-                console.log(GroupBOs)
                 return new Promise(function (resolve) {
                     resolve(GroupBOs);
                 })
@@ -118,7 +117,6 @@ export default class LernappAPI {
         return this.#fetchAdvanced(this.#get_Groups_of_ProfileURL(id))
             .then((responseJSON)=>{
                 let GroupBOs = GroupBO.fromJSON(responseJSON);
-                console.log(GroupBOs)
                 return new Promise(function (resolve){
                     resolve(GroupBOs)
                 })
@@ -624,18 +622,18 @@ export default class LernappAPI {
 
 
 
-    addProfileRequest(profileBO){
-        return this.#fetchAdvanced(this.#addRequestURL(), {
+    addProfileRequest(requestBO){
+        return this.#fetchAdvanced(this.#addRequestURL(requestBO), {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain',
                 'Content-type': 'application/json',
             },
-            body: JSON.stringify(profileBO)
+            body: JSON.stringify(requestBO)
         }).then((responseJSON) => {
-            let responseProfileBO = ProfileBO.fromJSON(responseJSON);
+            let responseRequestBO = RequestBO.fromJSON(responseJSON);
             return new Promise(function (resolve){
-                resolve(responseProfileBO);
+                resolve(responseRequestBO);
             })
         })
     }

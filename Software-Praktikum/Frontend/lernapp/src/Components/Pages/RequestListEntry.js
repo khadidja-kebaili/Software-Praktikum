@@ -1,8 +1,10 @@
 import React,{Component} from 'react';
 import {Typography} from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { Button, Tab, Tabs } from '@material-ui/core';
 import LernappAPI from '../../API/LernappAPI';
 import DeleteRequest from '../Dialog/DeleteRequest';
+import {BrowserRouter as Router,
+    Switch, Route, Link as RouterLink} from "react-router-dom";
 
 
 class RequestListEntry extends Component{
@@ -12,7 +14,8 @@ class RequestListEntry extends Component{
         this.state={
             request: props.profiles,
             currentUser: 6,
-            showDeleteRequest: false
+            showDeleteRequest: false,
+            tabindex: 0,
 
         };
     }
@@ -37,19 +40,20 @@ deleteRequestButtonClicked = (event) => {
 }
 
 
-addRequest = () =>{
-    LernappAPI.getAPI().addRequest().then(profileBOs =>
-        this.setState({
-            requests : profileBOs,
-        }))
-};
+// addRequest = () =>{
+//     LernappAPI.getAPI().addRequest().then(profileBOs =>
+//         this.setState({
+//             requests : profileBOs,
+//         }))
+// };
 
-getRequest = () => {
-    LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
-        this.setState({
-            request:  profileBOs,
-    
-        }))} 
+// getRequest = () => {
+//     LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
+//         this.setState({
+//             request:  profileBOs,
+
+
+//         }))}
 
 
     render() {
@@ -60,8 +64,16 @@ getRequest = () => {
                 
                 <Typography>
                     {request.getFirstname()}, {request.getLastname()}, {request.getLearnstyle()}, {request.getStudytime()},
-                    {request.getStudyplace()}, {request.getStudyfrequence()}
-                 <Button color='primary' flex="flex-end" onClick={this.addRequest}> Annehmen </Button>
+
+                <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
+                    <Tab label='Annehmen' component={RouterLink} to={'/chats'} />
+                </Tabs>
+
+                {/* <Button color='primary'
+                    onClick={this.routeToChats}>
+                    Annehmen
+                </Button> */}
+
                 <div className="DeleteButton">
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>
