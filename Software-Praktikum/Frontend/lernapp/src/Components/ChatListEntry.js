@@ -1,14 +1,17 @@
 import React, {Component} from "react";
 import Chatroom from './Chatroom';
-import ProfileBO from "../API/ProfileBO";
 import LernappAPI from "../API/LernappAPI";
 import {withStyles,
         Typography,
         Accordion,
         AccordionSummary,
-        AccordionDetails} from "@material-ui/core";
+        AccordionDetails,
+        TextField,
+        Button,
+        List,
+        ListItem} from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-
+import MessageBO from "../API/MessageBO";
 
 /**
  * Die Einträge von der Komponente ChatList
@@ -30,32 +33,10 @@ class ChatlistEntry extends Component{
             chats: props.chats,
             loadingInProgress: false,
             roomnumber: '',
+            newMessage: '',
             name: '',
-            partner: '',
             messages: []
         };
-    }
-
-    /**
-     * Nachrichten eines Chats holen
-     */
-    getMessages = () => {
-        LernappAPI.getAPI().getMessageByRoom(this.state.roomnumber).then(messageBOs =>
-            this.setState({
-                messages: messageBOs,
-                loadingInProgress: false,
-                error: null
-            })).catch(e =>
-                this.setState({
-                    messages: [],
-                    loadingInProgress: false,
-                    error: e
-                })
-            );
-        this.setState({
-            loadingInProgress: true,
-            error: null
-        });         
     }
 
     /**
@@ -76,7 +57,7 @@ class ChatlistEntry extends Component{
     getNameOfChat = () => {
         var roomtype = this.state.chats.getChatType();
         if(roomtype == 'E'){
-            LernappAPI.getAPI().getChatpartner(1, 2).then( profile =>
+            LernappAPI.getAPI().getChatpartner(1, 1).then( profile =>
                 this.setState({
                     roomnumber: this.state.chats.getID(),
                     name : profile[0].getFirstname()
@@ -100,45 +81,46 @@ class ChatlistEntry extends Component{
         }
     }
 
-    // getNameOfProfile(){
-    //     LernappAPI.getAPI().getChatpartner(1, 1).then( profile =>
-    //         this.setState({
-    //             name : profile[0].getFirstname()
-    //         })
-    //     )
-
-        // var value_p = LernappAPI.getAPI().getProfile(2)
-        // console.log(typeof(value_p))
-
-        //     this.setState({
-        //         loadingInProgress: false,
-        //         partner: value_p
-        //     })
-        // console.log("State bei Profile")
-        // console.log(this.state.partner)
-
+    /**
+     * Nachrichten eines Chats holen
+     * Hier wurde eine Callback Funktion benötigt, sonst wurde der State nicht geändert
+     */
     getMessages = () => {
-        LernappAPI.getAPI().getMessageByRoom(this.state.roomnumber).then(messageBOs =>
+        LernappAPI.getAPI().getMessageByRoom(this.state.chats.getID()).then(messageBOs =>
             this.setState({
-                messages: messageBOs,
-                loadingInProgress: false,
-                error: null
-            })).catch(e =>
-                this.setState({
-                    messages: [],
-                    loadingInProgress: false,
-                    error: e
-                })
-            );
-        this.setState({
-            loadingInProgress: true,
-            error: null
-        });
+                messages: messageBOs,                    
+            }, function(){
+                console.log("this.state.messages")
+            }
+            )
+        );       
     }
+
+    //Input wird zu MessageBO umgewandelt und an die Datenbank geschickt
+    sendMessageButtonClicked = () => {
+        /**
+         * Curerent User
+         */
+        console.log(this.state.roomnumber)
+        let message = new MessageBO(
+            1,
+            this.state.roomnumber,
+            this.state.newMessage
+        )
+        LernappAPI.getAPI().addMessage(message).then(console.log(message));
+    }
+
+    // newMessage wird an die Eingabe im Inputfeld angepasst
+    messageInputChange = e => {
+        const value = e.target.value
+        this.setState({
+            newMessage: value
+        })
+    }    
 
     componentDidMount(){
         this.getNameOfChat()
-        this.getMessages()
+        this.interval = setInterval(() => this.getMessages(), 5000)
     }
 
     /**
@@ -146,7 +128,9 @@ class ChatlistEntry extends Component{
      * Dabei besteht jeder Entry aus dem Namen des Chats und wenn man da Akkordion öffnet liegt der zugehörige Chatraum
      */
     render(){
-        const{chats, roomnumber, name, partner} = this.state;
+        const{roomnumber, name, messages, newMessage} = this.state;
+        const{classes} = this.props;
+
         return(
             <div>
                 <Accordion>
@@ -156,7 +140,26 @@ class ChatlistEntry extends Component{
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        {<Chatroom chats={chats} roomnumber={roomnumber} partner={partner}/>}
+                        <List>
+                            <ListItem>
+                                {<Chatroom roomnumber={roomnumber} messages={messages}/>}
+                            </ListItem>
+                            <ListItem>
+                                <div>
+                                    <TextField
+                                        id='newMessage'
+                                        type='text'
+                                        variant="standard"
+                                        value={newMessage}
+                                        defaultValue='Hier Nachricht eingeben'
+                                        onChange={this.messageInputChange}>
+                                    </TextField>
+                                    <Button variant='contained' onClick={this.sendMessageButtonClicked} className={classes.sendButton} color='primary'>
+                                        Senden
+                                    </Button>
+                                </div>
+                            </ListItem>
+                        </List>
                     </AccordionDetails>
                 </Accordion>
             </div>
@@ -167,7 +170,11 @@ class ChatlistEntry extends Component{
 const styles = theme => ({
     root: {
         width: '100%'
+    },
+    sendButton: {
+        margin: '5px',
+        
     }
-});
+})
 
 export default withStyles(styles)(ChatlistEntry);

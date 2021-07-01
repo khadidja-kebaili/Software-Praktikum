@@ -1,3 +1,4 @@
+from itertools import groupby
 from flask import Flask
 from flask_cors import CORS
 from flask_restx import Resource, Api, fields
@@ -448,6 +449,19 @@ class Gruppeanzeigen (Resource):
         group = adm.get_group_by_id(id)
         return group
 
+    @api.marshal_with(group)
+    @api.expect(group, validate=True)
+    def put(self, id):
+        adm = Businesslogic()
+        g = Group.from_dict(api.payload)
+
+        if g is not None:
+            g.set_id(id)
+            adm.save_group(g)
+            return g, 200
+        else:
+            return '', 500
+
 
 @api.route('/groups_of_profile/<int:id>')
 @api.param('ID eingeben für Profil')
@@ -512,6 +526,7 @@ class ProfileofRequestanzeigen (Resource):
         request = adm.get_profiles_of_request(id)
         return request
 
+
 @api.route('/request_for_profile/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
 class RequestofProfile(Resource):
@@ -520,6 +535,7 @@ class RequestofProfile(Resource):
         adm = Businesslogic()
         request = adm.get_request_of_profile(id)
         return request
+
 
 @api.route('/request_for_group/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
@@ -558,6 +574,7 @@ class ProfileRequestDelete(Resource):
             if element.get_request_type() == "E":
                 adm.delete_request_by_ids(id1, id2)
 
+
 @api.route('/delete_group_request/<int:id1>/requested_by/<int:id2>')
 @api.param('id1', 'id des requested', 'id2 - id des requested_by')
 class GroupRequestDelete(Resource):
@@ -568,6 +585,7 @@ class GroupRequestDelete(Resource):
         for element in requests:
             if element.requested_by == id2 and element.request_type() == 'G':
                 adm.delete_request(element)
+
 
 @api.route('/matches/<int:id>')
 class Matcher(Resource):

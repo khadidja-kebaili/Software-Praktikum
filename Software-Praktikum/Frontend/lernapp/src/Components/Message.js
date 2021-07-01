@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles,
         ListItem,
-        Typography } from '@material-ui/core';
+        Typography,
+        Button } from '@material-ui/core';
 import LernappAPI from '../API/LernappAPI';
 
 /**
@@ -13,29 +14,31 @@ class Message extends Component {
     constructor(props){
         super(props);
         this.state = {
-//            name:'',
-//            id: props.messages.get_profile_id()
+            name: ''
         };
     }
 
-//    componentDidMount(){
-//        this.getName()
-//    }
-//
-//    getName(){
-//        var value = LernappAPI.getAPI().getProfile(this.state.id)
-//        console.log(value)
-//    }
+    getUserName = () => {
+        LernappAPI.getAPI().getProfile(this.props.messages.get_profile_id()).then( profile =>
+            this.setState({
+                name: profile.getFirstname()
+            })
+        )
+    };
+
+    componentDidMount(){
+        this.getUserName()
+    }
 
     render(){
         const {classes, messages} = this.props;
-//        const {name} = this.state;
+        const {name} = this.state;
 
         return (
             <div>
                 <ListItem>
                     <Typography className={classes.chatEntry}>
-                        {messages.get_profile_id()} : {messages.get_text()}
+                        {name} : {messages.get_text()}
                     </Typography>
                 </ListItem>
             </div>
@@ -47,5 +50,6 @@ const styles = theme => ({
         width: '100%'
     }
 })
+
 
 export default withStyles(styles)(Message);

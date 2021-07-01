@@ -2,11 +2,7 @@ import React, {Component} from 'react';
 import ChatListEntry from './ChatListEntry';
 import LernappAPI from '../API/LernappAPI';
 import LoadingProgress from './Dialog/LoadingProgress';
-import {Grid,
-        Button, 
-        withStyles,
-        List,
-        ListItem
+import {withStyles,
         } from '@material-ui/core';
 
 /**
@@ -35,7 +31,7 @@ class ChatList extends Component{
     // Chaträume des aktuellen Users holen
     getChats = () => {
         // hier muss in der Methode später die ID des aktuellen Users übergeben werden
-        LernappAPI.getAPI().getChataccessByProfile(2).then(ChatroomBOs =>
+        LernappAPI.getAPI().getChataccessByProfile(1).then(ChatroomBOs =>
             this.setState({
                 chats: ChatroomBOs,
                 loadingInProgress: false,
