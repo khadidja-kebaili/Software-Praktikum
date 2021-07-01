@@ -39,6 +39,29 @@ class DeleteRequest extends Component {
             deletingError: null
         });
     }
+
+
+    deleteGroupRequest = (id1) => {
+        LernappAPI.getAPI().deleteRequest(this.props.requestGroup.getID()).then(request => {
+            this.setState({  // Set new state when AccountBOs have been fetched
+                deletingInProgress: false, // loading indicator
+                deletingError: null
+            })
+            // console.log(account);
+            this.props.onClose(this.props.requestGroup);
+        }).catch(e =>
+            this.setState({ // Reset state with error from catch
+                deletingInProgress: false,
+                deletingError: e
+            })
+        );
+
+        // set loading to true
+        this.setState({
+            deletingInProgress: true,
+            deletingError: null
+        });
+    }
         
       handleClose = () => {
         this.props.onClose(null);

@@ -1,13 +1,14 @@
 import BusinessObject from "./BusinessObject.js"
 
 export default class RequestBO extends BusinessObject {
-    constructor(Arequested_by, Arequested,Arequest_type) {
+    constructor(Arequested_by, Arequested,Arequest_type, Agroup_id) {
       super();
       
       
       this.requested_by = Arequested_by;
       this.requested = Arequested;
       this.request_type = Arequest_type;
+      this.group_id = Agroup_id
     }
 
     setRequestedBy(Arequested_by){
@@ -16,6 +17,14 @@ export default class RequestBO extends BusinessObject {
 
     getRequestedBy(){
     return this.requested_by;
+    }
+
+    setGroupId(Agroup_id){
+        this.group_id = Agroup_id;
+    }
+
+    getGroupId(){
+        return this.group_id;
     }
 
     setRequested(Arequested){

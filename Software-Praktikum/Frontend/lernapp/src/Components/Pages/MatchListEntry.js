@@ -31,10 +31,13 @@ class MatchListEntry extends Component{
 addProfileRequest = () => {
     let currenUser = 6;
     let request_type = "E";
+    let groupid = 0
       let newRequest = new RequestBO(
         this.state.matches.getID(), 
         currenUser,
-        request_type
+        request_type,
+        groupid
+
       )
       LernappAPI.getAPI().addRequest(newRequest).then(console.log(newRequest))
     } 

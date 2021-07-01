@@ -2,12 +2,11 @@ import React,{Component} from 'react';
 import {Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import LernappAPI from '../../API/LernappAPI';
-import DeleteRequest from '../Dialog/DeleteRequest';
 import RequestBO from '../../API/RequestBO';
 import {BrowserRouter as Router,
     Switch, Route, Link as RouterLink} from "react-router-dom";
 import {Tab, Tabs } from '@material-ui/core';
-
+import DeleteGroupRequest from "./../Dialog/DeleteGroupRequest"
 
 
 
@@ -16,75 +15,67 @@ class RequestGroupListEntry extends Component{
         super(props);
 
         this.state={
-            requestGroup: props.profiles,
+            requestGroup: props.requests,
             currentUser: 6,
             showDeleteGroupRequest: false,
             tabindex: 0,
+            group: "",
+            profileLastName: "",
+            profileFirstName:"",
 
         };
     }
 
 
-// deleteGroupRequestButtonClicked = (event) => {
-//     event.stopPropagation();
-//     this.setState({
-//         showDeleteGroupRequest: true
-//     });
-// }
+    deleteRequestDialogClosed = (requestGroup) => {
+        // if customer is not null, delete it
+        if (requestGroup) {
+            this.props.onGroupRequestDeleted(requestGroup);
+        };
 
+        // Don´t show the dialog
+        this.setState({
+            showDeleteGroupRequest: false
+        });
+    }
+    deleteRequestButtonClicked = (event) => {
+        event.stopPropagation();
+        this.setState({
+            showDeleteGroupRequest: true
+        });
+    }
 
-// closeDeleteGroupDialog = () => {
-//     this.setState({
-//     showDeleteGroupRequest: false
-//   });
-// }
+    getGroupById= (id) =>{
+        LernappAPI.getAPI().getGroup(id).then(groupBO =>{
+            this.setState({
+                group:groupBO
+            })
+        })
+    }
 
-deleteRequestDialogClosed = (requestGroup) => {
-    // if customer is not null, delete it
-    if (requestGroup) {
-        this.props.onRequestDeleted(requestGroup);
-    };
+    getProfileById= (id) =>{
+        LernappAPI.getAPI().getProfile(id).then(profileBO =>{
+            this.setState({
+                profileLastName:profileBO.getLastname(),
+                profileFirstName:profileBO.getFirstname(),
+            }, function(){
+                var a
+            })
+        })
+    }
 
-    // Don´t show the dialog
-    this.setState({
-        showDeleteGroupRequest: false
-    });
-}
-deleteRequestButtonClicked = (event) => {
-    event.stopPropagation();
-    this.setState({
-        showDeleteGroupRequest: true
-    });
-}
+    componentDidMount() {
+        this.getGroupById(this.props.requests.getGroupId())
+        this.getProfileById(this.props.requests.getRequestedBy())
 
-// getRequestforGroup = () => {
-//     LernappAPI.getAPI().getRequestforGroup(this.state.currentUser).then(profileBOs =>
-//         this.setState({
-//             requestGroup:  profileBOs,
-    
-//      }))} 
-
-    //  addGroupRequest = () =>{
-    //      let request_type ="E"
-    //      let newRequest = new RequestBO(
-    //          this.state.selectedMember.getID(),
-    //          this.props.group.getID()
-    //      )
-    //     LernappAPI.getAPI().addGroupForRequest().then(profileBOs =>
-    //         this.setState({
-    //             requests : profileBOs,
-    //         }))
-    // };
+    }
 
     render() {
         const{requestGroup, showDeleteGroupRequest}=this.state;
-        
         return(
             <div>
-                
                 <Typography>
-                    {requestGroup.getFirstname()}, {requestGroup.getLastname()},
-                 
+                    Hey, {this.state.profileLastName} möchte in die Gruppe: {this.state.group.groupname}
                  <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
                     <Tab label='Annehmen' component={RouterLink} to={'/chats'} /> 
                 </Tabs>
@@ -94,7 +85,7 @@ deleteRequestButtonClicked = (event) => {
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>
                 </div>
-                <DeleteRequest deleteRequest ={this.deleteRequest} show={this.state.showDeleteGroupRequest} requestGroup={requestGroup} onClose= {this.deleteRequestDialogClosed}/>
+                <DeleteGroupRequest deleteGroupRequest ={this.deleteGroupRequest} show={this.state.showDeleteGroupRequest} requestGroup={requestGroup} onClose= {this.deleteRequestDialogClosed}/>
                 </div>
                 
                 </Typography>           

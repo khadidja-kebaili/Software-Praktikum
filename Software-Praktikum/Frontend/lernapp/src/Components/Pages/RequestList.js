@@ -18,6 +18,7 @@ class RequestList extends Component {
             request: [],
             currentUser : 6,
             requestGroup: [],
+            groupRequests: null
             
             
         };
@@ -39,9 +40,9 @@ class RequestList extends Component {
 
     // Die Funktion getRequest() soll die request anzeigen
     getRequestForProfile =() => {
-        LernappAPI.getAPI().getRequestForProfile(this.state.currentUser).then(profileBOs =>
+        LernappAPI.getAPI().getRequestForProfile(this.state.currentUser).then(requestBOs =>
             this.setState({
-                request:  profileBOs,
+                request:  requestBOs,
         
             }))}
 
@@ -53,18 +54,36 @@ class RequestList extends Component {
                 
                    // }))}
         
-    getRequestForGroups = () => {
-        LernappAPI.getAPI().getRequestForGroups(this.state.currentUser).then(profileBOs =>
-            this.setState({
-                requestGroup: profileBOs,
-            }))
-    }
+        getRequestForGroups = () => {
+            var res = []
+            LernappAPI.getAPI().getRequestForGroups(this.state.currentUser).then(requestBOs =>
+                this.setState({
+                    requestGroup: requestBOs,
+                }))
+        }
+
+        // getGroups = () =>{
+        //     var result = this.getRequestForGroups()
+        //     result.forEach(elem =>{
+        //         console.log('BONJOOOORNOOO')
+        //         console.log()
+        //         }
+        //     )
+        //
+        // }
 
         requestDeleted = request => {
         const newRequestList = this.state.request.filter(requestFromState => requestFromState.getID() !== request.getID());
         this.setState({
             request: newRequestList,
         });
+        }
+
+        groupRequestDeleted = request => {
+            const newRequestList = this.state.requestGroup.filter(requestFromState => requestFromState.getID() !== request.getID());
+            this.setState({
+                requestGroup: newRequestList,
+            });
         }
 
  
@@ -80,8 +99,8 @@ class RequestList extends Component {
                         </Typography>
                     </Grid>
                     {
-                        request.map(profiles =>
-                            <RequestListEntry key={profiles.getID()} profiles={profiles} onRequestDeleted = {this.requestDeleted}/>)
+                        request.map(requests =>
+                            <RequestListEntry key={requests.getID()} requests={requests} onRequestDeleted = {this.requestDeleted}/>)
                             
                     }
 
@@ -89,8 +108,8 @@ class RequestList extends Component {
                         Hier sind deine Anfrage für Gruppen:
                     </Typography>
                     {
-                        requestGroup.map(profiles =>
-                            <RequestGroupListEntry key={profiles.getID()} profiles={profiles} onRequestDeleted={this.requestDeleted}/>)
+                        requestGroup.map(requests =>
+                            <RequestGroupListEntry key={requests.getID()} requests={requests} onGroupRequestDeleted={this.groupRequestDeleted}/>)
                     }
             
                 </div>
