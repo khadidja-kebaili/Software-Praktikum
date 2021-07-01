@@ -17,7 +17,10 @@ import LernappAPI from "../API/LernappAPI";
 import LoadingProgress from "./Dialog/LoadingProgress";
 import LeaveGroup from './Dialog/LeaveGroup';
 import MemberList from "./MemberList.js"
+import AddGroup from "./Dialog/AddGroup";
+import DeleteRequest from "./Dialog/DeleteRequest";
 // import MemberList from './MemberList';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,9 +51,9 @@ class GroupListEntry extends Component {
         this.state = {
             groups: props.groups,
             showLeaveGroup: false,
+            showAddGroup: false,
         };
     }
-
 
 
      leaveGroupclicked = (event) => {
@@ -65,15 +68,7 @@ class GroupListEntry extends Component {
           showLeaveGroup: false
         });
       }
-    
-    // addGroupRequest = () => {
-     //    let request_type = "G"
-     //    console.log(typeof(this.state.selectedMember))
-       //  let newRequest = new RequestBO (
-        //     this.state.selectedMember.getID(),
-        //     this
-       //  )
-    // }
+
 
     render() {
         const{groups}=this.state;
@@ -99,10 +94,10 @@ class GroupListEntry extends Component {
                     </AccordionDetails>
                 </Accordion>
              <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>
-
              {/* Von Lena eingefügt addGroupRequest
               <Button color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addGroupRequest}>Anfrage senden
              </Button>   */}
+
 
             </div>
         );

@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="95c87fdc-2f56-494b-808d-b619bba03ec6" name="Default Changelist" comment="Funktionen waren unterschiedlich benannt">
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/Businesslogic.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatAccessBO.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/bo/ChatAccessBO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Software-Praktikum/src/server/db/ChatAccessMapper.py" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/src/server/db/ChatAccessMapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software-Praktikum/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software-Praktikum/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software-Praktikum/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Software-Praktikum/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_06_2021_14_47__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_06_2021_14_47__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/.idea/Software-Praktikum.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/.idea/Software-Praktikum.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/RequestBO.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/API/RequestBO.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/GroupListEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/GroupListEntry.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/RequestGroupListEntry.js" beforeDir="false" afterPath="$PROJECT_DIR$/Software-Praktikum/Frontend/lernapp/src/Components/Pages/RequestGroupListEntry.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,9 +49,11 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/Software-Praktikum" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="Python.ChatAccessMapper">
+  <component name="RunManager">
     <configuration name="Businesslogic" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Software-Praktikum" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -109,14 +138,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.ChatAccessMapper" />
-        <item itemvalue="Python.LernappAPI" />
-        <item itemvalue="Python.Businesslogic" />
-        <item itemvalue="Python.main" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -140,9 +161,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624717638453</updated>
+      <workItem from="1625124611856" duration="39000" />
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -160,5 +185,23 @@
     <MESSAGE value="LernappAPI.py nach PEP8, Message, Chatacces, Chatroom" />
     <MESSAGE value="Funktionen waren unterschiedlich benannt" />
     <option name="LAST_COMMIT_MESSAGE" value="Funktionen waren unterschiedlich benannt" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1625052360407">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1625052360407" />
+    <state x="122" y="51" key="MergeDialog" timestamp="1625052306241">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="122" y="51" key="MergeDialog/0.0.1280.680@0.0.1280.680" timestamp="1625052306241" />
+    <state x="280" y="103" key="MultipleFileMergeDialog" timestamp="1625052306258">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="280" y="103" key="MultipleFileMergeDialog/0.0.1280.680@0.0.1280.680" timestamp="1625052306258" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1625052336118">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1625052336118" />
   </component>
 </project>

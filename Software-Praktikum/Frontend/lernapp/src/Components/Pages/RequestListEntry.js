@@ -29,27 +29,27 @@ class RequestListEntry extends Component{
         });
     }
 
-deleteRequestButtonClicked = (event) => {
-    event.stopPropagation();
-    this.setState({
-        showDeleteRequest: true
-    });
-}
-
-
-addRequest = () =>{
-    LernappAPI.getAPI().addRequest().then(profileBOs =>
+    deleteRequestButtonClicked = (event) => {
+        event.stopPropagation();
         this.setState({
-            requests : profileBOs,
-        }))
-};
+            showDeleteRequest: true
+        });
+    }
 
-getRequest = () => {
-    LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
-        this.setState({
-            request:  profileBOs,
-    
-        }))} 
+
+    addRequest = () =>{
+        LernappAPI.getAPI().addRequest().then(profileBOs =>
+            this.setState({
+                requests : profileBOs,
+            }))
+    };
+
+    getRequest = () => {
+        LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
+            this.setState({
+                request:  profileBOs,
+
+            }))}
 
 
     render() {
