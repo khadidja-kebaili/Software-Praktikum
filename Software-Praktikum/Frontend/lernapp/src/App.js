@@ -10,6 +10,7 @@ import GroupList from "./Components/GroupList";
 import GroupListForProfile from "./Components/GroupListForProfile";
 import Test from './Test';
 import AddGroup from "./Components/Dialog/AddGroup";
+import ProfileOperations from "./Components/Pages/ProfileOperations"
 
 class App extends React.Component {
 
@@ -40,6 +41,7 @@ class App extends React.Component {
                       <GroupListForProfile/>
                   </Route>
                   <Route path='/profil'>
+                    <ProfileOperations></ProfileOperations>
                   </Route>
                 </>
               }

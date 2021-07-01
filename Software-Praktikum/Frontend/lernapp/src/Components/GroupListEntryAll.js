@@ -20,6 +20,7 @@ import MemberList from "./MemberList.js"
 import AddGroup from "./Dialog/AddGroup";
 import DeleteRequest from "./Dialog/DeleteRequest";
 // import MemberList from './MemberList';
+import RequestBO from './../API/RequestBO';
 
 
 
@@ -54,6 +55,17 @@ class GroupListEntry extends Component {
         };
     }
 
+    addGroupRequest = () => {
+        let currentUser = 6;
+        let request_type = "G";
+        let newRequest = new RequestBO(
+            this.state.groups.getID(),
+            currentUser,
+            request_type
+        )
+        LernappAPI.getAPI().addRequest(newRequest).then(console.log(newRequest))
+
+    }
 
     render() {
         const{groups}=this.state;
@@ -67,7 +79,7 @@ class GroupListEntry extends Component {
                         id="panel2a-header"
                     >
                         <Typography>{groups.getGroupname()}</Typography>
-                        <Button color='primary' >
+                        <Button color='primary' onClick={this.addGroupRequest}>
                             Sende einen Request!
                         </Button>
                     </AccordionSummary>

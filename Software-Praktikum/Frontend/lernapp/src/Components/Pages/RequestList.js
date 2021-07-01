@@ -19,6 +19,7 @@ class RequestList extends Component {
             currentUser : 6,
             requestGroup: [],
             
+            
         };
     }
         //Lifecycle Methode wird aufgerufen, wenn die Komponente in den DOM Browser eingefügt wird
@@ -27,7 +28,13 @@ class RequestList extends Component {
             this.getRequestForGroups();
         }
         
-
+        requestAdded = (group) =>{
+            const newGroupList = this.state.groups.filter(groupFromState => groupFromState.getID());
+            this.setState({
+                groups: newGroupList,
+                filteredGroups: [...newGroupList]
+            });
+        }
 
 
     // Die Funktion getRequest() soll die request anzeigen
