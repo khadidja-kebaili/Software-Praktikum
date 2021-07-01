@@ -25,10 +25,12 @@ class AddGroup extends Component {
 
 
     addGroup = () => {
+        var chatid = 1;
         let newGroup = new GroupBO(
             this.state.groupname,
             this.state.admin,
-            this.state.description,);
+            this.state.description,
+            chatid);
 
             LernappAPI.getAPI().addGroup(newGroup).then(console.log(newGroup));
             this.handleClose()
