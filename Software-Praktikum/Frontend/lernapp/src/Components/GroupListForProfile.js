@@ -19,7 +19,7 @@ class GroupListForProfile extends Component {
         // Init the state
         this.state = {
             groups: [],
-            currentUser : 1,
+            currentUser : 6,
             filteredGroups: [],
             groupFilter: '',
             loadingInProgress: false,

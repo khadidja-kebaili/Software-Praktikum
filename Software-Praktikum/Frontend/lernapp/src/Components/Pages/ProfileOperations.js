@@ -41,7 +41,7 @@ class ProfileOperations extends Component {
     this.setState({ [e.target.name] : e.target.value });}
 
   getProfile = () => {
-    let data = 10;
+    let data = 7;
     LernappAPI.getAPI().getProfile(data).then(profile =>
       this.setState({
         profile: profile,

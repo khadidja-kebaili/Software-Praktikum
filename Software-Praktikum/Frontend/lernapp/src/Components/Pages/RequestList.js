@@ -18,6 +18,7 @@ class RequestList extends Component {
             request: [],
             currentUser : 6,
             requestGroup: [],
+            groupRequests: null
             
             
         };
@@ -53,14 +54,23 @@ class RequestList extends Component {
                 
                    // }))}
         
-    getRequestForGroups = () => {
-        LernappAPI.getAPI().getRequestForGroups(this.state.currentUser).then(requestBOs =>
-            this.setState({
-                requestGroup: requestBOs,
-            }, function(){
-                console.log('Das ist von der Funktion ' + this.state.requestGroup)
-            }))
-    }
+        getRequestForGroups = () => {
+            var res = []
+            LernappAPI.getAPI().getRequestForGroups(this.state.currentUser).then(requestBOs =>
+                this.setState({
+                    requestGroup: requestBOs,
+                }))
+        }
+
+        // getGroups = () =>{
+        //     var result = this.getRequestForGroups()
+        //     result.forEach(elem =>{
+        //         console.log('BONJOOOORNOOO')
+        //         console.log()
+        //         }
+        //     )
+        //
+        // }
 
         requestDeleted = request => {
         const newRequestList = this.state.request.filter(requestFromState => requestFromState.getID() !== request.getID());

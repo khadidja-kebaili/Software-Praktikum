@@ -47,7 +47,7 @@ class RequestListEntry extends Component{
                 profileLastName:profileBO.getLastname(),
                 profileFirstName:profileBO.getFirstname(),
             }, function(){
-                console.log(this.state.profile)
+                var a
             })
         })
     }
@@ -71,7 +71,7 @@ class RequestListEntry extends Component{
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>
                 </div>
-                <DeleteRequest deleteRequest = {this.deleteRequest} show={this.state.showDeleteRequest} request={request} onClose={this.deleteRequestDialogClosed}/>
+                <DeleteRequest deleteRequest = {this.deleteGroupRequest} show={this.state.showDeleteRequest} request={request} onClose={this.deleteRequestDialogClosed}/>
                 </div>
                 
                 </Typography>           

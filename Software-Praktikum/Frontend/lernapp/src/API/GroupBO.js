@@ -34,6 +34,7 @@ export default class GroupBO extends BusinessObject{
     getDescription() {
         return this.description;
     }
+
     setChatid (chatid) {
         this.chatid = chatid;
     }

@@ -52,6 +52,8 @@ class GroupListEntry extends Component {
         this.state = {
             groups: props.groups,
             showAddGroup: false,
+            groupName: "",
+            groupID: ""
         };
     }
 
@@ -61,7 +63,7 @@ class GroupListEntry extends Component {
         let newRequest = new RequestBO(
             this.state.groups.getID(),
             currentUser,
-            request_type
+            request_type,
         )
         LernappAPI.getAPI().addRequest(newRequest).then(console.log(newRequest))
 
@@ -69,7 +71,6 @@ class GroupListEntry extends Component {
 
     render() {
         const{groups}=this.state;
-
         return (
             <div>
                 <Accordion>

@@ -86,7 +86,7 @@ request = api.inherit('Request', bo, {
     'requested': fields.Integer(attribute='requested', description='requested'),
     'requested_by': fields.Integer(attribute='requested_by', description='requested_by'),
     'request_type': fields.String(attribute='request_type', description='request_type'),
-    # 'request_date': fields.String(attribute = 'request_date', description = 'request_date')
+    'group_id': fields.Integer(attribute = 'group_id', description = 'group_id')
 })
 
 
@@ -505,7 +505,8 @@ class RequestOperations(Resource):
             p = adm.create_request(
                 proposal.get_requested(),
                 proposal.get_requested_by(),
-                proposal.get_request_type()
+                proposal.get_request_type(),
+                proposal.get_group_id()
             )
             return p
 

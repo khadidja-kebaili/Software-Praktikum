@@ -57,7 +57,7 @@ class ChatlistEntry extends Component{
     getNameOfChat = () => {
         var roomtype = this.state.chats.getChatType();
         if(roomtype == 'E'){
-            LernappAPI.getAPI().getChatpartner(1, 1).then( profile =>
+            LernappAPI.getAPI().getChatpartner(1, this.state.chats.getID()).then( profile =>
                 this.setState({
                     roomnumber: this.state.chats.getID(),
                     name : profile[0].getFirstname()
