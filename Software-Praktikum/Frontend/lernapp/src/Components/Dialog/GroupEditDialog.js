@@ -21,12 +21,13 @@ class UserProfileDialog extends Component {
     constructor(props){
     super(props);
 
-    let groupname = '', admin = '', description='';
+    let groupname = '', admin = '', description='', chatid = '';
 
     if (props.groups) {
       groupname= props.groups.getGroupname();
       admin = props.groups.getAdmin();
       description = props.groups.getDescription();
+      chatid = props.groups.getChatid();
     }
 
     // Init the state
@@ -34,6 +35,7 @@ class UserProfileDialog extends Component {
       groupname: groupname,
       admin: admin,
       description: description,
+      chatid: chatid
     };
     // save this state for canceling
     this.baseState = this.state;
@@ -42,15 +44,17 @@ class UserProfileDialog extends Component {
 
   updateGroup = () => {
     let updatedGroup = Object.assign(new GroupBO(), this.props.groups);
-
+    console.log(updatedGroup)
     updatedGroup.setGroupname(this.state.groupname);
     updatedGroup.setAdmin(parseInt(this.state.admin));
     updatedGroup.setDescription(this.state.description);
+    updatedGroup.setChatid(this.state.chatid)
     LernappAPI.getAPI().updateGroup(updatedGroup).then(group => {
     
       this.baseState.groupname = this.state.groupname;
       this.baseState.admin = this.state.admin;
       this.baseState.description = this.state.description;
+      this.baseState.chatid = this.state.chatid
       this.props.onClose(updatedGroup);      // call the parent with the new customer
       console.log(updatedGroup)
     })}
