@@ -14,29 +14,31 @@ class Message extends Component {
     constructor(props){
         super(props);
         this.state = {
+            name: ''
         };
     }
 
-    // getUserName = () => {
-    //     LernappAPI.getAPI().getProfile(this.get_profile_id()).then( profile =>
-    //         this.setState({
-    //             name: profile.getFirstname()
-    //         })
-    //     )
-    // };
+    getUserName = () => {
+        LernappAPI.getAPI().getProfile(this.props.messages.get_profile_id()).then( profile =>
+            this.setState({
+                name: profile.getFirstname()
+            })
+        )
+    };
 
-    // componentDidMount(){
-    //     this.getUserName()
-    // }
+    componentDidMount(){
+        this.getUserName()
+    }
 
     render(){
         const {classes, messages} = this.props;
+        const {name} = this.state;
 
         return (
             <div>
                 <ListItem>
                     <Typography className={classes.chatEntry}>
-                        {messages.get_profile_id()} : {messages.get_text()}
+                        {name} : {messages.get_text()}
                     </Typography>
                 </ListItem>
             </div>

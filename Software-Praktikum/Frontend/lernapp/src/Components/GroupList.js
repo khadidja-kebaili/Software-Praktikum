@@ -6,10 +6,12 @@ import AddIcon from '@material-ui/icons/Add';
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import LernappAPI  from '../API/LernappAPI';
-import GroupListEntry from './GroupListEntry';
+import GroupListEntryAll from './GroupListEntryAll';
 import LoadingProgress from "./Dialog/LoadingProgress";
 // import ContextErrorMessage from "./dialogs/ContextErrorMessage";
 import Typography from "@material-ui/core/Typography";
+import AddGroup from "./Dialog/AddGroup";
+import DeleteRequest from "./Dialog/DeleteRequest";
 
 
 class GroupList extends Component {
@@ -24,6 +26,7 @@ class GroupList extends Component {
             groupFilter: '',
             loadingInProgress: false,
             loadingError: null,
+            showAddGroup: false,
         };
     }
     /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
@@ -66,6 +69,34 @@ class GroupList extends Component {
         });
     }
 
+    addGroupButtonClicked = (event) => {
+        event.stopPropagation();
+        this.setState({
+            showAddGroup: true
+        });
+    }
+
+    addGroupDialogClosed = (group) => {
+        // if customer is not null, delete it
+        if (group) {
+            this.onAddGroup(group);
+        };
+
+        // Don´t show the dialog
+        this.setState({
+            showAddGroup: false
+        });
+
+
+    }
+
+    groupAdded = (group) =>{
+        const newGroupList = this.state.groups.filter(groupFromState => groupFromState.getID());
+        this.setState({
+            groups: newGroupList,
+            filteredGroups: [...newGroupList]
+        });
+    }
 
 
 
@@ -97,11 +128,14 @@ class GroupList extends Component {
                     // Show the list of CustomerListEntry components
                     // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters
                     filteredGroups.map(groups =>
-                        <GroupListEntry key={groups.getID()} groups={groups}
-                        />)
+                        <GroupListEntryAll key={groups.getID()} groups={groups}/>)
                 }
                 {/*{groups.map(groups => <GroupListEntry key={groups.getID()} groups={groups}/>)}*/}
                 <LoadingProgress show={loadingInProgress} />
+                <Button color="primary" size="large" onClick={this.addGroupButtonClicked}> Hinzufügen</Button>
+                <div>
+                    <AddGroup addGroup = {this.addGroup} show={this.state.showAddGroup} groups={groups} onClose={this.addGroupDialogClosed}/>
+                </div>
             </div>
         );
     }

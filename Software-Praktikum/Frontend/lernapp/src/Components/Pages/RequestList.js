@@ -58,7 +58,7 @@ class RequestList extends Component {
         this.setState({
             request: newRequestList,
         });
-    }
+        }
 
  
 

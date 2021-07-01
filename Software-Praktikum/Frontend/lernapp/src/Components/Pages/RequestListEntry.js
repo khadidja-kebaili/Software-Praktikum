@@ -51,9 +51,9 @@ deleteRequestButtonClicked = (event) => {
 //     LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
 //         this.setState({
 //             request:  profileBOs,
-            
-    
-//         }))} 
+
+
+//         }))}
 
 
     render() {
@@ -64,16 +64,16 @@ deleteRequestButtonClicked = (event) => {
                 
                 <Typography>
                     {request.getFirstname()}, {request.getLastname()}, {request.getLearnstyle()}, {request.getStudytime()},
-                
+
                 <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
-                    <Tab label='Annehmen' component={RouterLink} to={'/chats'} /> 
+                    <Tab label='Annehmen' component={RouterLink} to={'/chats'} />
                 </Tabs>
 
                 {/* <Button color='primary'
-                    onClick={this.routeToChats}> 
+                    onClick={this.routeToChats}>
                     Annehmen
                 </Button> */}
-                
+
                 <div className="DeleteButton">
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>

@@ -19,6 +19,10 @@ import LeaveGroup from './Dialog/LeaveGroup';
 import MemberList from "./MemberList.js"
 import GroupEditDialog from './Dialog/GroupEditDialog';
 import GroupList from './GroupList';
+import AddGroup from "./Dialog/AddGroup";
+import DeleteRequest from "./Dialog/DeleteRequest";
+// import MemberList from './MemberList';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,6 +52,7 @@ class GroupListEntry extends Component {
         this.state = {
             groups: props.groups,
             showLeaveGroup: false,
+            showAddGroup: false,
             showGroupEditDialog: false,
         };
     }

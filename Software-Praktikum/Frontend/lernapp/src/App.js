@@ -35,7 +35,6 @@ class App extends React.Component {
                   </Route>
                   <Route path='/groups'>
                       <GroupList/>
-                      <AddGroup/>
                   </Route>
                   <Route path='/mygroups'>
                       <GroupListForProfile/>
