@@ -79,6 +79,13 @@ class RequestList extends Component {
         });
         }
 
+        groupRequestDeleted = request => {
+            const newRequestList = this.state.requestGroup.filter(requestFromState => requestFromState.getID() !== request.getID());
+            this.setState({
+                requestGroup: newRequestList,
+            });
+        }
+
  
 
     //Die Komponente die gerendert werden
@@ -102,7 +109,7 @@ class RequestList extends Component {
                     </Typography>
                     {
                         requestGroup.map(requests =>
-                            <RequestGroupListEntry key={requests.getID()} requests={requests} onRequestDeleted={this.requestDeleted}/>)
+                            <RequestGroupListEntry key={requests.getID()} requests={requests} onGroupRequestDeleted={this.groupRequestDeleted}/>)
                     }
             
                 </div>

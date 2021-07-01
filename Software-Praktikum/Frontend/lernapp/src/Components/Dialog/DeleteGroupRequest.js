@@ -1,54 +1,54 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
-import LernappAPI from '../../API/LernappAPi';
+import LernappAPI from '../../API/LernappAPI';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-class DeleteGroupRequest extends Component {
+class DeleteRequest extends Component {
     constructor(props){
         super(props);
-        
-        // console.log(props); 
-
-        let otherUser = null;
-
-        if (this.props.location.expandRequest){
-            otherUser = this.props.location.expandRequest.getID();
-        }
 
         this.state = {
-            currentUser : 2,
-            currenRequester: otherUser
-            
+            deletingInProgress: false,
+            deletingError: null
+
         };
     }
-    // deleteRequest = () => {
-    //     let data = 5;
-    //     LernappAPI.getAPI().deleteRequest(data).then(this.props.onClose(null))
-    // };
-    
-    
-    
-    deleteRequest = () => {
-        const {request} = this.props;
-        
-        LernappAPI.getAPI().deleteRequest(this.state.currentUser, this.state.otherUser).then(
-          this.props.onClose()
-        )
 
-    };
-        
-      handleClose = () => {
+
+    deleteGroupRequest = (id1) => {
+        LernappAPI.getAPI().deleteRequest(this.props.requestGroup.getID()).then(request => {
+            this.setState({  // Set new state when AccountBOs have been fetched
+                deletingInProgress: false, // loading indicator
+                deletingError: null
+            })
+            // console.log(account);
+            this.props.onClose(this.props.requestGroup);
+        }).catch(e =>
+            this.setState({ // Reset state with error from catch
+                deletingInProgress: false,
+                deletingError: e
+            })
+        );
+
+        // set loading to true
+        this.setState({
+            deletingInProgress: true,
+            deletingError: null
+        });
+    }
+
+    handleClose = () => {
         this.props.onClose(null);
     }
 
     render() {
         return(
             <div>
-                <Dialog open={this.props.show}>
+                <Dialog open={this.props.show} onClose = {this.handleClose}>
                     <DialogTitle id="alert-dialog-title">Willst du wirklich die Anfrage löschen?</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
@@ -56,7 +56,7 @@ class DeleteGroupRequest extends Component {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button color="primary" onClick={this.props.onClose}>
+                        <Button color="primary" onClick={this.handleClose}>
                             Abbrechen
                         </Button>
                         <Button color="primary" onClick={this.deleteGroupRequest}>
@@ -69,4 +69,4 @@ class DeleteGroupRequest extends Component {
     }}
 
 
-export default DeleteGroupRequest;
+export default DeleteRequest;

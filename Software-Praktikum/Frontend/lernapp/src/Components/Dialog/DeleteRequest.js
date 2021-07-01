@@ -48,7 +48,7 @@ class DeleteRequest extends Component {
                 deletingError: null
             })
             // console.log(account);
-            this.props.onClose(this.props.request);
+            this.props.onClose(this.props.requestGroup);
         }).catch(e =>
             this.setState({ // Reset state with error from catch
                 deletingInProgress: false,

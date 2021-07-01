@@ -2,12 +2,11 @@ import React,{Component} from 'react';
 import {Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import LernappAPI from '../../API/LernappAPI';
-import DeleteRequest from '../Dialog/DeleteRequest';
 import RequestBO from '../../API/RequestBO';
 import {BrowserRouter as Router,
     Switch, Route, Link as RouterLink} from "react-router-dom";
 import {Tab, Tabs } from '@material-ui/core';
-
+import DeleteGroupRequest from "./../Dialog/DeleteGroupRequest"
 
 
 
@@ -31,7 +30,7 @@ class RequestGroupListEntry extends Component{
     deleteRequestDialogClosed = (requestGroup) => {
         // if customer is not null, delete it
         if (requestGroup) {
-            this.props.onRequestDeleted(requestGroup);
+            this.props.onGroupRequestDeleted(requestGroup);
         };
 
         // Don´t show the dialog
@@ -86,7 +85,7 @@ class RequestGroupListEntry extends Component{
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>
                 </div>
-                <DeleteRequest deleteRequest ={this.deleteRequest} show={this.state.showDeleteGroupRequest} requestGroup={requestGroup} onClose= {this.deleteRequestDialogClosed}/>
+                <DeleteGroupRequest deleteGroupRequest ={this.deleteGroupRequest} show={this.state.showDeleteGroupRequest} requestGroup={requestGroup} onClose= {this.deleteRequestDialogClosed}/>
                 </div>
                 
                 </Typography>           
