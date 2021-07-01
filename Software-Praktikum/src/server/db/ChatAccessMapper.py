@@ -76,7 +76,7 @@ class ChatAccessMapper(Mapper):
         return res
 
     def find_by_profile(self, profile):
-        res = None
+        res = []
         cursor = self._cnx.cursor()
         command = "SELECT id, profile_id, room, chattype FROM lernapp.chataccess WHERE profile_id={}".format(profile)
         cursor.execute(command)
