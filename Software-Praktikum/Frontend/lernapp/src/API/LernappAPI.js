@@ -107,7 +107,6 @@ export default class LernappAPI {
         return this.#fetchAdvanced(this.#getAllGroupsURL())
             .then((responseJSON) => {
                 let GroupBOs = GroupBO.fromJSON(responseJSON);
-                console.log(GroupBOs)
                 return new Promise(function (resolve) {
                     resolve(GroupBOs);
                 })
@@ -118,7 +117,6 @@ export default class LernappAPI {
         return this.#fetchAdvanced(this.#get_Groups_of_ProfileURL(id))
             .then((responseJSON)=>{
                 let GroupBOs = GroupBO.fromJSON(responseJSON);
-                console.log(GroupBOs)
                 return new Promise(function (resolve){
                     resolve(GroupBOs)
                 })
