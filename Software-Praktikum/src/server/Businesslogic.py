@@ -77,6 +77,7 @@ class Businesslogic(object):
 
     def create_group(self, groupname, admin, description):
         chatroom = self.create_chatroom('G')
+        chataccess = self.create_chataccess(admin, chatroom.get_id(), chatroom.get_chattype())
         group = Group()
         group.set_groupname(groupname)
         group.set_admin(admin)
