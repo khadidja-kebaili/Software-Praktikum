@@ -1,5 +1,8 @@
 from .Businessobject import Businessobject;
 
+# Eine Nachricht welche in einem Chatraum gesendet wurde
+#
+# @author [Ha Mi Duong](https://github.com/HamiDuong)
 
 class MessageBO (Businessobject):
     # Instanziierung des Objekts der Klasse Message
