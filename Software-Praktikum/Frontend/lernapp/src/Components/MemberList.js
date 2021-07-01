@@ -88,7 +88,7 @@ class MemberList extends Component {
 
   
   addMember = () => {
-    let chattype = "g"
+    let chattype = "G"
       let newChataccess = new ChataccessBO(
         this.state.selectedMember.getID(),
         this.props.groups.getID(),
