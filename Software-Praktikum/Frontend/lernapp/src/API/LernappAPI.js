@@ -624,7 +624,7 @@ export default class LernappAPI {
 
 
 
-    addProfileRequest(requestBO){
+    addRequest(requestBO){
         return this.#fetchAdvanced(this.#addRequestURL(requestBO), {
             method: 'POST',
             headers: {

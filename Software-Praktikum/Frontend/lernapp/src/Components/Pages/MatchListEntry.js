@@ -36,7 +36,7 @@ addProfileRequest = () => {
         currenUser,
         request_type
       )
-      LernappAPI.getAPI().addProfileRequest(newRequest).then(console.log(newRequest))
+      LernappAPI.getAPI().addRequest(newRequest).then(console.log(newRequest))
     } 
 
 
