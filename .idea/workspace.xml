@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="95c87fdc-2f56-494b-808d-b619bba03ec6" name="Default Changelist" comment="Funktionen waren unterschiedlich benannt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -37,7 +55,7 @@
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
   </component>
-  <component name="RunManager" selected="Python.ChatAccessMapper">
+  <component name="RunManager">
     <configuration name="Businesslogic" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Software-Praktikum" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -126,14 +144,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.ChatAccessMapper" />
-        <item itemvalue="Python.LernappAPI" />
-        <item itemvalue="Python.Businesslogic" />
-        <item itemvalue="Python.main" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -181,5 +191,23 @@
     <MESSAGE value="LernappAPI.py nach PEP8, Message, Chatacces, Chatroom" />
     <MESSAGE value="Funktionen waren unterschiedlich benannt" />
     <option name="LAST_COMMIT_MESSAGE" value="Funktionen waren unterschiedlich benannt" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="421" y="96" key="FileChooserDialogImpl" timestamp="1625052360407">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="421" y="96" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1625052360407" />
+    <state x="122" y="51" key="MergeDialog" timestamp="1625052306241">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="122" y="51" key="MergeDialog/0.0.1280.680@0.0.1280.680" timestamp="1625052306241" />
+    <state x="280" y="103" key="MultipleFileMergeDialog" timestamp="1625052306258">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="280" y="103" key="MultipleFileMergeDialog/0.0.1280.680@0.0.1280.680" timestamp="1625052306258" />
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2" timestamp="1625052336118">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="233" y="74" key="Vcs.Push.Dialog.v2/0.0.1280.680@0.0.1280.680" timestamp="1625052336118" />
   </component>
 </project>
