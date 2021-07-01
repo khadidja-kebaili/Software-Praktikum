@@ -74,7 +74,6 @@ class GroupListEntry extends Component {
                     <AccordionDetails>
                         <Typography>
                             {groups.getDescription()}
-                            {<MemberList  groups={groups} />}
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
