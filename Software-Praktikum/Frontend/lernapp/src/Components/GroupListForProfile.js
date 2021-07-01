@@ -28,6 +28,13 @@ class GroupListForProfile extends Component {
     }
     /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
 
+    leaveGroup = groups => {
+        const newGroupList = this.state.groups.filter(groupFromState => groupFromState.getID() !== groups.getID());
+        this.setState({
+          groups: newGroupList,
+          filteredGroups:[...newGroupList]
+        });
+      }
     
 
     getGroupsForProfile = (id) => {
@@ -94,7 +101,7 @@ class GroupListForProfile extends Component {
                     // Show the list of CustomerListEntry components
                     // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters
                     filteredGroups.map(groups =>
-                        <GroupListEntry key={groups.getID()} groups={groups}
+                        <GroupListEntry key={groups.getID()} groups={groups} onLeaveGroup={this.leaveGroup}
                         />)
                 }
                 {/*{groups.map(groups => <GroupListEntry key={groups.getID()} groups={groups}/>)}*/}

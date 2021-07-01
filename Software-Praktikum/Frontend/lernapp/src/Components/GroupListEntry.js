@@ -102,6 +102,18 @@ class GroupListEntry extends Component {
         }
       }
 
+
+  closeLeaveGroupDialog = (groups) => {
+    // if customer is not null, delete it
+    if (groups) {
+      this.props.onLeaveGroup(groups);
+    };
+
+    // Don´t show the dialog
+    this.setState({
+      showLeaveGroup: false
+    });
+  }
     render() {
         const{groups}=this.state;
 
@@ -128,7 +140,7 @@ class GroupListEntry extends Component {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-             <LeaveGroup show={this.state.showLeaveGroup} onClose={this.closeLeaveGroupDialog}/>
+             <LeaveGroup show={this.state.showLeaveGroup} groups={groups} onClose={this.closeLeaveGroupDialog}/>
              <GroupEditDialog show = {this.state.showGroupEditDialog} groups={groups} onClose={this.groupEditDialogClosed} />
              {/* Von Lena eingefügt addGroupRequest
               <Button color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addGroupRequest}>Anfrage senden

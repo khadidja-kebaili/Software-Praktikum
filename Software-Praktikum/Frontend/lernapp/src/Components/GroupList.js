@@ -58,6 +58,15 @@ class GroupList extends Component {
         this.getAllGroups();
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+            if (prevState.groups !== this.state.groups) {
+                this.getAllGroups()
+                this.setState({
+                    loadingInProgress:false
+                })
+            }
+    }
+
     filterFieldValueChange = event => {
         const value = event.target.value.toLowerCase();
         this.setState({
@@ -88,14 +97,6 @@ class GroupList extends Component {
         });
 
 
-    }
-
-    groupAdded = (group) =>{
-        const newGroupList = this.state.groups.filter(groupFromState => groupFromState.getID());
-        this.setState({
-            groups: newGroupList,
-            filteredGroups: [...newGroupList]
-        });
     }
 
 

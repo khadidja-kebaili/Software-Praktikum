@@ -2,11 +2,12 @@ import BusinessObject from "./BusinessObject.js"
 
 export default class GroupBO extends BusinessObject{
 
-    constructor(groupname, admin, description) {
+    constructor(groupname, admin, description, chatid) {
         super();
         this.groupname = groupname
         this.admin = admin
         this.description = description
+        this.chatid = chatid
 
     }
 
@@ -33,7 +34,13 @@ export default class GroupBO extends BusinessObject{
     getDescription() {
         return this.description;
     }
+    setChatid (chatid) {
+        this.chatid = chatid;
+    }
 
+    getChatid() {
+        return this.chatid;
+    }
 
 
     static fromJSON(group) {
