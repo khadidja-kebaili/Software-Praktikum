@@ -1,5 +1,10 @@
 from server.bo.Businessobject import Businessobject
 
+# Bei den Chaträumen wird dabei unter Gruppenchaträume und Zweierchaträume aufgeteilt
+# E: Zweierchat
+# G: Gruppenchat
+
+# @author [Ha Mi Duong](https://github.com/HamiDuong)
 
 class ChatroomBO(Businessobject):
 

@@ -39,6 +39,17 @@ class AddGroup extends Component {
         this.props.onClose(null);
     }
 
+    closeLeaveGroupDialog = (groups) => {
+        // if customer is not null, delete it
+        if (groups) {
+            this.props.groupAdded(groups);
+        };
+
+        // Don´t show the dialog
+        this.setState({
+            showLeaveGroup: false
+        });
+    }
     render() {
         let header = 'Erstelle deine eigene Lerngruppe!'
         const {groupname, admin, description} = this.state

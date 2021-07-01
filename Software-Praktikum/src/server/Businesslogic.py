@@ -77,6 +77,7 @@ class Businesslogic(object):
 
     def create_group(self, groupname, admin, description):
         chatroom = self.create_chatroom('G')
+        chataccess = self.create_chataccess(admin, chatroom.get_id(), chatroom.get_chattype())
         group = Group()
         group.set_groupname(groupname)
         group.set_admin(admin)
@@ -235,6 +236,7 @@ class Businesslogic(object):
         with MessageMapper() as mapper:
             return mapper.find_by_key(id)
 
+    '''Alle Nachrichten eines Chatraums werden über die Id des Chatraums geholt'''
     def get_messages_by_room_id(self, id):
         with MessageMapper() as mapper:
             return mapper.find_by_room(id)
@@ -293,6 +295,7 @@ class Businesslogic(object):
         with ChatAccessMapper() as mapper:
             return mapper.insert(access)
 
+    #Wenn ein neues Mitglied der Gruppe beitritt, muss ein Chataccess für ihn erstellt werden. Dadurch können später die Gruppenmitglieder einer Gruppe geholt werden
     def create_chataccess_new_member(self, profile_id, room, chattype):
         access = ChatAccessBO()
         access.set_profile_id(profile_id)
