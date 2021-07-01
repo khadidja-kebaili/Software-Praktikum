@@ -32,12 +32,12 @@ class RequestListEntry extends Component{
         });
     }
 
-deleteRequestButtonClicked = (event) => {
-    event.stopPropagation();
-    this.setState({
-        showDeleteRequest: true
-    });
-}
+    deleteRequestButtonClicked = (event) => {
+        event.stopPropagation();
+        this.setState({
+            showDeleteRequest: true
+        });
+    }
 
 
 // addRequest = () =>{
