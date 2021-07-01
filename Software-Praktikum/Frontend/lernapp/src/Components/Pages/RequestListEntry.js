@@ -12,10 +12,12 @@ class RequestListEntry extends Component{
         super(props);
 
         this.state={
-            request: props.profiles,
+            request: props.requests,
             currentUser: 6,
             showDeleteRequest: false,
             tabindex: 0,
+            profileFirstName: null,
+            profileLastName:null,
 
         };
     }
@@ -39,41 +41,32 @@ class RequestListEntry extends Component{
         });
     }
 
+    getProfileById= (id) =>{
+        LernappAPI.getAPI().getProfile(id).then(profileBO =>{
+            this.setState({
+                profileLastName:profileBO.getLastname(),
+                profileFirstName:profileBO.getFirstname(),
+            }, function(){
+                console.log(this.state.profile)
+            })
+        })
+    }
 
-// addRequest = () =>{
-//     LernappAPI.getAPI().addRequest().then(profileBOs =>
-//         this.setState({
-//             requests : profileBOs,
-//         }))
-// };
+    componentDidMount() {
+        this.getProfileById(this.state.request.getRequestedBy())
 
-// getRequest = () => {
-//     LernappAPI.getAPI().getRequest(this.state.currentUser).then(profileBOs =>
-//         this.setState({
-//             request:  profileBOs,
-
-
-//         }))}
+    }
 
 
     render() {
-        const{request, showDeleteRequest}=this.state;
-        
+        const{request}=this.state;
         return(
             <div>
-                
                 <Typography>
-                    {request.getFirstname()}, {request.getLastname()}, {request.getLearnstyle()}, {request.getStudytime()},
-
+                    {this.state.profileFirstName}, {this.state.profileLastName}
                 <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
                     <Tab label='Annehmen' component={RouterLink} to={'/chats'} />
                 </Tabs>
-
-                {/* <Button color='primary'
-                    onClick={this.routeToChats}>
-                    Annehmen
-                </Button> */}
-
                 <div className="DeleteButton">
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>

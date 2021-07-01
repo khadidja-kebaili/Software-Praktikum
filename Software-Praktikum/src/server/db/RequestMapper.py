@@ -19,12 +19,13 @@ class RequestMapper(Mapper):
                 davon aus, dass die Tabelle leer ist und wir mit der id 1 beginnen können."""
                 request.set_id(1)
 
-        command = "INSERT INTO request (id, requested_by, requested, request_type) VALUES (%s, %s, %s, %s)"
+        command = "INSERT INTO request (id, requested_by, requested, request_type, group_id) VALUES (%s, %s, %s, %s, %s)"
         data = (
             request.get_id(),
             request.get_requested_by(),
             request.get_requested(),
-            request.get_request_type())
+            request.get_request_type(),
+            request.get_group_id())
 
         cursor.execute(command, data)
 
@@ -36,16 +37,17 @@ class RequestMapper(Mapper):
 
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT id, requested_by, requested, request_date, request_type FROM request")
+        cursor.execute("SELECT id, requested_by, requested, request_date, request_type, group_id FROM request")
         tuples = cursor.fetchall()
 
-        for (id, requested_by, requested, request_date, request_type) in tuples:
+        for (id, requested_by, requested, request_date, request_type, group_id) in tuples:
             request = Request()
             request.set_id(id)
             request.set_requested_by(requested_by)
             request.set_requested(requested)
             request.set_request_date(request_date)
             request.set_request_type(request_type)
+            request.set_group_id(group_id)
             result.append(request)
 
         self._cnx.commit()
@@ -57,19 +59,20 @@ class RequestMapper(Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, requested_by, requested, request_date, request_type FROM request WHERE id={}".format(
+        command = "SELECT id, requested_by, requested, request_date, request_type, group_id FROM request WHERE id={}".format(
             key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, requested_by, requested, request_date, request_type) = tuples[0]
+            (id, requested_by, requested, request_date, request_type, group_id) = tuples[0]
             request = Request()
             request.set_id(id)
             request.set_requested_by(requested_by)
             request.set_request_date(request_date)
             request.set_requested(requested)
             request.set_request_type(request_type)
+            request.set_group_id(group_id)
             result = request
         except IndexError:
             """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf

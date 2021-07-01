@@ -159,7 +159,7 @@ class Businesslogic(object):
             sorted_list.append(element)
         return sorted_list
 
-    def create_request(self, requested_by, requested, request_type):
+    def create_request(self, requested_by, requested, request_type, group_id):
         requests = self.get_all_requests()
         request_list = []
         for element in requests:
@@ -171,8 +171,25 @@ class Businesslogic(object):
             request.set_requested_by(requested_by)
             request.set_requested(requested)
             request.set_request_type(request_type)
+            if request_type == 'E':
+                request.set_group_id(0)
+            else:
+                request.set_group_id(group_id)
             with RequestMapper() as mapper:
                 return mapper.insert(request)
+
+    # def create_group_request(self, requested_by, admin,  group_id):
+    #     request = Request()
+    #     request.set_requested_by(requested_by)
+    #     request.set_requested(admin)
+    #     request.set_request_type('G')
+    #     request.set_group_id(group_id)
+    #     with RequestMapper() as mapper:
+    #         return mapper.insert(request)
+
+    # def get_group_by_admin(self, admin):
+    #     with GroupMapper() as mapper:
+    #         return mapper.find_by_admin(admin)
 
     def get_all_requests(self):
         with RequestMapper() as mapper:

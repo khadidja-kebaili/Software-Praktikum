@@ -7,7 +7,14 @@ class Request(Businessobject):
         self.requested_by = "",
         self.requested = "",
         self.request_date = "",
-        self.request_type = ""
+        self.request_type = "",
+        self.group_id= "",
+
+    def set_group_id(self,id):
+        self.group_id = id
+
+    def get_group_id(self):
+        return self.group_id
 
     def set_request_type(self, value):
         self.request_type = value
@@ -35,12 +42,13 @@ class Request(Businessobject):
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "Request: ID: {}, Requested_by: {}, Requested: {}, Date of request: {}, Requesttype : {}".\
+        return "Request: ID: {}, Requested_by: {}, Requested: {}, Date of request: {}, Requesttype : {}, GroupID: {}.".\
             format(self.get_id(),
                    self.get_requested_by(),
                    self.get_requested(),
                    self.get_request_date(),
-                   self.get_request_type())
+                   self.get_request_type(),
+                   self.get_group_id())
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -51,5 +59,6 @@ class Request(Businessobject):
         obj.set_requested(dictionary['requested'])
         # obj.set_request_date(dictionary['requested_date'])
         obj.set_request_type(dictionary['request_type'])
+        obj.set_group_id(dictionary['group_id'])
         return obj
 

@@ -39,9 +39,9 @@ class RequestList extends Component {
 
     // Die Funktion getRequest() soll die request anzeigen
     getRequestForProfile =() => {
-        LernappAPI.getAPI().getRequestForProfile(this.state.currentUser).then(profileBOs =>
+        LernappAPI.getAPI().getRequestForProfile(this.state.currentUser).then(requestBOs =>
             this.setState({
-                request:  profileBOs,
+                request:  requestBOs,
         
             }))}
 
@@ -54,9 +54,11 @@ class RequestList extends Component {
                    // }))}
         
     getRequestForGroups = () => {
-        LernappAPI.getAPI().getRequestForGroups(this.state.currentUser).then(profileBOs =>
+        LernappAPI.getAPI().getRequestForGroups(this.state.currentUser).then(requestBOs =>
             this.setState({
-                requestGroup: profileBOs,
+                requestGroup: requestBOs,
+            }, function(){
+                console.log('Das ist von der Funktion ' + this.state.requestGroup)
             }))
     }
 
@@ -80,8 +82,8 @@ class RequestList extends Component {
                         </Typography>
                     </Grid>
                     {
-                        request.map(profiles =>
-                            <RequestListEntry key={profiles.getID()} profiles={profiles} onRequestDeleted = {this.requestDeleted}/>)
+                        request.map(requests =>
+                            <RequestListEntry key={requests.getID()} requests={requests} onRequestDeleted = {this.requestDeleted}/>)
                             
                     }
 
@@ -89,8 +91,8 @@ class RequestList extends Component {
                         Hier sind deine Anfrage für Gruppen:
                     </Typography>
                     {
-                        requestGroup.map(profiles =>
-                            <RequestGroupListEntry key={profiles.getID()} profiles={profiles} onRequestDeleted={this.requestDeleted}/>)
+                        requestGroup.map(requests =>
+                            <RequestGroupListEntry key={requests.getID()} requests={requests} onRequestDeleted={this.requestDeleted}/>)
                     }
             
                 </div>
