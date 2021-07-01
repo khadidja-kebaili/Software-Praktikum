@@ -235,6 +235,7 @@ class Businesslogic(object):
         with MessageMapper() as mapper:
             return mapper.find_by_key(id)
 
+    '''Alle Nachrichten eines Chatraums werden über die Id des Chatraums geholt'''
     def get_messages_by_room_id(self, id):
         with MessageMapper() as mapper:
             return mapper.find_by_room(id)
@@ -293,6 +294,8 @@ class Businesslogic(object):
         with ChatAccessMapper() as mapper:
             return mapper.insert(access)
 
+    '''Wenn ein neues Mitglied der Gruppe beitritt, muss ein Chataccess für ihn erstellt werden
+    Dadurch können später die Gruppenmitglieder einer Gruppe geholt werden'''
     def create_chataccess_new_member(self, profile_id, room, chattype):
         access = ChatAccessBO()
         access.set_profile_id(profile_id)
@@ -312,6 +315,7 @@ class Businesslogic(object):
         with ChatAccessMapper() as mapper:
             return mapper.find_by_key(id)
 
+    '''gibt alle ChataccessBOs eines Profils wieder'''
     def get_chatacces_by_profile(self, profile):
         with ChatAccessMapper() as mapper:
             return mapper.find_by_profile(profile)
@@ -326,7 +330,7 @@ class Businesslogic(object):
     #     with ChatAccessMapper() as mapper:
     #         return mapper.find_singlechat_by_profil(profil)
 
-    # gibt alle ChatroomBO zurück mit den angegebenen Profil und dem Chattype = g
+    '''gibt alle ChatroomBO zurück mit den angegebenen Profil und dem Chattype = g'''
     def get_groupchats_by_profile(self, profile):
         res = []
         print(res)
@@ -341,7 +345,7 @@ class Businesslogic(object):
                 print(res)
         return res
 
-    # gibt alle ChatroomBO zurück mit den angegebenen Profil und dem Chattype = e
+    '''gibt alle ChatroomBO zurück mit den angegebenen Profil und dem Chattype = e'''
     def get_singlechats_by_profile(self, profile):
         res = []
         with ChatAccessMapper() as mapper:
@@ -351,6 +355,7 @@ class Businesslogic(object):
                 res.append(mapper.find_by_key(elem))
         return res
 
+    '''gibt die Chaträume zurück in die das gegebene Profil schreiben darf'''
     def get_chatroom_by_profile(self, profile):
         res = []
         with ChatAccessMapper() as mapper:
@@ -360,6 +365,7 @@ class Businesslogic(object):
                 res.append(mapper.find_by_key(elem))
         return res
 
+    '''gibt den Chatpartner zurück von einem Zweierchatraum'''
     def get_second_profile (self, room, profile):
         with ChatAccessMapper() as mapper:
             holder = mapper.find_second_profile(room)
@@ -368,11 +374,12 @@ class Businesslogic(object):
                 with StudentprofileMapper() as mapper:
                     return mapper.find_by_key(elem.get_profile_id())
 
-
+    '''gibt die Mitglieder einen Chatraums zurück'''
     def get_profiles_by_room(self, id):
         with ChatAccessMapper() as mapper:
             return mapper.get_groupmembers(id)
 
+    '''löscht die Chataccess mit der gegebenen profil_id und room_id'''
     def delete_chatacces_by_profil_room(self, profil, room):
         with ChatAccessMapper() as mapper:
             return mapper.delete_by_room_and_profile_id(profil, room)
