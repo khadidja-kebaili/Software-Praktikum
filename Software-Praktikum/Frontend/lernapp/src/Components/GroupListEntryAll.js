@@ -15,6 +15,13 @@ import { Button } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import LernappAPI from "../API/LernappAPI";
 import LoadingProgress from "./Dialog/LoadingProgress";
+import LeaveGroup from './Dialog/LeaveGroup';
+import MemberList from "./MemberList.js"
+import AddGroup from "./Dialog/AddGroup";
+import DeleteRequest from "./Dialog/DeleteRequest";
+// import MemberList from './MemberList';
+import RequestBO from './../API/RequestBO';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-class GroupListEntryAll extends Component {
+class GroupListEntry extends Component {
 
     constructor(props) {
         super(props);
@@ -44,26 +51,21 @@ class GroupListEntryAll extends Component {
         // Init an empty state
         this.state = {
             groups: props.groups,
-            showLeaveGroup: false,
+            showAddGroup: false,
         };
     }
 
+    addGroupRequest = () => {
+        let currentUser = 6;
+        let request_type = "G";
+        let newRequest = new RequestBO(
+            this.state.groups.getID(),
+            currentUser,
+            request_type
+        )
+        LernappAPI.getAPI().addRequest(newRequest).then(console.log(newRequest))
 
-
-    leaveGroupclicked = (event) => {
-        event.stopPropagation();
-        this.setState({
-            showLeaveGroup: true
-        });
     }
-
-    closeLeaveGroupDialog = () => {
-        this.setState({
-            showLeaveGroup: false
-        });
-    }
-
-
 
     render() {
         const{groups}=this.state;
@@ -77,6 +79,9 @@ class GroupListEntryAll extends Component {
                         id="panel2a-header"
                     >
                         <Typography>{groups.getGroupname()}</Typography>
+                        <Button color='primary' onClick={this.addGroupRequest}>
+                            Sende einen Request!
+                        </Button>
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography>
@@ -84,6 +89,7 @@ class GroupListEntryAll extends Component {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
+
             </div>
         );
     }
@@ -104,4 +110,4 @@ const styles = theme => ({
     }
 });
 
-export default withStyles(styles)(GroupListEntryAll);
+export default withStyles(styles)(GroupListEntry);

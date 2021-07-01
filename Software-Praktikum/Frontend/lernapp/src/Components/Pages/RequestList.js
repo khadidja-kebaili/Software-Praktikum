@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import LernappAPI from '../../API/LernappAPI';
 import RequestListEntry from './RequestListEntry';
 import AddIcon from '@material-ui/icons/Add';
-import RequestGroupListEntry from './RequestGroupListEntry'
+import RequestGroupListEntry from './RequestGroupListEntry';
 
 
 
@@ -17,14 +17,24 @@ class RequestList extends Component {
         this.state={
             request: [],
             currentUser : 6,
+            requestGroup: [],
+            
             
         };
     }
         //Lifecycle Methode wird aufgerufen, wenn die Komponente in den DOM Browser eingefügt wird
         componentDidMount(){
             this.getRequestForProfile();
+            this.getRequestForGroups();
         }
-
+        
+        requestAdded = (group) =>{
+            const newGroupList = this.state.groups.filter(groupFromState => groupFromState.getID());
+            this.setState({
+                groups: newGroupList,
+                filteredGroups: [...newGroupList]
+            });
+        }
 
 
     // Die Funktion getRequest() soll die request anzeigen
@@ -43,20 +53,25 @@ class RequestList extends Component {
                 
                    // }))}
         
-   
+    getRequestForGroups = () => {
+        LernappAPI.getAPI().getRequestForGroups(this.state.currentUser).then(profileBOs =>
+            this.setState({
+                requestGroup: profileBOs,
+            }))
+    }
 
         requestDeleted = request => {
         const newRequestList = this.state.request.filter(requestFromState => requestFromState.getID() !== request.getID());
         this.setState({
             request: newRequestList,
         });
-    }
+        }
 
  
 
     //Die Komponente die gerendert werden
     render(){
-        const{request}=this.state
+        const{request,requestGroup}=this.state
             return(
                 <div id='head'>
                     <Grid item>
@@ -69,10 +84,14 @@ class RequestList extends Component {
                             <RequestListEntry key={profiles.getID()} profiles={profiles} onRequestDeleted = {this.requestDeleted}/>)
                             
                     }
-                    {/*        */}
-                    {/*{        <RequestGroupListEntry key={profiles.getID()} profiles={profiles}/>*/}
 
-                    {/*}*/}
+                    <Typography>
+                        Hier sind deine Anfrage für Gruppen:
+                    </Typography>
+                    {
+                        requestGroup.map(profiles =>
+                            <RequestGroupListEntry key={profiles.getID()} profiles={profiles} onRequestDeleted={this.requestDeleted}/>)
+                    }
             
                 </div>
             )

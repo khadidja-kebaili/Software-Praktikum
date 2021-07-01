@@ -18,8 +18,8 @@ class LeaveGroup extends Component {
   }
 
     leaveGroup= () => {
-      let data = 6;
-      LernappAPI.getAPI().leaveGroup(data).then(this.props.onClose(null))
+      let data = 1;
+      LernappAPI.getAPI().deleteTargetedChataccess(data, this.props.groups.getChatid()).then(this.props.onClose(this.props.groups))
       };
 
   handleClose = () => {

@@ -45,7 +45,7 @@ group = api.inherit('Group', bo, {
     'groupname': fields.String(attribute='groupname', description='groupname'),
     'admin': fields.Integer(attribute='admin', description='admin'),
     'description': fields.String(attribute='description', description='description'),
-    # 'chatid': fields.Integer(attribute = 'chatid', description = 'description')
+    'chatid': fields.Integer(attribute='chatid', description='description')
 })
 
 member = api.inherit('Member', bo, {
@@ -535,8 +535,7 @@ class RequestofProfile(Resource):
         request = adm.get_request_of_profile(id)
         return request
 
-
-@api.route('/request_for_group/<int:id>')
+@api.route('/request_for_groups/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
 class RequestofGroup(Resource):
     @api.marshal_with(request)

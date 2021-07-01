@@ -1,21 +1,21 @@
-import BusinessObject from "./BusinessObject"
+import BusinessObject from "./BusinessObject.js"
 
 export default class RequestBO extends BusinessObject {
-    constructor(Arequested_by, Arequested, Arequest_time, Arequest_type) {
+    constructor(Arequested_by, Arequested,Arequest_type) {
       super();
-
+      
+      
+      this.requested_by = Arequested_by;
       this.requested = Arequested;
-      this.requestTime = Arequest_time;
-      this.requestedBy = Arequested_by;
       this.request_type = Arequest_type;
     }
 
     setRequestedBy(Arequested_by){
-      this.requestedBy = Arequested_by;
+      this.requested_by = Arequested_by;
     }
 
     getRequestedBy(){
-    return this.requestedBy;
+    return this.requested_by;
     }
 
     setRequested(Arequested){
@@ -24,14 +24,6 @@ export default class RequestBO extends BusinessObject {
 
     getRequested(){
         return this.requested
-    }
-
-    setRequestTime(Arequest_time){
-        this.requestTime = Arequest_time
-    }
-
-    getRequestTime(){
-        return this.requestTime
     }
 
     setRequestType(Arequest_type){
