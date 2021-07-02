@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles, ListItem } from '@material-ui/core';
-import { Button, List } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import LernappAPI  from '../API/LernappAPI';
 import GroupListEntry from './GroupListEntry';
 import LoadingProgress from "./Dialog/LoadingProgress";
-// import ContextErrorMessage from "./Dialog/ContextErrorMessage";
-import Typography from "@material-ui/core/Typography";
 
 
 class GroupListForProfile extends Component {
