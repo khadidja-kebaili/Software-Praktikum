@@ -9,27 +9,35 @@ import {BrowserRouter as Router,
   Switch, Route, Link as RouterLink} from "react-router-dom";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
+/**
+ * 
+ * Hier wurde die Navigationsleiste definiert.
+ * Die Tabs ermöglichen das Switchen zwischen zwischen den einzelnen Komponente.
+ * 
+ * @author [Esra Özkul (geb.Copuro)](https://github.com/EsraCopuro)
+ */
+
 
 class Header extends Component {
 
     constructor(props) {
       super(props);
   
-      // Init an empty state
+      // Ein leerer INIT
       this.state = {
         tabindex: 0
       };
     }
   
-    /** Handles onChange events of the Tabs component */
+   
+  /** Behandelt onChange-Ereignisse der Tabs-Komponente */ 
     changeTab = (e, newIndex) => {
-      // console.log(newValue)
       this.setState({
         tabindex: newIndex
       })
     };
   
-    /** Renders the component */
+    /** Rendert die Komponente */
     render() {
       const { user } = this.props;
   
@@ -64,59 +72,5 @@ class Header extends Component {
   }
   
   export default Header;
-// class Header extends Component{
-//     constructor(props){
-//         super(props);
 
-//         this.state = {
-//             tabIndex: 0
-//         };
-//     }
-
-//     changeTab = (e,newIndex) => {
-//         this.setState({
-//             tabIndex: newIndex
-//         })
-//     };
-
-//     openInNewTab = (url) => {
-//         const newWindow = window.open(url, '_blank', 'noopener,noreferrer')
-//         if (newWindow) newWindow.opener = null
-//     };
-
-//     onClickTabItem = (tab) => {
-//         this.setState({ activeTab: tab });
-//       }
-    
-
-//     render (){
-//         const {profile} = this.props;
-
-//         return(
-//             <Paper>
-//                 <Typography variant='h3' component='h1' align='center'>
-//                     LernApp
-//                 </Typography>
-//                 <ClickAwayListener>
-//                     <Router>
-//                         <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabIndex} onChange={this.changeTab}>
-//                             <Tab label='Matchmaker' component={RouterLink} to={`/matchmaker`}/>
-//                             <Tab label='Chats' component={RouterLink} to={`/chats`} onClick={() => this.openInNewTab('./Test')} />
-//                             <Tab label='Gruppen' component={RouterLink} to={`/gruppen`} />
-                            
-//                         </Tabs>
-//                     </Router>
-//                 </ClickAwayListener>
-//             </Paper>
-//         )
-//     }
-// }
-// //Prototyp
-// // Header.PropTypes ={
-// //     profile: PropTypes.object,
-// // }
-    
-        
-        
-// export default Header;
         

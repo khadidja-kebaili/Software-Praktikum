@@ -9,8 +9,7 @@ from server.bo.ChatAccessBO import ChatAccessBO
 from server.bo.ProfileBO import Studentprofile
 from server.bo.RequestBO import Request
 from server.bo.GroupBO import Group
-
-# from SecurityDecorator import secured
+from SecurityDecorator import secured
 
 app = Flask(__name__)
 CORS(app, resources=r'/*')
@@ -21,9 +20,9 @@ bo = api.model('BusinessObject', {
 })
 
 user = api.inherit('User', bo, {
-    'name': fields.String(attribute='_name', description='Name eines Benutzers'),
-    'email': fields.String(attribute='_email', description='E-Mail-Adresse eines Benutzers'),
-    'user_id': fields.String(attribute='_user_id', description='Google User ID eines Benutzers')
+    'name': fields.String(attribute='name', description='Name eines Benutzers'),
+    'email': fields.String(attribute='email', description='E-Mail-Adresse eines Benutzers'),
+    'user_id': fields.String(attribute='user_id', description='Google User ID eines Benutzers')
 })
 profile = api.inherit('Profile', bo, {
     'first_name': fields.String(attribute='first_name', description='first_name'),
@@ -86,11 +85,22 @@ request = api.inherit('Request', bo, {
     'requested': fields.Integer(attribute='requested', description='requested'),
     'requested_by': fields.Integer(attribute='requested_by', description='requested_by'),
     'request_type': fields.String(attribute='request_type', description='request_type'),
-    # 'request_date': fields.String(attribute = 'request_date', description = 'request_date')
+    'group_id': fields.Integer(attribute='group_id', description='group_id')
 })
 
 
+# User
+@api.route('/user')
+class UserOperations(Resource):
+    @api.marshal_list_with(user)
+    def get(self):
+        adm = Businesslogic()
+        users = adm.get_all_users()
+        return users
+
 # Message
+
+
 @api.route('/message')
 class MessageOperations(Resource):
     @api.marshal_with(message)
@@ -347,6 +357,7 @@ class DeleteTargetedChataccess(Resource):
 class ProfilOperations(Resource):
     @ api.marshal_with(profile)
     @ api.expect(profile)
+    # @secured
     def post(self):
         adm = Businesslogic()
         proposal = Studentprofile.from_dict(api.payload)
@@ -366,6 +377,7 @@ class ProfilOperations(Resource):
             return p
 
     @api.marshal_list_with(profile)
+    # @secured
     def get(self):
         adm = Businesslogic()
         profile = adm.get_all_profiles()
@@ -376,12 +388,14 @@ class ProfilOperations(Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class Profilanzeigen (Resource):
     @api.marshal_with(profile)
+    # @secured
     def get(self, id):
         adm = Businesslogic()
         userprofile = adm.get_profile_by_id(id)
         return userprofile
 
     @api.marshal_with(profile)
+    # @secured
     def delete(self, id):
 
         adm = Businesslogic()
@@ -390,6 +404,7 @@ class Profilanzeigen (Resource):
         return ''
 
     @api.marshal_with(profile)
+    # @secured
     @api.expect(profile, validate=True)
     def put(self, id):
         adm = Businesslogic()
@@ -505,7 +520,8 @@ class RequestOperations(Resource):
             p = adm.create_request(
                 proposal.get_requested(),
                 proposal.get_requested_by(),
-                proposal.get_request_type()
+                proposal.get_request_type(),
+                proposal.get_group_id()
             )
             return p
 
@@ -534,6 +550,7 @@ class RequestofProfile(Resource):
         adm = Businesslogic()
         request = adm.get_request_of_profile(id)
         return request
+
 
 @api.route('/request_for_groups/<int:id>')
 @api.param('id', 'Die ID des Profil-Objekts')
@@ -590,7 +607,7 @@ class Matcher(Resource):
     @api.marshal_with(matchmaker_profile)
     def get(self, id):
         adm = Businesslogic()
-        matches = adm.matching_list(id)
+        matches = adm.set_matching_list(id)
         return matches
 
     @api.marshal_with(request)

@@ -1,27 +1,19 @@
 import React, { Component } from 'react';
 import { withStyles, Typography } from '@material-ui/core';
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import GroupIcon from '@material-ui/icons/Group';
 import {makeStyles} from "@material-ui/core/styles";
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 import LernappAPI from "../API/LernappAPI";
-import LoadingProgress from "./Dialog/LoadingProgress";
-import LeaveGroup from './Dialog/LeaveGroup';
-import MemberList from "./MemberList.js"
-import AddGroup from "./Dialog/AddGroup";
-import DeleteRequest from "./Dialog/DeleteRequest";
-// import MemberList from './MemberList';
 import RequestBO from './../API/RequestBO';
 
+/**
+ *
+ * @author: Khadidja Kebaili
+ * @coauthor: Esra Ö.
+ */
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,6 +44,8 @@ class GroupListEntry extends Component {
         this.state = {
             groups: props.groups,
             showAddGroup: false,
+            groupName: "",
+            groupID: ""
         };
     }
 
@@ -59,9 +53,10 @@ class GroupListEntry extends Component {
         let currentUser = 6;
         let request_type = "G";
         let newRequest = new RequestBO(
-            this.state.groups.getID(),
             currentUser,
-            request_type
+            this.state.groups.getAdmin(),
+            request_type,
+            this.props.groups.getID()
         )
         LernappAPI.getAPI().addRequest(newRequest).then(console.log(newRequest))
 
@@ -69,7 +64,6 @@ class GroupListEntry extends Component {
 
     render() {
         const{groups}=this.state;
-
         return (
             <div>
                 <Accordion>

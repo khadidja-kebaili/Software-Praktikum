@@ -6,7 +6,13 @@ import DeleteRequest from '../Dialog/DeleteRequest';
 import {BrowserRouter as Router,
     Switch, Route, Link as RouterLink} from "react-router-dom";
 
-
+/**
+ * 
+ * Hier werden die einzelnen Requests für Profile geholt.
+ * 
+ * 
+ * @author [Esra Özkul (geb.Copuro)](https://github.com/EsraCopuro)
+ */   
 class RequestListEntry extends Component{
     constructor(props){
         super(props);
@@ -17,23 +23,26 @@ class RequestListEntry extends Component{
             showDeleteRequest: false,
             tabindex: 0,
             profileFirstName: null,
-            profileLastName:null,
+            profileLastName: null,
+            profile: null,
 
         };
     }
-
+    //Nach dem der Request gelöscht wird, wird der Dialog geschlossen
     deleteRequestDialogClosed = (request) => {
-        // if customer is not null, delete it
+        // Wenn Request nicht null, dann lösche diese
         if (request) {
             this.props.onRequestDeleted(request);
         };
 
-        // Don´t show the dialog
+        // Zeig den Dialog nicht mehr an
         this.setState({
             showDeleteRequest: false
         });
     }
 
+    //Die Methode stopPropagation() der Event-Schnittstelle verhindert die weitere 
+    //Ausbreitung des aktuellen Ereignisses in der Erfassungs- und Bubbling-Phase.
     deleteRequestButtonClicked = (event) => {
         event.stopPropagation();
         this.setState({
@@ -41,19 +50,24 @@ class RequestListEntry extends Component{
         });
     }
 
+    //Hier werden die einzelnen Attribute aus dem Profil geholt
     getProfileById= (id) =>{
         LernappAPI.getAPI().getProfile(id).then(profileBO =>{
             this.setState({
+                profile: profileBO,
                 profileLastName:profileBO.getLastname(),
                 profileFirstName:profileBO.getFirstname(),
             }, function(){
-                console.log(this.state.profile)
+                var a
             })
         })
     }
 
+    // ComponentDidMount() wird unmittelbar nach dem Mounten einer Komponente 
+    //aufgerufen (in den Baum eingefügt)
     componentDidMount() {
-        this.getProfileById(this.state.request.getRequestedBy())
+        const {request} = this.state
+        this.getProfileById(request.getRequestedBy())
 
     }
 
@@ -63,7 +77,7 @@ class RequestListEntry extends Component{
         return(
             <div>
                 <Typography>
-                    {this.state.profileFirstName}, {this.state.profileLastName}
+                    {this.state.profileFirstName } {this.state.profileLastName} möchte mit dir chatten!
                 <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
                     <Tab label='Annehmen' component={RouterLink} to={'/chats'} />
                 </Tabs>
@@ -71,7 +85,7 @@ class RequestListEntry extends Component{
                 <div className="RequestLöschen">
                 <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>
                 </div>
-                <DeleteRequest deleteRequest = {this.deleteRequest} show={this.state.showDeleteRequest} request={request} onClose={this.deleteRequestDialogClosed}/>
+                <DeleteRequest deleteRequest = {this.deleteGroupRequest} show={this.state.showDeleteRequest} request={request} onClose={this.deleteRequestDialogClosed}/>
                 </div>
                 
                 </Typography>           

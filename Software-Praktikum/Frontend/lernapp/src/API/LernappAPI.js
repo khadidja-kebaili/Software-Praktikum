@@ -579,20 +579,20 @@ export default class LernappAPI {
 
     getRequestForProfile(profileID) {
         return this.#fetchAdvanced(this.#getRequestForProfileURL(profileID)).then((responseJSON) => {
-            let profileBOs = ProfileBO.fromJSON(responseJSON);
+            let requestBOs = RequestBO.fromJSON(responseJSON);
             // console.info(profileBO);
             return new Promise(function (resolve) {
-                resolve(profileBOs);
+                resolve(requestBOs);
             })
         })
     }
 
     getRequestForGroups(profileID) {
         return this.#fetchAdvanced(this.#getRequestForGroupURL(profileID)).then((responseJSON) => {
-            let profileBO = ProfileBO.fromJSON(responseJSON);
-            console.info(profileBO);
+            let requestBO = RequestBO.fromJSON(responseJSON);
+            console.info(requestBO);
             return new Promise(function (resolve) {
-                resolve(profileBO);
+                resolve(requestBO);
             })
         })
     }

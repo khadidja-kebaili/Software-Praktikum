@@ -1,54 +1,62 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
-import LernappAPI from '../../API/LernappAPi';
+import LernappAPI from '../../API/LernappAPI';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-class DeleteGroupRequest extends Component {
+class DeleteRequest extends Component {
     constructor(props){
         super(props);
-        
-        // console.log(props); 
-
-        let otherUser = null;
-
-        if (this.props.location.expandRequest){
-            otherUser = this.props.location.expandRequest.getID();
-        }
 
         this.state = {
-            currentUser : 2,
-            currenRequester: otherUser
-            
+            deletingInProgress: false,
+            deletingError: null
+
         };
     }
-    // deleteRequest = () => {
-    //     let data = 5;
-    //     LernappAPI.getAPI().deleteRequest(data).then(this.props.onClose(null))
-    // };
-    
-    
-    
-    deleteRequest = () => {
-        const {request} = this.props;
-        
-        LernappAPI.getAPI().deleteRequest(this.state.currentUser, this.state.otherUser).then(
-          this.props.onClose()
-        )
 
-    };
-        
-      handleClose = () => {
+    /**
+     * Löscht einen Gruppen-Request mithilfe der RequestID. Setzt während eines erfolgreichen Löschvorgangs
+     * den deletingInProgress auf True, ansonsten verbleibend auf false wirft eine Fehlermeldung.
+     */
+    deleteGroupRequest = (id1) => {
+        LernappAPI.getAPI().deleteRequest(this.props.requestGroup.getID()).then(request => {
+            this.setState({  //Setzt neuen State, wenn der request gefetcht wurde.
+                deletingInProgress: false,   //Setzt Löschvorgang im State auf false.
+                deletingError: null         //Fehlermeldung auf null setzen.
+            })
+            // console.log(account);
+            this.props.onClose(this.props.requestGroup);
+        }).catch(e =>
+            this.setState({ // Reseten den State mit zurückgegebener Fehlermeldung
+                deletingInProgress: false, //Setzt Löschvorgang im State auf false.
+                deletingError: e           // Setzt die Fehlermeldung in den State.
+            })
+        );
+
+        // set loading to true
+        this.setState({
+            deletingInProgress: true,   //Setzt Löschvorgang im State auf true.
+            deletingError: null         //Fehlermeldung auf null setzen.
+        });
+    }
+
+    /**
+     * Handelt den Abbruch des Löschvorgangs oder das Schließen des Dialogs nach erfolgreichen Löschung.
+     */
+    handleClose = () => {
         this.props.onClose(null);
     }
 
     render() {
         return(
             <div>
-                <Dialog open={this.props.show}>
+                {/*Dialog der geöffnet wird, wenn props.show auf True gesetzt wird. Beim Schließen
+                wird die handleClose-Methode ausgeführt.*/}
+                <Dialog open={this.props.show} onClose = {this.handleClose}>
                     <DialogTitle id="alert-dialog-title">Willst du wirklich die Anfrage löschen?</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
@@ -56,9 +64,10 @@ class DeleteGroupRequest extends Component {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button color="primary" onClick={this.props.onClose}>
+                        <Button color="primary" onClick={this.handleClose}>
                             Abbrechen
                         </Button>
+                        {/*Bei Betätigung des Buttons, wird die Methode deleteRequest ausgeführt.*/}
                         <Button color="primary" onClick={this.deleteGroupRequest}>
                             Ja, Ablehnen
                         </Button>
@@ -69,4 +78,4 @@ class DeleteGroupRequest extends Component {
     }}
 
 
-export default DeleteGroupRequest;
+export default DeleteRequest;

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import { withStyles, ListItem } from '@material-ui/core';
-import { Button, List } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import LernappAPI  from '../API/LernappAPI';
 import GroupListEntry from './GroupListEntry';
 import LoadingProgress from "./Dialog/LoadingProgress";
-// import ContextErrorMessage from "./Dialog/ContextErrorMessage";
-import Typography from "@material-ui/core/Typography";
 
+/**
+ *
+ * @author: Khadidja Kebaili
+ * @coauthor: Mihriban Dogan
+ */
 
 class GroupListForProfile extends Component {
 
@@ -19,9 +18,8 @@ class GroupListForProfile extends Component {
         // Init the state
         this.state = {
             groups: [],
-            currentUser : 1,
+            currentUser : 6,
             filteredGroups: [],
-            groupFilter: '',
             loadingInProgress: false,
             loadingError: null,
         };
@@ -62,41 +60,12 @@ class GroupListForProfile extends Component {
     }
 
 
-    filterFieldValueChange = event => {
-        const value = event.target.value.toLowerCase();
-        this.setState({
-            filteredGroups: this.state.groups.filter(group => {
-                let GroupNamecontainsValue = group.getGroupname().toLowerCase().includes(value);
-                return GroupNamecontainsValue
-            }),
-            groupFilter: value
-        });
-    }
-
     /** Renders the component */
     render() {
-        const { groups, filteredGroups, groupFilter, loadingInProgress, loadingError} = this.state;
+        const { groups, filteredGroups, loadingInProgress, loadingError} = this.state;
 
         return (
             <div>
-                <Grid container spacing={1} justify='flex-start' alignItems='center'>
-                    <Grid item>
-                        <Typography>
-                            Filter group list by name:
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={4}>
-                        <TextField
-                            autoFocus
-                            fullWidth
-                            id='customerFilter'
-                            type='text'
-                            value={groupFilter}
-                            onChange={this.filterFieldValueChange}
-                        />
-                    </Grid>
-                    <Grid item xs/>
-                </Grid>
                 {
                     // Show the list of CustomerListEntry components
                     // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters

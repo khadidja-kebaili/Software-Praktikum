@@ -1,5 +1,16 @@
 from server.bo.Businessobject import Businessobject
 
+'''Autor: @Khadidja.Kebaili'''
+
+'''Die Klasse Request kapselt Attribute und Methoden, die die späteren Klasseninstanzen Requests besitzen sollen.
+   Die Klassenattribute sind: Der Anfragende (requested_by), der Angefragte (requested), das Anfragedatum (request_date),
+   die Art der Anfrage (request_type) und die Gruppen-ID (group_id).
+   Abgesehen von den Methoden, um die Attribute zu setzen oder zurückzugeben (sog. setter und getter- Methoden),
+    gibt es noch die __str__-Methode, um die einzelnen Instanzeigenschaften leserlich darzustellen und die from-dict-
+    Methode, um die von der Datenbank importiertden Datensätze, den richtigen Instanzattributen zuzuweisen.'''
+
+'''Die Instanzen der Klasse Request gehören zu den Businessobjekten dieser Applikation. Daher erbt die Klasse
+Request von der abstrakten Klasse Businessobject.'''
 class Request(Businessobject):
 
     def __init__(self):
@@ -8,9 +19,9 @@ class Request(Businessobject):
         self.requested = "",
         self.request_date = "",
         self.request_type = "",
-        self.group_id= "",
+        self.group_id = "",
 
-    def set_group_id(self,id):
+    def set_group_id(self, id):
         self.group_id = id
 
     def get_group_id(self):
@@ -42,7 +53,7 @@ class Request(Businessobject):
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "Request: ID: {}, Requested_by: {}, Requested: {}, Date of request: {}, Requesttype : {}, GroupID: {}.".\
+        return "Request: ID: {}, Requested_by: {}, Requested: {}, Date of request: {}, Requesttype : {}, GroupID: {}.". \
             format(self.get_id(),
                    self.get_requested_by(),
                    self.get_requested(),
@@ -61,4 +72,3 @@ class Request(Businessobject):
         obj.set_request_type(dictionary['request_type'])
         obj.set_group_id(dictionary['group_id'])
         return obj
-

@@ -29,19 +29,45 @@ class ProfileOperations extends Component {
       studyplace: studyp,
       studyfrequence: studyf,
       workexperience: work,
+      // users:[]
    };
    this.baseState = this.state;
   }
   componentDidMount() {
     this.getProfile();
-    console.log(this.state.age)
   }
+
+
+  // doesProfileExist(){
+  //   if (LernappAPI.getAPI().getProfile(this.props.currentUser.getID())) {
+  //     this.getProfile()
+  //     //sollte umbenannt werden sonst kommt es zur Verwirrung zu getProfiles oder so
+  //   } else {
+  //     let newProfile = new ProfileBO(
+  //       this.state.currentUser.getID(),
+  //       this.state.last_name,
+  //       this.state.first_name,
+  //       this.state.age,
+  //       this.state.semester,
+  //       this.state.major,
+  //       this.state.hobbys,
+  //       this.state.interests,
+  //       this.state.personality,
+  //       this.state.learnstyle,
+  //       this.state.studytime,
+  //       this.state.studyplace,
+  //       this.state.studyfrequence,
+  //       this.state.workexperience);
+  //     LernappAPI.getAPI().addProfile(newProfile)
+  //   }
+  // }
+
 
   handleChange = (e) =>{
     this.setState({ [e.target.name] : e.target.value });}
 
   getProfile = () => {
-    let data = 10;
+    let data = 1;
     LernappAPI.getAPI().getProfile(data).then(profile =>
       this.setState({
         profile: profile,

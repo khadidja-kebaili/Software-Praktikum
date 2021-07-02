@@ -7,6 +7,13 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+/**
+ * Löschdialog für das Löschen von Requests.
+ *
+ * @author [Khadidja Kebaili](https://github.com/KhadidjaKebaili)
+ */
+
+
 class DeleteRequest extends Component {
     constructor(props){
         super(props);
@@ -18,35 +25,67 @@ class DeleteRequest extends Component {
         };
     }
 
+    /**
+     * Löscht einen Einzel-Request mithilfe der RequestID. Setzt während eines erfolgreichen Löschvorgangs
+     * den deletingInProgress auf True, ansonsten verbleibend auf false wirft eine Fehlermeldung.
+     */
+
     deleteRequest = (id1) => {
-        LernappAPI.getAPI().deleteRequest(this.props.request.getID()).then(request => {
-            this.setState({  // Set new state when AccountBOs have been fetched
-                deletingInProgress: false, // loading indicator
-                deletingError: null
+        let id = this.props.request.getID()
+        LernappAPI.getAPI().deleteRequest(id).then(request => {
+            this.setState({  //Setzt neuen State, wenn der request gefetcht wurde.
+                deletingInProgress: false, //Setzt Löschvorgang im State auf false.
+                deletingError: null        //Fehlermeldung auf null setzen.
             })
-            // console.log(account);
             this.props.onClose(this.props.request);
         }).catch(e =>
-            this.setState({ // Reset state with error from catch
-                deletingInProgress: false,
-                deletingError: e
+            this.setState({
+                deletingInProgress: false,//Bei fehlgeschlagenem Fetch-Vorgang wird Löschvorgang deaktiviert
+                deletingError: e          //Fehler wird in den State gesetzt.
             })
         );
 
         // set loading to true
         this.setState({
-            deletingInProgress: true,
-            deletingError: null
+            deletingInProgress: true, //Setzt Löschvorgang im State auf true.
+            deletingError: null       //Fehlermeldung auf null setzen.
         });
     }
-        
-      handleClose = () => {
+
+
+
+    deleteGroupRequest = (id1) => {
+        LernappAPI.getAPI().deleteRequest(this.props.requestGroup.getID()).then(request => {
+            this.setState({  //Setzt neuen State, wenn der request gefetcht wurde.
+                deletingInProgress: false, //Setzt Löschvorgang im State auf false.
+                deletingError: null        //Fehlermeldung auf null setzen.
+            })
+            this.props.onClose(this.props.requestGroup);
+        }).catch(e =>
+            this.setState({// Reseten den State mit zurückgegebener Fehlermeldung
+                deletingInProgress: false, // Ladevorgang wird auf false gesetzt
+                deletingError: e          // Fehlermeldung wird zurückgegeben.
+            })
+        );
+
+        this.setState({
+            deletingInProgress: true,  //Setzt Löschvorgang im State auf true.
+            deletingError: null        //Fehlermeldung auf null setzen.
+        });
+    }
+
+    /**
+     * Handelt den Abbruch des Löschvorgangs oder das Schließen des Dialogs nach erfolgreichen Löschung.
+     */
+    handleClose = () => {
         this.props.onClose(null);
     }
 
     render() {
         return(
             <div>
+                {/*Dialog der geöffnet wird, wenn props.show auf True gesetzt wird. Beim Schließen
+                wird die handleClose-Methode ausgeführt.*/}
                 <Dialog open={this.props.show} onClose = {this.handleClose}>
                     <DialogTitle id="alert-dialog-title">Willst du wirklich die Anfrage löschen?</DialogTitle>
                     <DialogContent>
@@ -58,6 +97,7 @@ class DeleteRequest extends Component {
                         <Button color="primary" onClick={this.handleClose}>
                             Abbrechen
                         </Button>
+                        {/*Bei Betätigung des Buttons, wird die Methode deleteRequest ausgeführt.*/}
                         <Button color="primary" onClick={this.deleteRequest}>
                             Ja, Ablehnen
                         </Button>

@@ -8,12 +8,18 @@ import MatchListEntry from './MatchListEntry';
 import AddIcon from '@material-ui/icons/Add';
 
 
+/**
+ * In dieser Komponente werden die alle Matches für den CurrentUser angezeigt.
+ * 
+ * 
+ * @author [Esra Özkul (geb.Copuro)](https://github.com/EsraCopuro)
+ */
 
 class MatchList extends Component {
     constructor(props){
         super(props);
         
-        //Eine leere INIT setzten für matches
+        //Eine leere INIT setzten für matches und der CurrentUser wurde gesetzt
         this.state={
             matches: [],
             currentUser : 6
