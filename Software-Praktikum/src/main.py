@@ -591,7 +591,7 @@ class Matcher(Resource):
     @api.marshal_with(matchmaker_profile)
     def get(self, id):
         adm = Businesslogic()
-        matches = adm.matching_list(id)
+        matches = adm.set_matching_list(id)
         return matches
 
     @api.marshal_with(request)

@@ -454,3 +454,9 @@ class Businesslogic(object):
             deltatime = abs((element.get_request_date() - today).days)
             if deltatime > 3:
                 self.delete_request(element)
+#
+# l = Businesslogic()
+# l.create_request(1,6,'E',0)
+# l.create_request(2,6,'E',0)
+# l.create_request(3,6,'E',0)
+# l.create_request(4,6,'E',0)

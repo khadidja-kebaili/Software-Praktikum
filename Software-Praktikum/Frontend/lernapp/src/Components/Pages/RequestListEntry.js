@@ -17,7 +17,8 @@ class RequestListEntry extends Component{
             showDeleteRequest: false,
             tabindex: 0,
             profileFirstName: null,
-            profileLastName:null,
+            profileLastName: null,
+            profile: null,
 
         };
     }
@@ -44,6 +45,7 @@ class RequestListEntry extends Component{
     getProfileById= (id) =>{
         LernappAPI.getAPI().getProfile(id).then(profileBO =>{
             this.setState({
+                profile: profileBO,
                 profileLastName:profileBO.getLastname(),
                 profileFirstName:profileBO.getFirstname(),
             }, function(){
@@ -53,7 +55,8 @@ class RequestListEntry extends Component{
     }
 
     componentDidMount() {
-        this.getProfileById(this.state.request.getRequestedBy())
+        const {request} = this.state
+        this.getProfileById(request.getRequestedBy())
 
     }
 
@@ -63,7 +66,7 @@ class RequestListEntry extends Component{
         return(
             <div>
                 <Typography>
-                    {this.state.profileFirstName}, {this.state.profileLastName}
+                    {this.state.profileFirstName } {this.state.profileLastName} möchte mit dir chatten!
                 <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
                     <Tab label='Annehmen' component={RouterLink} to={'/chats'} />
                 </Tabs>

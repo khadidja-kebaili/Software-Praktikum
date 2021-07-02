@@ -4,6 +4,11 @@ import LernappAPI  from '../API/LernappAPI';
 import GroupListEntry from './GroupListEntry';
 import LoadingProgress from "./Dialog/LoadingProgress";
 
+/**
+ *
+ * @author: Khadidja Kebaili
+ * @coauthor: Mihriban Dogan
+ */
 
 class GroupListForProfile extends Component {
 

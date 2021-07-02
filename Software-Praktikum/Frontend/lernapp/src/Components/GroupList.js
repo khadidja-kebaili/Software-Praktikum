@@ -13,6 +13,9 @@ import Typography from "@material-ui/core/Typography";
 import AddGroup from "./Dialog/AddGroup";
 import DeleteRequest from "./Dialog/DeleteRequest";
 
+/**
+ * @author: [Khadidja Kebaili]
+ */
 
 class GroupList extends Component {
 
@@ -33,7 +36,7 @@ class GroupList extends Component {
 
 
 
-    /** Fetches GroupBOs for the current profile */
+    /** Fetcht alle GroupBOs */
     getAllGroups = () => {
         LernappAPI.getAPI().getAllGroups().then(groupBOs =>
             this.setState({  // Set new state when GroupBOs have been fetched

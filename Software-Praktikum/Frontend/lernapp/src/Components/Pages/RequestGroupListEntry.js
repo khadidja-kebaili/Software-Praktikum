@@ -9,6 +9,10 @@ import {Tab, Tabs } from '@material-ui/core';
 import DeleteGroupRequest from "./../Dialog/DeleteGroupRequest"
 
 
+/**@author [Esra Ö.](https://github.com/esra...)
+ * @coauthor [Khadidja Kebaili] (https://github.com/khadidjakebaili)
+ */
+
 
 class RequestGroupListEntry extends Component{
     constructor(props){
