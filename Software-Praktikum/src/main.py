@@ -20,9 +20,9 @@ bo = api.model('BusinessObject', {
 })
 
 user = api.inherit('User', bo, {
-    'name': fields.String(attribute='_name', description='Name eines Benutzers'),
-    'email': fields.String(attribute='_email', description='E-Mail-Adresse eines Benutzers'),
-    'user_id': fields.String(attribute='_user_id', description='Google User ID eines Benutzers')
+    'name': fields.String(attribute='name', description='Name eines Benutzers'),
+    'email': fields.String(attribute='email', description='E-Mail-Adresse eines Benutzers'),
+    'user_id': fields.String(attribute='user_id', description='Google User ID eines Benutzers')
 })
 profile = api.inherit('Profile', bo, {
     'first_name': fields.String(attribute='first_name', description='first_name'),
@@ -85,11 +85,22 @@ request = api.inherit('Request', bo, {
     'requested': fields.Integer(attribute='requested', description='requested'),
     'requested_by': fields.Integer(attribute='requested_by', description='requested_by'),
     'request_type': fields.String(attribute='request_type', description='request_type'),
-    'group_id': fields.Integer(attribute = 'group_id', description = 'group_id')
+    'group_id': fields.Integer(attribute='group_id', description='group_id')
 })
 
 
+# User
+@api.route('/user')
+class UserOperations(Resource):
+    @api.marshal_list_with(user)
+    def get(self):
+        adm = Businesslogic()
+        users = adm.get_all_users()
+        return users
+
 # Message
+
+
 @api.route('/message')
 class MessageOperations(Resource):
     @api.marshal_with(message)
@@ -346,7 +357,7 @@ class DeleteTargetedChataccess(Resource):
 class ProfilOperations(Resource):
     @ api.marshal_with(profile)
     @ api.expect(profile)
-    @secured
+    # @secured
     def post(self):
         adm = Businesslogic()
         proposal = Studentprofile.from_dict(api.payload)
@@ -366,7 +377,7 @@ class ProfilOperations(Resource):
             return p
 
     @api.marshal_list_with(profile)
-    @secured
+    # @secured
     def get(self):
         adm = Businesslogic()
         profile = adm.get_all_profiles()
@@ -377,14 +388,14 @@ class ProfilOperations(Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class Profilanzeigen (Resource):
     @api.marshal_with(profile)
-    @secured
+    # @secured
     def get(self, id):
         adm = Businesslogic()
         userprofile = adm.get_profile_by_id(id)
         return userprofile
 
     @api.marshal_with(profile)
-    @secured
+    # @secured
     def delete(self, id):
 
         adm = Businesslogic()
@@ -393,7 +404,7 @@ class Profilanzeigen (Resource):
         return ''
 
     @api.marshal_with(profile)
-    @secured
+    # @secured
     @api.expect(profile, validate=True)
     def put(self, id):
         adm = Businesslogic()
