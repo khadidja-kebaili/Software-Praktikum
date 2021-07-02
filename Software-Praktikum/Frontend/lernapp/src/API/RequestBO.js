@@ -1,10 +1,27 @@
 import BusinessObject from "./BusinessObject.js"
 
+/**
+ * Ertsellt für die einzelnen Request, die sich in RequestListEntry, RequestGroupEntryList, RequestList, 
+ * MatchListEnty und GroupListEntry all
+ * Soll bei der Anzeige von Requests dienen,
+ * aber auch bei hinzufügen von den Request (Anfrage senden)
+ * 
+ * 
+ * @author [Esra Özkul (geb.Copuro)](https://github.com/EsraCopuro)
+ */
+
+
 export default class RequestBO extends BusinessObject {
     constructor(Arequested_by, Arequested,Arequest_type, Agroup_id) {
       super();
       
-      
+      /**
+     * @param {int} requested_by - Der User der eine Anfrage gesendet hat, nur der ID wird angezeigt
+     * @param {int} requested - Der User der angefragt wurde von einem anderen User, auch wieder nur eine ID
+     * @param {string} request_type - Der Requesttype kann entweder E = "Einzelchatraum" oder G = "Gruppenchatraum" stehen
+     * @param {int} group_id - Die Gruppen ID wird hier eingetragen --> GroupBO; Nur für Gruppenchaträum gespeichert
+     */
+
       this.requested_by = Arequested_by;
       this.requested = Arequested;
       this.request_type = Arequest_type;

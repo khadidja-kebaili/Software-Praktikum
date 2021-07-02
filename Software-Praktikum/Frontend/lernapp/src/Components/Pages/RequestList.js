@@ -7,7 +7,13 @@ import RequestListEntry from './RequestListEntry';
 import AddIcon from '@material-ui/icons/Add';
 import RequestGroupListEntry from './RequestGroupListEntry';
 
-
+/**
+ * 
+ * Hier werden die einzelnen Requests für die Gruppen und Profile gerendert
+ * 
+ * 
+ * @author [Esra Özkul (geb.Copuro)](https://github.com/EsraCopuro)
+ */
 
 class RequestList extends Component {
     constructor(props){
@@ -28,7 +34,7 @@ class RequestList extends Component {
             this.getRequestForProfile();
             this.getRequestForGroups();
         }
-        
+        //Durch requestAdded werden die Request in eienm Array gespeichert
         requestAdded = (group) =>{
             const newGroupList = this.state.groups.filter(groupFromState => groupFromState.getID());
             this.setState({
@@ -46,32 +52,16 @@ class RequestList extends Component {
         
             }))}
 
-            //Die Funktion getRequest() soll die Request für die Gruppe anzeigen
-            //getRequestForGroup =() => {
-                //LernappAPI.getAPI().getRequestForGroup(this.state.currentUser).then(profileBOs =>
-                    //this.setState({
-                    //request:  profileBOs,
-                
-                   // }))}
-        
-        getRequestForGroups = () => {
-            var res = []
-            LernappAPI.getAPI().getRequestForGroups(this.state.currentUser).then(requestBOs =>
-                this.setState({
-                    requestGroup: requestBOs,
-                }))
+    //Die Funktion getRequest() soll die Request für die Gruppe anzeigen
+    getRequestForGroups = () => {
+        var res = []
+        LernappAPI.getAPI().getRequestForGroups(this.state.currentUser).then(requestBOs =>
+            this.setState({
+                requestGroup: requestBOs,
+            }))
         }
 
-        // getGroups = () =>{
-        //     var result = this.getRequestForGroups()
-        //     result.forEach(elem =>{
-        //         console.log('BONJOOOORNOOO')
-        //         console.log()
-        //         }
-        //     )
-        //
-        // }
-
+        //Die Request werden gefiltert/abgeglichen und in den in dem Array gespeichert
         requestDeleted = request => {
         const newRequestList = this.state.request.filter(requestFromState => requestFromState.getID() !== request.getID());
         this.setState({
@@ -79,6 +69,7 @@ class RequestList extends Component {
         });
         }
 
+        //Die Request werden gefiltert/abgeglichen und in den in dem Array gespeichert
         groupRequestDeleted = request => {
             const newRequestList = this.state.requestGroup.filter(requestFromState => requestFromState.getID() !== request.getID());
             this.setState({

@@ -18,29 +18,35 @@ class DeleteRequest extends Component {
         };
     }
 
-
+    /**
+     * Löscht einen Gruppen-Request mithilfe der RequestID. Setzt während eines erfolgreichen Löschvorgangs
+     * den deletingInProgress auf True, ansonsten verbleibend auf false wirft eine Fehlermeldung.
+     */
     deleteGroupRequest = (id1) => {
         LernappAPI.getAPI().deleteRequest(this.props.requestGroup.getID()).then(request => {
-            this.setState({  // Set new state when AccountBOs have been fetched
-                deletingInProgress: false, // loading indicator
-                deletingError: null
+            this.setState({  //Setzt neuen State, wenn der request gefetcht wurde.
+                deletingInProgress: false,   //Setzt Löschvorgang im State auf false.
+                deletingError: null         //Fehlermeldung auf null setzen.
             })
             // console.log(account);
             this.props.onClose(this.props.requestGroup);
         }).catch(e =>
-            this.setState({ // Reset state with error from catch
-                deletingInProgress: false,
-                deletingError: e
+            this.setState({ // Reseten den State mit zurückgegebener Fehlermeldung
+                deletingInProgress: false, //Setzt Löschvorgang im State auf false.
+                deletingError: e           // Setzt die Fehlermeldung in den State.
             })
         );
 
         // set loading to true
         this.setState({
-            deletingInProgress: true,
-            deletingError: null
+            deletingInProgress: true,   //Setzt Löschvorgang im State auf true.
+            deletingError: null         //Fehlermeldung auf null setzen.
         });
     }
 
+    /**
+     * Handelt den Abbruch des Löschvorgangs oder das Schließen des Dialogs nach erfolgreichen Löschung.
+     */
     handleClose = () => {
         this.props.onClose(null);
     }
@@ -48,6 +54,8 @@ class DeleteRequest extends Component {
     render() {
         return(
             <div>
+                {/*Dialog der geöffnet wird, wenn props.show auf True gesetzt wird. Beim Schließen
+                wird die handleClose-Methode ausgeführt.*/}
                 <Dialog open={this.props.show} onClose = {this.handleClose}>
                     <DialogTitle id="alert-dialog-title">Willst du wirklich die Anfrage löschen?</DialogTitle>
                     <DialogContent>
@@ -59,6 +67,7 @@ class DeleteRequest extends Component {
                         <Button color="primary" onClick={this.handleClose}>
                             Abbrechen
                         </Button>
+                        {/*Bei Betätigung des Buttons, wird die Methode deleteRequest ausgeführt.*/}
                         <Button color="primary" onClick={this.deleteGroupRequest}>
                             Ja, Ablehnen
                         </Button>

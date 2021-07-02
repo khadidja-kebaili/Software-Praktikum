@@ -134,15 +134,17 @@ class Businesslogic(object):
         with GroupMapper() as mapper:
             mapper.delete(group)
 
-    '''Hier beginnt das eigentliche Matchmaking'''
-    '''Zunächst einmal wird der Score, also der Integer-Wert wie gut 2 Profile zusammenpassen berechnet
-    Dazu gibt es die Methoden get_learning_habits und set_score'''
+    '''Hier beginnt das Matchmaking  Author & Git-Username: @Khadidja.Kebaili'''
+
+    '''Für das Matchmaking werden diejenigen Attribute, die relevant sind für das Auffinden eines passendes
+        Lernpartners von den Studentenprofilen extrahiert, miteinander verglichen und ein Score, also der Wert, der 
+        angibt wie gut 2 Profile zusammenpassen, berechnet. Anschließend werden die Profile dem Score nach sortiert
+        in eine Liste gespeichert.
+        Dazu gibt es die Methoden get_learning_habits, set_score & set_matching_list '''
 
     '''Zuerst werden die für den Profilvergleich relevanten Attribute der Profile als sogenannte learning-habits
     zusammengefasst. Dazu zählen Semester (1-7), Lernzeitraum (studytime), Lernort (studyplace), Lerntyp (learnstyle),
-     Studiengang (major) und Lernfrequenz (studyfrequenz)
-     Diese Attribute werden als Liste realisiert, um den späteren verlgeichen so effizient und performant wie möglich
-     zu gestalten.'''
+     Studiengang (major) und Lernfrequenz (studyfrequenz).'''
 
     def get_learning_habbits(self, id):
         profile = self.get_profile_by_id(id)
@@ -151,32 +153,28 @@ class Businesslogic(object):
                             profile.get_studyfrequence()]
         return learning_habbits
 
-    '''Als nächstes werden die Lerngewohnheiten von einem Profil mit einem anderen verglichen. Dazu gibt es einen
-    match_score. Jedesmal wenn ein Objekt in der Liste der Lerngewohnheiten des 1. Studentens auch in der Liste
-    der Lerngewohnheiten des 2. Studentens ist, so steigt der match_score um eins.
-    D.h. wenn die beiden Profile 3 gleiche Werte haben (beide sind bspw. im gleichen Semester, gleicher Studiengang
-    und wollen gleich oft in der Woche lernen), so ist der Score = 3.'''
+    '''In dieser Funktion werden die Lerngewohnheiten von einem Profil mit einem anderen verglichen und anhand
+    der Gemeinsamkeiten ein Score berechnet. 
+    Es gilt, je höher der Score, desto besser passen zwei Profile zueinander, bzw. desto mehr haben sie gemeinsam.'''
 
     def set_score(self, profile1, profile2):
+        '''Der match_score dient hier als Zähler. Wann imer ein Objekt in der Liste der Lerngewohnheiten des
+        1. Studentens mit der profile1 auch in der Liste der Lerngewohnheiten des 2. Studentens mit der profile2 ist,
+         so steigt der match_score um eins.'''
         match_score = 0
-        no_match_score = 0
         list1 = self.get_learning_habbits(profile1)
         list2 = self.get_learning_habbits(profile2)
         for element in list1:
             if element in list2:
                 match_score += 1
-            elif element not in list2:
-                no_match_score += 1
         return match_score
 
-    '''Nun möchte man aber nicht nur 2 Profile miteinander vergleichen, sondern man will ein Profil mit allen anderen
-    in der Datenbank verfügbaren Profilen vergleichen. Daher wird hier eine ID gefordert (hier wird später die ID des
-    current-Users übergeben). Das Profil dieser ID wird dann mit allen anderen Profilen verglichen. Damit der Score und
-    die Profile miteinander verknüpft werden können werden diese in einem dict gespeichert. Das dict wird dann sortiert
-    und daraus entsteht eine Liste, die als Werte nur die Profile besitzt, jedoch sind diese geordnet nach dem Score
-    sortiert. '''
+    '''In dieser Funktion wird ein Profil mit allen anderen in der Datenbank verfügbaren Profilen verglichen.
+     Als Argument wird die ProfilID übergeben welche mit den restlichen Profilen verglichen werden soll.'''
 
-    def matching_list(self, id):
+    def set_matching_list(self, id):
+        '''Alle Profile, abgesehen von dem Profil des Studierenden selbst werden in einen Array gespeichert. Für die
+        einzelnen Array-Einträge werden die Scores zu dem Profil berechnet und in einer separaten Liste gespeichert.'''
         all_profiles = self.get_all_profiles()
         scores = []
         profiles = []
@@ -184,6 +182,9 @@ class Businesslogic(object):
             if element.get_id() != id:
                 profiles.append(self.get_profile_by_id(element.get_id()))
                 scores.append(self.set_score(element.get_id(), id))
+        '''Nachdem die Listen gefüllt sind, werden diese in ein dictionary gezippt. Dieses Dictionary wird dann nach
+        den Scores sortiert und in eine Liste umgewandelt. Die Listeninhalte sind die weiterhin nach dem Score 
+        sortierten Profile. '''
         match_dict = dict(zip(profiles, scores))
         matches = dict(sorted(match_dict.items(),
                        key=lambda item: item[1], reverse=True))
@@ -192,7 +193,17 @@ class Businesslogic(object):
             sorted_list.append(element)
         return sorted_list
 
-    def create_request(self, requested_by, requested, request_type, group_id):
+    '''Mit dieser Methode wird eine RequestBO erstellt, in dem man der Funktion den Anfragenden (requested_by),
+    den Anzufragenden (requested) und die Art von Request - E für Einzel-Request von User zu User und G für
+    Gruppen-Request, also von einem User zum Gruppenadmin.
+    Handelt es sich um eine Einzelanfrage, so wird die group_id 0 eingesetzt. 
+    Handelt es sich um eine Gruppenanfrage, so wird der Default-Wert beim Funktionsaufruf und 
+    Parameterübergabe überschrieben'''
+
+    def create_request(self, requested_by, requested, request_type, group_id=0):
+        '''Zunächst einmal so gecheckt werden ob es ein Request vom Anfragenden zum Angefragten bereits
+        existiert, damit keine redundanten Datenbankeinträge existieren.
+        Existiert bereits eine Request wird die Funktion beendet, ansonsten wird ein Request erstellt.'''
         requests = self.get_all_requests()
         request_list = []
         for element in requests:
@@ -211,26 +222,19 @@ class Businesslogic(object):
             with RequestMapper() as mapper:
                 return mapper.insert(request)
 
-    # def create_group_request(self, requested_by, admin,  group_id):
-    #     request = Request()
-    #     request.set_requested_by(requested_by)
-    #     request.set_requested(admin)
-    #     request.set_request_type('G')
-    #     request.set_group_id(group_id)
-    #     with RequestMapper() as mapper:
-    #         return mapper.insert(request)
-
-    # def get_group_by_admin(self, admin):
-    #     with GroupMapper() as mapper:
-    #         return mapper.find_by_admin(admin)
+    '''Mit dieser Methode importiert man alle Requests aus der Datenbank.'''
 
     def get_all_requests(self):
         with RequestMapper() as mapper:
             return mapper.find_all()
 
+    '''Mit dieser Methode wird eine Reuqest mit einer bestimmten ID aus der Datenbank importiert.'''
+
     def get_request_by_id(self, number):
         with RequestMapper() as mapper:
             return mapper.find_by_key(number)
+
+    '''Mit dieser Funktion erhält man alle Requests an einen Studierenden dessen ID der Methode übergeben wurden'''
 
     def get_request_of_profile(self, number):
         all_requests = self.get_all_requests()
@@ -240,6 +244,8 @@ class Businesslogic(object):
                 request.append(element)
         return request
 
+    '''Mit dieser Methode werden alle Gruppen-Anfragen aus der Datenbank importiert.'''
+
     def get_request_of_groups(self, number):
         all_requests = self.get_all_requests()
         request = []
@@ -247,6 +253,9 @@ class Businesslogic(object):
             if element.get_requested() == number and element.get_request_type() == 'G':
                 request.append(element)
         return request
+
+    '''Mit dieser Methoden werden die Profile aller Personen aus der Datenbank importiert, die dem Profil,
+    dessen id der Funktion übergeben wurde eine Request geschickt haben.'''
 
     def get_profiles_of_request(self, id):
         requests_of_profile = self.get_request_of_profile(id)
@@ -257,6 +266,8 @@ class Businesslogic(object):
         for element in profile_ids_of_requester:
             profiles_of_requester.append(self.get_profile_by_id(element))
         return profiles_of_requester
+
+    '''Hier wird eine Request gelöscht, indem man der Methode die RequestBO übergibt.'''
 
     def delete_request(self, request):
         with RequestMapper() as mapper:
@@ -442,7 +453,6 @@ class Businesslogic(object):
         with ChatAccessMapper() as mapper:
             return mapper.update(access)
 
-    # Misc
     def get_profile_by_name(self, last_name):
         with StudentprofileMapper() as mapper:
             return mapper.find_by_last_name(last_name)
@@ -466,6 +476,10 @@ class Businesslogic(object):
     #     with GroupMapper() as mapper:
     #         return mapper.find_by_key(number)
 
+
+    '''@Khadidja.Kebaili
+    Diese Funktion löscht alle Requests, die älter sind als 3 Tage'''
+
     def check_timedelta_of_request(self):
         request = self.get_all_requests()
         today = datetime.today()
@@ -473,3 +487,9 @@ class Businesslogic(object):
             deltatime = abs((element.get_request_date() - today).days)
             if deltatime > 3:
                 self.delete_request(element)
+#
+# l = Businesslogic()
+# l.create_request(1,6,'E',0)
+# l.create_request(2,6,'E',0)
+# l.create_request(3,6,'E',0)
+# l.create_request(4,6,'E',0)
