@@ -6,7 +6,13 @@ import DeleteRequest from '../Dialog/DeleteRequest';
 import {BrowserRouter as Router,
     Switch, Route, Link as RouterLink} from "react-router-dom";
 
-
+/**
+ * 
+ * Hier werden die einzelnen Requests für Profile geholt.
+ * 
+ * 
+ * @author [Esra Özkul (geb.Copuro)](https://github.com/EsraCopuro)
+ */   
 class RequestListEntry extends Component{
     constructor(props){
         super(props);
@@ -21,19 +27,21 @@ class RequestListEntry extends Component{
 
         };
     }
-
+    //Nach dem der Request gelöscht wird, wird der Dialog geschlossen
     deleteRequestDialogClosed = (request) => {
-        // if customer is not null, delete it
+        // Wenn Request nicht null, dann lösche diese
         if (request) {
             this.props.onRequestDeleted(request);
         };
 
-        // Don´t show the dialog
+        // Zeig den Dialog nicht mehr an
         this.setState({
             showDeleteRequest: false
         });
     }
 
+    //Die Methode stopPropagation() der Event-Schnittstelle verhindert die weitere 
+    //Ausbreitung des aktuellen Ereignisses in der Erfassungs- und Bubbling-Phase.
     deleteRequestButtonClicked = (event) => {
         event.stopPropagation();
         this.setState({
@@ -41,6 +49,7 @@ class RequestListEntry extends Component{
         });
     }
 
+    //Hier werden die einzelnen Attribute aus dem Profil geholt
     getProfileById= (id) =>{
         LernappAPI.getAPI().getProfile(id).then(profileBO =>{
             this.setState({
@@ -52,6 +61,8 @@ class RequestListEntry extends Component{
         })
     }
 
+    // ComponentDidMount() wird unmittelbar nach dem Mounten einer Komponente 
+    //aufgerufen (in den Baum eingefügt)
     componentDidMount() {
         this.getProfileById(this.state.request.getRequestedBy())
 

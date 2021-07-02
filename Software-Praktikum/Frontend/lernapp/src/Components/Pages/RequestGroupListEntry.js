@@ -8,7 +8,14 @@ import {BrowserRouter as Router,
 import {Tab, Tabs } from '@material-ui/core';
 import DeleteGroupRequest from "./../Dialog/DeleteGroupRequest"
 
-
+/**
+ * 
+ * Hier werden die einzelnen Requests für die Gruppen gerendert
+ * Mit bestimmten Eigenschaften wie Vorname und Nachname geholt
+ * 
+ * 
+ * @author [Esra Özkul (geb.Copuro)](https://github.com/EsraCopuro)
+ */
 
 class RequestGroupListEntry extends Component{
     constructor(props){
@@ -26,25 +33,28 @@ class RequestGroupListEntry extends Component{
         };
     }
 
-
+    //Nach dem der Request gelöscht wird, wird der Dialog geschlossen
     deleteRequestDialogClosed = (requestGroup) => {
-        // if customer is not null, delete it
+        // Wenn Request nicht null, dann lösche diese
         if (requestGroup) {
             this.props.onGroupRequestDeleted(requestGroup);
         };
 
-        // Don´t show the dialog
+        // Zeig den Dialog nicht mehr an
         this.setState({
             showDeleteGroupRequest: false
         });
     }
+
+    //Die Methode stopPropagation() der Event-Schnittstelle verhindert die weitere 
+    //Ausbreitung des aktuellen Ereignisses in der Erfassungs- und Bubbling-Phase.
     deleteRequestButtonClicked = (event) => {
         event.stopPropagation();
         this.setState({
             showDeleteGroupRequest: true
         });
     }
-
+    //Hier werden die Gruppen durch die GruppenID geholt
     getGroupById= (id) =>{
         LernappAPI.getAPI().getGroup(id).then(groupBO =>{
             this.setState({
@@ -52,7 +62,7 @@ class RequestGroupListEntry extends Component{
             })
         })
     }
-
+    //Hier werden die Profile durch die ProfileID geholt --> Vorname und Nachname 
     getProfileById= (id) =>{
         LernappAPI.getAPI().getProfile(id).then(profileBO =>{
             this.setState({
@@ -63,7 +73,8 @@ class RequestGroupListEntry extends Component{
             })
         })
     }
-
+    // ComponentDidMount() wird unmittelbar nach dem Mounten einer Komponente 
+    //aufgerufen (in den Baum eingefügt)
     componentDidMount() {
         this.getGroupById(this.props.requests.getGroupId())
         this.getProfileById(this.props.requests.getRequestedBy())

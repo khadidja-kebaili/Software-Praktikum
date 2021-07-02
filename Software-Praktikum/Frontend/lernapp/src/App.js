@@ -12,9 +12,21 @@ import Test from './Test';
 import AddGroup from "./Components/Dialog/AddGroup";
 import ProfileOperations from "./Components/Pages/ProfileOperations"
 
+
+/**
+ * 
+ * Die einzelnen Komponente werden hier aufgerufen.
+ * Dadurch können wir sie auf der Webseite anzeigen lassen.
+ * 
+ * @author [Esra Özkul (geb.Copuro)](https://github.com/EsraCopuro)
+ */
+
 class App extends React.Component {
 
+
 //im ersten Schritt sollen die Matches und Navigation angezeigt werden.
+//Durch Redirect kann die URL weitergeleietet werden.
+//Route ermöglicht es dass eine bestimmte Path zugeordnet werden kann.
   render(){
     return(
       
