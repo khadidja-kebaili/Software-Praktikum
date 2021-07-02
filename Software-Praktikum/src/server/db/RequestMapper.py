@@ -1,10 +1,18 @@
 from server.db.Mapper import Mapper
 from server.bo.RequestBO import Request
+'Autor: @Khadidja.Kebaili'
+
+
+'''Die Klasse RequestMapper ist für die Datenbankverbindung-/ und das Management zuständig.
+   Es wird eine Datenbankverbindung geöffnet, ein Query ausgeführt, die Daten werden in ein Pythonobjekt überführt
+   und zurückgegeben. '''
 
 class RequestMapper(Mapper):
 
     def __init__(self):
         super().__init__()
+
+    '''Methode um neue Requests in Datenbank einzulesen.'''
 
     def insert(self, request):
         cursor = self._cnx.cursor()
@@ -33,6 +41,8 @@ class RequestMapper(Mapper):
         cursor.close()
         return request
 
+
+    '''Methode um alle Requests aus der Datenbank zu importieren.'''
     def find_all(self):
 
         result = []
@@ -54,6 +64,9 @@ class RequestMapper(Mapper):
         cursor.close()
 
         return result
+
+    '''Methode um einen Request aus der Datenbank zu importieren, der dem Schlüsselwert in der angegeben Spalte 
+       entspricht.'''
 
     def find_by_key(self, key):
         result = None
@@ -110,9 +123,12 @@ class RequestMapper(Mapper):
     #
     #     return result
 
+    '''Ein Request soll nicht geupdatet werden können, daher wird diese Methode übergangen.'''
+
     def update(self, request):
         pass
 
+    '''Methode um ein Requestobjekt in der Datenbank zu löschen.'''
 
     def delete(self, request):
         cursor = self._cnx.cursor()

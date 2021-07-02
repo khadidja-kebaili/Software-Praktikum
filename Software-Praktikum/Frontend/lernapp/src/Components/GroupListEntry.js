@@ -1,27 +1,20 @@
 import React, { Component } from 'react';
 import { withStyles, Typography } from '@material-ui/core';
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import GroupIcon from '@material-ui/icons/Group';
 import {makeStyles} from "@material-ui/core/styles";
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Button } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import LernappAPI from "../API/LernappAPI";
-import LoadingProgress from "./Dialog/LoadingProgress";
 import LeaveGroup from './Dialog/LeaveGroup';
 import MemberList from "./MemberList.js"
 import GroupEditDialog from './Dialog/GroupEditDialog';
-import GroupList from './GroupList';
-import AddGroup from "./Dialog/AddGroup";
-import DeleteRequest from "./Dialog/DeleteRequest";
-// import MemberList from './MemberList';
+
+/**
+ *
+ * @author: Khadidja Kebaili
+ * @coauthor: Mihriban Dogan
+ */
 
 
 const useStyles = makeStyles((theme) => ({

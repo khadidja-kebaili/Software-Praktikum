@@ -9,12 +9,13 @@ import {Tab, Tabs } from '@material-ui/core';
 import DeleteGroupRequest from "./../Dialog/DeleteGroupRequest"
 
 /**
- * 
+ *
  * Hier werden die einzelnen Requests für die Gruppen gerendert
  * Mit bestimmten Eigenschaften wie Vorname und Nachname geholt
- * 
- * 
+ *
+ *
  * @author [Esra Özkul (geb.Copuro)](https://github.com/EsraCopuro)
+ * @coauthor [Khadidja Kebaili] (https://github.com/khadidjakebaili)
  */
 
 class RequestGroupListEntry extends Component{
@@ -46,7 +47,7 @@ class RequestGroupListEntry extends Component{
         });
     }
 
-    //Die Methode stopPropagation() der Event-Schnittstelle verhindert die weitere 
+    //Die Methode stopPropagation() der Event-Schnittstelle verhindert die weitere
     //Ausbreitung des aktuellen Ereignisses in der Erfassungs- und Bubbling-Phase.
     deleteRequestButtonClicked = (event) => {
         event.stopPropagation();
@@ -62,7 +63,7 @@ class RequestGroupListEntry extends Component{
             })
         })
     }
-    //Hier werden die Profile durch die ProfileID geholt --> Vorname und Nachname 
+    //Hier werden die Profile durch die ProfileID geholt --> Vorname und Nachname
     getProfileById= (id) =>{
         LernappAPI.getAPI().getProfile(id).then(profileBO =>{
             this.setState({
@@ -73,7 +74,7 @@ class RequestGroupListEntry extends Component{
             })
         })
     }
-    // ComponentDidMount() wird unmittelbar nach dem Mounten einer Komponente 
+    // ComponentDidMount() wird unmittelbar nach dem Mounten einer Komponente
     //aufgerufen (in den Baum eingefügt)
     componentDidMount() {
         this.getGroupById(this.props.requests.getGroupId())
