@@ -62,13 +62,13 @@ class App extends React.Component {
 				// token (which is verified server-side) in a cookie; do not add other
 				// user information.
 				document.cookie = `token=${token};path=/`;
-
+				const uid = user.uid;
 				// Set the user not before the token arrived 
 				this.setState({
 					currentUser: user,
 					authError: null,
 					authLoading: false
-				});
+				}); console.log(uid)
 			}).catch(e => {
 				this.setState({
 					authError: e,
@@ -123,10 +123,10 @@ class App extends React.Component {
           <Router>
             <Container maxWidth='md'>
             < Container user={currentUser} />
-              <Header/>
+              <Header user={currentUser}/>
               {
                 // Is a user signed in?
-							  currentUser ?
+				currentUser ?
                 <>
                   <Redirect from='/' to='matchmaker'/>
                   <Route exact path='/matchmaker'>
