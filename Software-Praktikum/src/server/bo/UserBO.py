@@ -2,12 +2,7 @@ from .Businessobject import Businessobject
 
 
 class User (Businessobject):
-    """Realisierung einer exemplarischen Benutzerklasse.
-
-    Aus Gründen der Vereinfachung besitzt der Kunden in diesem Demonstrator
-    lediglich einen einfachen Namen, eine E_Mail-Adresse sowie eine außerhalb
-    unseres Systems verwaltete User ID (z.B. die Google ID).
-    """
+    """Realisierung einer exemplarischen Benutzerklasse."""
 
     def __init__(self):
         super().__init__()

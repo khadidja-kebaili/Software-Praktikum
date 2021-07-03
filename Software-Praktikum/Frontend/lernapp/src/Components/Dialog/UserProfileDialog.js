@@ -16,25 +16,26 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/styles';
 
 
+/**
+ * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
+ */
+
 class UserProfileDialog extends Component {
     constructor(props){
     super(props);
-  
-    this.state = { 
-     
-     };
     }
 
 
+    //Aufruf bei Abbruch
   handleClose = () => {
     this.props.onClose(null);
   }
   render() { 
-      const { classes, show, profile} = this.props 
+      const { classes, show} = this.props 
     
     return ( 
         show ?
-      
+        //Dialog mit Selects, Radio und Textfeldern
         <Dialog open={show} onClose={this.handleClose} maxWidth='xs'>
           <DialogContent>
             <DialogTitle>
@@ -166,7 +167,7 @@ class UserProfileDialog extends Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color='secondary'>
-              Cancel
+              Abbrechen
             </Button>
             <Button type="submit" variant="contained" color="primary" size="large" onClick={this.props.updateProfile} color='primary'>
               Bearbeiten
@@ -178,7 +179,7 @@ class UserProfileDialog extends Component {
   }
  
 }
-   /** Component specific styles */
+   /** Komponente CSS*/
  const styles = theme => ({
         root: {
         width: '100%',

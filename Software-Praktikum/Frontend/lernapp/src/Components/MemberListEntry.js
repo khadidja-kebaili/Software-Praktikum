@@ -3,19 +3,22 @@ import { withStyles, Button, ListItem, Typography } from '@material-ui/core';
 import LoadingProgress from './Dialog/LoadingProgress';
 
 
+/**
+ * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
+ */
 
 class MemberListEntry extends Component {
 
   constructor(props) {
     super(props);
 
-    // Init an empty state
     this.state = {
       loadingInProgress: false,
     };
   }
 
-  /** Renders the component */
+
+//Es werden die einzelnen Mitglieder gerendert 
   render() {
     const { classes, members} =  this.props;
     const { loadingInProgress} = this.state;
@@ -24,7 +27,7 @@ class MemberListEntry extends Component {
       <div>
         <ListItem>
           <Typography className={classes.memberEntry}>
-              <b>Mitglied:</b> {members.getFirstname()}, {members.getLastname()}
+              <b>Mitglied:</b> {members.getFirstname()}, {members.getLastname()} 
           </Typography>
         </ListItem>
         <ListItem>
@@ -35,7 +38,7 @@ class MemberListEntry extends Component {
   }
 }
 
-/** Component specific styles */
+/** Komponente CSS  */
 const styles = theme => ({
   root: {
     width: '100%'

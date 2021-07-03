@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import { FormControl } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -17,34 +9,37 @@ import { withStyles } from '@material-ui/styles';
 import GroupBO from '../../API/GroupBO';
 import LernappAPI from '../../API/LernappAPI';
 
-class UserProfileDialog extends Component {
+/**
+ * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
+ */
+
+class GroupEditDialog extends Component {
     constructor(props){
     super(props);
 
     let groupname = '', admin = '', description='', chatid = '';
 
+    //Wenn eine Gruppe schon vorhanden ist dann setze dies als initialstate
     if (props.groups) {
       groupname= props.groups.getGroupname();
       admin = props.groups.getAdmin();
       description = props.groups.getDescription();
       chatid = props.groups.getChatid();
     }
-
-    // Init the state
     this.state = {
       groupname: groupname,
       admin: admin,
       description: description,
       chatid: chatid
     };
-    // save this state for canceling
+    //Basestate wird für Abbruch gespeichert
     this.baseState = this.state;
   }
 
 
+  //Updaten der Gruppe, wird mit Klick auf Bearbeiten aufgerufen
   updateGroup = () => {
     let updatedGroup = Object.assign(new GroupBO(), this.props.groups);
-    console.log(updatedGroup)
     updatedGroup.setGroupname(this.state.groupname);
     updatedGroup.setAdmin(parseInt(this.state.admin));
     updatedGroup.setDescription(this.state.description);
@@ -55,13 +50,14 @@ class UserProfileDialog extends Component {
       this.baseState.admin = this.state.admin;
       this.baseState.description = this.state.description;
       this.baseState.chatid = this.state.chatid
-      this.props.onClose(updatedGroup);      // call the parent with the new customer
-      console.log(updatedGroup)
+      this.props.onClose(updatedGroup);      
     })}
 
+//Behandelt die Eingabe der Textfelder
 handleChange = (e) =>{
    this.setState({ [e.target.name] : e.target.value });}
 
+  //Wird bei Klick auf Abbrechen aufgerufen
   handleClose = () => {
     this.props.onClose(null);
   }
@@ -87,7 +83,7 @@ handleChange = (e) =>{
           <DialogActions>
             <div className={classes.Button}>
             <Button onClick={this.handleClose} color='secondary'>
-              Cancel
+              Abbrechen
             </Button>
             <Button type="submit" variant="contained" color="primary" size="large" onClick={this.updateGroup} color='primary'>
               Bearbeiten
@@ -100,7 +96,7 @@ handleChange = (e) =>{
   }
  
 }
-   /** Component specific styles */
+   /** Komponente CSS */
  const styles = theme => ({
         root: {
         width: '100%',
@@ -119,6 +115,6 @@ handleChange = (e) =>{
         }
      
     });
-export default withStyles(styles)(UserProfileDialog);
+export default withStyles(styles)(GroupEditDialog);
 
 

@@ -94,6 +94,7 @@ request = api.inherit('Request', bo, {
 class UserOperations(Resource):
     @api.marshal_list_with(user)
     def get(self):
+        """Auslesen aller User Objekte"""
         adm = Businesslogic()
         users = adm.get_all_users()
         return users
@@ -359,6 +360,7 @@ class ProfilOperations(Resource):
     @ api.expect(profile)
     # @secured
     def post(self):
+        """Anlegen eines neuen Profil-Objekts"""
         adm = Businesslogic()
         proposal = Studentprofile.from_dict(api.payload)
         # //Notiz Daten von Frontend werden in proposal gespeichert
@@ -379,6 +381,7 @@ class ProfilOperations(Resource):
     @api.marshal_list_with(profile)
     # @secured
     def get(self):
+        """Auslesen aller Profil Objekte"""
         adm = Businesslogic()
         profile = adm.get_all_profiles()
         return profile
@@ -390,6 +393,7 @@ class Profilanzeigen (Resource):
     @api.marshal_with(profile)
     # @secured
     def get(self, id):
+        """Auslesen eines bestimmten Profil-Objekts"""
         adm = Businesslogic()
         userprofile = adm.get_profile_by_id(id)
         return userprofile
@@ -397,7 +401,7 @@ class Profilanzeigen (Resource):
     @api.marshal_with(profile)
     # @secured
     def delete(self, id):
-
+        """Löschen eines bestimmten Profil-Objekts"""
         adm = Businesslogic()
         userprofile = adm.get_profile_by_id(id)
         adm.delete_profile(userprofile)
@@ -407,6 +411,7 @@ class Profilanzeigen (Resource):
     # @secured
     @api.expect(profile, validate=True)
     def put(self, id):
+        """Update eines bestimmten Profil-Objekts"""
         adm = Businesslogic()
         p = Studentprofile.from_dict(api.payload)
 
@@ -423,6 +428,7 @@ class Profilanzeigen (Resource):
 class ProfilesByNameOperations(Resource):
     @api.marshal_with(member)
     def get(self, lastname):
+        """Auslesen von Profil-Objekten, die durch den Nachnamen bestimmt werden"""
         adm = Businesslogic()
         profile = adm.get_profile_by_name(lastname)
         return profile

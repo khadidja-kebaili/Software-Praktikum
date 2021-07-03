@@ -10,29 +10,22 @@ import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import ChataccessBO from '../../API/ChataccessBO';
 
+/**
+ * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
+ */
 
 class AddMember extends Component {
-
-  initialState = {
-    // TextField values
-
-  };
 
   constructor(props) {
     super(props);
 
-    // Init the state
-    // this.state = this.initialState;
   }
 
+//Aufruf bei Abbruch
   handleClose = (addmember) => {
-    // Reset the state
-    // this.setState(this.initialState);
     this.props.onClose(addmember);
   }
 
-
-  /** Renders the component */
   render() {
     const {show, targetMember, selectedMember} = this.props;
     
@@ -45,9 +38,9 @@ class AddMember extends Component {
           <DialogContent>
             <form>
               { 
-                // show a search text field if there are no searchedmember yet
+                //Anzeigen des Textfeldes, wenn noch kein targetMember vorhanden ist 
                 (targetMember.length === 0) ?
-                  <TextField autoFocus fullWidth margin='normal' type='text' required id='memberName' label='Member name:'
+                  <TextField autoFocus fullWidth margin='normal' type='text' required id='memberName' label='Nachname:'
                     onChange={this.props.textFieldValueChange}
                     onBlur={this.props.searchMember}
                     InputProps={{
@@ -61,7 +54,7 @@ class AddMember extends Component {
                   <TextField select autoFocus fullWidth margin='normal' type='text' required id='memberName' label='Member name:'
                   value={this.props.selectedMember}
                   onChange={this.props.memberSelectionChange}>
-                  {
+                  { // Anzeige der Suchergebnisse 
                     this.props.targetMember.map((member) => (
                       <MenuItem key={member.getID()} value={member}>
                         {member.getLastname()}, {member.getFirstname()}
@@ -71,7 +64,6 @@ class AddMember extends Component {
                 </TextField>
   }
             </form>
-
           </DialogContent>
           <DialogActions>
             <Button  onClick={this.handleClose} color='secondary'>

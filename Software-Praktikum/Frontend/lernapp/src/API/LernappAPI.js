@@ -4,7 +4,7 @@ import MessageBO from './MessageBO';
 import ChatroomBO from './ChatroomBO';
 import ChataccessBO from './ChataccessBO';
 import RequestBO from "./RequestBO";
-// import MemberBO from "./MemberBO";
+
 
 export default class LernappAPI {
 
@@ -88,9 +88,11 @@ export default class LernappAPI {
     #getProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
     #deleteProfileURL = (id) =>`${this.#lernappServerBaseURL}/profile/${id}`;
     #updateProfileURL = (id) => `${this.#lernappServerBaseURL}/profile/${id}`;
-
-    #getMatchesURL = (id) => `${this.#lernappServerBaseURL}/matches/${id}`;
     #searchMemberURL = (memberName) => `${this.#lernappServerBaseURL}/profiles-by-name/${memberName}`;
+
+    //Matches
+    #getMatchesURL = (id) => `${this.#lernappServerBaseURL}/matches/${id}`;
+    
 
 
     #fetchAdvanced = (url, init) => fetch(url, init)
@@ -102,7 +104,6 @@ export default class LernappAPI {
             }
         )
 
-    //Alle Profile sollen geholt werden
     getAllGroups() {
         return this.#fetchAdvanced(this.#getAllGroupsURL())
             .then((responseJSON) => {
@@ -123,15 +124,6 @@ export default class LernappAPI {
             })
     }
 
-    getProfile(profileID) {
-        return this.#fetchAdvanced(this.#getProfileURL(profileID)).then((responseJSON) => {
-            let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
-            // console.info(responseProfileBO);
-            return new Promise(function (resolve) {
-                resolve(responseProfileBO);
-            })
-        })
-    }
 
     //Chatroom Methoden
 
@@ -216,7 +208,8 @@ export default class LernappAPI {
             })
         })
     }
-
+    
+    //Gruppenmitglied hinzufügen
     addMember(chataccessMemberBO){
         return this.#fetchAdvanced(this.#addMemberURL(), {
           method: 'POST',
@@ -234,7 +227,7 @@ export default class LernappAPI {
           })
         })
       }
-
+    //Gruppe verlassen
     leaveGroup(profileID) {
         return this.#fetchAdvanced(this.#leaveGroupURL(profileID), {
           method: 'DELETE'
@@ -246,7 +239,7 @@ export default class LernappAPI {
           })
         })
       }
-      
+    //Mitglieder für Gruppe finden
     getMembersForGroup(roomID) {
         return this.#fetchAdvanced(this.#getMembersForGroupURL(roomID))
           .then((responseJSON) => {
@@ -258,7 +251,7 @@ export default class LernappAPI {
           })
       }
 
-
+    //Mitglied nach Nachnamen suchen
     searchMember(memberName) {
         return this.#fetchAdvanced(this.#searchMemberURL(memberName)).then((responseJSON) => {
           let memberBOs = ProfileBO.fromJSON(responseJSON);
@@ -508,6 +501,7 @@ export default class LernappAPI {
 
     //Profile
 
+    //Erstellen von Profil
     addProfile(profileBO) {
         return this.#fetchAdvanced(this.#addProfileURL(), {
             method: 'POST',
@@ -526,6 +520,7 @@ export default class LernappAPI {
         })
     }
 
+  //Updaten von Profil
   updateProfile(profileBO) {
     return this.#fetchAdvanced(this.#updateProfileURL(profileBO.getID()), {
       method: 'PUT',
@@ -544,7 +539,8 @@ export default class LernappAPI {
       })
     })
   }
-
+  
+  //Profil des Users holen
   getProfile(profileID) {
     return this.#fetchAdvanced(this.#getProfileURL(profileID)).then((responseJSON) => {
       let responseProfileBO = ProfileBO.fromJSON(responseJSON)[0];
@@ -554,7 +550,7 @@ export default class LernappAPI {
       })
     })
   }
-
+  //Profil löschen
   deleteProfile(profileID) {
     return this.#fetchAdvanced(this.#deleteProfileURL(profileID), {
       method: 'DELETE'
