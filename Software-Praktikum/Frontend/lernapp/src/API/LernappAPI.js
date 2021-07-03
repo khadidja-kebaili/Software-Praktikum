@@ -17,7 +17,7 @@ export default class LernappAPI {
     }
 
 
-    #lernappServerBaseURL = 'http://127.0.0.1:5000';
+    #lernappServerBaseURL = '';
 
     // // Local http-fake-backend
     // #lernappServerBaseURL = 'fake_backend/Lernappconfig.js'
@@ -95,7 +95,7 @@ export default class LernappAPI {
     
 
 
-    #fetchAdvanced = (url, init) => fetch(url, init)
+    #fetchAdvanced = (url, init) => fetch(url,init)
         .then(res => {
                 if (!res.ok) {
                     throw Error(`${res.status} ${res.statusText}`);

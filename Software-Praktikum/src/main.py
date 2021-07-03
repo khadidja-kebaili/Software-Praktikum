@@ -12,7 +12,7 @@ from server.bo.GroupBO import Group
 from SecurityDecorator import secured
 
 app = Flask(__name__)
-CORS(app, resources=r'/*')
+CORS(app)
 api = Api(app)
 
 bo = api.model('BusinessObject', {
@@ -379,7 +379,7 @@ class ProfilOperations(Resource):
             return p
 
     @api.marshal_list_with(profile)
-    # @secured
+    @secured
     def get(self):
         """Auslesen aller Profil Objekte"""
         adm = Businesslogic()
@@ -391,7 +391,7 @@ class ProfilOperations(Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class Profilanzeigen (Resource):
     @api.marshal_with(profile)
-    # @secured
+    @secured
     def get(self, id):
         """Auslesen eines bestimmten Profil-Objekts"""
         adm = Businesslogic()
