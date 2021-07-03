@@ -8,6 +8,7 @@ import Menu from '@material-ui/core/Menu';
 import {BrowserRouter as Router,
   Switch, Route, Link as RouterLink} from "react-router-dom";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import ProfileDropDown from '../Dialog/ProfileDropDown';
 
 /**
  * 
@@ -43,7 +44,7 @@ class Header extends Component {
   
       return (
         <Paper variant='outlined' >
-          
+          <ProfileDropDown user={user} />
           <Typography variant='h3' component='h1' align='center'>
             LernApp
           </Typography>
