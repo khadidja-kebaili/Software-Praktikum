@@ -72,6 +72,7 @@ class Businesslogic(object):
 
     def create_profile(self, first_name, last_name, age, semester, major, hobbys, interests,
                        personality, learnstyle, studytime, studyplace, studyfrequence, workexperience):
+        """Ein Profil anlegen"""
         studentprofile = Studentprofile()
         studentprofile.set_first_name(first_name)
         studentprofile.set_last_name(last_name)
@@ -91,20 +92,31 @@ class Businesslogic(object):
             return mapper.insert(studentprofile)
 
     def get_profile_by_id(self, number):
+        """Ein bestimmtes Profil auslesen"""
         with StudentprofileMapper() as mapper:
             return mapper.find_by_key(number)
 
     def get_all_profiles(self):
+        """Alle Profile auslesen"""
         with StudentprofileMapper() as mapper:
             return mapper.find_all()
 
     def save_profile(self, studentprofile):
+        """Das gegebene Profil speichern"""
         with StudentprofileMapper() as mapper:
             mapper.update(studentprofile)
 
     def delete_profile(self, studentprofile):
+        """Das gegebene Profil löschen"""
         with StudentprofileMapper() as mapper:
             mapper.delete(studentprofile)
+
+    def get_profile_by_name(self, last_name):
+        """Das Profil mit dem gegebenen Nachnamen auslesen"""
+        with StudentprofileMapper() as mapper:
+            return mapper.find_by_last_name(last_name)
+
+    # Group
 
     def create_group(self, groupname, admin, description):
         chatroom = self.create_chatroom('G')
@@ -453,10 +465,6 @@ class Businesslogic(object):
         with ChatAccessMapper() as mapper:
             return mapper.update(access)
 
-    def get_profile_by_name(self, last_name):
-        with StudentprofileMapper() as mapper:
-            return mapper.find_by_last_name(last_name)
-
     def get_group_by_profileid(self, id):
         # access = [self.get_groupchataccess_by_profil(id)]
         # groups = []
@@ -475,7 +483,6 @@ class Businesslogic(object):
     # def get_group_by_id(self, number):
     #     with GroupMapper() as mapper:
     #         return mapper.find_by_key(number)
-
 
     '''@Khadidja.Kebaili
     Diese Funktion löscht alle Requests, die älter sind als 3 Tage'''

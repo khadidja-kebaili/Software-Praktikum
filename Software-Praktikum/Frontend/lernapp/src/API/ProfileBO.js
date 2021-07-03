@@ -1,7 +1,31 @@
 import BusinessObject from "./BusinessObject.js";
 
+/**
+ * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
+ */
+
+
+//Repräsentiert ein Profil
 
 export default class ProfileBO extends BusinessObject {
+
+  
+  /**
+   * @param {*} aFirstname- Vorname des Profils
+   * @param {*} aLastname - Nachname des Profils
+   * @param {*} aAge - Alter des Profils
+   * @param {*} aSemester- Das Semester, in dem sich der Student momentan befindet
+   * @param {*} aMajor - Der Studiengang, den der Student belegt
+   * @param {*} aHobbys- Die Hobbies des Studierenden
+   * @param {*} aInterests - Die Interessen des Studierenden
+   * @param {*} aPersonality - Wie extrovertiert/introvertiert der Studierende ist von 1-5
+   * @param {*} aLearnstyle- Der Lerntyp des Studenten z.B. visuell etc.
+   * @param {*} aStudytime - Die Bevorzugte Lernzeit des Studenten (morgens, mittags, abends)
+   * @param {*} aStudyplace - Der Bevorzugte Lernort des Studenten (Uni, Online)
+   * @param {*} aStudyfrequence- Wie oft der Student in der Woche lernen/sich treffen will (1-7)
+   * @param {*} aWorkexperience  - Ob der Student bereits Berufserfahrung besitzt
+   * 
+   */
 
   constructor(aFirstname, aLastname, aAge, aSemester, aMajor, aHobbys, aInterests, aPersonality, aLearnstyle, aStudytime, aStudyplace, aStudyfrequence, aWorkexperience ) {
     super();
@@ -19,6 +43,8 @@ export default class ProfileBO extends BusinessObject {
     this.studyfrequence = aStudyfrequence;
     this.workexperience = aWorkexperience
   }
+
+  //Hier folgen die Setters und Getters für die einzelnen Parameter
 
  
   setFirstname(aFirstname) {
@@ -149,7 +175,6 @@ export default class ProfileBO extends BusinessObject {
         result.push(c);
       })
     } else {
-      // Es handelt sich offenbar um ein singuläres Objekt
       let c = profile;
       Object.setPrototypeOf(c, ProfileBO.prototype);
       result.push(c);

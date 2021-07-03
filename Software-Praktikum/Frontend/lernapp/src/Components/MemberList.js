@@ -8,13 +8,16 @@ import MemberListEntry from './MemberListEntry';
 import AddMember from './Dialog/AddMember';
 import ChataccessBO from '../API/ChataccessBO'
 
+/**
+ * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
+ */
 
 class MemberList extends Component {
 
   constructor(props) {
     super(props);
 
-    // Init the state
+    // Der State wird initialisiert mit der Memberliste, dem target und selectedMember
     this.state = {
       members: [],
       loadingInProgress: false,
@@ -25,31 +28,29 @@ class MemberList extends Component {
     };
   }
 
-  /** Fetches AccountBOs for the current customer */
+  /** Fetched die MemberBOs */
   getMembers = () => {
     LernappAPI.getAPI().getMembersForGroup(this.props.groups.getID()).then(profileBOs =>
-      this.setState({  // Set new state when AccountBOs have been fetched
+      this.setState({  // State wird gesetzt wenn die Members gefetched wurden
         members: profileBOs,
-        loadingInProgress: false, // loading indicator 
+        loadingInProgress: false, // Ladebalken
       })).catch(e =>
-        this.setState({ // Reset state with error from catch 
+        this.setState({ // State auf initial wert setzen bei Fehler
           members: [],
           loadingInProgress: false,
         })
       );
-
-    // set loading to true
     this.setState({
       loadingInProgress: true,
     });
   }
 
-   /** Searches for members with a memberName and loads the corresponding accounts */
+   /** Suche nach einem Member mithilfe des Nachnamenm, wird bei AddMember Dialog aufgerufen */
    searchMember = async () => {
     const { memberName } = this.state;
     if (memberName.length > 0) {
       try {
-        // Load members first
+        // Member laden
         const member = await LernappAPI.getAPI().searchMember(memberName);
 
         let selectedMember = null;
@@ -57,28 +58,27 @@ class MemberList extends Component {
         if (member.length > 0) {
           selectedMember = member[0];
         }
-        // Set the final state
+        // Setzen des finalen states
         this.setState({
           targetMember: member,
           selectedMember: selectedMember,
         });
       } catch (e) {
         this.setState({
-          targetMember: [],              // Set empty array
+          targetMember: [],              // Bei Fehler wieder auf initalwert setzen
           selectedMember: null,
         });
-        console.log(this.state.targetMember)
       }
     }
   }
 
-   /** Handles value changes of the member select textfield */
+   /** Behandeln des selektieren von Member beim Select Textfeld, wird bei AddMember Dialog aufgerufen */
  memberSelectionChange = (event) => {
   this.setState({
     selectedMember: event.target.value,
   });
 }
-  /** Handles value changes of the forms textfields and validates the transferAmout field */
+  /** Behandelt die Eingabe des Suchtextfeldes, wird bei AddMember Dialog aufgerufen */
   textFieldValueChange = (event) => {
     const val = event.target.value;
     this.setState({
@@ -86,7 +86,7 @@ class MemberList extends Component {
     });
   }
 
-  
+  //Hinzufügen eines Members --> es wird ein Chataccess für diesen Member erstellt 
   addMember = () => {
     let chattype = "G"
       let newChataccess = new ChataccessBO(
@@ -94,14 +94,14 @@ class MemberList extends Component {
         this.props.groups.getID(),
         chattype
       )
-      LernappAPI.getAPI().addMember(newChataccess).then(console.log(newChataccess)).then(this.closeAddMemberDialog)
+      LernappAPI.getAPI().addMember(newChataccess).then(this.closeAddMemberDialog)
     } 
 
-  /** Lifecycle method, which is called when the component gets inserted into the browsers DOM */
   componentDidMount() {
     this.getMembers();
   }
 
+  //Aufruf, wenn der AddMember Button geklickt wurde, vom AddMemberDialog
     addMemberButtonclicked = (event) => {
       event.stopPropagation();
       this.setState({
@@ -109,6 +109,7 @@ class MemberList extends Component {
       });
     }
 
+    //Schließen des Dialogs, onclose von AddMember Dialog
     closeAddMemberDialog = (addmember) => {
         this.setState({
         showAddMember: false
@@ -124,17 +125,15 @@ class MemberList extends Component {
       }
     }
 
-  /** Renders the component */
+ 
   render() {
     const { classes, groups } = this.props;
-    // Use the states customer
     const { members, loadingInProgress} = this.state;
 
-    // console.log(this.props);
     return (
       <div className={classes.root}>
         <List className={classes.accountList}>
-          {
+          { // Einzelne Member als Props weitergeben
             members.map(members=> <MemberListEntry key={members.getID()} groups={groups} members={members}
                />)
           }
@@ -155,7 +154,7 @@ class MemberList extends Component {
   }
 }
 
-/** Component specific styles */
+/** Komponente CSS */
 const styles = theme => ({
   root: {
     width: '100%',

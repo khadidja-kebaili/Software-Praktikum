@@ -3,11 +3,14 @@ from server.bo.ProfileBO import Studentprofile
 
 
 class StudentprofileMapper (Mapper):
+    """Mapper-Klasse, die Profil-Objekte auf eine relationale
+    Datenbank abbildet."""
 
     def __init__(self):
         super().__init__()
 
     def insert(self, studentprofile):
+        """Einfügen eines neuen Profil-Objekts in die Datenbank"""
 
         cursor = self._cnx.cursor()
         cursor.execute("SELECT MAX(id) AS maxid FROM profile ")
@@ -17,8 +20,6 @@ class StudentprofileMapper (Mapper):
             if maxid[0] is not None:
                 studentprofile.set_id(maxid[0] + 1)
             else:
-                """Wenn wir KEINE maximale ID feststellen konnten, dann gehen wir
-                davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
                 studentprofile.set_id(1)
 
         command = "INSERT INTO profile (id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
@@ -38,7 +39,7 @@ class StudentprofileMapper (Mapper):
         return studentprofile
 
     def find_all(self):
-
+        """Auslesen aller Profile"""
         result = []
         cursor = self._cnx.cursor()
         cursor.execute(
@@ -69,6 +70,7 @@ class StudentprofileMapper (Mapper):
         return result
 
     def find_by_key(self, key):
+        """Auslesen eines bestimmten Profils, anhand der gegebenen ID"""
         result = None
 
         cursor = self._cnx.cursor()
@@ -97,8 +99,6 @@ class StudentprofileMapper (Mapper):
             profile.set_workexperience(workexperience)
             result = profile
         except IndexError:
-            """Der IndexError wird oben beim Zugriff auf tuples[0] auftreten, wenn der vorherige SELECT-Aufruf
-            keine Tupel liefert, sondern tuples = cursor.fetchall() eine leere Sequenz zurück gibt."""
             result = None
 
         self._cnx.commit()
@@ -107,6 +107,7 @@ class StudentprofileMapper (Mapper):
         return result
 
     def update(self, studentprofile):
+        """Wiederholtes Schreiben eines Objekts in die Datenbank"""
 
         cursor = self._cnx.cursor()
 
@@ -127,6 +128,7 @@ class StudentprofileMapper (Mapper):
         return studentprofile
 
     def delete(self, studentprofile):
+        """Löschen der Daten eines Profil Objekts aus der Datenbank"""
         cursor = self._cnx.cursor()
 
         command = "DELETE FROM profile WHERE id={}".format(
@@ -137,6 +139,7 @@ class StudentprofileMapper (Mapper):
         cursor.close()
 
     def find_by_last_name(self, name):
+        """Auslesen aller Kunden anhand des Nachnamen"""
         result = []
         cursor = self._cnx.cursor()
         command = "SELECT id, firstname, lastname FROM profile WHERE lastname LIKE '{}' ORDER BY lastname".format(

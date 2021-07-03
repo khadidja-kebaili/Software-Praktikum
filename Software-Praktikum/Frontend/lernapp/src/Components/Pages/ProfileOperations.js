@@ -6,9 +6,16 @@ import DeleteProfile from '../Dialog/DeleteProfile';
 import UserProfileDialog from '../Dialog/UserProfileDialog';
 import ProfileBO from '../../API/ProfileBO';
 
+/**
+ * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
+ */
+
+
 class ProfileOperations extends Component {
   constructor(props){
    super(props);
+
+   //Einzelne Bedeutung der Variablen, siehe ProfileBO
     let fn = '', ln = '',  sem='', maj='', hob='', int = '',
           pers='', lerns='', studyt='', studyp='', studyf = '', work='', age= 0;
 
@@ -29,7 +36,6 @@ class ProfileOperations extends Component {
       studyplace: studyp,
       studyfrequence: studyf,
       workexperience: work,
-      // users:[]
    };
    this.baseState = this.state;
   }
@@ -62,10 +68,11 @@ class ProfileOperations extends Component {
   //   }
   // }
 
-
+  //Behandelt die Eingabe der Textfelder
   handleChange = (e) =>{
     this.setState({ [e.target.name] : e.target.value });}
 
+  //Fetched des Profils des CurrentUser
   getProfile = () => {
     let data = 1;
     LernappAPI.getAPI().getProfile(data).then(profile =>
@@ -87,20 +94,20 @@ class ProfileOperations extends Component {
       }))
 
   }
-
+  //Wird bei Klick auf Löschen aufgerufen
   deleteButtonClicked = (event) => {
     event.stopPropagation();
     this.setState({
       showDeleteProfile: true
     });
   }
-
+  //OnClose von Delete Profile Dialog
   closeDeleteDialog = () => {
       this.setState({
       showDeleteProfile: false
     });
   }
-
+  //Wird bei Klick auf Bearbeiten aufgerufen
   editButtonClicked = (event) => {
     event.stopPropagation();
     this.setState({
@@ -108,6 +115,7 @@ class ProfileOperations extends Component {
     });
   }
 
+  // OnClose von UserProfileDialog
 closeEditDialog = (profile) => {
   if (profile) {
     this.setState({
@@ -122,11 +130,11 @@ closeEditDialog = (profile) => {
 }
 
 
-
+//Updaten des Profils, wird mit Props an UserProfileDialog weitergegeben
 updateProfile = () => {
-  // clone the original cutomer, in case the backend call fails
+  // Klonen des originalen Profils, falls Backend Call fehlschlägt
   let updatedProfile = Object.assign(new ProfileBO(), this.state.profile);
-  // set the new attributes from our dialog
+  //Neues Profil setzen
   updatedProfile.setLastname(this.state.last_name);
   updatedProfile.setFirstname(this.state.first_name);
   updatedProfile.setAge(parseInt(this.state.age));
@@ -142,7 +150,7 @@ updateProfile = () => {
   updatedProfile.setWorkexperience(this.state.workexperience);
 
   LernappAPI.getAPI().updateProfile(updatedProfile).then(console.log(updatedProfile)).then(profil => {
-    // keep the new state as base state
+    // Neuer State wird als basestate gesetzt
     this.baseState.first_name = this.state.first_name;
     this.baseState.last_name = this.state.last_name;
     this.baseState.age =  this.state.age;
@@ -156,8 +164,7 @@ updateProfile = () => {
     this.baseState.studyplace = this.state.studyplace;
     this.baseState.studyfrequence =  this.state.studyfrequence;
     this.baseState.workexperience = this.state.workexperience;
-    this.closeEditDialog(updatedProfile)
-      // call the parent with the new customer
+    this.closeEditDialog(updatedProfile) // Dialog wird geschlossen
   });
 }
 

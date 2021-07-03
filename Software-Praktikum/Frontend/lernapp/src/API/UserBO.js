@@ -1,6 +1,15 @@
 import BusinessObject from "./BusinessObject.js"
 
+/**
+ * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
+ */
+
 export default class UserBO extends BusinessObject{
+    /**
+   * @param {*} name- Name des Users
+   * @param {*} email - Google-Email des Users
+   * @param {*} user_id- die User ID
+   */
 
     constructor(name, email, user_id) {
         super();
@@ -9,6 +18,7 @@ export default class UserBO extends BusinessObject{
         this.user_id = user_id
 
     }
+    //Hier folgen die Setter und Getter der einzelnen Parameter
 
     setName(name) {
         this.name = name;
@@ -44,7 +54,6 @@ export default class UserBO extends BusinessObject{
                 result.push(c);
             })
         } else {
-            // Es handelt sich offenbar um ein singuläres Objekt
             let c = user;
             Object.setPrototypeOf(c, UserBO.prototype);
             result.push(c);

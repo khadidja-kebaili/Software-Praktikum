@@ -7,27 +7,27 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+/**
+ * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
+ */
 
 class LeaveGroup extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-    };
   }
 
+  //Aufruf bei Verlassen der Gruppe, der Chataccess der Person wird gelöscht mithilfe der Profilid und der Chatid
     leaveGroup= () => {
       let data = 1;
       LernappAPI.getAPI().deleteTargetedChataccess(data, this.props.groups.getChatid()).then(this.props.onClose(this.props.groups))
       };
 
+  //Aufruf bei Abbruch
   handleClose = () => {
-    // console.log(event);
     this.props.onClose(null);
   }
 
-  /** Renders the component */
   render() {
 
         return (
