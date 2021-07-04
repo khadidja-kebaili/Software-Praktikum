@@ -12,6 +12,7 @@ import ChataccessBO from '../../API/ChataccessBO';
 
 /**
  * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
+ * Hinzufügen von Mitgliedern, in dem man nach dem Nachnamen eines Members sucht
  */
 
 class AddMember extends Component {
