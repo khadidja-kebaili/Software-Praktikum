@@ -43,6 +43,7 @@ def secured(function):
                         """Fall: Der Benutzer war bislang noch nicht eingelogged. 
                         Wir legen daher ein neues User-Objekt an, um dieses ggf. später
                         nutzen zu können.
+                        Mergefehler
                         """
                         user = adm.create_user(name, email, google_user_id)
                         profile = adm.create_profile(
