@@ -11,24 +11,23 @@
     }
   
     /**
-     * Sets the ID of this BusinessObject.
-     * Setzt den ID für die BusinessObject.
+     * Setzt ID des Businessobjekts.
      * 
-     * @param {*} aId - the new ID of this BusinessObject
+     * @param {*} aId - neue ID für Businessobjekt.
      */
     setID(aId) {
       this.id = aId;
     }
   
     /**
-     * Returns the ID of this BusinessObject.
+     * Gibt die ID des Businessobjekts zurück.
      */
     getID() {
       return this.id;
     }
   
     /**
-     * Returns a string representation of this Object. This is useful for debugging purposes.
+     * Gibt einen representativen String des Objekts zurück.
      */
     toString() {
       let result = '';

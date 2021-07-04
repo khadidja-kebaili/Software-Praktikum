@@ -13,8 +13,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import SignIn from './Components/Pages/SignIn';
 import firebaseConfig from './firebaseConfig';
-
-
+import ContextErrorMessage from "./Components/Dialog/ContextErrorMessage";
 
 /**
  * 
@@ -116,7 +115,7 @@ class App extends React.Component {
 //Durch Redirect kann die URL weitergeleietet werden.
 //Route ermöglicht es dass eine bestimmte Path zugeordnet werden kann.
   render(){
-    const { currentUser} = this.state;
+    const { currentUser, appError} = this.state;
     return(
       
         <div>
@@ -157,8 +156,8 @@ class App extends React.Component {
               }
 
             </Container>
-            
           </Router>
+			<ContextErrorMessage error={appError} contextErrorMsg={`Something went wrong inside the app. Please reload the page.`} />
           </div>
     )
   }

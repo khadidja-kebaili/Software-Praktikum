@@ -15,6 +15,7 @@ import DeleteRequest from "./Dialog/DeleteRequest";
 
 /**
  * @author: [Khadidja Kebaili]
+ * @coauthor: [Lena Tolmatschow]
  */
 
 class GroupList extends Component {

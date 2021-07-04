@@ -3,14 +3,7 @@ import Button from '@material-ui/core/Button';
 import LernappAPI from "../../API/LernappAPI";
 import "./GroupOperations.css"
 import AddMember from '../Dialog/AddMember';
-import GroupForm from '../Dialog/GroupForm';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  Switch
-} from "react-router-dom";
+import {BrowserRouter as Router, Route, Link, Redirect, Switch } from "react-router-dom";
 
 class GroupOperations extends Component {
   constructor(props){

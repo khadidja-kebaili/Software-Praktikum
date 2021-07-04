@@ -24,7 +24,7 @@ class RequestGroupListEntry extends Component{
 
         this.state={
             requestGroup: props.requests,
-            currentUser: 6,
+            currentUser: 1,
             showDeleteGroupRequest: false,
             tabindex: 0,
             group: "",

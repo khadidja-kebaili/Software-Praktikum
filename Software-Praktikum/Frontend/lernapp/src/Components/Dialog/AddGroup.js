@@ -6,6 +6,8 @@ import GroupBO from "../../API/GroupBO";
 import {DialogContent, Dialog, DialogContentText, DialogActions, DialogTitle} from "@material-ui/core";
 
 /**
+ * Dialog für das Erstellen einer neuen Gruppe. Der currentUser ist hierbei automatisch auch der Gruppenadmin.
+ * Er kann einen Gruppennamen auswählen und eine Gruppenbeschreibung.
  *
  * @author: Khadidja Kebaili
  */
@@ -14,7 +16,7 @@ import {DialogContent, Dialog, DialogContentText, DialogActions, DialogTitle} fr
 class AddGroup extends Component {
     constructor(props){
         super(props);
-        let currentUser = 6
+        let currentUser = 1
         this.state = {
             groupname : "",
             admin : currentUser,
@@ -23,10 +25,11 @@ class AddGroup extends Component {
         };
     }
 
+    //
     handleChange = (e) =>{
         this.setState({ [e.target.name] : e.target.value });}
 
-
+    //Fügt neue Gruppe hinzu, indem es die Werte des States in ein neues GroupBO umwandelt.
     addGroup = () => {
         var chatid = 1;
         let newGroup = new GroupBO(
@@ -39,12 +42,12 @@ class AddGroup extends Component {
             this.handleClose()
     }
 
-
+    //Behandelt die Schließung des Dialogs.
     handleClose = () => {
         this.props.onClose(null);
     }
 
-
+    //Schließt den Gruppe-verlassen-Dialog
     closeLeaveGroupDialog = (groups) => {
         // if customer is not null, delete it
         if (groups) {
