@@ -18,7 +18,7 @@ class GroupListForProfile extends Component {
         // Init the state
         this.state = {
             groups: [],
-            currentUser : 6,
+            currentUser : 1,
             filteredGroups: [],
             loadingInProgress: false,
             loadingError: null,

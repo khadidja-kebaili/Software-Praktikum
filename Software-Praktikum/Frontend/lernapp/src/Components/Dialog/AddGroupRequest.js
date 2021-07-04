@@ -7,7 +7,7 @@ import LernappAPI from '../../API/LernappAPI';
 class AddGroupRequest extends Component {
     constructor(props){
         super(props);
-        let rqustBY ='', rqusted='', currentUser= 2
+        let rqustBY ='', rqusted='', currentUser= 1
 
         if (props.request){
             rqustBY = props.request.getRequestedBy();

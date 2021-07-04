@@ -19,9 +19,6 @@ export default class LernappAPI {
 
     #lernappServerBaseURL = '';
 
-    // // Local http-fake-backend
-    // #lernappServerBaseURL = 'fake_backend/Lernappconfig.js'
-
     //Group
 
     #addGroupURL = () => `${this.#lernappServerBaseURL}/group`;

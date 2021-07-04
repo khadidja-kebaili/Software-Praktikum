@@ -45,7 +45,7 @@ class DeleteRequest extends Component {
     }
 
     /**
-     * Handelt den Abbruch des Löschvorgangs oder das Schließen des Dialogs nach erfolgreichen Löschung.
+     * Behandelt den Abbruch des Löschvorgangs oder das Schließen des Dialogs nach erfolgreichen Löschung.
      */
     handleClose = () => {
         this.props.onClose(null);
