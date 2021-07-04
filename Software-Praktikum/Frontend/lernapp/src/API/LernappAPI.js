@@ -4,6 +4,7 @@ import MessageBO from './MessageBO';
 import ChatroomBO from './ChatroomBO';
 import ChataccessBO from './ChataccessBO';
 import RequestBO from "./RequestBO";
+import UserBO from "./UserBO";
 
 
 export default class LernappAPI {
@@ -84,6 +85,9 @@ export default class LernappAPI {
     //Matches
     #getMatchesURL = (id) => `${this.#lernappServerBaseURL}/matches/${id}`;
 
+    //User
+    #getUserURL = (id) => `${this.#lernappServerBaseURL}/user/${id}`;
+
 
     static getAPI() {
         if (this.#api == null){
@@ -101,6 +105,19 @@ export default class LernappAPI {
                 return res.json();
             }
         )
+
+
+    getUserByGoogleUserId (id){
+        return this.#fetchAdvanced(this.#getUserURL(id))
+            .then((responseJSON) => {
+                let UserBOs = UserBO.fromJSON(responseJSON);
+                return new Promise (function(resolve){
+                console.log(UserBOs)
+                resolve(UserBOs);
+                })
+                })
+                }
+
 
     getAllGroups() {
         return this.#fetchAdvanced(this.#getAllGroupsURL())
