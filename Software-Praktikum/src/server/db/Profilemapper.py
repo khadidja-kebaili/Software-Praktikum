@@ -22,15 +22,29 @@ class StudentprofileMapper (Mapper):
             else:
                 studentprofile.set_id(1)
 
-        command = "INSERT INTO profile (id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
+        command = "INSERT INTO profile (id, first_name, last_name, age, semester, " \
+                  "major, hobbies, interests, personality, learn_style, study_time, " \
+                  "study_place, study_frequence, work_experience, name, email, google_user_id)" \
+                  " VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s, %s,%s, %s, %s,%s, %s)"
         data = (
-            studentprofile.get_id(), studentprofile.get_last_name(),
-            studentprofile.get_first_name(), studentprofile.get_age(),
-            studentprofile.get_semester(), studentprofile.get_major(),
-            studentprofile.get_hobbys(), studentprofile.get_interests(),
-            studentprofile.get_personality(), studentprofile.get_learnstyle(),
-            studentprofile.get_studytime(), studentprofile.get_studyplace(),
-            studentprofile.get_studyfrequence(), studentprofile.get_workexperience())
+            studentprofile.get_id(), 
+            studentprofile.get_last_name(),
+            studentprofile.get_first_name(),
+            studentprofile.get_age(),
+            studentprofile.get_semester(), 
+            studentprofile.get_major(),
+            studentprofile.get_hobbies(), 
+            studentprofile.get_interests(),
+            studentprofile.get_personality(), 
+            studentprofile.get_learn_style(),
+            studentprofile.get_study_time(), 
+            studentprofile.get_study_place(),
+            studentprofile.get_study_frequence(), 
+            studentprofile.get_work_experience(), 
+            studentprofile.get_name(),
+            studentprofile.get_email(),
+            studentprofile.get_user_id()
+        )
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -43,10 +57,13 @@ class StudentprofileMapper (Mapper):
         result = []
         cursor = self._cnx.cursor()
         cursor.execute(
-            "SELECT id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience FROM profile")
+            "SELECT id, first_name, last_name, age, semester, major, hobbies, interests, personality, "
+            "learn_style, study_time, study_place, study_frequence, work_experience, name, email, google_user_id"
+            " FROM profile")
         tuples = cursor.fetchall()
 
-        for (id, first_name, last_name, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) in tuples:
+        for (id, first_name, last_name, age, semester, major, hobbies, interests, personality, learn_style,
+             study_time, study_place, study_frequence, work_experience, name, email, google_user_id) in tuples:
             profile = Studentprofile()
             profile.set_id(id)
             profile.set_first_name(first_name)
@@ -54,14 +71,17 @@ class StudentprofileMapper (Mapper):
             profile.set_age(age)
             profile.set_semester(semester)
             profile.set_major(major)
-            profile.set_hobbys(hobbys)
+            profile.set_hobbies(hobbies)
             profile.set_interests(interests)
             profile.set_personality(personality)
-            profile.set_learnstyle(learnstyle)
-            profile.set_studytime(studytime)
-            profile.set_studyplace(studyplace),
-            profile.set_studyfrequence(studyfrequence)
-            profile.set_workexperience(workexperience)
+            profile.set_learn_style(learn_style)
+            profile.set_study_time(study_time)
+            profile.set_study_place(study_place)
+            profile.set_study_frequence(study_frequence)
+            profile.set_work_experience(work_experience)
+            profile.set_name(name)
+            profile.set_email(email)
+            profile.set_user_id(google_user_id)
             result.append(profile)
 
         self._cnx.commit()
@@ -74,14 +94,15 @@ class StudentprofileMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience FROM profile WHERE id={}".format(
-            key)
+        command = "SELECT id, first_name, last_name, age, semester, major, hobbies, interests, " \
+                  "personality, learn_style, study_time, study_place, study_frequence, work_experience " \
+                  "FROM profile WHERE id={}".format(key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
         try:
-            (id, first_name, last_name, age, semester, major, hobbys, interests, personality,
-             learnstyle, studytime, studyplace, studyfrequence, workexperience) = tuples[0]
+            (id, first_name, last_name, age, semester, major, hobbies, interests, personality,
+             learn_style, study_time, study_place, study_frequence, work_experience) = tuples[0]
             profile = Studentprofile()
             profile.set_id(id)
             profile.set_first_name(first_name)
@@ -89,14 +110,56 @@ class StudentprofileMapper (Mapper):
             profile.set_age(age)
             profile.set_semester(semester)
             profile.set_major(major)
-            profile.set_hobbys(hobbys)
+            profile.set_hobbies(hobbies)
             profile.set_interests(interests)
             profile.set_personality(personality)
-            profile.set_learnstyle(learnstyle)
-            profile.set_studytime(studytime)
-            profile.set_studyplace(studyplace),
-            profile.set_studyfrequence(studyfrequence)
-            profile.set_workexperience(workexperience)
+            profile.set_learn_style(learn_style)
+            profile.set_study_time(study_time)
+            profile.set_study_place(study_place),
+            profile.set_study_frequence(study_frequence)
+            profile.set_work_experience(work_experience)
+            result = profile
+        except IndexError:
+            result = None
+
+        self._cnx.commit()
+        cursor.close()
+
+        return result
+
+    def find_by_google_user_id(self, key):
+        """Auslesen eines bestimmten Profils, anhand der gegebenen ID"""
+        result = None
+
+        cursor = self._cnx.cursor()
+        command = "SELECT id, first_name, last_name, age, semester, major, hobbies, interests, " \
+                  "personality, learn_style, study_time, study_place, study_frequence, work_experience," \
+                  "name, email, google_user_id FROM profile WHERE google_user_id={}".format(key)
+        cursor.execute(command)
+        tuples = cursor.fetchall()
+
+        try:
+            (id, first_name, last_name, age, semester, major, hobbies, interests, personality,
+             learn_style, study_time, study_place, study_frequence, work_experience, name,
+             email, google_user_id) = tuples[0]
+            profile = Studentprofile()
+            profile.set_id(id)
+            profile.set_first_name(first_name)
+            profile.set_last_name(last_name)
+            profile.set_age(age)
+            profile.set_semester(semester)
+            profile.set_major(major)
+            profile.set_hobbies(hobbies)
+            profile.set_interests(interests)
+            profile.set_personality(personality)
+            profile.set_learn_style(learn_style)
+            profile.set_study_time(study_time)
+            profile.set_study_place(study_place),
+            profile.set_study_frequence(study_frequence)
+            profile.set_work_experience(work_experience)
+            profile.set_name(name)
+            profile.set_email(email)
+            profile.set_user_id(google_user_id)
             result = profile
         except IndexError:
             result = None
@@ -111,15 +174,25 @@ class StudentprofileMapper (Mapper):
 
         cursor = self._cnx.cursor()
 
-        command = "UPDATE profile " + "SET firstname=%s, lastname=%s, age=%s, semester=%s, major=%s, hobbys=%s, interests=%s, personality=%s, learnstyle=%s, studytime=%s, studyplace=%s, studyfrequence=%s, workexperience=%s  WHERE id=%s"
+        command = "UPDATE profile " + "SET first_name=%s, last_name=%s, age=%s, semester=%s," \
+                                      " major=%s, hobbies=%s, interests=%s, personality=%s, learn_style=%s, " \
+                                      "study_time=%s, study_place=%s, study_frequence=%s, work_experience=%s  " \
+                                      "WHERE google_user_id=%s"
         data = (
             studentprofile.get_last_name(),
-            studentprofile.get_first_name(), studentprofile.get_age(),
-            studentprofile.get_semester(), studentprofile.get_major(),
-            studentprofile.get_hobbys(), studentprofile.get_interests(),
-            studentprofile.get_personality(), studentprofile.get_learnstyle(),
-            studentprofile.get_studytime(), studentprofile.get_studyplace(),
-            studentprofile.get_studyfrequence(), studentprofile.get_workexperience(), studentprofile.get_id(),)
+            studentprofile.get_first_name(), 
+            studentprofile.get_age(),
+            studentprofile.get_semester(), 
+            studentprofile.get_major(),
+            studentprofile.get_hobbies(), 
+            studentprofile.get_interests(),
+            studentprofile.get_personality(), 
+            studentprofile.get_learn_style(),
+            studentprofile.get_study_time(), 
+            studentprofile.get_study_place(),
+            studentprofile.get_study_frequence(), 
+            studentprofile.get_work_experience(), 
+            studentprofile.get_id(),)
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -142,7 +215,7 @@ class StudentprofileMapper (Mapper):
         """Auslesen aller Kunden anhand des Nachnamen"""
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, firstname, lastname FROM profile WHERE lastname LIKE '{}' ORDER BY lastname".format(
+        command = "SELECT id, first_name, last_name FROM profile WHERE last_name LIKE '{}' ORDER BY last_name".format(
             name)
         cursor.execute(command)
         tuples = cursor.fetchall()

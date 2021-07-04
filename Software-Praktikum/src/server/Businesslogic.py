@@ -11,9 +11,6 @@ from server.bo.MessageBO import MessageBO
 from server.db.MessageMapper import MessageMapper
 from server.bo.ChatroomBO import ChatroomBO
 from server.db.ChatroomMapper import ChatroomMapper
-from .bo.UserBO import User
-from .db.UserMapper import UserMapper
-
 
 class Businesslogic(object):
 
@@ -24,54 +21,41 @@ class Businesslogic(object):
 
     def create_user(self, name, email, google_user_id):
         """Einen Benutzer anlegen"""
-        user = User()
+        user = Studentprofile()
         user.set_name(name)
         user.set_email(email)
         user.set_user_id(google_user_id)
         user.set_id(1)
 
-        with UserMapper() as mapper:
+        with StudentprofileMapper() as mapper:
             return mapper.insert(user)
 
-    def get_user_by_name(self, name):
-        """Alle Benutzer mit Namen name auslesen."""
-        with UserMapper() as mapper:
-            return mapper.find_by_name(name)
+    # def get_user_by_name(self, name):
+    #     """Alle Benutzer mit Namen name auslesen."""
+    #     with StudentprofileMapper() as mapper:
+    #         return mapper.find_by_name(name)
 
-    def get_user_by_id(self, number):
-        """Den Benutzer mit der gegebenen ID auslesen."""
-        with UserMapper() as mapper:
-            return mapper.find_by_key(number)
-
-    def get_user_by_email(self, email):
-        """Alle Benutzer mit gegebener E-Mail-Adresse auslesen."""
-        with UserMapper() as mapper:
-            return mapper.find_by_email(email)
+    # def get_user_by_id(self, number):
+    #     """Den Benutzer mit der gegebenen ID auslesen."""
+    #     with StudentprofileMapper() as mapper:
+    #         return mapper.find_by_key(number)
+    #
+    # def get_user_by_email(self, email):
+    #     """Alle Benutzer mit gegebener E-Mail-Adresse auslesen."""
+    #     with StudentprofileMapper() as mapper:
+    #         return mapper.find_by_email(email)
 
     def get_user_by_google_user_id(self, id):
         """Den Benutzer mit der gegebenen Google ID auslesen."""
-        with UserMapper() as mapper:
+        with StudentprofileMapper() as mapper:
             return mapper.find_by_google_user_id(id)
 
-    def get_all_users(self):
-        """Alle Benutzer auslesen."""
-        with UserMapper() as mapper:
-            return mapper.find_all()
-
-    def save_user(self, user):
-        """Den gegebenen Benutzer speichern."""
-        with UserMapper() as mapper:
-            mapper.update(user)
-
-    def delete_user(self, user):
-        """Den gegebenen Benutzer aus unserem System löschen."""
-        with UserMapper() as mapper:
-            mapper.delete(user)
 
     # Profile
 
-    def create_profile(self, first_name, last_name, age, semester, major, hobbys, interests,
-                       personality, learnstyle, studytime, studyplace, studyfrequence, workexperience):
+    def create_profile(self, first_name, last_name, age, semester, major, hobbies, interests,
+                       personality, learn_style, study_time, study_place, study_frequence, work_experience,
+                       name, email, google_user_id):
         """Ein Profil anlegen"""
         studentprofile = Studentprofile()
         studentprofile.set_first_name(first_name)
@@ -79,14 +63,17 @@ class Businesslogic(object):
         studentprofile.set_age(age)
         studentprofile.set_semester(semester)
         studentprofile.set_major(major)
-        studentprofile.set_hobbys(hobbys)
+        studentprofile.set_hobbies(hobbies)
         studentprofile.set_interests(interests)
         studentprofile.set_personality(personality)
-        studentprofile.set_learnstyle(learnstyle)
-        studentprofile.set_studytime(studytime)
-        studentprofile.set_studyplace(studyplace)
-        studentprofile.set_studyfrequence(studyfrequence)
-        studentprofile.set_workexperience(workexperience)
+        studentprofile.set_learn_style(learn_style)
+        studentprofile.set_study_time(study_time)
+        studentprofile.set_study_place(study_place)
+        studentprofile.set_study_frequence(study_frequence)
+        studentprofile.set_work_experience(work_experience)
+        studentprofile.set_name(name)
+        studentprofile.set_email(email)
+        studentprofile.set_user_id(google_user_id)
 
         with StudentprofileMapper() as mapper:
             return mapper.insert(studentprofile)
@@ -155,14 +142,14 @@ class Businesslogic(object):
         Dazu gibt es die Methoden get_learning_habits, set_score & set_matching_list '''
 
     '''Zuerst werden die für den Profilvergleich relevanten Attribute der Profile als sogenannte learning-habits
-    zusammengefasst. Dazu zählen Semester (1-7), Lernzeitraum (studytime), Lernort (studyplace), Lerntyp (learnstyle),
+    zusammengefasst. Dazu zählen Semester (1-7), Lernzeitraum (study_time), Lernort (study_place), Lerntyp (learn_style),
      Studiengang (major) und Lernfrequenz (studyfrequenz).'''
 
     def get_learning_habits(self, id):
         profile = self.get_profile_by_id(id)
-        learning_habits = [profile.get_studytime(), profile.get_semester(), profile.get_studyplace(),
-                           profile.get_learnstyle(), profile.get_hobbys(), profile.get_major(),
-                           profile.get_studyfrequence()]
+        learning_habits = [profile.get_study_time(), profile.get_semester(), profile.get_study_place(),
+                           profile.get_learn_style(), profile.get_hobbies(), profile.get_major(),
+                           profile.get_study_frequence()]
         return learning_habits
 
     '''In dieser Funktion werden die Lerngewohnheiten von einem Profil mit einem anderen verglichen und anhand
@@ -496,7 +483,10 @@ class Businesslogic(object):
                 self.delete_request(element)
 #
 # l = Businesslogic()
-# l.create_request(1,6,'E',0)
-# l.create_request(2,6,'E',0)
-# l.create_request(3,6,'E',0)
-# l.create_request(4,6,'E',0)
+# # l.create_request(1,6,'E',0)
+# # l.create_request(2,6,'E',0)
+# # l.create_request(3,6,'E',0)
+# # l.create_request(4,6,'E',0)
+# liste = [l.get_user_by_google_user_id(1)]
+# if liste[0] == None:
+#     print('leer')

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import LernappAPI from "../../API/LernappAPI";
 import MessageBO from '../../API/MessageBO';
-import {TextField,
-        Button} from '@material-ui/core/';
+import {TextField, Button} from '@material-ui/core/';
 
 class AddMessage extends Component{
     constructor(props){
