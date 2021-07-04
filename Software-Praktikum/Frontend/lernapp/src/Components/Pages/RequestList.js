@@ -23,7 +23,8 @@ class RequestList extends Component {
         this.state={
             request: [],
             requestGroup: [],
-            groupRequests: null
+            groupRequests: null,
+            newRoom: null
             
             
         };
@@ -60,25 +61,24 @@ class RequestList extends Component {
             this.setState({
                 requestGroup: requestBOs,
             }))
-        }
+    }
 
-        //Die Request werden gefiltert/abgeglichen und in den in dem Array gespeichert
-        requestDeleted = request => {
-        const newRequestList = this.state.request.filter(requestFromState => requestFromState.getID() !== request.getID());
+    //Die Request werden gefiltert/abgeglichen und in den in dem Array gespeichert
+    requestDeleted = request => {
+    const newRequestList = this.state.request.filter(requestFromState => requestFromState.getID() !== request.getID());
+    this.setState({
+        request: newRequestList,
+    });
+    }
+
+    //Die Request werden gefiltert/abgeglichen und in den in dem Array gespeichert
+    groupRequestDeleted = request => {
+        const newRequestList = this.state.requestGroup.filter(requestFromState => requestFromState.getID() !== request.getID());
         this.setState({
-            request: newRequestList,
+            requestGroup: newRequestList,
         });
-        }
+    }
 
-        //Die Request werden gefiltert/abgeglichen und in den in dem Array gespeichert
-        groupRequestDeleted = request => {
-            const newRequestList = this.state.requestGroup.filter(requestFromState => requestFromState.getID() !== request.getID());
-            this.setState({
-                requestGroup: newRequestList,
-            });
-        }
-
- 
 
     //Die Komponente die gerendert werden
     render(){

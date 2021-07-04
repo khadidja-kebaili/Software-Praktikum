@@ -248,6 +248,14 @@ class ChatroomWithIDOperations(Resource):
         else:
             return '', 500
 
+@api.route('/singlechatroom/')
+class LatestChatroom(Resource):
+    @api.marshal_with(chatroom)
+    def get(self):
+        adm = Businesslogic()
+        room = adm.latest_room()
+        return room
+
 # @api.route('/singlechatroom/<int:id>/user_two/<int:id>')
 # @api.param('id', 'ID des Profils', 'id - ID des Profils' )
 # class ChatroomAfterRequest(Resource):
