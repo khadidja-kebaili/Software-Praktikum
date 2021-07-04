@@ -45,6 +45,8 @@ def secured(function):
                         nutzen zu können.
                         """
                         user = adm.create_user(name, email, google_user_id)
+                        profile = adm.create_profile(
+                            user.get_id(), "", "", 0, 0, "", "", "", "", "", "", "", 0, "")
 
                     print(request.method, request.path,
                           "angefragt durch:", name, email)
