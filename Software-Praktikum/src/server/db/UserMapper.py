@@ -21,7 +21,7 @@ class UserMapper (Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT * from users")
+        cursor.execute("SELECT * from user")
         tuples = cursor.fetchall()
 
         for (id, name, email, user_id) in tuples:
@@ -46,8 +46,7 @@ class UserMapper (Mapper):
         """
         result = []
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, email, google_user_id FROM users WHERE name LIKE '{}' ORDER BY name".format(
-            name)
+        command = "SELECT id, name, email, google_user_id FROM user WHERE name LIKE '{}' ORDER BY name".format(name)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -76,8 +75,7 @@ class UserMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, email, google_user_id FROM users WHERE id={}".format(
-            key)
+        command = "SELECT id, name, email, google_user_id FROM user WHERE id={}".format(key)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -109,8 +107,7 @@ class UserMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, email, google_user_id FROM users WHERE email={}".format(
-            mail_address)
+        command = "SELECT id, name, email, google_user_id FROM user WHERE email={}".format(mail_address)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -143,8 +140,7 @@ class UserMapper (Mapper):
         result = None
 
         cursor = self._cnx.cursor()
-        command = "SELECT id, name, email, google_user_id FROM users WHERE google_user_id='{}'".format(
-            google_user_id)
+        command = "SELECT id, name, email, google_user_id FROM user WHERE google_user_id='{}'".format(google_user_id)
         cursor.execute(command)
         tuples = cursor.fetchall()
 
@@ -176,7 +172,7 @@ class UserMapper (Mapper):
         :return das bereits übergebene Objekt, jedoch mit ggf. korrigierter ID.
         """
         cursor = self._cnx.cursor()
-        cursor.execute("SELECT MAX(id) AS maxid FROM users ")
+        cursor.execute("SELECT MAX(id) AS maxid FROM user ")
         tuples = cursor.fetchall()
 
         for (maxid) in tuples:
@@ -189,9 +185,8 @@ class UserMapper (Mapper):
                 davon aus, dass die Tabelle leer ist und wir mit der ID 1 beginnen können."""
                 user.set_id(1)
 
-        command = "INSERT INTO users (id, name, email, google_user_id) VALUES (%s,%s,%s,%s)"
-        data = (user.get_id(), user.get_name(),
-                user.get_email(), user.get_user_id())
+        command = "INSERT INTO user (id, name, email, google_user_id) VALUES (%s,%s,%s,%s)"
+        data = (user.get_id(), user.get_name(), user.get_email(), user.get_user_id())
         cursor.execute(command, data)
 
         self._cnx.commit()
@@ -206,7 +201,7 @@ class UserMapper (Mapper):
         """
         cursor = self._cnx.cursor()
 
-        command = "UPDATE users " + "SET name=%s, email=%s WHERE google_user_id=%s"
+        command = "UPDATE user " + "SET name=%s, email=%s WHERE google_user_id=%s"
         data = (user.get_name(), user.get_email(), user.get_user_id())
         cursor.execute(command, data)
 
@@ -220,7 +215,7 @@ class UserMapper (Mapper):
         """
         cursor = self._cnx.cursor()
 
-        command = "DELETE FROM users WHERE id={}".format(user.get_id())
+        command = "DELETE FROM user WHERE id={}".format(user.get_id())
         cursor.execute(command)
 
         self._cnx.commit()

@@ -11,8 +11,8 @@ from server.bo.MessageBO import MessageBO
 from server.db.MessageMapper import MessageMapper
 from server.bo.ChatroomBO import ChatroomBO
 from server.db.ChatroomMapper import ChatroomMapper
-from .bo.UserBO import User
-from .db.UserMapper import UserMapper
+from server.bo.UserBO import User
+from server.db.UserMapper import UserMapper
 
 
 class Businesslogic(object):
@@ -79,14 +79,14 @@ class Businesslogic(object):
         studentprofile.set_age(age)
         studentprofile.set_semester(semester)
         studentprofile.set_major(major)
-        studentprofile.set_hobbys(hobbys)
+        studentprofile.set_hobbies(hobbys)
         studentprofile.set_interests(interests)
         studentprofile.set_personality(personality)
-        studentprofile.set_learnstyle(learnstyle)
-        studentprofile.set_studytime(studytime)
-        studentprofile.set_studyplace(studyplace)
-        studentprofile.set_studyfrequence(studyfrequence)
-        studentprofile.set_workexperience(workexperience)
+        studentprofile.set_learn_style(learnstyle)
+        studentprofile.set_study_time(studytime)
+        studentprofile.set_study_place(studyplace)
+        studentprofile.set_study_frequence(studyfrequence)
+        studentprofile.set_work_experience(workexperience)
         studentprofile.set_id(id)
 
         with StudentprofileMapper() as mapper:
@@ -159,12 +159,12 @@ class Businesslogic(object):
     zusammengefasst. Dazu zählen Semester (1-7), Lernzeitraum (studytime), Lernort (studyplace), Lerntyp (learnstyle),
      Studiengang (major) und Lernfrequenz (studyfrequenz).'''
 
-    def get_learning_habbits(self, id):
+    def get_learning_habits(self, id):
         profile = self.get_profile_by_id(id)
-        learning_habbits = [profile.get_studytime(), profile.get_semester(), profile.get_studyplace(),
-                            profile.get_learnstyle(), profile.get_hobbys(), profile.get_major(),
-                            profile.get_studyfrequence()]
-        return learning_habbits
+        learning_habits = [profile.get_study_time(), profile.get_semester(), profile.get_study_place(),
+                           profile.get_learn_style(), profile.get_hobbies(), profile.get_major(),
+                           profile.get_study_frequence()]
+        return learning_habits
 
     '''In dieser Funktion werden die Lerngewohnheiten von einem Profil mit einem anderen verglichen und anhand
     der Gemeinsamkeiten ein Score berechnet. 
@@ -175,8 +175,8 @@ class Businesslogic(object):
         1. Studentens mit der profile1 auch in der Liste der Lerngewohnheiten des 2. Studentens mit der profile2 ist,
          so steigt der match_score um eins.'''
         match_score = 0
-        list1 = self.get_learning_habbits(profile1)
-        list2 = self.get_learning_habbits(profile2)
+        list1 = self.get_learning_habits(profile1)
+        list2 = self.get_learning_habits(profile2)
         for element in list1:
             if element in list2:
                 match_score += 1
