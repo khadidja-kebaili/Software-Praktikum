@@ -399,7 +399,7 @@ class Profilanzeigen (Resource):
         return userprofile
 
     @api.marshal_with(profile)
-    # @secured
+    @secured
     def delete(self, id):
         """Löschen eines bestimmten Profil-Objekts"""
         adm = Businesslogic()
@@ -408,7 +408,7 @@ class Profilanzeigen (Resource):
         return ''
 
     @api.marshal_with(profile)
-    # @secured
+    @secured
     @api.expect(profile, validate=True)
     def put(self, id):
         """Update eines bestimmten Profil-Objekts"""

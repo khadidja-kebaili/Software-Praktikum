@@ -16,11 +16,11 @@ class StudentprofileMapper (Mapper):
         cursor.execute("SELECT MAX(id) AS maxid FROM profile ")
         tuples = cursor.fetchall()
 
-        for (maxid) in tuples:
-            if maxid[0] is not None:
-                studentprofile.set_id(maxid[0] + 1)
-            else:
-                studentprofile.set_id(1)
+        # for (maxid) in tuples:
+        #     if maxid[0] is not None:
+        #         studentprofile.set_id(maxid[0] + 1)
+        #     else:
+        #         studentprofile.set_id(1)
 
         command = "INSERT INTO profile (id, firstname, lastname, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience) VALUES (%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s,%s,%s, %s)"
         data = (

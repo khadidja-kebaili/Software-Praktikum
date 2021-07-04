@@ -70,7 +70,7 @@ class Businesslogic(object):
 
     # Profil
 
-    def create_profile(self, first_name, last_name, age, semester, major, hobbys, interests,
+    def create_profile(self, id, first_name, last_name, age, semester, major, hobbys, interests,
                        personality, learnstyle, studytime, studyplace, studyfrequence, workexperience):
         """Ein Profil anlegen"""
         studentprofile = Studentprofile()
@@ -87,6 +87,7 @@ class Businesslogic(object):
         studentprofile.set_studyplace(studyplace)
         studentprofile.set_studyfrequence(studyfrequence)
         studentprofile.set_workexperience(workexperience)
+        studentprofile.set_id(id)
 
         with StudentprofileMapper() as mapper:
             return mapper.insert(studentprofile)
