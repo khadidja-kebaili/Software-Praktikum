@@ -74,7 +74,8 @@ class ProfileOperations extends Component {
 
   //Fetched des Profils des CurrentUser
   getProfile = () => {
-    let data = 1;
+    let data = this.props.googleId
+    console.log(data)
     LernappAPI.getAPI().getProfile(data).then(profile =>
       this.setState({
         profile: profile,
