@@ -98,7 +98,7 @@ class UserProfileDialog extends Component {
                     <MenuItem value={"WM7"}>WM7</MenuItem>
               </Select>
               </FormControl>
-              <div className="Textfield" className={classes.Textfield}><TextField name="hobbys" label="Hobbies" variant="outlined"value ={this.props.hobbys} onChange={this.props.handleChange}/></div>
+              <div className="Textfield" className={classes.Textfield}><TextField name="hobbies" label="Hobbies" variant="outlined"value ={this.props.hobbies} onChange={this.props.handleChange}/></div>
               <div className="Textfield" className={classes.Textfield}><TextField name="interests" label="Interessen" variant="outlined" value ={this.props.interests} onChange={this.props.handleChange}/></div>
               <div className="radio">
               <FormLabel component="legend">Personality (introvertiert 1 - extrovertiert 5)</FormLabel>
@@ -116,7 +116,7 @@ class UserProfileDialog extends Component {
               <FormControl className="Select" className={classes.Select}>
               <InputLabel> &nbsp; Lerntyp</InputLabel>
               <Select
-                    name="learnstyle" variant="outlined" value={this.props.learnstyle} 
+                    name="learn_style" variant="outlined" value={this.props.learn_style} 
                     onChange={this.props.handleChange}>
                     <MenuItem value={"auditiv"}>auditiv</MenuItem> 
                     <MenuItem value={"kommunikativ"}>kommunikativ</MenuItem>
@@ -127,8 +127,8 @@ class UserProfileDialog extends Component {
               <FormControl className="Select" className={classes.Select}>
               <InputLabel> &nbsp; Lernzeitraum</InputLabel>
               <Select
-                    name="studytime" variant="outlined"
-                    value={this.props.studytime} 
+                    name="study_time" variant="outlined"
+                    value={this.props.study_time} 
                     onChange={this.props.handleChange}>
                     <MenuItem value={"Morgens"}>Morgens</MenuItem> 
                     <MenuItem value={"Mittags"}>Mittags</MenuItem>
@@ -139,8 +139,8 @@ class UserProfileDialog extends Component {
               <FormControl className="Select" className={classes.Select}>
               <InputLabel> &nbsp; Lernort</InputLabel>
                 <Select
-                    name="studyplace" variant="outlined"
-                    value={this.props.studyplace} 
+                    name="study_place" variant="outlined"
+                    value={this.props.study_place} 
                     onChange={this.props.handleChange}>
                     <MenuItem value={"Universität"}>Universität</MenuItem> 
                     <MenuItem value={"Online Meetings"}>Online Meetings</MenuItem>
@@ -149,8 +149,8 @@ class UserProfileDialog extends Component {
                 <FormControl className="Select" className={classes.Select}>
                 <InputLabel> &nbsp; Lernfrequenz</InputLabel>
                 <Select
-                    name="studyfrequence" variant="outlined"
-                    value={this.props.studyfrequence} 
+                    name="study_frequence" variant="outlined"
+                    value={this.props.study_frequence} 
                     onChange={this.props.handleChange}>
                     <MenuItem value={1}>1x pro Woche</MenuItem> 
                     <MenuItem value={2}>2x pro Woche</MenuItem>
@@ -161,7 +161,7 @@ class UserProfileDialog extends Component {
                     <MenuItem value={7}>7x pro Woche</MenuItem>
                 </Select>
                 </FormControl>
-                <div className="Textfield" className={classes.Textfield}><TextField name="workexperience" label="Berufserfahrung" variant="outlined" value ={this.props.workexperience} onChange={this.props.handleChange} /></div>
+                <div className="Textfield" className={classes.Textfield}><TextField name="work_experience" label="Berufserfahrung" variant="outlined" value ={this.props.work_experience} onChange={this.props.handleChange} /></div>
                </div>
               </form>
           </DialogContent>
