@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_restx import Resource, Api, fields
+
 from server.Businesslogic import Businesslogic
 from server.bo.MessageBO import MessageBO
 from server.bo.ChatroomBO import ChatroomBO
@@ -29,14 +30,14 @@ profile = api.inherit('Profile', bo, {
     'age': fields.Integer(attribute='age', description='age'),
     'semester': fields.Integer(attribute='semester', description='semester'),
     'major': fields.String(attribute='major', description='major'),
-    'hobbies': fields.String(attribute='hobbies', description='hobbies'),
+    'hobbys': fields.String(attribute='hobbys', description='hobbys'),
     'interests': fields.String(attribute='interests', description='interests'),
     'personality': fields.String(attribute='personality', description='personality'),
-    'learn_style': fields.String(attribute='learn_style', description='learn_style'),
-    'study_time': fields.String(attribute='study_time', description='study_time'),
-    'study_place': fields.String(attribute='study_place', description='study_place'),
-    'study_frequence': fields.Integer(attribute='study_frequence', description='study_frequence'),
-    'work_experience': fields.String(attribute='work_experience', description='work_experience'),
+    'learnstyle': fields.String(attribute='learnstyle', description='learnstyle'),
+    'studytime': fields.String(attribute='studytime', description='studytime'),
+    'studyplace': fields.String(attribute='studyplace', description='studyplace'),
+    'studyfrequence': fields.Integer(attribute='studyfrequence', description='studyfrequence'),
+    'workexperience': fields.String(attribute='workexperience', description='workexperience'),
 })
 
 group = api.inherit('Group', bo, {
@@ -73,11 +74,11 @@ matchmaker_profile = api.inherit('Profil', bo, {
     'semester': fields.Integer(attribute='semester', description='semester'),
     'major': fields.String(attribute='major', description='major'),
     'personality': fields.String(attribute='personality', description='personality'),
-    'learn_style': fields.String(attribute='learn_style', description='learn_style'),
-    'study_time': fields.String(attribute='study_time', description='study_time'),
-    'study_place': fields.String(attribute='study_place', description='study_place'),
-    'study_frequence': fields.Integer(attribute='study_frequence', description='study_frequence'),
-    'work_experience': fields.String(attribute='work_experience', description='work_experience'),
+    'learnstyle': fields.String(attribute='learnstyle', description='learnstyle'),
+    'studytime': fields.String(attribute='studytime', description='studytime'),
+    'studyplace': fields.String(attribute='studyplace', description='studyplace'),
+    'studyfrequence': fields.Integer(attribute='studyfrequence', description='studyfrequence'),
+    'workexperience': fields.String(attribute='workexperience', description='workexperience'),
 })
 
 request = api.inherit('Request', bo, {
@@ -92,7 +93,6 @@ request = api.inherit('Request', bo, {
 @api.route('/user')
 class UserOperations(Resource):
     @api.marshal_list_with(user)
-    @secured
     def get(self):
         """Auslesen aller User Objekte"""
         adm = Businesslogic()
@@ -106,7 +106,6 @@ class UserOperations(Resource):
 class MessageOperations(Resource):
     @api.marshal_with(message)
     @api.expect(message)
-    @secured
     def post(self):
         adm = Businesslogic()
         proposal = MessageBO.from_dict(api.payload)
@@ -119,7 +118,6 @@ class MessageOperations(Resource):
             return p
 
     @api.marshal_list_with(message)
-    @secured
     def get(self):
         adm = Businesslogic()
         msg = adm.get_all_messages()
@@ -130,14 +128,12 @@ class MessageOperations(Resource):
 @api.param('id', 'Die ID der Nachricht')
 class MessageWithIDOperations(Resource):
     @api.marshal_with(message)
-    @secured
     def get(self, id):
         adm = Businesslogic()
         msg = adm.get_message_by_id(id)
         return msg
 
     @api.marshal_with(message)
-    @secured
     def delete(self, id):
         adm = Businesslogic()
         msgs = adm.get_message_by_id(id)
@@ -146,7 +142,6 @@ class MessageWithIDOperations(Resource):
 
     @api.marshal_with(message)
     @api.expect(message, validate=True)
-    @secured
     def put(self, id):
         adm = Businesslogic()
         p = MessageBO.from_dict(api.payload)
@@ -163,7 +158,6 @@ class MessageWithIDOperations(Resource):
 @api.param('room', 'Die Id des Chatraums')
 class FindMessagesByRoom(Resource):
     @api.marshal_with(message)
-    @secured
     def get(self, room):
         adm = Businesslogic()
         messages = adm.get_messages_by_room_id(room)
@@ -175,7 +169,6 @@ class FindMessagesByRoom(Resource):
 class ChatroomOperations(Resource):
     @api.marshal_with(chatroom)
     @api.expect(chatroom)
-    @secured
     def post(self):
         adm = Businesslogic()
         proposal = ChatroomBO.from_dict(api.payload)
@@ -186,7 +179,6 @@ class ChatroomOperations(Resource):
             return p
 
     @api.marshal_list_with(chatroom)
-    @secured
     def get(self):
         adm = Businesslogic()
         room = adm.get_all_rooms()
@@ -197,14 +189,12 @@ class ChatroomOperations(Resource):
 @api.param('id', 'Die ID des Chatraums')
 class ChatroomWithIDOperations(Resource):
     @api.marshal_with(chatroom)
-    @secured
     def get(self, id):
         adm = Businesslogic()
         room = adm.get_room_by_id(id)
         return room
 
     @api.marshal_with(chatroom)
-    @secured
     def delete(self, id):
         adm = Businesslogic()
         room = adm.get_room_by_id(id)
@@ -213,7 +203,6 @@ class ChatroomWithIDOperations(Resource):
 
     @api.marshal_with(chatroom)
     @api.expect(chatroom, validate=True)
-    @secured
     def put(self, id):
         adm = Businesslogic()
         p = ChatroomBO.from_dict(api.payload)
@@ -231,7 +220,6 @@ class ChatroomWithIDOperations(Resource):
 class ChataccessOperations(Resource):
     @api.marshal_with(chataccess)
     @api.expect(chataccess)
-    @secured
     def post(self):
         adm = Businesslogic()
         proposal = ChatAccessBO.from_dict(api.payload)
@@ -244,7 +232,6 @@ class ChataccessOperations(Resource):
             return p
 
     @api.marshal_with(chataccess)
-    @secured
     def get(self):
         adm = Businesslogic()
         access = adm.get_all_chataccess()
@@ -255,14 +242,12 @@ class ChataccessOperations(Resource):
 @api.param('id', 'Die ID des Chataccess')
 class ChataccessWithIDOperations(Resource):
     @api.marshal_with(chataccess)
-    @secured
     def get(self, id):
         adm = Businesslogic()
         access = adm.get_chataccess_by_id(id)
         return access
 
     @api.marshal_with(chataccess)
-    @secured
     def delete(self, id):
         adm = Businesslogic()
         adm.delete_chataccess(id)
@@ -270,7 +255,6 @@ class ChataccessWithIDOperations(Resource):
 
     @api.marshal_with(chataccess)
     @api.expect(chatroom, validate=True)
-    @secured
     def put(self, id):
         adm = Businesslogic()
         p = ChatAccessBO.from_dict(api.payload)
@@ -288,7 +272,6 @@ class ChataccessWithIDOperations(Resource):
 @api.param('room', 'Id des Chatraums')
 class FindMembers(Resource):
     @api.marshal_with(member)
-    @secured
     def get(self, room):
         adm = Businesslogic()
         profiles = adm.get_profiles_by_room(room)
@@ -301,7 +284,6 @@ class FindMembers(Resource):
 class ChataccessNewMembers (Resource):
     @api.marshal_with(chataccess)
     @api.expect(chataccess)
-    @secured
     def post(self):
         adm = Businesslogic()
         proposal = ChatAccessBO.from_dict(api.payload)
@@ -320,7 +302,6 @@ class ChataccessNewMembers (Resource):
 @api.param('profile_id', 'Id des Profils')
 class FindGroupchats(Resource):
     @api.marshal_with(chatroom)
-    @secured
     def get(self, profile_id):
         adm = Businesslogic()
         rooms = adm.get_groupchats_by_profile(profile_id)
@@ -331,7 +312,6 @@ class FindGroupchats(Resource):
 @api.param('profile_id', 'Id des Profils')
 class FindSinglechats(Resource):
     @api.marshal_with(chatroom)
-    @secured
     def get(self, profile_id):
         adm = Businesslogic()
         rooms = adm.get_singlechats_by_profile(profile_id)
@@ -342,7 +322,6 @@ class FindSinglechats(Resource):
 @api.param('profile_id', 'Id des Profils')
 class FindChatsByProfile(Resource):
     @api.marshal_with(chatroom)
-    @secured
     def get(self, profile_id):
         adm = Businesslogic()
         rooms = adm.get_chatroom_by_profile(profile_id)
@@ -353,7 +332,6 @@ class FindChatsByProfile(Resource):
 @api.param('room', 'ID des Raums', 'profile_id - ID des Profils')
 class GetChatpartner(Resource):
     @api.marshal_with(profile)
-    @secured
     def get(self, room, profile_id):
         adm = Businesslogic()
         partner = adm.get_second_profile(room, profile_id)
@@ -364,7 +342,6 @@ class GetChatpartner(Resource):
 @api.param('profile_id', 'ID des Profils', 'room - ID des Raums')
 class DeleteTargetedChataccess(Resource):
     @api.marshal_with(chataccess)
-    @secured
     def delete(self, profile_id, room):
         adm = Businesslogic()
         # access = [adm.get_chatacces_by_profile(profile_id)]
@@ -381,7 +358,7 @@ class DeleteTargetedChataccess(Resource):
 class ProfilOperations(Resource):
     @ api.marshal_with(profile)
     @ api.expect(profile)
-    @secured
+    # @secured
     def post(self):
         """Anlegen eines neuen Profil-Objekts"""
         adm = Businesslogic()
@@ -393,11 +370,11 @@ class ProfilOperations(Resource):
                 proposal.get_first_name(),
                 proposal.get_last_name(), proposal.get_age(),
                 proposal.get_semester(), proposal.get_major(),
-                proposal.get_hobbies(), proposal.get_interests(),
-                proposal.get_personality(), proposal.get_learn_style(),
-                proposal.get_study_time(), proposal.get_study_place(),
-                proposal.get_study_frequence(),
-                proposal.get_work_experience()
+                proposal.get_hobbys(), proposal.get_interests(),
+                proposal.get_personality(), proposal.get_learnstyle(),
+                proposal.get_studytime(), proposal.get_studyplace(),
+                proposal.get_studyfrequence(),
+                proposal.get_workexperience()
             )
             return p
 
@@ -431,8 +408,8 @@ class Profilanzeigen (Resource):
         return ''
 
     @api.marshal_with(profile)
-    @api.expect(profile, validate=True)
     @secured
+    @api.expect(profile, validate=True)
     def put(self, id):
         """Update eines bestimmten Profil-Objekts"""
         adm = Businesslogic()
@@ -450,7 +427,6 @@ class Profilanzeigen (Resource):
 @api.param('lastname', 'Der Nachname des Kunden')
 class ProfilesByNameOperations(Resource):
     @api.marshal_with(member)
-    @secured
     def get(self, lastname):
         """Auslesen von Profil-Objekten, die durch den Nachnamen bestimmt werden"""
         adm = Businesslogic()
@@ -464,7 +440,6 @@ class ProfilesByNameOperations(Resource):
 class GroupOperations(Resource):
     @api.marshal_with(group)
     @api.expect(group)
-    @secured
     def post(self):
         adm = Businesslogic()
         proposal = Group.from_dict(api.payload)
@@ -479,7 +454,6 @@ class GroupOperations(Resource):
             return p
 
     @api.marshal_with(group)
-    @secured
     def get(self):
         adm = Businesslogic()
         groups = adm.get_all_groups()
@@ -490,7 +464,6 @@ class GroupOperations(Resource):
 @api.param('id', 'Die ID des Gruppen-Objekts')
 class Gruppeanzeigen (Resource):
     @api.marshal_with(group)
-    @secured
     def get(self, id):
         adm = Businesslogic()
         group = adm.get_group_by_id(id)
@@ -498,7 +471,6 @@ class Gruppeanzeigen (Resource):
 
     @api.marshal_with(group)
     @api.expect(group, validate=True)
-    @secured
     def put(self, id):
         adm = Businesslogic()
         g = Group.from_dict(api.payload)
@@ -515,7 +487,6 @@ class Gruppeanzeigen (Resource):
 @api.param('ID eingeben für Profil')
 class GroupsforProfile(Resource):
     @api.marshal_with(group)
-    @secured
     def get(self, id):
         adm = Businesslogic()
         return adm.get_group_by_profileid(id)
@@ -525,7 +496,6 @@ class GroupsforProfile(Resource):
 @api.route('/member')
 class MemberOperations(Resource):
     @api.marshal_list_with(member)
-    @secured
     def get(self):
         adm = Businesslogic()
         members = adm.get_members()
@@ -536,7 +506,6 @@ class MemberOperations(Resource):
 @api.param('lastname', 'Der Nachname des Kunden')
 class ProfilesByNameOperations(Resource):
     @api.marshal_with(member)
-    @secured
     def get(self, lastname):
         adm = Businesslogic()
         profile = adm.get_profile_by_name(lastname)
@@ -548,7 +517,6 @@ class ProfilesByNameOperations(Resource):
 class RequestOperations(Resource):
     @api.marshal_with(request)
     @api.expect(request)
-    @secured
     def post(self):
         adm = Businesslogic()
         proposal = Request.from_dict(api.payload)
@@ -564,7 +532,6 @@ class RequestOperations(Resource):
             return p
 
     @api.marshal_list_with(request)
-    @secured
     def get(self):
         adm = Businesslogic()
         requests = adm.get_all_requests()
@@ -575,7 +542,6 @@ class RequestOperations(Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class ProfileofRequestanzeigen (Resource):
     @api.marshal_with(matchmaker_profile)
-    @secured
     def get(self, id):
         adm = Businesslogic()
         request = adm.get_profiles_of_request(id)
@@ -586,7 +552,6 @@ class ProfileofRequestanzeigen (Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class RequestofProfile(Resource):
     @api.marshal_with(request)
-    @secured
     def get(self, id):
         adm = Businesslogic()
         request = adm.get_request_of_profile(id)
@@ -597,7 +562,6 @@ class RequestofProfile(Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class RequestofGroup(Resource):
     @api.marshal_with(request)
-    @secured
     def get(self, id):
         adm = Businesslogic()
         request = adm.get_request_of_groups(id)
@@ -608,14 +572,12 @@ class RequestofGroup(Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class Requestanzeigen(Resource):
     @api.marshal_with(request)
-    @secured
     def get(self, id):
         adm = Businesslogic()
         request = adm.get_request_by_id(id)
         return request
 
     @api.marshal_with(request)
-    @secured
     def delete(self, id):
         adm = Businesslogic()
         request = adm.get_request_by_id(id)
@@ -626,7 +588,6 @@ class Requestanzeigen(Resource):
 @api.param('id1', 'id des requested', 'id2 - id des requested_by')
 class ProfileRequestDelete(Resource):
     @api.marshal_with(request)
-    @secured
     def delete(self, id1, id2):
         adm = Businesslogic()
         requests = adm.get_all_requests()
@@ -639,7 +600,6 @@ class ProfileRequestDelete(Resource):
 @api.param('id1', 'id des requested', 'id2 - id des requested_by')
 class GroupRequestDelete(Resource):
     @api.marshal_with(request)
-    @secured
     def delete(self, id1, id2):
         adm = Businesslogic()
         requests = adm.get_request_of_profile(id1)
@@ -651,14 +611,12 @@ class GroupRequestDelete(Resource):
 @api.route('/matches/<int:id>')
 class Matcher(Resource):
     @api.marshal_with(matchmaker_profile)
-    @secured
     def get(self, id):
         adm = Businesslogic()
         matches = adm.set_matching_list(id)
         return matches
 
     @api.marshal_with(request)
-    @secured
     def delete(self, id):
         adm = Businesslogic()
         request = adm.get_request_by_id(id)

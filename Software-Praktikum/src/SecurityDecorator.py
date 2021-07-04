@@ -6,6 +6,7 @@ from server.Businesslogic import Businesslogic
 
 
 def secured(function):
+
     firebase_request_adapter = requests.Request()
 
     def wrapper(*args, **kwargs):
@@ -21,7 +22,6 @@ def secured(function):
                 claims = google.oauth2.id_token.verify_firebase_token(
                     id_token, firebase_request_adapter)
 
-
                 if claims is not None:
                     adm = Businesslogic()
 
@@ -29,26 +29,24 @@ def secured(function):
                     email = claims.get("email")
                     name = claims.get("name")
 
-                    liste = [adm.get_all_profiles()]
-                    if google_user_id in liste:
-                        profile = adm.get_user_by_google_user_id(google_user_id)
-
-                        if profile is not None:
-                            """Fall: Der Benutzer ist unserem System bereits bekannt.
-                            Wir gehen davon aus, dass die google_user_id sich nicht ändert.
-                            Wohl aber können sich der zugehörige Klarname (name) und die
-                            E-Mail-Adresse ändern. Daher werden diese beiden Daten sicherheitshalber
-                            in unserem System geupdated."""
-                            profile.set_name(name)
-                            profile.set_email(email)
-                            adm.save_profile(profile)
+                    user = adm.get_user_by_google_user_id(google_user_id)
+                    if user is not None:
+                        """Fall: Der Benutzer ist unserem System bereits bekannt.
+                        Wir gehen davon aus, dass die google_user_id sich nicht ändert.
+                        Wohl aber können sich der zugehörige Klarname (name) und die
+                        E-Mail-Adresse ändern. Daher werden diese beiden Daten sicherheitshalber
+                        in unserem System geupdated."""
+                        user.set_name(name)
+                        user.set_email(email)
+                        adm.save_user(user)
                     else:
                         """Fall: Der Benutzer war bislang noch nicht eingelogged. 
                         Wir legen daher ein neues User-Objekt an, um dieses ggf. später
                         nutzen zu können.
                         """
-                        adm.create_profile("", "", 0, 0, "", "", "", "", "", 0, "", 0, "", name, email,
-                                                     google_user_id)
+                        user = adm.create_user(name, email, google_user_id)
+                        profile = adm.create_profile(
+                            user.get_id(), "", "", 0, 0, "", "", "", "", "", "", "", 0, "")
 
                     print(request.method, request.path,
                           "angefragt durch:", name, email)
