@@ -37,11 +37,11 @@ export default class ProfileBO extends BusinessObject {
     this.hobbys = aHobbys;
     this.interests = aInterests;
     this.personality = aPersonality;
-    this.learnstyle = aLearnstyle;
-    this.studytime = aStudytime;
-    this.studyplace = aStudyplace;
-    this.studyfrequence = aStudyfrequence;
-    this.workexperience = aWorkexperience
+    this.learn_style = aLearnstyle;
+    this.study_time = aStudytime;
+    this.study_place = aStudyplace;
+    this.study_frequence = aStudyfrequence;
+    this.work_experience = aWorkexperience
   }
 
   //Hier folgen die Setters und Getters für die einzelnen Parameter
@@ -119,48 +119,48 @@ export default class ProfileBO extends BusinessObject {
   }
 
   setLearnstyle(aLearnstyle) {
-    this.learnstyle = aLearnstyle;
+    this.learn_style = aLearnstyle;
   }
 
  
   getLearnstyle() {
-    return this.learnstyle;
+    return this.learn_style;
   }
 
   setStudytime(aStudytime) {
-    this.studytime = aStudytime;
+    this.study_time = aStudytime;
   }
 
  
   getStudytime() {
-    return this.studytime;
+    return this.study_time;
   }
 
   setStudyfrequence (aStudyfrequence) {
-    this.studyfrequence = aStudyfrequence;
+    this.study_frequence = aStudyfrequence;
   }
 
  
   getStudyfrequence() {
-    return this.studyfrequence;
+    return this.study_frequence;
   }
 
   setStudyplace(aStudyplace) {
-    this.studyplace = aStudyplace;
+    this.study_place = aStudyplace;
   }
 
  
   getStudyplace() {
-    return this.studyplace;
+    return this.study_place;
   }
 
   setWorkexperience(aWorkexperience) {
-    this.workexperience = aWorkexperience;
+    this.work_experience = aWorkexperience;
   }
 
  
   getWorkexperience() {
-    return this.workexperience;
+    return this.work_experience;
   }
 
 
