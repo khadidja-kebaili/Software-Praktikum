@@ -26,6 +26,8 @@ class RequestListEntry extends Component{
             profileFirstName: null,
             profileLastName: null,
             profile: null,
+            newRoom: null,
+            googleId: props.googleId
 
         };
     }
@@ -83,16 +85,39 @@ class RequestListEntry extends Component{
     //     LernappAPI.getAPI().addChataccess(access2).then(console.log(access2));
     // }
 
+    newChat(){
+        let data = this.props.googleId
+        console.log(data)
+        let room = new ChatroomBO('E');
+        LernappAPI.getAPI().addChatroom(room).then(console.log(room));
+
+        LernappAPI.getAPI().getLatestChatroom().then(res => {
+            this.setState({
+                newRoom: res[0].getID()
+            }, function(){
+                let access = new ChataccessBO(
+                    data,
+                    this.state.newRoom,
+                    'E'
+                )
+                let access2 = new ChataccessBO(
+                    this.state.request.getRequestedBy(),
+                    this.state.newRoom,
+                    'E'
+                )
+                LernappAPI.getAPI().addChataccess(access).then(console.log(access))
+                LernappAPI.getAPI().addChataccess(access2).then(console.log(access2))
+            }, function(){
+                console.log("Ende")
+            })
+        })
+    }
+
     // ComponentDidMount() wird unmittelbar nach dem Mounten einer Komponente 
     //aufgerufen (in den Baum eingefügt)
     componentDidMount() {
         const {request} = this.state
         this.getProfileById(request.getRequestedBy())
-        // this.newGroup()
-        // console.log("cdm")
-        // let data = this.state.request.getRequestedBy();
-        // this.newChat(data)
-
     }
 
 
@@ -102,18 +127,17 @@ class RequestListEntry extends Component{
             <div>
                 <Typography>
                     {this.state.profileFirstName } {this.state.profileLastName} möchte mit dir chatten!
-                <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
-                <Tab label='Annehmen' component={RouterLink} to={'/chats'} onClick={this.newGroup}/>
-                </Tabs>
-                <div className="DeleteButton">
-                <div className="RequestLöschen">
-                <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>
-                </div>
-                <DeleteRequest deleteRequest = {this.deleteGroupRequest} show={this.state.showDeleteRequest} request={request} onClose={this.deleteRequestDialogClosed}/>
-                </div>
-                
+                    {/* <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
+                        <Tab label='Annehmen' component={RouterLink} to={'/chats'} />
+                    </Tabs> */}
+                    <Button color="primary" size="large" onClick={this.newChat}>Annehmen</Button>
+                    <div className="DeleteButton">
+                        <div className="RequestLöschen">
+                            <Button color="primary" size="large" onClick={this.deleteRequestButtonClicked}> Ablehnen</Button>
+                        </div>
+                    <DeleteRequest deleteRequest = {this.deleteGroupRequest} show={this.state.showDeleteRequest} request={request} onClose={this.deleteRequestDialogClosed}/>
+                    </div>               
                 </Typography>           
-            
             </div>
         );
     }

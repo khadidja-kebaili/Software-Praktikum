@@ -355,6 +355,14 @@ class Businesslogic(object):
         with ChatroomMapper() as mapper:
             return mapper.update(room)
 
+    # gibt die Größte Id der Chaträume zurück
+    def latest_room(self):
+        with ChatroomMapper() as mapper:
+            hold = mapper.latest_room()
+            return mapper.find_by_key(hold)
+
+
+
     # def create_chatroom_after_request(self, user1, user2):
     #     chatroom = ChatroomBO()
     #     chatroom.set_chattype('E')

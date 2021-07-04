@@ -29,6 +29,20 @@ class ChatroomMapper(Mapper):
         cursor.close()
         return room
 
+    def latest_room(self):
+        cursor = self._cnx.cursor()
+        cursor.execute("SELECT MAX(id) AS maxid FROM chatroom")
+        tuples = cursor.fetchall()
+
+        for (maxid) in tuples:
+            for elem in maxid:
+                res = elem
+            
+        self._cnx.commit()
+        cursor.close()
+        return res
+
+
     def delete(self, room):
         cursor = self._cnx.cursor()
         command = "DELETE FROM lernapp.chatroom WHERE id={}".format(room.get_id())

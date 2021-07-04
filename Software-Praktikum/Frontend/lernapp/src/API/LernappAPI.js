@@ -34,6 +34,7 @@ export default class LernappAPI {
     #getChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
     #deleteChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
     #updateChatroomURL = (id) => `${this.#lernappServerBaseURL}/chatroom/${id}`;
+    #getLatestChatroomURL = () => `${this.#lernappServerBaseURL}/singlechatroom`;
    
 
     //Request
@@ -202,6 +203,15 @@ export default class LernappAPI {
             })
         })
 
+    }
+
+    getLatestChatroom(){
+        return this.#fetchAdvanced(this.#getLatestChatroomURL()).then((responseJSON) => {
+            let responseChatroom = ChatroomBO.fromJSON(responseJSON);
+            return new Promise(function (resolve) {
+                resolve(responseChatroom)
+            })
+        })
     }
 
     //Group
