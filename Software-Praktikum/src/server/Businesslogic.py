@@ -122,7 +122,7 @@ class Businesslogic(object):
     def create_group(self, groupname, admin, description):
         chatroom = self.create_chatroom('G')
         chataccess = self.create_chataccess(
-            admin, chatroom.get_id(), chatroom.get_chattype())
+            admin, chatroom.get_id(), 'G')
         group = Group()
         group.set_groupname(groupname)
         group.set_admin(admin)
@@ -337,7 +337,7 @@ class Businesslogic(object):
         chatroom = ChatroomBO()
         chatroom.set_chattype(chattype)
         with ChatroomMapper() as mapper:
-            mapper.insert(chatroom)
+            return mapper.insert(chatroom)
 
     def get_all_rooms(self):
         with ChatroomMapper() as mapper:

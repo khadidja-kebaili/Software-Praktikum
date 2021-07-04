@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withStyles, ListItem } from '@material-ui/core';
 import { Button, List } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import LernappAPI  from '../API/LernappAPI';
@@ -11,7 +9,6 @@ import LoadingProgress from "./Dialog/LoadingProgress";
 // import ContextErrorMessage from "./dialogs/ContextErrorMessage";
 import Typography from "@material-ui/core/Typography";
 import AddGroup from "./Dialog/AddGroup";
-import DeleteRequest from "./Dialog/DeleteRequest";
 
 /**
  * @author: [Khadidja Kebaili]

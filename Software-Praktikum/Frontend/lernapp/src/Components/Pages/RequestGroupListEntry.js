@@ -2,9 +2,7 @@ import React,{Component} from 'react';
 import {Typography} from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import LernappAPI from '../../API/LernappAPI';
-import RequestBO from '../../API/RequestBO';
-import {BrowserRouter as Router,
-    Switch, Route, Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink} from "react-router-dom";
 import {Tab, Tabs } from '@material-ui/core';
 import DeleteGroupRequest from "./../Dialog/DeleteGroupRequest"
 
@@ -106,19 +104,5 @@ class RequestGroupListEntry extends Component{
     }
 }
 
-// /** Component specific styles */
-// const styles = theme => ({
-//     root: {
-//         width: '100%'
-//     },
-//     buttonMargin: {
-//         marginRight: theme.spacing(2),
-//     },
-//     groupEntry: {
-//         fontSize: theme.typography.pxToRem(15),
-//         flexBasis: '33.33%',
-//         flexShrink: 0,
-//     }
-// });
     
 export default RequestGroupListEntry;

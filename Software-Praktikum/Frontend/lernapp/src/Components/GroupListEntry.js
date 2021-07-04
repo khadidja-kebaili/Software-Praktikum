@@ -14,6 +14,7 @@ import GroupEditDialog from './Dialog/GroupEditDialog';
  *
  * @author: Khadidja Kebaili
  * @coauthor: Mihriban Dogan
+ * @coauthor: Lena Tolmatschow
  */
 
 

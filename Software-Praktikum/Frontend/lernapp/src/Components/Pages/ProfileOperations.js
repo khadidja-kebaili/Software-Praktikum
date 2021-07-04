@@ -43,31 +43,6 @@ class ProfileOperations extends Component {
     this.getProfile();
   }
 
-
-  // doesProfileExist(){
-  //   if (LernappAPI.getAPI().getProfile(this.props.currentUser.getID())) {
-  //     this.getProfile()
-  //     //sollte umbenannt werden sonst kommt es zur Verwirrung zu getProfiles oder so
-  //   } else {
-  //     let newProfile = new ProfileBO(
-  //       this.state.currentUser.getID(),
-  //       this.state.last_name,
-  //       this.state.first_name,
-  //       this.state.age,
-  //       this.state.semester,
-  //       this.state.major,
-  //       this.state.hobbies,
-  //       this.state.interests,
-  //       this.state.personality,
-  //       this.state.learn_style,
-  //       this.state.study_time,
-  //       this.state.study_place,
-  //       this.state.study_frequence,
-  //       this.state.work_experience);
-  //     LernappAPI.getAPI().addProfile(newProfile)
-  //   }
-  // }
-
   //Behandelt die Eingabe der Textfelder
   handleChange = (e) =>{
     this.setState({ [e.target.name] : e.target.value });}

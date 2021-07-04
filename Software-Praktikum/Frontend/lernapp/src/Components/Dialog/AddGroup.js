@@ -36,7 +36,7 @@ class AddGroup extends Component {
             data,
             this.state.description,
             chatid);
-
+            console.log(this.props.googleId)
             LernappAPI.getAPI().addGroup(newGroup).then(console.log(newGroup));
             this.handleClose()
     }

@@ -3,8 +3,6 @@ import {Typography} from '@material-ui/core';
 import { Button, Tab, Tabs } from '@material-ui/core';
 import LernappAPI from '../../API/LernappAPI';
 import DeleteRequest from '../Dialog/DeleteRequest';
-import {BrowserRouter as Router,
-    Switch, Route, Link as RouterLink} from "react-router-dom";
 import ChatroomBO from '../../API/ChatroomBO';
 import ChataccessBO from '../../API/ChataccessBO';
 
@@ -67,25 +65,6 @@ class RequestListEntry extends Component{
         })
     }
 
-    // newChat(data){
-    //     let room = new ChatroomBO(
-    //         'E'
-    //     );
-    //     LernappAPI.getAPI().addChatroom(room).then(console.log(room));
-    //     let access1 = new ChataccessBO(
-    //         this.props.googleId,
-    //         room.getID(),
-    //         'E'
-    //     );
-    //     LernappAPI.getAPI().addChataccess(access1).then(console.log(access1));
-    //     let access2 = new ChataccessBO(
-    //         data,
-    //         room.getID(),
-    //         'E'
-    //     );
-    //     LernappAPI.getAPI().addChataccess(access2).then(console.log(access2));
-    // }
-    //
     newChat = () => {
         let data = this.props.googleId
         let room = new ChatroomBO('E');

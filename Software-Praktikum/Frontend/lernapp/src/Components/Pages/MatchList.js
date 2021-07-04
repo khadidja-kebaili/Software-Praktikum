@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
-// import LernappAPI from '../../API/LernappAPI';
+import { withStyles, Grid, Typography } from '@material-ui/core';
 import LernappAPI from '../../API/LernappAPI';
 import MatchListEntry from './MatchListEntry';
-import AddIcon from '@material-ui/icons/Add';
 
 
 /**
@@ -76,11 +72,4 @@ const styles = theme => ({
     }  
 });
 
-// //PropTypes
-// MatchList.PropTypes = {
-//     /** @ignore */
-//     classes: PropTypes.object.isRequired,
-//     /** @ignore */
-//     location: PropTypes.object.isRequired,
-// }
 export default withStyles(styles)(MatchList);
