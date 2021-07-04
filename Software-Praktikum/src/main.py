@@ -9,7 +9,10 @@ from server.bo.ChatAccessBO import ChatAccessBO
 from server.bo.ProfileBO import Studentprofile
 from server.bo.RequestBO import Request
 from server.bo.GroupBO import Group
+from server.bo.UserBO import User
+from server.db.UserMapper import UserMapper
 from SecurityDecorator import secured
+
 
 app = Flask(__name__)
 CORS(app)
