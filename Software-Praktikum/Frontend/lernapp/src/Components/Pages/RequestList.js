@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import { withStyles, Button, TextField, InputAdornment, IconButton, Grid, Typography } from '@material-ui/core';
-import { withRouter } from 'react-router-dom';
+import { withStyles, Grid, Typography } from '@material-ui/core';
 import LernappAPI from '../../API/LernappAPI';
 import RequestListEntry from './RequestListEntry';
-import AddIcon from '@material-ui/icons/Add';
 import RequestGroupListEntry from './RequestGroupListEntry';
 
 /**
@@ -109,7 +106,6 @@ class RequestList extends Component {
     }
         
 }
-    
 
 
 // Komponenten-Style wird jetzt definiert
