@@ -27,10 +27,11 @@ class RequestListEntry extends Component{
             profileLastName: null,
             profile: null,
             newRoom: null,
-            googleId: props.googleId
+            googleId: this.props.googleId
 
         };
     }
+
     //Nach dem der Request gelöscht wird, wird der Dialog geschlossen
     deleteRequestDialogClosed = (request) => {
         // Wenn Request nicht null, dann lösche diese
@@ -84,10 +85,9 @@ class RequestListEntry extends Component{
     //     );
     //     LernappAPI.getAPI().addChataccess(access2).then(console.log(access2));
     // }
-
-    newChat(){
+    //
+    newChat = () => {
         let data = this.props.googleId
-        console.log(data)
         let room = new ChatroomBO('E');
         LernappAPI.getAPI().addChatroom(room).then(console.log(room));
 
@@ -107,8 +107,6 @@ class RequestListEntry extends Component{
                 )
                 LernappAPI.getAPI().addChataccess(access).then(console.log(access))
                 LernappAPI.getAPI().addChataccess(access2).then(console.log(access2))
-            }, function(){
-                console.log("Ende")
             })
         })
     }
