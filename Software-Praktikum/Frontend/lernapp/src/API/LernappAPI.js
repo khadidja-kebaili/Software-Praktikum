@@ -10,14 +10,8 @@ export default class LernappAPI {
 
     static #api = null;
 
-    static getAPI() {
-        if (this.#api == null){
-            this.#api = new LernappAPI();}
-        return this.#api;
-    }
 
-
-    #lernappServerBaseURL = '';
+    #lernappServerBaseURL = '/api';
 
     //Group
 
@@ -89,7 +83,14 @@ export default class LernappAPI {
 
     //Matches
     #getMatchesURL = (id) => `${this.#lernappServerBaseURL}/matches/${id}`;
-    
+
+
+    static getAPI() {
+        if (this.#api == null){
+            this.#api = new LernappAPI();}
+        return this.#api;
+    }
+
 
 
     #fetchAdvanced = (url, init) => fetch(url,init)

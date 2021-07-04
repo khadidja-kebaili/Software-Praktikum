@@ -19,9 +19,6 @@ class Studentprofile (Businessobject):
         self.study_place = "",  # Der bevorzugte Lernort der Person mit dem Profil
         self.study_frequence = "",  # Die bevorzugte Lernfrequenz der Person mit dem Profil
         self.work_experience = ""  # Die vorhandene Berufserfahrung der Person mit dem Profil
-        self.name = "",  # Der Name des Benutzers.
-        self.email = "",  # Die E-Mail-Adresse des Benutzers.
-        self.user_id = "",  # Die extern verwaltete User ID.
 
     def set_last_name(self, value):
         """Setzen des Nachnamens"""
@@ -128,38 +125,14 @@ class Studentprofile (Businessobject):
         return self.work_experience
 
 
-    def get_name(self):
-        """Auslesen des Benutzernamens."""
-        return self.name
-
-    def set_name(self, value):
-        """Setzen des Benutzernamens."""
-        self.name = value
-
-    def get_email(self):
-        """Auslesen der E-Mail-Adresse."""
-        return self.email
-
-    def set_email(self, value):
-        """Setzen der E-Mail-Adresse."""
-        self.email = value
-
-    def get_user_id(self):
-        """Auslesen der externen User ID (z.B. Google ID)."""
-        return self.user_id
-
-    def set_user_id(self, value):
-        """Setzen der externen User ID (z.B. Google ID)."""
-        self.user_id = value
 
     def __str__(self):
         """Erzeugen einer einfachen textuellen Darstellung der jeweiligen Instanz."""
-        return "Profile: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {} ".format(
+        return "Profile: {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}".format(
             self.get_last_name(), self.get_first_name(), self.get_age(), self.get_semester(),
             self.get_major(), self.get_hobbies(), self.get_interests(), self.get_personality(),
             self.get_study_place(), self.get_study_time(), self.get_study_frequence(),
-            self.get_learn_style(), self.get_work_experience(), self.get_name(), self.get_email(),
-            self.get_user_id())
+            self.get_learn_style(), self.get_work_experience())
 
     @staticmethod
     def from_dict(dictionary=dict()):
@@ -179,7 +152,4 @@ class Studentprofile (Businessobject):
         obj.set_study_place(dictionary["study_place"])
         obj.set_study_frequence(dictionary["study_frequence"])
         obj.set_work_experience(dictionary["work_experience"])
-        obj.set_name(dictionary["name"])
-        obj.set_email(dictionary["email"])
-        obj.set_user_id(dictionary["user_id"])
         return obj

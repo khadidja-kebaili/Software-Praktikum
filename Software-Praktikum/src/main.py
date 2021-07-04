@@ -18,6 +18,8 @@ app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
+api = api.namespace('api', description='Funktionen der Lernapp')
+
 bo = api.model('BusinessObject', {
     'id': fields.Integer(attribute='id', description='Der Unique Identifier eines Business Object'),
 })
@@ -33,14 +35,14 @@ profile = api.inherit('Profile', bo, {
     'age': fields.Integer(attribute='age', description='age'),
     'semester': fields.Integer(attribute='semester', description='semester'),
     'major': fields.String(attribute='major', description='major'),
-    'hobbys': fields.String(attribute='hobbys', description='hobbys'),
+    'hobbies': fields.String(attribute='hobbies', description='hobbys'),
     'interests': fields.String(attribute='interests', description='interests'),
     'personality': fields.String(attribute='personality', description='personality'),
-    'learnstyle': fields.String(attribute='learnstyle', description='learnstyle'),
-    'studytime': fields.String(attribute='studytime', description='studytime'),
-    'studyplace': fields.String(attribute='studyplace', description='studyplace'),
-    'studyfrequence': fields.Integer(attribute='studyfrequence', description='studyfrequence'),
-    'workexperience': fields.String(attribute='workexperience', description='workexperience'),
+    'learn_style': fields.String(attribute='learn_style', description='learn_style'),
+    'study_time': fields.String(attribute='study_time', description='study_time'),
+    'study_place': fields.String(attribute='study_place', description='study_place'),
+    'study_frequence': fields.Integer(attribute='study_frequence', description='study_frequence'),
+    'work_experience': fields.String(attribute='work_experience', description='work_experience'),
 })
 
 group = api.inherit('Group', bo, {
@@ -91,6 +93,11 @@ request = api.inherit('Request', bo, {
     'group_id': fields.Integer(attribute='group_id', description='group_id')
 })
 
+user = api.inherit('User', bo, {
+    'name': fields.String(attribute='name', description='Name eines Benutzers'),
+    'email': fields.String(attribute='email', description='E-Mail-Adresse eines Benutzers'),
+    'user_id': fields.String(attribute='user_id', description='Google User ID eines Benutzers')
+})
 
 # User
 @api.route('/user')
