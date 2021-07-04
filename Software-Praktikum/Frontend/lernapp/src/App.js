@@ -140,7 +140,7 @@ class App extends React.Component {
                 // Is a user signed in?
 				currentUser ?
                 <>
-                  <Redirect from='/' to='profil'/>
+                  <Redirect from='/' to='matchmaker'/>
 					<Route path='/profil'>
 						<ProfileOperations googleId= {googleId}/>
 					</Route>
