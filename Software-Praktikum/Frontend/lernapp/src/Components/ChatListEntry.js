@@ -56,8 +56,11 @@ class ChatlistEntry extends Component{
      */
     getNameOfChat = () => {
         var roomtype = this.state.chats.getChatType();
+        let data = this.props.googleId
+        console.log(data)
+
         if(roomtype == 'E'){
-            LernappAPI.getAPI().getChatpartner(1, this.state.chats.getID()).then( profile =>
+            LernappAPI.getAPI().getChatpartner(data, this.state.chats.getID()).then( profile =>
                 this.setState({
                     roomnumber: this.state.chats.getID(),
                     name : profile[0].getFirstname()
@@ -98,12 +101,10 @@ class ChatlistEntry extends Component{
 
     //Input wird zu MessageBO umgewandelt und an die Datenbank geschickt
     sendMessageButtonClicked = () => {
-        /**
-         * Curerent User
-         */
+        let data = this.props.googleId
         console.log(this.state.roomnumber)
         let message = new MessageBO(
-            1,
+            data,
             this.state.roomnumber,
             this.state.newMessage
         )

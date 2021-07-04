@@ -150,7 +150,7 @@ export default class LernappAPI {
                 'Content-type': 'application/json',
             },
             body: JSON.stringify(chatroom)
-        }).them((responseJSON) => {
+        }).then((responseJSON) => {
             let responseChatroom = ChatroomBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve){
                 resolve(responseChatroom);
@@ -294,8 +294,8 @@ export default class LernappAPI {
             return new Promise(function (resolve) {
               resolve(responsegroupBO);
             })
-          })
-        }
+        })
+    }
       
     //Chataccess
 
@@ -308,7 +308,7 @@ export default class LernappAPI {
                 'Content-type': 'application/json',
             },
             body: JSON.stringify(chataccess)
-        }).them((responseJSON) => {
+        }).then((responseJSON) => {
             let responseChataccess = ChataccessBO.fromJSON(responseJSON)[0];
             return new Promise(function(resolve){
                 resolve(responseChataccess);

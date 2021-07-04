@@ -202,7 +202,7 @@ updateProfile = () => {
         }
         <div className="DeleteButton">
           <div className="KontoLöschen"><Button variant="contained" color="primary" size="large" onClick={this.deleteButtonClicked}> Profil Löschen</Button></div>
-        <DeleteProfile show={this.state.showDeleteProfile} profile={profile} onClose={this.closeDeleteDialog}/>
+        <DeleteProfile show={this.state.showDeleteProfile} profile={profile} onClose={this.closeDeleteDialog} googleId={this.props.googleId}/>
         </div>
        </div>
        <div className="Buttons">

@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import firebase from 'firebase/app';
 
 /**
  * @author [Mihriban Dogan](https://github.com/mihriban-dogan)
@@ -19,8 +20,10 @@ class DeleteProfile extends Component {
 
   //Löschen des Profils, wird bei Klick auf Löschen aufgerufen
   deleteProfile = () => {
-    let data = 6;
-    LernappAPI.getAPI().deleteProfile(data).then(this.props.onClose(null))
+    let data = this.props.googleId;
+    console.log(data);
+    LernappAPI.getAPI().deleteProfile(data).then(this.props.onClose(null));
+    firebase.auth().signOut();
     };
 
 

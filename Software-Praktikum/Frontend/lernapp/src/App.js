@@ -140,24 +140,30 @@ class App extends React.Component {
                 // Is a user signed in?
 				currentUser ?
                 <>
-                  <Redirect from='/' to='matchmaker'/>
+                  <Redirect from='/' to='home'/>
+				  <Route path='/home'>
+						<div>
+							Willkommen in der Lernapp!<br/>
+							Navigieren sie mit linker und rechter Pfeiltaste (sorry)
+						</div>
+					</Route>
 					<Route path='/profil'>
 						<ProfileOperations googleId= {googleId}/>
 					</Route>
                   <Route exact path='/request'>
-                    <RequestList currentUser = {googleId}/>
+                    <RequestList googleId = {googleId}/>
                   </Route>
                   <Route exact path='/chats'>
-                    <ChatList currentUser = {googleId}/>
+                    <ChatList googleId = {googleId}/>
                   </Route>
                   <Route path='/groups'>
-                      <GroupList currentUser = {googleId}/>
+                      <GroupList googleId = {googleId}/>
                   </Route>
                   <Route path='/mygroups'>
-                      <GroupListForProfile currentUser = {googleId}/>
+                      <GroupListForProfile googleId = {googleId}/>
                   </Route>
 					<Route exact path='/matchmaker'>
-						<MatchList currentUser = {googleId}/>
+						<MatchList googleId = {googleId}/>
 					</Route>
                 </>
                 :

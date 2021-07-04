@@ -133,13 +133,13 @@ class GroupList extends Component {
                     // Show the list of CustomerListEntry components
                     // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters
                     filteredGroups.map(groups =>
-                        <GroupListEntryAll key={groups.getID()} groups={groups}/>)
+                        <GroupListEntryAll key={groups.getID()} groups={groups} googleId={this.props.googleId}/>)
                 }
                 {/*{groups.map(groups => <GroupListEntry key={groups.getID()} groups={groups}/>)}*/}
                 <LoadingProgress show={loadingInProgress} />
                 <Button color="primary" size="large" onClick={this.addGroupButtonClicked}> Hinzufügen</Button>
                 <div>
-                    <AddGroup addGroup = {this.addGroup} show={this.state.showAddGroup} groups={groups} onClose={this.addGroupDialogClosed}/>
+                    <AddGroup addGroup = {this.addGroup} show={this.state.showAddGroup} groups={groups} googleId={this.props.googleId} onClose={this.addGroupDialogClosed}/>
                 </div>
             </div>
         );

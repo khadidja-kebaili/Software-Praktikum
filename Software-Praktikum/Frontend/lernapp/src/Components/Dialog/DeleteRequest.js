@@ -30,7 +30,7 @@ class DeleteRequest extends Component {
      * den deletingInProgress auf True, ansonsten verbleibend auf false wirft eine Fehlermeldung.
      */
 
-    deleteRequest = (id1) => {
+    deleteRequest = () => {
         let id = this.props.request.getID()
         LernappAPI.getAPI().deleteRequest(id).then(request => {
             this.setState({  //Setzt neuen State, wenn der request gefetcht wurde.
@@ -54,7 +54,7 @@ class DeleteRequest extends Component {
 
 
 
-    deleteGroupRequest = (id1) => {
+    deleteGroupRequest = () => {
         LernappAPI.getAPI().deleteRequest(this.props.requestGroup.getID()).then(request => {
             this.setState({  //Setzt neuen State, wenn der request gefetcht wurde.
                 deletingInProgress: false, //Setzt Löschvorgang im State auf false.

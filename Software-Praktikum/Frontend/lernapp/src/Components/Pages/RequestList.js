@@ -22,7 +22,6 @@ class RequestList extends Component {
         //Eine leere INIT setzten für request
         this.state={
             request: [],
-            currentUser : 6,
             requestGroup: [],
             groupRequests: null
             
@@ -46,7 +45,8 @@ class RequestList extends Component {
 
     // Die Funktion getRequest() soll die request anzeigen
     getRequestForProfile =() => {
-        LernappAPI.getAPI().getRequestForProfile(this.state.currentUser).then(requestBOs =>
+        let data = this.props.googleId
+        LernappAPI.getAPI().getRequestForProfile(data).then(requestBOs =>
             this.setState({
                 request:  requestBOs,
         
@@ -55,7 +55,8 @@ class RequestList extends Component {
     //Die Funktion getRequest() soll die Request für die Gruppe anzeigen
     getRequestForGroups = () => {
         var res = []
-        LernappAPI.getAPI().getRequestForGroups(this.state.currentUser).then(requestBOs =>
+        let data = this.props.googleId
+        LernappAPI.getAPI().getRequestForGroups(data).then(requestBOs =>
             this.setState({
                 requestGroup: requestBOs,
             }))
@@ -91,7 +92,7 @@ class RequestList extends Component {
                     </Grid>
                     {
                         request.map(requests =>
-                            <RequestListEntry key={requests.getID()} requests={requests} onRequestDeleted = {this.requestDeleted}/>)
+                            <RequestListEntry key={requests.getID()} requests={requests} googleId={this.props.googleId} onRequestDeleted = {this.requestDeleted}/>)
                             
                     }
 

@@ -50,10 +50,10 @@ class GroupListEntry extends Component {
     }
 
     addGroupRequest = () => {
-        let currentUser = 6;
+        let data = this.props.googleId
         let request_type = "G";
         let newRequest = new RequestBO(
-            currentUser,
+            data,
             this.state.groups.getAdmin(),
             request_type,
             this.props.groups.getID()

@@ -19,7 +19,7 @@ class LeaveGroup extends Component {
 
   //Aufruf bei Verlassen der Gruppe, der Chataccess der Person wird gelöscht mithilfe der Profilid und der Chatid
     leaveGroup= () => {
-      let data = 1;
+      let data = this.props.googleId
       LernappAPI.getAPI().deleteTargetedChataccess(data, this.props.groups.getChatid()).then(this.props.onClose(this.props.groups))
       };
 

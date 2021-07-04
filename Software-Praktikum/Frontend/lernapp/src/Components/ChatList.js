@@ -30,8 +30,9 @@ class ChatList extends Component{
 
     // Chaträume des aktuellen Users holen
     getChats = () => {
-        // hier muss in der Methode später die ID des aktuellen Users übergeben werden
-        LernappAPI.getAPI().getChataccessByProfile(1).then(ChatroomBOs =>
+        let data = this.props.googleId;
+        console.log(data);
+        LernappAPI.getAPI().getChataccessByProfile(data).then(ChatroomBOs =>
             this.setState({
                 chats: ChatroomBOs,
                 loadingInProgress: false,
@@ -59,7 +60,7 @@ class ChatList extends Component{
         return (
             <div>
                 {
-                    chats.map( chats => <ChatListEntry key={chats.getID()} chats={chats}/>)
+                    chats.map( chats => <ChatListEntry key={chats.getID()} chats={chats} googleId={this.props.googleId}/>)
                 }
                 <LoadingProgress show={loadingInProgress}/>
             </div>

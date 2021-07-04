@@ -5,6 +5,8 @@ import LernappAPI from '../../API/LernappAPI';
 import DeleteRequest from '../Dialog/DeleteRequest';
 import {BrowserRouter as Router,
     Switch, Route, Link as RouterLink} from "react-router-dom";
+import ChatroomBO from '../../API/ChatroomBO';
+import ChataccessBO from '../../API/ChataccessBO';
 
 /**
  * 
@@ -19,7 +21,6 @@ class RequestListEntry extends Component{
 
         this.state={
             request: props.requests,
-            currentUser: 6,
             showDeleteRequest: false,
             tabindex: 0,
             profileFirstName: null,
@@ -63,11 +64,34 @@ class RequestListEntry extends Component{
         })
     }
 
+    // newChat(data){
+    //     let room = new ChatroomBO(
+    //         'E'
+    //     );
+    //     LernappAPI.getAPI().addChatroom(room).then(console.log(room));
+    //     let access1 = new ChataccessBO(
+    //         this.props.googleId,
+    //         room.getID(),
+    //         'E'
+    //     );
+    //     LernappAPI.getAPI().addChataccess(access1).then(console.log(access1));
+    //     let access2 = new ChataccessBO(
+    //         data,
+    //         room.getID(),
+    //         'E'
+    //     );
+    //     LernappAPI.getAPI().addChataccess(access2).then(console.log(access2));
+    // }
+
     // ComponentDidMount() wird unmittelbar nach dem Mounten einer Komponente 
     //aufgerufen (in den Baum eingefügt)
     componentDidMount() {
         const {request} = this.state
         this.getProfileById(request.getRequestedBy())
+        // this.newGroup()
+        // console.log("cdm")
+        // let data = this.state.request.getRequestedBy();
+        // this.newChat(data)
 
     }
 
@@ -79,7 +103,7 @@ class RequestListEntry extends Component{
                 <Typography>
                     {this.state.profileFirstName } {this.state.profileLastName} möchte mit dir chatten!
                 <Tabs indicatorColor='primary' textColor='primary' centered value={this.state.tabindex} onChange={this.changeTab} >
-                    <Tab label='Annehmen' component={RouterLink} to={'/chats'} />
+                <Tab label='Annehmen' component={RouterLink} to={'/chats'} onClick={this.newGroup}/>
                 </Tabs>
                 <div className="DeleteButton">
                 <div className="RequestLöschen">

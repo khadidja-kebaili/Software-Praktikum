@@ -18,7 +18,6 @@ class GroupListForProfile extends Component {
         // Init the state
         this.state = {
             groups: [],
-            currentUser : 1,
             filteredGroups: [],
             loadingInProgress: false,
             loadingError: null,
@@ -35,8 +34,9 @@ class GroupListForProfile extends Component {
       }
     
 
-    getGroupsForProfile = (id) => {
-        LernappAPI.getAPI().getGroupsForProfile(id).then(groupBOs =>
+    getGroupsForProfile = () => {
+        let data = this.props.googleId
+        LernappAPI.getAPI().getGroupsForProfile(data).then(groupBOs =>
             this.setState({  // Set new state when GroupBOs have been fetched
                 groups: groupBOs,
                 filteredGroups: [...groupBOs],
@@ -56,7 +56,7 @@ class GroupListForProfile extends Component {
     }
 
     componentDidMount() {
-        this.getGroupsForProfile(this.state.currentUser)
+        this.getGroupsForProfile()
     }
 
 
@@ -70,7 +70,7 @@ class GroupListForProfile extends Component {
                     // Show the list of CustomerListEntry components
                     // Do not use strict comparison, since expandedCustomerID maybe a string if given from the URL parameters
                     filteredGroups.map(groups =>
-                        <GroupListEntry key={groups.getID()} groups={groups} onLeaveGroup={this.leaveGroup}
+                        <GroupListEntry key={groups.getID()} groups={groups} googleId={this.props.googleId} onLeaveGroup={this.leaveGroup}
                         />)
                 }
                 {/*{groups.map(groups => <GroupListEntry key={groups.getID()} groups={groups}/>)}*/}

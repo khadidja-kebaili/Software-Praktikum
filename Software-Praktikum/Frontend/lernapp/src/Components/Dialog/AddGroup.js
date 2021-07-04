@@ -16,10 +16,8 @@ import {DialogContent, Dialog, DialogContentText, DialogActions, DialogTitle} fr
 class AddGroup extends Component {
     constructor(props){
         super(props);
-        let currentUser = 1
         this.state = {
             groupname : "",
-            admin : currentUser,
             description: "",
 
         };
@@ -32,9 +30,10 @@ class AddGroup extends Component {
     //Fügt neue Gruppe hinzu, indem es die Werte des States in ein neues GroupBO umwandelt.
     addGroup = () => {
         var chatid = 1;
+        let data = this.props.googleId
         let newGroup = new GroupBO(
             this.state.groupname,
-            this.state.admin,
+            data,
             this.state.description,
             chatid);
 
@@ -63,7 +62,7 @@ class AddGroup extends Component {
 
     render() {
         let header = 'Erstelle deine eigene Lerngruppe!'
-        const {groupname, admin, description} = this.state
+        const {groupname, description} = this.state
         return (
             <div>
                 <Dialog open={this.props.show} onClose = {this.handleClose} >

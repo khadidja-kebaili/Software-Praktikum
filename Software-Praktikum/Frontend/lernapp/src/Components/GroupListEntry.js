@@ -133,7 +133,7 @@ class GroupListEntry extends Component {
                         </Typography>
                     </AccordionDetails>
                 </Accordion>
-             <LeaveGroup show={this.state.showLeaveGroup} groups={groups} onClose={this.closeLeaveGroupDialog}/>
+             <LeaveGroup show={this.state.showLeaveGroup} groups={groups} googleId={this.props.googleId} onClose={this.closeLeaveGroupDialog}/>
              <GroupEditDialog show = {this.state.showGroupEditDialog} groups={groups} onClose={this.groupEditDialogClosed} />
              {/* Von Lena eingefügt addGroupRequest
               <Button color='primary' startIcon={<AddIcon />} flex="flex-end" onClick={this.addGroupRequest}>Anfrage senden

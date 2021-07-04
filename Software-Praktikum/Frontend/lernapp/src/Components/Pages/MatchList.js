@@ -21,8 +21,7 @@ class MatchList extends Component {
         
         //Eine leere INIT setzten für matches und der CurrentUser wurde gesetzt
         this.state={
-            matches: [],
-            currentUser : 1
+            matches: []
         };
     }
         //Lifecycle Methode wird aufgerufen, wenn die Komponente in den DOM Browser eingefügt wird
@@ -34,8 +33,9 @@ class MatchList extends Component {
     
     // Die Funktion getMatchmaking() soll die matches anzeigen
     getMatchmaker =() => {
-        
-        LernappAPI.getAPI().getMatches(this.state.currentUser).then(profileBOs =>
+        let data = this.props.googleId
+        console.log(data)
+        LernappAPI.getAPI().getMatches(data).then(profileBOs =>
             this.setState({
                 matches:  profileBOs,
         
@@ -56,7 +56,7 @@ class MatchList extends Component {
                     </Grid>
                     {
                         matches.map(profiles =>
-                            <MatchListEntry key={profiles.getID()} profiles={profiles}/>)
+                            <MatchListEntry key={profiles.getID()} profiles={profiles} googleId={this.props.googleId}/>)
                             
                     }
                     

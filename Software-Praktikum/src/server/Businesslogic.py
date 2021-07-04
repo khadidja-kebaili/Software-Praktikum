@@ -337,7 +337,7 @@ class Businesslogic(object):
         chatroom = ChatroomBO()
         chatroom.set_chattype(chattype)
         with ChatroomMapper() as mapper:
-            return mapper.insert(chatroom)
+            mapper.insert(chatroom)
 
     def get_all_rooms(self):
         with ChatroomMapper() as mapper:
@@ -354,6 +354,16 @@ class Businesslogic(object):
     def update_chatroom(self, room):
         with ChatroomMapper() as mapper:
             return mapper.update(room)
+
+    # def create_chatroom_after_request(self, user1, user2):
+    #     chatroom = ChatroomBO()
+    #     chatroom.set_chattype('E')
+    #     with ChatroomMapper() as mapper:
+    #         mapper.insert(chatroom)
+    #     room_id = chatroom.get_id()
+    #     self.create_chataccess(user1, room_id, 'E')
+    #     self.create_chataccess(user2, room_id, 'E')
+    #     return room_id
 
     # def get_singlechat_rooms(self, profil):
     #     with ChatAccessMapper() as mapper:

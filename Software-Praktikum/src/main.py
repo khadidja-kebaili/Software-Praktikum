@@ -103,7 +103,7 @@ user = api.inherit('User', bo, {
 @api.route('/user')
 class UserOperations(Resource):
     @api.marshal_with(user)
-    # @secured
+    @secured
     def get(self):
         """Auslesen aller User Objekte"""
         adm = Businesslogic()
@@ -114,7 +114,7 @@ class UserOperations(Resource):
 @api.param('id', 'Id des Users')
 class UserOperations(Resource):
     @api.marshal_with(user)
-    # @secured
+    @secured
     def get(self, id):
         """Auslesen aller User Objekte"""
         adm = Businesslogic()
@@ -248,6 +248,16 @@ class ChatroomWithIDOperations(Resource):
         else:
             return '', 500
 
+# @api.route('/singlechatroom/<int:id>/user_two/<int:id>')
+# @api.param('id', 'ID des Profils', 'id - ID des Profils' )
+# class ChatroomAfterRequest(Resource):
+#     @api.marshal_with(chataccess)
+#     @secured
+#     def post(self):
+#         adm = Businesslogic()
+#         proposal = ChatAccessBO.from_dict(api.payload)
+#         if proposal is not None:
+#             p = adm.create_chataccess()
 
 # Chataccess
 @api.route('/chataccess')
@@ -451,6 +461,8 @@ class Profilanzeigen (Resource):
         adm = Businesslogic()
         userprofile = adm.get_profile_by_id(id)
         adm.delete_profile(userprofile)
+        user = adm.get_user_by_id(id)
+        adm.delete_user(user)
         return ''
 
     @api.marshal_with(profile)
@@ -598,6 +610,7 @@ class RequestOperations(Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class ProfileofRequestanzeigen (Resource):
     @api.marshal_with(matchmaker_profile)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         request = adm.get_profiles_of_request(id)

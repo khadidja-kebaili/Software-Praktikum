@@ -27,12 +27,12 @@ class MatchListEntry extends Component{
 //Diese Funktion soll in MatchListEnty ermöglichen, dass der User eine Anfrage schicken kann 
 //Diese werden im Datenbank request gespeichert
 addProfileRequest = () => {
-    let currenUser = 6;
+    let data = this.props.googleId;
     let request_type = "E";
-    let groupid = 0
+    let groupid = 0;
       let newRequest = new RequestBO(
         this.state.matches.getID(), 
-        currenUser,
+        data,
         request_type,
         groupid
 

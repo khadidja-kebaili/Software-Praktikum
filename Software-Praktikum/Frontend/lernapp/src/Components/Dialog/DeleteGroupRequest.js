@@ -22,7 +22,7 @@ class DeleteRequest extends Component {
      * Löscht einen Gruppen-Request mithilfe der RequestID. Setzt während eines erfolgreichen Löschvorgangs
      * den deletingInProgress auf True, ansonsten verbleibend auf false wirft eine Fehlermeldung.
      */
-    deleteGroupRequest = (id1) => {
+    deleteGroupRequest = () => {
         LernappAPI.getAPI().deleteRequest(this.props.requestGroup.getID()).then(request => {
             this.setState({  //Setzt neuen State, wenn der request gefetcht wurde.
                 deletingInProgress: false,   //Setzt Löschvorgang im State auf false.
