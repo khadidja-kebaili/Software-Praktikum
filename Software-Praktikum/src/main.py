@@ -96,18 +96,31 @@ request = api.inherit('Request', bo, {
 user = api.inherit('User', bo, {
     'name': fields.String(attribute='name', description='Name eines Benutzers'),
     'email': fields.String(attribute='email', description='E-Mail-Adresse eines Benutzers'),
-    'user_id': fields.String(attribute='user_id', description='Google User ID eines Benutzers')
+    'google_user_id': fields.String(attribute='user_id', description='Google User ID eines Benutzers')
 })
 
 # User
 @api.route('/user')
 class UserOperations(Resource):
-    @api.marshal_list_with(user)
+    @api.marshal_with(user)
+    # @secured
     def get(self):
         """Auslesen aller User Objekte"""
         adm = Businesslogic()
         users = adm.get_all_users()
         return users
+
+@api.route('/user/<string:id>')
+@api.param('id', 'Id des Users')
+class UserOperations(Resource):
+    @api.marshal_with(user)
+    # @secured
+    def get(self, id):
+        """Auslesen aller User Objekte"""
+        adm = Businesslogic()
+        user = adm.get_user_by_google_user_id(id)
+        return user
+
 
 # Message
 
@@ -116,6 +129,7 @@ class UserOperations(Resource):
 class MessageOperations(Resource):
     @api.marshal_with(message)
     @api.expect(message)
+    @secured
     def post(self):
         adm = Businesslogic()
         proposal = MessageBO.from_dict(api.payload)
@@ -128,6 +142,7 @@ class MessageOperations(Resource):
             return p
 
     @api.marshal_list_with(message)
+    @secured
     def get(self):
         adm = Businesslogic()
         msg = adm.get_all_messages()
@@ -138,12 +153,14 @@ class MessageOperations(Resource):
 @api.param('id', 'Die ID der Nachricht')
 class MessageWithIDOperations(Resource):
     @api.marshal_with(message)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         msg = adm.get_message_by_id(id)
         return msg
 
     @api.marshal_with(message)
+    @secured
     def delete(self, id):
         adm = Businesslogic()
         msgs = adm.get_message_by_id(id)
@@ -152,6 +169,7 @@ class MessageWithIDOperations(Resource):
 
     @api.marshal_with(message)
     @api.expect(message, validate=True)
+    @secured
     def put(self, id):
         adm = Businesslogic()
         p = MessageBO.from_dict(api.payload)
@@ -168,6 +186,7 @@ class MessageWithIDOperations(Resource):
 @api.param('room', 'Die Id des Chatraums')
 class FindMessagesByRoom(Resource):
     @api.marshal_with(message)
+    @secured
     def get(self, room):
         adm = Businesslogic()
         messages = adm.get_messages_by_room_id(room)
@@ -179,6 +198,7 @@ class FindMessagesByRoom(Resource):
 class ChatroomOperations(Resource):
     @api.marshal_with(chatroom)
     @api.expect(chatroom)
+    @secured
     def post(self):
         adm = Businesslogic()
         proposal = ChatroomBO.from_dict(api.payload)
@@ -189,6 +209,7 @@ class ChatroomOperations(Resource):
             return p
 
     @api.marshal_list_with(chatroom)
+    @secured
     def get(self):
         adm = Businesslogic()
         room = adm.get_all_rooms()
@@ -199,12 +220,14 @@ class ChatroomOperations(Resource):
 @api.param('id', 'Die ID des Chatraums')
 class ChatroomWithIDOperations(Resource):
     @api.marshal_with(chatroom)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         room = adm.get_room_by_id(id)
         return room
 
     @api.marshal_with(chatroom)
+    @secured
     def delete(self, id):
         adm = Businesslogic()
         room = adm.get_room_by_id(id)
@@ -213,6 +236,7 @@ class ChatroomWithIDOperations(Resource):
 
     @api.marshal_with(chatroom)
     @api.expect(chatroom, validate=True)
+    @secured
     def put(self, id):
         adm = Businesslogic()
         p = ChatroomBO.from_dict(api.payload)
@@ -230,6 +254,7 @@ class ChatroomWithIDOperations(Resource):
 class ChataccessOperations(Resource):
     @api.marshal_with(chataccess)
     @api.expect(chataccess)
+    @secured
     def post(self):
         adm = Businesslogic()
         proposal = ChatAccessBO.from_dict(api.payload)
@@ -242,6 +267,7 @@ class ChataccessOperations(Resource):
             return p
 
     @api.marshal_with(chataccess)
+    @secured
     def get(self):
         adm = Businesslogic()
         access = adm.get_all_chataccess()
@@ -252,12 +278,14 @@ class ChataccessOperations(Resource):
 @api.param('id', 'Die ID des Chataccess')
 class ChataccessWithIDOperations(Resource):
     @api.marshal_with(chataccess)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         access = adm.get_chataccess_by_id(id)
         return access
 
     @api.marshal_with(chataccess)
+    @secured
     def delete(self, id):
         adm = Businesslogic()
         adm.delete_chataccess(id)
@@ -265,6 +293,7 @@ class ChataccessWithIDOperations(Resource):
 
     @api.marshal_with(chataccess)
     @api.expect(chatroom, validate=True)
+    @secured
     def put(self, id):
         adm = Businesslogic()
         p = ChatAccessBO.from_dict(api.payload)
@@ -282,6 +311,7 @@ class ChataccessWithIDOperations(Resource):
 @api.param('room', 'Id des Chatraums')
 class FindMembers(Resource):
     @api.marshal_with(member)
+    @secured
     def get(self, room):
         adm = Businesslogic()
         profiles = adm.get_profiles_by_room(room)
@@ -294,6 +324,7 @@ class FindMembers(Resource):
 class ChataccessNewMembers (Resource):
     @api.marshal_with(chataccess)
     @api.expect(chataccess)
+    @secured
     def post(self):
         adm = Businesslogic()
         proposal = ChatAccessBO.from_dict(api.payload)
@@ -312,6 +343,7 @@ class ChataccessNewMembers (Resource):
 @api.param('profile_id', 'Id des Profils')
 class FindGroupchats(Resource):
     @api.marshal_with(chatroom)
+    @secured
     def get(self, profile_id):
         adm = Businesslogic()
         rooms = adm.get_groupchats_by_profile(profile_id)
@@ -322,6 +354,7 @@ class FindGroupchats(Resource):
 @api.param('profile_id', 'Id des Profils')
 class FindSinglechats(Resource):
     @api.marshal_with(chatroom)
+    @secured
     def get(self, profile_id):
         adm = Businesslogic()
         rooms = adm.get_singlechats_by_profile(profile_id)
@@ -332,6 +365,7 @@ class FindSinglechats(Resource):
 @api.param('profile_id', 'Id des Profils')
 class FindChatsByProfile(Resource):
     @api.marshal_with(chatroom)
+    @secured
     def get(self, profile_id):
         adm = Businesslogic()
         rooms = adm.get_chatroom_by_profile(profile_id)
@@ -342,6 +376,7 @@ class FindChatsByProfile(Resource):
 @api.param('room', 'ID des Raums', 'profile_id - ID des Profils')
 class GetChatpartner(Resource):
     @api.marshal_with(profile)
+    @secured
     def get(self, room, profile_id):
         adm = Businesslogic()
         partner = adm.get_second_profile(room, profile_id)
@@ -352,6 +387,7 @@ class GetChatpartner(Resource):
 @api.param('profile_id', 'ID des Profils', 'room - ID des Raums')
 class DeleteTargetedChataccess(Resource):
     @api.marshal_with(chataccess)
+    @secured
     def delete(self, profile_id, room):
         adm = Businesslogic()
         # access = [adm.get_chatacces_by_profile(profile_id)]
@@ -368,7 +404,7 @@ class DeleteTargetedChataccess(Resource):
 class ProfilOperations(Resource):
     @ api.marshal_with(profile)
     @ api.expect(profile)
-    # @secured
+    @secured
     def post(self):
         """Anlegen eines neuen Profil-Objekts"""
         adm = Businesslogic()
@@ -418,8 +454,8 @@ class Profilanzeigen (Resource):
         return ''
 
     @api.marshal_with(profile)
-    @secured
     @api.expect(profile, validate=True)
+    @secured
     def put(self, id):
         """Update eines bestimmten Profil-Objekts"""
         adm = Businesslogic()
@@ -437,6 +473,7 @@ class Profilanzeigen (Resource):
 @api.param('lastname', 'Der Nachname des Kunden')
 class ProfilesByNameOperations(Resource):
     @api.marshal_with(member)
+    @secured
     def get(self, lastname):
         """Auslesen von Profil-Objekten, die durch den Nachnamen bestimmt werden"""
         adm = Businesslogic()
@@ -450,6 +487,7 @@ class ProfilesByNameOperations(Resource):
 class GroupOperations(Resource):
     @api.marshal_with(group)
     @api.expect(group)
+    @secured
     def post(self):
         adm = Businesslogic()
         proposal = Group.from_dict(api.payload)
@@ -464,6 +502,7 @@ class GroupOperations(Resource):
             return p
 
     @api.marshal_with(group)
+    @secured
     def get(self):
         adm = Businesslogic()
         groups = adm.get_all_groups()
@@ -474,6 +513,7 @@ class GroupOperations(Resource):
 @api.param('id', 'Die ID des Gruppen-Objekts')
 class Gruppeanzeigen (Resource):
     @api.marshal_with(group)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         group = adm.get_group_by_id(id)
@@ -481,6 +521,7 @@ class Gruppeanzeigen (Resource):
 
     @api.marshal_with(group)
     @api.expect(group, validate=True)
+    @secured
     def put(self, id):
         adm = Businesslogic()
         g = Group.from_dict(api.payload)
@@ -497,6 +538,7 @@ class Gruppeanzeigen (Resource):
 @api.param('ID eingeben für Profil')
 class GroupsforProfile(Resource):
     @api.marshal_with(group)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         return adm.get_group_by_profileid(id)
@@ -506,6 +548,7 @@ class GroupsforProfile(Resource):
 @api.route('/member')
 class MemberOperations(Resource):
     @api.marshal_list_with(member)
+    @secured
     def get(self):
         adm = Businesslogic()
         members = adm.get_members()
@@ -516,6 +559,7 @@ class MemberOperations(Resource):
 @api.param('lastname', 'Der Nachname des Kunden')
 class ProfilesByNameOperations(Resource):
     @api.marshal_with(member)
+    @secured
     def get(self, lastname):
         adm = Businesslogic()
         profile = adm.get_profile_by_name(lastname)
@@ -527,6 +571,7 @@ class ProfilesByNameOperations(Resource):
 class RequestOperations(Resource):
     @api.marshal_with(request)
     @api.expect(request)
+    @secured
     def post(self):
         adm = Businesslogic()
         proposal = Request.from_dict(api.payload)
@@ -542,6 +587,7 @@ class RequestOperations(Resource):
             return p
 
     @api.marshal_list_with(request)
+    @secured
     def get(self):
         adm = Businesslogic()
         requests = adm.get_all_requests()
@@ -562,6 +608,7 @@ class ProfileofRequestanzeigen (Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class RequestofProfile(Resource):
     @api.marshal_with(request)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         request = adm.get_request_of_profile(id)
@@ -572,6 +619,7 @@ class RequestofProfile(Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class RequestofGroup(Resource):
     @api.marshal_with(request)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         request = adm.get_request_of_groups(id)
@@ -582,12 +630,14 @@ class RequestofGroup(Resource):
 @api.param('id', 'Die ID des Profil-Objekts')
 class Requestanzeigen(Resource):
     @api.marshal_with(request)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         request = adm.get_request_by_id(id)
         return request
 
     @api.marshal_with(request)
+    @secured
     def delete(self, id):
         adm = Businesslogic()
         request = adm.get_request_by_id(id)
@@ -598,6 +648,7 @@ class Requestanzeigen(Resource):
 @api.param('id1', 'id des requested', 'id2 - id des requested_by')
 class ProfileRequestDelete(Resource):
     @api.marshal_with(request)
+    @secured
     def delete(self, id1, id2):
         adm = Businesslogic()
         requests = adm.get_all_requests()
@@ -610,6 +661,7 @@ class ProfileRequestDelete(Resource):
 @api.param('id1', 'id des requested', 'id2 - id des requested_by')
 class GroupRequestDelete(Resource):
     @api.marshal_with(request)
+    @secured
     def delete(self, id1, id2):
         adm = Businesslogic()
         requests = adm.get_request_of_profile(id1)
@@ -621,12 +673,14 @@ class GroupRequestDelete(Resource):
 @api.route('/matches/<int:id>')
 class Matcher(Resource):
     @api.marshal_with(matchmaker_profile)
+    @secured
     def get(self, id):
         adm = Businesslogic()
         matches = adm.set_matching_list(id)
         return matches
 
     @api.marshal_with(request)
+    @secured
     def delete(self, id):
         adm = Businesslogic()
         request = adm.get_request_by_id(id)

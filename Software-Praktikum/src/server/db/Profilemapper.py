@@ -183,3 +183,4 @@ class StudentprofileMapper (Mapper):
         cursor.close()
 
         return result
+

@@ -14,6 +14,7 @@ import 'firebase/auth';
 import SignIn from './Components/Pages/SignIn';
 import firebaseConfig from './firebaseConfig';
 import ContextErrorMessage from "./Components/Dialog/ContextErrorMessage";
+import LernappAPI from "./API/LernappAPI"
 
 /**
  * 
@@ -33,7 +34,8 @@ class App extends React.Component {
 			currentUser: null,
 			appError: null,
 			authError: null,
-			authLoading: false
+			authLoading: false,
+			googleId: null,
 		};
 	}
 
@@ -62,12 +64,15 @@ class App extends React.Component {
 				// user information.
 				document.cookie = `token=${token};path=/`;
 				const uid = user.uid;
-				// Set the user not before the token arrived 
+				console.log('IM HEEERRREEE')
+				console.log(uid)
+				// Set the user not before the token arrived
 				this.setState({
 					currentUser: user,
 					authError: null,
-					authLoading: false
-				}); console.log(uid)
+					authLoading: false,
+				}, this.getUserId(uid)
+				);
 			}).catch(e => {
 				this.setState({
 					authError: e,
@@ -99,6 +104,15 @@ class App extends React.Component {
 		firebase.auth().signInWithRedirect(provider);
 	}
 
+	getUserId = (id) =>{
+		LernappAPI.getAPI().getUserByGoogleUserId(id).then(userBO =>{
+			this.setState({
+				googleId: userBO[0].getID()
+			})
+
+			})
+	}
+
 	/**
 	 * Lifecycle method, which is called when the component gets inserted into the browsers DOM.
 	 * Initializes the firebase SDK.
@@ -115,9 +129,8 @@ class App extends React.Component {
 //Durch Redirect kann die URL weitergeleietet werden.
 //Route ermöglicht es dass eine bestimmte Path zugeordnet werden kann.
   render(){
-    const { currentUser, appError} = this.state;
+    const { currentUser, appError, googleId} = this.state;
     return(
-      
         <div>
           <Router>
             <Container maxWidth='md'>
@@ -127,25 +140,25 @@ class App extends React.Component {
                 // Is a user signed in?
 				currentUser ?
                 <>
-                  <Redirect from='/' to='matchmaker'/>
-                  <Route exact path='/matchmaker'>
-                    <MatchList/>
-                  </Route>
+                  <Redirect from='/' to='profil'/>
+					<Route path='/profil'>
+						<ProfileOperations googleId= {googleId}/>
+					</Route>
                   <Route exact path='/request'>
-                    <RequestList/>
+                    <RequestList currentUser = {googleId}/>
                   </Route>
                   <Route exact path='/chats'>
-                    <ChatList/>
+                    <ChatList currentUser = {googleId}/>
                   </Route>
                   <Route path='/groups'>
-                      <GroupList/>
+                      <GroupList currentUser = {googleId}/>
                   </Route>
                   <Route path='/mygroups'>
-                      <GroupListForProfile/>
+                      <GroupListForProfile currentUser = {googleId}/>
                   </Route>
-                  <Route path='/profil'>
-                    <ProfileOperations></ProfileOperations>
-                  </Route>
+					<Route exact path='/matchmaker'>
+						<MatchList currentUser = {googleId}/>
+					</Route>
                 </>
                 :
 								// else show the sign in page

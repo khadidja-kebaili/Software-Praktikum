@@ -28,14 +28,14 @@ class ProfileOperations extends Component {
       age: age,
       semester: sem,
       major: maj,
-      hobbys: hob,
+      hobbies: hob,
       interests: int,
       personality: pers,
-      learnstyle: lerns,
-      studytime: studyt,
-      studyplace: studyp,
-      studyfrequence: studyf,
-      workexperience: work,
+      learn_style: lerns,
+      study_time: studyt,
+      study_place: studyp,
+      study_frequence: studyf,
+      work_experience: work,
    };
    this.baseState = this.state;
   }
@@ -56,14 +56,14 @@ class ProfileOperations extends Component {
   //       this.state.age,
   //       this.state.semester,
   //       this.state.major,
-  //       this.state.hobbys,
+  //       this.state.hobbies,
   //       this.state.interests,
   //       this.state.personality,
-  //       this.state.learnstyle,
-  //       this.state.studytime,
-  //       this.state.studyplace,
-  //       this.state.studyfrequence,
-  //       this.state.workexperience);
+  //       this.state.learn_style,
+  //       this.state.study_time,
+  //       this.state.study_place,
+  //       this.state.study_frequence,
+  //       this.state.work_experience);
   //     LernappAPI.getAPI().addProfile(newProfile)
   //   }
   // }
@@ -83,14 +83,14 @@ class ProfileOperations extends Component {
         age: profile.getAge(),
         semester: profile.getSemester(),
         major: profile.getMajor(),
-        hobbys:  profile.getHobbys(),
+        hobbies:  profile.getHobbys(),
         interests: profile.getInterests(),
         personality: profile.getPersonality(),
-        learnstyle:  profile.getLearnstyle(),
-        studytime: profile.getStudytime(),
-        studyplace: profile.getStudyplace(),
-        studyfrequence: profile.getStudyfrequence(),
-        workexperience: profile.getWorkexperience(),
+        learn_style:  profile.getLearnstyle(),
+        study_time: profile.getStudytime(),
+        study_place: profile.getStudyplace(),
+        study_frequence: profile.getStudyfrequence(),
+        work_experience: profile.getWorkexperience(),
       }))
 
   }
@@ -140,14 +140,14 @@ updateProfile = () => {
   updatedProfile.setAge(parseInt(this.state.age));
   updatedProfile.setSemester(this.state.semester);
   updatedProfile.setMajor(this.state.major);
-  updatedProfile.setHobbys(this.state.hobbys);
+  updatedProfile.setHobbys(this.state.hobbies);
   updatedProfile.setInterests(this.state.interests);
   updatedProfile.setPersonality(this.state.personality);
-  updatedProfile.setLearnstyle(this.state.learnstyle);
-  updatedProfile.setStudytime(this.state.studytime); 
-  updatedProfile.setStudyplace(this.state.studyplace);
-  updatedProfile.setStudyfrequence(this.state.studyfrequence);
-  updatedProfile.setWorkexperience(this.state.workexperience);
+  updatedProfile.setLearnstyle(this.state.learn_style);
+  updatedProfile.setStudytime(this.state.study_time); 
+  updatedProfile.setStudyplace(this.state.study_place);
+  updatedProfile.setStudyfrequence(this.state.study_frequence);
+  updatedProfile.setWorkexperience(this.state.work_experience);
 
   LernappAPI.getAPI().updateProfile(updatedProfile).then(console.log(updatedProfile)).then(profil => {
     // Neuer State wird als basestate gesetzt
@@ -156,21 +156,21 @@ updateProfile = () => {
     this.baseState.age =  this.state.age;
     this.baseState.semester =  this.state.semester ;
     this.baseState.major = this.state.major;
-    this.baseState.hobbys = this.state.hobbys;
+    this.baseState.hobbies = this.state.hobbies;
     this.baseState.interests =  this.state.interests;
     this.baseState.personality = this.state.personality ;
-    this.baseState.learnstyle =  this.state.learnstyle;
-    this.baseState.studytime = this.state.studytime;
-    this.baseState.studyplace = this.state.studyplace;
-    this.baseState.studyfrequence =  this.state.studyfrequence;
-    this.baseState.workexperience = this.state.workexperience;
+    this.baseState.learn_style =  this.state.learn_style;
+    this.baseState.study_time = this.state.study_time;
+    this.baseState.study_place = this.state.study_place;
+    this.baseState.study_frequence =  this.state.study_frequence;
+    this.baseState.work_experience = this.state.work_experience;
     this.closeEditDialog(updatedProfile) // Dialog wird geschlossen
   });
 }
 
 
   render() { 
-    const { profile, last_name, first_name, age, semester, major, hobbys, interests, personality, learnstyle, studytime, studyplace, studyfrequence, workexperience} = this.state;
+    const { profile, last_name, first_name, age, semester, major, hobbies, interests, personality, learn_style, study_time, study_place, study_frequence, work_experience} = this.state;
     return ( 
       <div>
       <div className="Profil">
@@ -207,12 +207,12 @@ updateProfile = () => {
        <div className="Buttons">
        <div className="Bearbeiten"><Button variant="contained" color="primary" size="large" onClick={this.editButtonClicked}> Bearbeiten</Button></div>
 					<UserProfileDialog onClose={this.closeEditDialog} show={this.state.showEditProfile} profile={profile} last_name={last_name} first_name={first_name} age = {age} semester ={semester}
-          major={major} hobbys={hobbys} interests={interests} personality={personality}
-          learnstyle={learnstyle}
-          studytime={studytime}
-          studyplace={studyplace}
-          studyfrequence={studyfrequence}
-          workexperience={workexperience} handleChange={this.handleChange} updateProfile={this.updateProfile}/>
+          major={major} hobbies={hobbies} interests={interests} personality={personality}
+          learn_style={learn_style}
+          study_time={study_time}
+          study_place={study_place}
+          study_frequence={study_frequence}
+          work_experience={work_experience} handleChange={this.handleChange} updateProfile={this.updateProfile}/>
       </div>
       </div>
    
